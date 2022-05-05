@@ -1,5 +1,58 @@
-Copyright (c) 2012 - 2032, All rights reserved.  
-Author: Shengqian Yang, China, last updated 05/05/2022  
+Development framework based on message driven provided under Windows platform, provide support, thread pipe, file and network based interface:
+    1, Asynchronous message interface support imitation Windowns window class, can be seamlessly embedded window thread
+    2, to provide a unified interface of equipment operation
+    3, support Socket chain
+    4, the realization of the basic network protocol module: dns/ssl/ftp/http/rtsp/proxy
+    5, implement the application module: DTP/asynneta
+
+Development advantages:
+    1, provides a unified programming specification
+    2, reduce the interface program development difficulty
+    3, reduce the difficulty of cross thread processing
+    4, reduce the use of mutex lock, lock free even implementation of application development
+    5, the realization of module free combination and expansion
+
+Features
+    implementation base framework
+    implementation file interface
+    implementation interprocess communication interface
+    implementation network interface: provided DNS、IPv4、IPv6 and IPX/SPX
+    implementation network agent service: provided ftp/http/socks network agent service
+    implementation SSL protocol
+    implementation FTP protocol
+    implementation HTTP/1.0, HTTP/1.1 protocol
+    implementation FTP, HTTP, socks4.0/4.a/5.0 proxy
+
+${asynfame}                                     
+     ｜  
+     ｜---bin                                     #dll  
+     ｜                                           
+     ｜---include                                 #Module interface files 
+     ｜---lib                                     #Module library files  
+     ｜                                           
+     ｜---support                                 #Application source code directory
+     ｜    ｜                                     
+     ｜    ｜----3rd                              
+     ｜           ｜----Dui                       #intergrate dui
+     ｜           ｜----mfc                       
+     ｜                 ｜----testnetclient_dlg   #intergrate mfc dlg
+     ｜                 ｜----testnetclient_doc   #intergrate mfc doc
+     ｜                 ｜----testnetserver       #intergrate mfc dlg
+     ｜    ｜----testconsole                      #console
+     ｜    ｜----testcrashexplorer                #crash explorer
+     ｜    ｜----testdns                          #udp/tcp/http DNS
+     ｜    ｜----testfiles_copy                   #copy file
+     ｜    ｜----testfiles_copy-pipe              #copy file
+     ｜    ｜----testframe                        #Asynchronous message development example
+     ｜    ｜----testipcclient                    #ipc client
+     ｜    ｜----testipcserver                    #ipc server
+     ｜    ｜----testnetclient                    #client(support IPv4/IPv6/IPX/SPX)
+     ｜    ｜----testnetclient_proxy              #client proxy
+     ｜    ｜----testnetclient_ssl                #client ssl 
+     ｜    ｜----testnetserver                    #server(supportIPv4/IPv6/IPX/SPX)
+     ｜    ｜----testnetserver_socks              #server socks
+     ｜    ｜----testnetserver_ssl                #server ssl
+
 有合作意向者请通过netsecsp@hotmail.com联系 
 
 #提供windows平台下基于消息驱动（包括异步IO事件）的c++开发框架，是基于产品设计的开发接口（简单易用）和敏捷开发框架的解决方案；支持线程、管道、文件和网络等基础接口：   
