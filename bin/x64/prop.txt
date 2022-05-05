@@ -1,0 +1,20 @@
+log4cplus.rootLogger=TRACE,  ROLLING_LOG_FILE
+
+#######################################################################
+# STDOUT                                                              #
+#######################################################################
+log4cplus.appender.STDOUT=log4cplus::ConsoleAppender
+log4cplus.appender.STDOUT.layout=log4cplus::PatternLayout
+log4cplus.appender.STDOUT.layout.ConversionPattern=%D{%Y-%m-%d %H:%M:%S,%q} [%-5t] %-5p %20c - %m%n
+
+#######################################################################
+# ROLLING_LOG_FILE                                                    #
+#######################################################################
+log4cplus.appender.ROLLING_LOG_FILE=log4cplus::RollingFileAppender
+log4cplus.appender.ROLLING_LOG_FILE.File=.\prop.log
+log4cplus.appender.ROLLING_LOG_FILE.MaxFileSize=10240KB
+log4cplus.appender.ROLLING_LOG_FILE.MaxBackupIndex=5
+# Truncate 'test' if it aleady exists.
+log4cplus.appender.ROLLING_LOG_FILE.Append=false
+log4cplus.appender.ROLLING_LOG_FILE.layout=log4cplus::PatternLayout
+log4cplus.appender.ROLLING_LOG_FILE.layout.ConversionPattern=%D{%Y-%m-%d %H:%M:%S,%q} [%-5t] %-5p %20c - %m%n

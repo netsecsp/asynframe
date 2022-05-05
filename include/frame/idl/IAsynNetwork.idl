@@ -1,0 +1,236 @@
+﻿/*****************************************************************************
+Copyright (c) netsecsp 2012-2032, All rights reserved.
+
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 07/05/2016
+http://asynframe.sf.net
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+* Redistributions of source code must retain the above
+copyright notice, this list of conditions and the
+following disclaimer.
+
+* Redistributions in binary form must reproduce the
+above copyright notice, this list of conditions
+and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*****************************************************************************/
+import "IAsynFrame.idl";
+
+    cpp_quote("#pragma pack(push, 1)")
+
+    interface IAsynNetIoOperation;
+    interface IAsynDnsResolver;
+    interface IAsynRawSocket;
+    interface IAsynUdpSocket;
+    interface IAsynGrpSocket;
+    interface IAsynTcpSocket;
+    interface IAsynTcpSocketListener;
+    interface IAsynDtpSocketListener;
+    interface IAsynMuxSocket;
+    interface IAppService;
+    /////////////////////////////////////////////////////////////////////////////
+    typedef USHORT PORT; //端口：主机字节序
+
+    [// 支持AF_INET/AF_INET6/AF_IPX
+        object,
+        uuid(5544D1A8-7C18-4e08-98C2-48522983B3A0),
+        helpstring("IAsynNetIoOperation Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynNetIoOperation : IAsynIoOperation
+    {
+        //获取/设置对端地址
+        HRESULT GetPeerAddress( [in ]IStringSetter* Host, [out]BYTE* Addr, [out]PORT* Port, [out]uint32_t* af );
+        HRESULT SetPeerAddress( [in ]BOOL Multi, [in ]STRING* Host, [in ]BYTE* Addr, [in ]PORT Port, [in ]uint32_t af );
+        /////////////////////////////////////////////////////////////////////////
+        //获取/设置域名, checkipx=1用于检查Host是否是Addr
+        HRESULT GetHost( [out]STRING* Host );
+        HRESULT SetHost( [in ]STRING  Host, [in ]BOOL checkipx );
+        //获取/设置端口
+        HRESULT GetPort( [out]PORT* Port );
+        HRESULT SetPort( [in ]PORT  Port );
+    };
+
+    [// 隐式继承：IObjectHolder/IDataTransmit，用于获取内部IDnsHostZone/IAsynDnsResolver,
+        object,
+        uuid(13C32332-EED4-4701-8644-C2F6E3CCBFE6),
+        helpstring("IAsynDnsResolver Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynDnsResolver : IUnknown
+    {
+        //设置域名服务器地址，第一个地址为主Dns服务器
+        HRESULT SetDnsServer( [in ]STRING svc, [in, size_is(sizeof(STRING)*Count)]STRING* pHostport, [in ]uint32_t Count );
+        /////////////////////////////////////////////////////////////////////////
+        //提交解析请求，注意：调用之前必须通过IAsynIoOperation.SetHost设置域名，
+        HRESULT Commit( [in ]IUnknown* data, [in ]uint32_t af );
+    };
+
+    /////////////////////////////////////////////////////////////////////////////
+    [// 管理Tcp.半开连接数+Tcp.建立连接数
+        object,
+        uuid(11B383C7-EAFE-4766-85C0-69793799B4A3),
+        helpstring("IAsynTcplinkManager Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynTcplinkManager : IUnknown
+    {
+        HRESULT Get( [out]uint32_t* pCurSynConnects );
+        HRESULT Set( [in ]uint32_t  lMaxSynConnects );
+    };
+
+    /////////////////////////////////////////////////////////////////////////////
+    [// 提供Raw.SOCKET
+     // 注意：Clone的实现只能引用ISpeedController
+        object,
+        uuid(2D7B9AE9-C33A-4d98-B738-596F82044993),
+        helpstring("IAsynRawSocket Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynRawSocket : IAsynIoDevice
+    {
+        //注意参数：af支持AF_INET/AF_INET6/AF_IPX
+        //返 回 值：S_OK   -成功执行Open
+        //          S_FALSE-已经Open，执行Open失败
+        //          其他值表示出错
+        HRESULT Open( [in ]IAsynFrameThread* pAsynFrameThread, [in ]uint32_t af, [in ]uint32_t type, [in ]uint32_t protocol );
+        /////////////////////////////////////////////////////////////////////////
+        //获取本端地址信息
+        //注意参数：当地址是全零时，不会设置pHost
+        HRESULT GetSockAddress( [in ]IStringSetter* Host, [out]BYTE* Addr, [out]PORT* Port, [out]uint32_t* af );
+        /////////////////////////////////////////////////////////////////////////
+        HRESULT GetSockopt( [in ]uint32_t type, [in ]uint32_t level, [in ]uint32_t optname, [in ]STRING optval );
+        HRESULT SetSockopt( [in ]uint32_t type, [in ]uint32_t level, [in ]uint32_t optname, [in ]STRING optval );
+    };
+
+    [// 提供Udp.SOCKET, 隐式继承：IAsynGrpSocket
+        object,
+        uuid(2C94171F-82C0-4ccb-A883-76E29C6AEAE2),
+        helpstring("IAsynUdpSocket Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynUdpSocket : IAsynRawSocket
+    {
+        //绑定地址，Port=0表示随机，允许pAsynIoOperation等于NULL
+        HRESULT Bind( [in ]STRING Host, [in ]PORT Port, [in ]BOOL bReUseAddr, [in ]IAsynIoOperation* pAsynIoOperation ); 
+    };
+
+    [// 组播接口
+        object,
+        uuid(2B9ECE67-CEFA-4283-A07E-DCFF0E8A5986),
+        helpstring("IAsynGrpSocket Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynGrpSocket : IUnknown
+    {
+        HRESULT Open( [in ]IAsynFrameThread* pAsynFrameThread, [in ]uint32_t af, [in ]uint32_t type, [in ]uint32_t protocol, [in ]uint32_t nttl, [in ]BOOL loop );
+        /////////////////////////////////////////////////////////////////////////                     
+        HRESULT Add( [in ]STRING IHost, [in ]STRING MHost );
+        HRESULT Pop( [in ]STRING IHost, [in ]STRING MHost ); 
+    };
+
+    [// 提供Tcp.SOCKET
+        object,
+        uuid(35671780-4E44-4563-A330-2876AEE3A5BB),
+        helpstring("IAsynTcpSocket Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynTcpSocket : IAsynRawSocket
+    {
+        //Priority：连接优先级，值越小优先级越低，允许pAsynIoOperation等于NULL，Port=0由具体模块处理, 支持设置连接IP地址组实现proxy
+        HRESULT Connect( [in ]STRING Host, [in ]PORT Port, [in ]uint32_t Priority/*默认等于0*/, [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint32_t lTimeoutMillisec );
+    };
+
+    [// 提供Tcp.SOCKET
+        object,
+        uuid(91AAF082-BA4B-4c28-B042-D3CAB0244E8F),
+        helpstring("IAsynTcpSocketListener Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynTcpSocketListener : IAsynRawSocket
+    {
+        //绑定地址，Port=0表示随机，允许pAsynIoOperation等于NULL
+        HRESULT Bind( [in ]STRING Host, [in ]PORT Port, [in ]BOOL bReUseAddr, [in ]IAsynIoOperation* pAsynIoOperation );
+        /////////////////////////////////////////////////////////////////////////
+        HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
+    };
+
+    /////////////////////////////////////////////////////////////////////////////
+    [// 处理接入Tcp连接, 产生AF_QUERY_RESULT(IAsynDtpSocketListener/lTransferedBytes)
+        object,
+        uuid(A243506A-6E9C-453c-B556-F0C9619550DE),
+        helpstring("IAsynDtpSocketListener Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynDtpSocketListener : IAsynMessageEvents
+    {
+        HRESULT CreateAsynTcpSocket( [in ]STRING argv, [out]IAsynTcpSocket** ppAsynTcpSocket );
+        HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
+    };
+
+    [// 提供Tcp.SOCKET, 实现多路信道复用
+        object,
+        uuid(85AE4F4C-A618-49fc-9C01-E41E8FE8965E),
+        helpstring("IAsynMuxSocket Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynMuxSocket : IAsynTcpSocket
+    {
+        HRESULT CreateAsynTcpSocket( [in ]STRING argv, [out]IAsynTcpSocket** ppAsynTcpSocket );
+        HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
+    };
+
+    /////////////////////////////////////////////////////////////////////////////
+    [// 提供应用服务
+        object,
+        uuid(DFDD78F9-309A-4bb9-97D0-161969B9D192),
+        helpstring("IAppService Interface"),
+        pointer_default(unique)
+    ]
+    interface IAppService : IUnknown
+    {
+        //action=0:停止服务；action=1:启动/继续服务；action=2:暂停服务
+        HRESULT Invoke( [in ]uint32_t action ); 
+    };
+
+    /////////////////////////////////////////////////////////////////////////////
+    [// 隐式继承：IObjectHolder，用于设置/获取全局网络限速器/dns解析器/连接管理器
+        object,
+        uuid(8AA7483F-9A26-4153-A403-C90A49200E73),
+        helpstring("IAsynNetwork Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynNetwork : IAsynIoOperationFactory
+    {
+        //创建异步域名解析器
+        HRESULT CreateAsynDnsResolver( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [in ]STRING* etchost, [out]IAsynDnsResolver** ppAsynDnsResolver );
+        /////////////////////////////////////////////////////////////////////////
+        HRESULT CreateAsynRawSocket( [in ]uint32_t lType/*默认等于0, 1: icmp  */, [out]IAsynRawSocket** ppAsynRawSocket );
+        HRESULT CreateAsynUdpSocket( [out]IAsynUdpSocket** ppAsynUdpSocket );
+        HRESULT CreateAsynTcpSocket( [out]IAsynTcpSocket** ppAsynTcpSocket );
+        HRESULT CreateAsynTcpSocketListener( [in ]STRING argv/*默认等于null*/, [out]IAsynTcpSocketListener** ppAsynTcpSocketListener );
+        //创建IAsynPtlSocket：建立Socket链, param1传IAsynRawSocket数组, param2传参数
+        HRESULT CreateAsynPtlSocket( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [out]IAsynRawSocket** ppAsynRawSocket );
+        /////////////////////////////////////////////////////////////////////////
+        //创建应用服务
+        HRESULT CreateAppService( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [in ]IAsynMessageEvents* events, [out]IAppService** ppAppService );
+        /////////////////////////////////////////////////////////////////////////
+        HRESULT EnumLocalAdapter( [in ]uint32_t iaf, [in ]uint32_t flags, [in ]IAsynMessageEvents* events );
+    };
+
+    cpp_quote("#pragma pack(pop)")

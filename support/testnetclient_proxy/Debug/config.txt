@@ -1,0 +1,9 @@
+[proxy]
+#¥˙¿Ì≈‰÷√
+#none/http1.1/socks4.0 4.a 5.0
+protocol=socks
+version=5.0
+host=127.0.0.1
+port=1080
+user=alex
+password=123456

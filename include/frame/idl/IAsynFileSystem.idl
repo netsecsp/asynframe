@@ -1,0 +1,117 @@
+﻿/*****************************************************************************
+Copyright (c) netsecsp 2012-2032, All rights reserved.
+
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 07/05/2016
+http://asynframe.sf.net
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+* Redistributions of source code must retain the above
+copyright notice, this list of conditions and the
+following disclaimer.
+
+* Redistributions in binary form must reproduce the
+above copyright notice, this list of conditions
+and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*****************************************************************************/
+import "IAsynFrame.idl";
+
+    cpp_quote("#pragma pack(push, 1)")
+
+    interface IAsynFileIoOperation;
+    interface IAsynRawDevice;
+    interface IAsynFile;
+    /////////////////////////////////////////////////////////////////////////////
+    [
+        object,
+        uuid(19210367-E7A5-453a-927B-B07CA450741E),
+        helpstring("IAsynFileIoOperation Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynFileIoOperation : IAsynIoOperation
+    {
+        //获取/设置文件偏移
+        HRESULT GetPosition( [out]uint64_t* pPosition );
+        HRESULT SetPosition( [in ]uint64_t  lPosition );
+    };
+
+    /***使用IAsynRawDevice打开以下设备的方法：
+        1、NamedPipe客户端
+        IAsynRawDevice.Open( "\\\\machinename\\pipe\\pipename", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, SECURITY_SQOS_PRESENT | SECURITY_IDENTIFICATION ); 
+        IAsynRawDevice.Open( "\\\\.\\pipe\\pipename", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, SECURITY_SQOS_PRESENT | SECURITY_IDENTIFICATION ); 
+        2、COM设备 
+        IAsynRawDevice.Open( "\\\\.\\COM1", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0);     
+        ***/
+    [// PathName采用标准的设备访问方式，即以"\\\\"开头的字符串
+        object,
+        uuid(E84C89BE-2582-4afa-BBF6-3C47D655246E),
+        helpstring("IAsynRawDevice Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynRawDevice : IAsynIoDevice
+    {
+        //返 回 值：S_OK   -成功执行Open
+        //          S_FALSE-已经Open，执行Open失败
+        //          其他值表示出错
+        HRESULT Open( [in ]IAsynFrameThread* pAsynFrameThread, [in ]STRING Path, [in ]uint32_t lDesiredAccess, [in ]uint32_t lShareMode, [in ]handle pSecurityAttributes, [in ]uint32_t lCreationDisposition, [in ]uint32_t lFlagsAndAttributes );
+    };
+
+    [// 只能用于文件，PathName形如：C:\\a.txt或者file://C:\\a.txt
+        object,
+        uuid(6B4BA849-DD57-4590-93BD-EF84AE97C193),
+        helpstring("IAsynFile Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynFile : IAsynRawDevice
+    {
+        /////////////////////////////////////////////////////////////////////////
+        HRESULT GetFileSize( [out]uint64_t* pFileSize );
+        //为文件分配磁盘空间/设置文件大小，允许pAsynIoOperation=NULL
+        HRESULT SetFileSize( [in ]uint64_t  lFileSize, [in ]IAsynIoOperation* pAsynIoOperation );
+ 
+        /////////////////////////////////////////////////////////////////////////
+        //刷新缓存到磁盘文件，允许pAsynIoOperation=NULL
+        HRESULT FlushBuffer( [in ]IAsynIoOperation* pAsynIoOperation );
+    };
+
+    [// 文件/目录监控
+        object,
+        uuid(4F01E7E2-D839-4af2-AC4D-DCEA84425B68),
+        helpstring("IAsynFileWatcher Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynFileWatcher : IUnknown
+    {
+        HRESULT Commit( [in ]IUnknown* data, [in ]uint32_t Codepage );
+    };
+
+    /////////////////////////////////////////////////////////////////////////////
+    [// 隐式继承：IObjectHolder，用于设置/获取全局文件限速器
+        object,
+        uuid(8195BCC2-EFFB-4106-ACAE-20DFBFE84908),
+        helpstring("IAsynFileSystem Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynFileSystem : IAsynIoOperationFactory
+    {
+        HRESULT CreateAsynRawDevice( [out]IAsynRawDevice** ppAsynRawDevice );
+        HRESULT CreateAsynFile( [out]IAsynFile** ppAsynFile );
+        HRESULT CreateAsynFileWatcher( [in ]IAsynFrameThread* pAsynFrameThread, [in ]STRING FilePath, [in ]BOOL bWatchSubtree, [in ]uint32_t lNotifyFilter, [out]IAsynFileWatcher** ppAsynFileWatcher );
+    };
+
+    cpp_quote("#pragma pack(pop)")
