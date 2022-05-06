@@ -82,22 +82,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOGGER_CLASS_IMPLEMENT(classname, logger, mname, cname) asynsdk::CAsynLoggerHelper classname::logger(mname, cname)
 
 ///////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
-#ifndef PRODUCT_LOG //产品日志版本的安全处理
 #define LOGGER_TRACE(a,b) { if( a.IsEnabled(asynsdk::FL_TRACE) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_TRACE, ss.str(), __FILE__, __LINE__ ); } }
 #define LOGGER_DEBUG(a,b) { if( a.IsEnabled(asynsdk::FL_DEBUG) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_DEBUG, ss.str(), __FILE__, __LINE__ ); } }
 #define LOGGER_INFO( a,b) { if( a.IsEnabled(asynsdk::FL_INFO ) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_INFO , ss.str(), __FILE__, __LINE__ ); } }
-#else
-#define LOGGER_TRACE(a,b)
-#define LOGGER_DEBUG(a,b)
-#ifndef _DEBUG
-#define LOGGER_INFO( a,b)
-#else
-#define LOGGER_INFO( a,b) { if( a.IsEnabled(asynsdk::FL_INFO ) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_INFO , ss.str(), __FILE__, __LINE__ ); } }
-#endif
-#endif
-
 #define LOGGER_WARN( a,b) { if( a.IsEnabled(asynsdk::FL_WARN ) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_WARN , ss.str(), __FILE__, __LINE__ ); } }
 #define LOGGER_ERROR(a,b) { if( a.IsEnabled(asynsdk::FL_ERROR) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_ERROR, ss.str(), __FILE__, __LINE__ ); } }
 #define LOGGER_FATAL(a,b) { if( a.IsEnabled(asynsdk::FL_FATAL) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_FATAL, ss.str(), __FILE__, __LINE__ ); } }
