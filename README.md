@@ -53,13 +53,13 @@ ${asynfame}
      ｜    ｜----testnetserver_socks              #server socks 
      ｜    ｜----testnetserver_ssl                #server ssl 
 
-#提供windows平台下基于消息驱动（包括异步IO事件）的c++开发框架，是基于产品设计的开发接口（简单易用）和敏捷开发框架的解决方案；支持线程、管道、文件和网络等基础接口：   
-1、支持仿Windows窗口类的消息驱动接口，可以轻松嵌入到MFC框架里去，即：共享窗口线程  
-2、提供统一设备操作接口（包括File、Pipe、Socket等）   
+#提供windows平台下基于消息驱动（包括异步IO事件）的c++开发框架，是基于产品设计的开发接口（简单易用）和敏捷开发框架的解决方案；支持线程池、管道、文件和网络等基础接口。
+1、支持仿Windows窗口类的消息驱动接口，可以轻松嵌入到Mfc/Dui框架  
+2、提供统一设备操作接口（包括File、Pipe、Socket等）
 3、支持串行异步操作机制，支持Socket链  
 4、实现基本网络协议模块：dns/ssl/ftp/http/proxy 
-5、实现应用模块：dtp，支持Tcp/Udp端口复用 
-                 asynneta，实现ftp/http/socks网络代理服务  
+5、实现应用模块：dtp，支持Tcp/Udp端口复用
+                 asynneta，实现ftp/http/socks网络代理服务
 
 #开发优势：  
 1、协助产品模块化，实现通过组装模块方式研发产品功能。 
@@ -119,4 +119,8 @@ crashexplorer.dll 监控进程崩溃
    e. aneta服务端程序 http://aneta.sf.net  
       基于windows平台支持ftp/http/socks代理端程序(控制台模式)  
       (1)支持ftp，http1.0/1.1，socks4/4a/5网络代理      
-      (2)支持帐号配置，包括：限速和密码等       
+      (2)支持帐号配置，包括：限速和密码等
+   
+   f. pingx客户端程序 http://pingx.sf.net
+      基于windows平台支持ping地址
+      (1)支持udp/tcp/http解析域名
