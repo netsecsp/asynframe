@@ -53,18 +53,25 @@ ${asynfame}
      ｜    ｜----testnetserver_socks              #server socks 
      ｜    ｜----testnetserver_ssl                #server ssl 
 
-#提供windows平台下基于消息驱动（包括异步IO事件）的c++开发框架，是基于产品设计的开发接口（简单易用）和敏捷开发框架的解决方案；支持线程池、管道、文件和网络等基础接口。
-1、支持仿Windows窗口类的消息驱动接口，可以轻松嵌入到Mfc/Dui框架  
-2、提供统一设备操作接口（包括File、Pipe、Socket等）
-3、支持串行异步操作机制，支持Socket链  
-4、实现基本网络协议模块：dns/ssl/ftp/http/proxy 
-5、实现应用模块：dtp，支持Tcp/Udp端口复用
-                 asynneta，实现ftp/http/socks网络代理服务
+#这是一款windows平台下基于消息驱动（包括异步IO事件）的SDK开发框架，提供线程/线程池、管道、文件和网络等基础接口。
+（1）可以轻松集成到MFC，DUI，Qt6.2.4等系统
+（2）支持设备链，提供统一设备操作接口（包括File、Pipe、Socket等）
+（3）通过操作链解决集成第三方开源项目时的线程之间的同步/通讯以及性能等问题
+（4）实现基本网络协议模块：dns/ssl/ftp/http/proxy
+（5）支持高精度定时器
+（6）实现应用模块：
+　　　　dtp支持Tcp/Udp端口复用
+　　　　dns支持Tcp/Udp/Http域名解析，支持腾讯云/阿里云的httpDNS
+　　　　lua方便应用产品集成lua实现业务逻辑控制
+　　　　zip支持deflate /inflate数据，zip多文件
+　　　　console实现控制台，便于调试
+　　　　asynneta实现ftp/http/socks网络代理
+　　　　crashexplorer监控到进程崩溃时自动写dmp文件
 
 #开发优势：  
-1、协助产品模块化，实现通过组装模块方式研发产品功能。 
-2、所有开发的网络模块自动支持IPv4/IPv6。 
-3、统一的设备接口、统一的开发模板、高性能IO框架降低学习成本，解决c++初学者使用线程、锁、Socket编程以及内存泄露等所遇到的问题，能够迅速研发出稳定地，高性能的应用模块。 
+（1）协助产品模块化，实现通过组装模块方式堆积产品功能。
+（2）网络模块支持IPv4/IPv6。
+（3）统一的开发模板，无锁化机制以及高性能IO框架降低开发者学习成本。能够迅速开发出稳定地，高性能的应用模块。可降低60%的开发代码量。
 
 #模块介绍:  
 1.基础模块: asynsdk.lib辅助开发模块库文件 
