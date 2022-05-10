@@ -1,141 +1,59 @@
-#This is an SDK development framework based on message driven (including asynchronous IO events) under Windows platform, which provides basic interfaces such as thread / thread pool, pipeline, file and network.  
-#Functional features:  
-1.It can be easily integrated into MFC, DUI and QT6 2.4 other systems  
-2.Support equipment chain and provide unified equipment operation interface (including file, pipe, socket, etc.)  
-3.Solve the synchronization / communication and performance problems between threads when integrating third-party open source projects through the operation chain  
-4.Implement the basic network protocol module: DNS / SSL / ftp / HTTP / proxy  
-5.Support high-precision timer  
-6.Implement the application module:  
-     DTP supports TCP / UDP port multiplexing  
-     DNS supports TCP / UDP / HTTP domain name resolution and httpdns of Tencent cloud / Alibaba cloud  
-     Lua facilitates application product integration and business logic control  
-     Zip supports deflate / inflate data and zip multiple files  
-     Console realizes console, which is convenient for debugging  
-     Asynneta Implementing FTP / HTTP / Socks network proxy   
-     Crashexplorer automatically writes DMP files when it detects that a process crashes  
+# 项目介绍  
+> 这是一款windows平台下基于消息驱动的SDK开发框架，提供线程、管道、文件和网络等基础接口。  
 
-#Development advantages:  
-1.Assist in product modularization and realize the function of stacking products by assembling modules.  
-2.The network module supports IPv4 / IPv6.  
-3.Unified development template, lockless mechanism and high-performance IO framework reduce the learning cost of developers. It can quickly develop stable and high-performance application modules. It can reduce the amount of development code by 60%.  
+解决软件产品开发过程中的4大问题:  
+1. 多线程和跨模块之间的通讯/同步问题  
+2. 资源占用过多／性能问题  
+3. 死锁问题  
+4. 极难控制执行超时的问题  
 
-#Features:  
-1.implementation base framework  
-2.implementation file interface  
-3.implementation interprocess communication interface  
-4.implementation network interface: provided DNS、IPv4、IPv6 and IPX/SPX  
-5.implementation network agent service: provided ftp/http/socks network agent service  
-6.implementation SSL protocol  
-7.implementation FTP protocol  
-8.implementation HTTP/1.0, HTTP/1.1 protocol  
-9.implementation FTP, HTTP, socks4.0/4.a/5.0 proxy  
+**功能特性:**  
+1. 可轻松集成到MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt)等系统  
+2. 支持设备链，提供统一设备操作接口（包括File、Pipe、Socket等）  
+3. 通过操作链解决集成第三方开源项目时的线程之间的同步/通讯以及性能等问题  
+4. 实现基本网络协议模块：dns/udp/tcp/ssl/ftp/http/proxy  
+5. 支持微秒级定时器  
+6. 集成[log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
 
-${asynfame}  
-     ｜  
-     ｜---bin                                     #dll  
-     ｜                                           
-     ｜---include                                 #Module interface files  
-     ｜---lib                                     #Module library files  
-     ｜                                           
-     ｜---support                                 #Application source code directory  
-     ｜    ｜                                     
-     ｜    ｜----3rd                              
-     ｜           ｜----Dui                       #intergrate dui  
-     ｜           ｜----mfc                       
-     ｜                 ｜----testnetclient_dlg   #intergrate mfc dlg  
-     ｜                 ｜----testnetclient_doc   #intergrate mfc doc  
-     ｜                 ｜----testnetserver       #intergrate mfc dlg  
-     ｜    ｜----testconsole                      #console  
-     ｜    ｜----testcrashexplorer                #crash explorer  
-     ｜    ｜----testdns                          #udp/tcp/http DNS  
-     ｜    ｜----testfiles_copy                   #copy file  
-     ｜    ｜----testfiles_copy-pipe              #copy file  
-     ｜    ｜----testframe                        #Asynchronous message development example  
-     ｜    ｜----testipcclient                    #ipc client  
-     ｜    ｜----testipcserver                    #ipc server  
-     ｜    ｜----testnetclient                    #client(support IPv4/IPv6/IPX/SPX)  
-     ｜    ｜----testnetclient_proxy              #client proxy  
-     ｜    ｜----testnetclient_ssl                #client ssl  
-     ｜    ｜----testnetserver                    #server(supportIPv4/IPv6/IPX/SPX)  
-     ｜    ｜----testnetserver_socks              #server socks  
-     ｜    ｜----testnetserver_ssl                #server ssl  
+**开发优势:**  
+1. 协助产品模块化，实现通过组装模块方式堆积产品功能。  
+2. 网络模块支持IPv4/IPv6。  
+3. 统一的开发模板，无锁化机制以及高性能IO框架降低开发者学习成本。能够迅速开发出稳定地，高性能的应用模块。可大幅度降低开发代码量。  
 
-#这是一款windows平台下基于消息驱动（包括异步IO事件）的SDK开发框架，提供线程/线程池、管道、文件和网络等基础接口。  
-#功能特点:  
-1.可以轻松集成到MFC，DUI，Qt6.2.4等系统  
-2.支持设备链，提供统一设备操作接口（包括File、Pipe、Socket等）  
-3.通过操作链解决集成第三方开源项目时的线程之间的同步/通讯以及性能等问题  
-4.实现基本网络协议模块：dns/ssl/ftp/http/proxy  
-5.支持高精度定时器  
-6.实现应用模块：  
-        dtp支持Tcp/Udp端口复用  
-        dns支持Tcp/Udp/Http域名解析，支持腾讯云/阿里云的httpDNS  
-        lua方便应用产品集成lua实现业务逻辑控制  
-        zip支持deflate /inflate数据，zip多文件  
-        console实现控制台，便于调试  
-        asynneta实现ftp/http/socks网络代理  
-        crashexplorer监控到进程崩溃时自动写dmp文件  
+|模块|类型|功能|例子/程序|
+|:--|:--|:--|:--|
+|asyncore|框架|frame框架|\support\testframe|
+|||集成到MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
+|||集成到DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
+|crashexplorer|插件[asyncore]|捕获当前进程的崩溃信息，同时生成dmp文件|\support\testcrashexplorer|
+|console|插件[asyncore]|命令控制台<br>1.支持加载/卸载ICommand插件：cmd/lua<br>2.支持键盘/鼠标输入|\support\testconsole|
+|asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
+|asynipcs|插件[asyncore]|IPCS: 进程间通讯|\support\testipcclient<br>\support\testipcserver|
+|asynneta|插件[asyncore]|服务端代理<br>1.支持http[s]代理：实现Basic/Digest认证<br>2.支持ftp [s]代理<br>3.支持socks4.0/4.a/5.0代理|[aneta](http://aneta.sf.net)|
+|asynsock|插件[asyncore]|网络: <br>1.支持ipv6兼容ipv4<br>2.支持默认DNS 解析|\support\testnetclient<br>\support\testnetserver<br>[ping](http://pingx.sf.net)|
+|dns|插件[asynsock]|域名解析<br>1.udp dns<br>2.tcp dns<br>3.httpDNS: 阿里云/腾迅云|\support\testdns|
+|ftp|插件[asynsock]|ftp 协议|[aftpx](http://aftpx.sf.net)|
+|http|插件[asynsock]|http协议|[ahttp](http://ahttp.sf.net)|
+|ssl|插件[asynsock]|ssl/tls加/解密<br>1.支持p12证书|\support\testsslclient<br>\support\testsslserver|
+|proxy|插件[asynsock]|客户端代理<br>1.支持http[s]代理：实现Basic/Digest认证<br>2.支持ftp [s]代理<br>3.支持socks4.0/4.a/5.0代理|\support\testnetclient_proxy<br>\support\testnetserver_socks|
+|sqlite|插件|基于sqlite-3.3.20实现IDataTransmit接口|\support\testframe|
+|zip|插件|基于zlib-1.2.11.0实现IDataTransmit接口<br>1.支持压缩zip文件<br>2.deflate/inflate数据|\support\testframe|
+|lua|插件|基于lua-5.4.4实现ICommand接口<br>1.支持多线程|\support\testframe|
 
-#开发优势:  
-1.协助产品模块化，实现通过组装模块方式堆积产品功能。  
-2.网络模块支持IPv4/IPv6。  
-3.统一的开发模板，无锁化机制以及高性能IO框架降低开发者学习成本。能够迅速开发出稳定地，高性能的应用模块。可降低60%的开发代码量。  
+# 变更记录
+> 2022/05/05发布基于windows平台的asynframe_v1.0  
 
-#模块介绍:  
-1.基础模块: asynsdk.lib辅助开发模块库文件 
-     asyncore.dll 基础框架（包括线程、管道、设备读写控制器等）  
-     asynfile.dll 文件接口  
-     asynipcs.dll 进程间通讯接口  
-     asynsock.dll 网络接口：支持DNS、IPv4、IPv6 和 IPX/SPX  
-     asynneta.dll 代理服务: 支持ftp/http/socks网络代理服务  
-      console.dll 控 制 台  
-crashexplorer.dll 监控到进程崩溃时自动写dmp文件  
+# 编译环境
+> *sdk_1.0.0.0-Msvc2019_20220505.zip 基于Microsoft Visual Studio 2019编译SDK*  
+> *sdk_1.0.0.0-Msvc2013_20220505.zip 基于Microsoft Visual Studio 2013编译SDK*  
+> 需在工程里设置frame相应的include/lib路径  
+> 根据工程的运行库选择链接frame相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
 
-2.协议模块:   
-    dns.dll 实现udp/tcp/http.DNS域名解析  
-    ssl.dll 实现tls/ssl加/解密  
-    ftp.dll 实现ftp协议（包括隐式/显式ftps）  
-   http.dll 实现http/1.0、http/1.1协议（包括https）  
-  proxy.dll 实现ftp、http、socks4/4a/5代理  
+# 接口介绍  
 
-3.扩展模块: 
-     lua.dll 集成 lua  
-     zip.dll 集成zlib  
-  sqlite.dll 集成sqlite3  
+# 鸣谢  
+> [log4cplus](https://github.com/log4cplus/log4cplus)  
 
-4.应用模块  
-     dtp.dll 提供tcp/udp端口复用  
-
-5.应用源码  
-   a. aftpx客户端程序 http://aftpx.sf.net  
-      基于windows平台支持IPv4/IPv6的ftp客户端程序(控制台模式)  
-      (1)支持ftp，http1.1，socks4/4a/5代理  
-      (2)支持ftp/ftps  
-      (3)支持下载目录  
-      (4)支持断点续传  
-      (5)支持限速下载  
-      
-   b. aftpx服务端程序 http://aftpx.sf.net  
-      基于windows平台支持IPv4/IPv6的ftp服务端程序(控制台模式)  
-      (1)支持帐号配置，包括：目录、限速和密码等  
-      (2)支持断点续传  
-
-   c. ahttp客户端程序 http://ahttp.sf.net  
-      基于windows平台支持IPv4/IPv6的http客户端程序(控制台模式)  
-      (1)支持http1.0/1.1，socks4/4a/5代理  
-      (2)支持http/https  
-      (3)支持断点续传  
-      
-   d. ahttp服务端程序 http://ahttp.sf.net  
-      基于windows平台支持IPv4/IPv6的http服务端程序(控制台模式)  
-      (1)支持通过浏览器查看文件目录，自动监控目录变化  
-      (2)支持断点续传  
-      
-   e. aneta服务端程序 http://aneta.sf.net  
-      基于windows平台支持ftp/http/socks代理端程序(控制台模式)  
-      (1)支持ftp，http1.0/1.1，socks4/4a/5网络代理  
-      (2)支持帐号配置，包括：限速和密码等  
-   
-   f. pingx客户端程序 http://pingx.sf.net  
-      基于windows平台支持ping地址  
-      (1)支持udp/tcp/http解析域名  
+# 版权信息  
+> Copyright (c) 2012 - 2032, All rights reserved.  
+> Author: Shengqian Yang, China, netsecsp@hotmail.com  
