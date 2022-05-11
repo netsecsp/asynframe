@@ -15,14 +15,14 @@ HRESULT __stdcall CreateAsynFramePlugin( /*[out]*/IAsynFramePlugin** object )
 S_OK表创建插件成功，其他值表示失败  
 
 # 备注
-InstancesManager::Verify(name)流程  
+InstancesManager::Verify接口实现流程  
 ```mermaid
 flowchart
 A(开始)-->B{名字存在?}
-B.->F(结束)
-B-->C{加载成功?}
-C.->F(结束)
-C-->D(spPlugin->Initialize)
+B-- Y -->F(结束)
+B-- N -->C{加载成功?}
+C-- N -->F(结束)
+C-- Y -->D(spPlugin->Initialize)
 D-->E(加到列表)
 E-->F(结束)
 ```
@@ -51,13 +51,14 @@ S_OK表创建对象成功，其他值表示失败
 
 # 备注  
 ```c++
-CObjPtr<IDataTransmit> object;
+CComPtr<IDataTransmit> object;
 asynsdk::CStringSetter Soname(1, name);
 IUnknown *params[2];
 params[0] =&Soname;
 params[1] = param1;
 lpInstancesManager->NewInstance(params, param2, IID_IDataTransmit, (void **)&object.p);
 ```
+
 # CreateAsynPtlSocket函数  
 调用网络模块IAsynNetwork::CreateAsynPtlSocket接口创建Socket对象  
 
@@ -81,7 +82,7 @@ S_OK表创建插件成功，其他值表示失败
 
 # 备注  
 ```c++  
-CObjPtr<IOsCommand   > object;
+CComPtr<IOsCommand   > object;
 asynsdk::CStringSetter Soname(1, name == 0 || name[0] == 0 ? "cmd" : name);
 IUnknown *params[2];
 params[0] =&Soname;

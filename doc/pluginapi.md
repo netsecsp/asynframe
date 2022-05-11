@@ -17,6 +17,8 @@ HRESULT __stdcall  Initialize(/*[in ]*/IAsynMessageEvents *events, /*[in ]*/IKey
 S_OK表Initialize asynframe成功，其他值表示失败。  
 
 # 备注  
+要求param2的配置信息的key格式：module_name, val编码：utf8  
+
 若param2配置以下键值(utf8格式)时： 
 1. key=";sysroot" 表示配置系统工作目录，默认asyncore.dll所在目录  
 2. key=";appdata" 表示配置应用数据目录，默认c:\Users\<account>\AppData\Roaming\netsecsp\<AppName>  
@@ -26,8 +28,6 @@ S_OK表Initialize asynframe成功，其他值表示失败。
 6. key="asynsock_net_iaf" 配置值2=ipv4/23=ipv6  
 7. key="asynsock_dns_url" 表示配置默认dnsurl  
 udp://\*:53 表示udp, tcp://\*:53 表示tcp, http://119.29.29.29/d?dn=[host].&ip=[ip]&ttl=1 表示使用腾讯云  
-
-要求param2的配置信息的key格式：module_namekey，val编码：utf8
 
 通过InstancesManager::GetInstance(STRING_from_string(IN_SysArgv), IID_IKeyvalSetter, &configure)获得配置对象，configure->Travel(0)表示把配置信息刷新到应用数据目录的config.ini文件里  
 

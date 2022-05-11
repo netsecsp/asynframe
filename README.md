@@ -89,7 +89,18 @@ int main(int argc, const char *argv[])
 # 开发  
 - [asynframe导出函数](https://github.com/netsecsp/asynframe/blob/master/doc/pluginapi.md)  
 
-- [接口](https://github.com/netsecsp/asynframe/blob/master/doc/idl.md)  
+- 接口
+  [IAsynFrame](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynFrame.idl)  
+  [IAsynFileSystem](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynFileSystem.idl)  
+  [IAsynIpcChannel](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynIpcChannel.idl)  
+  [IAsynNetwork](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynNetwork.idl)  
+  [IAsynNetAgent](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynNetAgent.idl)  
+  [IConsole](https://github.com/netsecsp/asynframe/blob/master/include/frame/IConsole.idl)  
+  [ICrashExplorer](https://github.com/netsecsp/asynframe/blob/master/include/frame/ICrashExplorer.idl)  
+  [INet](https://github.com/netsecsp/asynframe/blob/master/include/frame/INet.idl)  
+  [IProxy](https://github.com/netsecsp/asynframe/blob/master/include/frame/IProxy.idl)  
+  [ISsl](https://github.com/netsecsp/asynframe/blob/master/include/frame/ISsl.idl)  
+  [IVmHost](https://github.com/netsecsp/asynframe/blob/master/include/frame/IVmHost.idl)  
 
 - [插件](https://github.com/netsecsp/asynframe/blob/master/doc/externapi.md)   
 
