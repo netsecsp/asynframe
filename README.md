@@ -53,7 +53,7 @@
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
-3. 链接asyncore.lib（提供3个api函数[^1]）  
+3. 链接asyncore.lib(提供3个api函数[^1])  
 [^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IKeyvalSetter *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
 ```c++
 int main(int argc, const char *argv[])
@@ -89,7 +89,7 @@ int main(int argc, const char *argv[])
 # 开发  
 - [asynframe导出函数](https://github.com/netsecsp/asynframe/blob/master/doc/pluginapi.md)  
 
-- 接口
+- 接口  
   [IAsynFrame](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynFrame.idl)  
   [IAsynFileSystem](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynFileSystem.idl)  
   [IAsynIpcChannel](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynIpcChannel.idl)  
