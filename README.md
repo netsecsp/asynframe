@@ -33,11 +33,11 @@
 |console|插件[asyncore]|命令控制台<br>1.支持加载/卸载ICommand插件：cmd/lua<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|插件[asyncore]|进程间通讯|\support\testipcclient<br>\support\testipcserver|
-|asynneta|插件[asyncore]|服务端代理<br>1.支持http[s]代理：实现Basic/Digest认证<br>2.支持ftp [s]代理<br>3.支持socks4.0/4.a/5.0代理|[aneta](http://aneta.sf.net)|
-|asynsock|插件[asyncore]|网络: <br>1.支持ipv6兼容ipv4<br>2.支持默认DNS 解析|\support\testnetclient<br>\support\testnetserver<br>[ping](http://pingx.sf.net)|
+|asynneta|插件[asyncore]|服务端代理<br>1.支持http[s]代理：实现Basic/Digest认证<br>2.支持ftp [s]代理<br>3.支持socks4.0/4.a/5.0代理|[aneta](https://aneta.sourceforge.io)|
+|asynsock|插件[asyncore]|网络: <br>1.支持ipv6兼容ipv4<br>2.支持默认DNS 解析|\support\testnetclient<br>\support\testnetserver<br>[ping](https://pingx.sourceforge.io)|
 |dns|插件[asynsock]|域名解析<br>1.udp dns<br>2.tcp dns<br>3.httpDNS: 阿里云/腾迅云|\support\testdns|
-|ftp |插件[asynsock]|ftp 协议|[aftpx](http://aftpx.sf.net)|
-|http|插件[asynsock]|http协议|[ahttp](http://ahttp.sf.net)|
+|ftp |插件[asynsock]|ftp 协议|[aftpx](https://aftpx.sourceforge.io)|
+|http|插件[asynsock]|http协议|[ahttp](https://ahttp.sourceforge.io)|
 |ssl|插件[asynsock]|ssl/tls加/解密<br>1.支持p12证书|\support\testsslclient<br>\support\testsslserver|
 |proxy|插件[asynsock]|客户端代理<br>1.支持http[s]代理：实现Basic/Digest认证<br>2.支持ftp [s]代理<br>3.支持socks4.0/4.a/5.0代理|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |sqlite|插件|基于sqlite-3.3.20实现IDataTransmit接口|\support\testframe|
@@ -90,17 +90,17 @@ int main(int argc, const char *argv[])
 - [asynframe导出函数](https://github.com/netsecsp/asynframe/blob/master/doc/pluginapi.md)  
 
 - 接口  
-  [IAsynFrame](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynFrame.idl)  
-  [IAsynFileSystem](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynFileSystem.idl)  
-  [IAsynIpcChannel](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynIpcChannel.idl)  
-  [IAsynNetwork](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynNetwork.idl)  
-  [IAsynNetAgent](https://github.com/netsecsp/asynframe/blob/master/include/frame/IAsynNetAgent.idl)  
-  [IConsole](https://github.com/netsecsp/asynframe/blob/master/include/frame/IConsole.idl)  
-  [ICrashExplorer](https://github.com/netsecsp/asynframe/blob/master/include/frame/ICrashExplorer.idl)  
-  [INet](https://github.com/netsecsp/asynframe/blob/master/include/frame/INet.idl)  
-  [IProxy](https://github.com/netsecsp/asynframe/blob/master/include/frame/IProxy.idl)  
-  [ISsl](https://github.com/netsecsp/asynframe/blob/master/include/frame/ISsl.idl)  
-  [IVmHost](https://github.com/netsecsp/asynframe/blob/master/include/frame/IVmHost.idl)  
+  [IAsynFrame](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynFrame.txt)  
+  [IAsynFileSystem](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynFileSystem.txt)  
+  [IAsynIpcChannel](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynIpcChannel.txt)  
+  [IAsynNetwork](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynNetwork.txt)  
+  [IAsynNetAgent](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynNetAgent.txt)  
+  [IConsole](https://github.com/netsecsp/asynframe/blob/master/doc/IConsole.txt)  
+  [ICrashExplorer](https://github.com/netsecsp/asynframe/blob/master/doc/ICrashExplorer.txt)  
+  [INet](https://github.com/netsecsp/asynframe/blob/master/doc/INet.txt)  
+  [IProxy](https://github.com/netsecsp/asynframe/blob/master/doc/IProxy.txt)  
+  [ISsl](https://github.com/netsecsp/asynframe/blob/master/doc/ISsl.txt)  
+  [IVmHost](https://github.com/netsecsp/asynframe/blob/master/doc/IVmHost.txt)  
 
 - [插件](https://github.com/netsecsp/asynframe/blob/master/doc/externapi.md)   
 

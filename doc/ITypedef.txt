@@ -1,0 +1,85 @@
+﻿/*****************************************************************************
+Copyright (c) netsecsp 2012-2032, All rights reserved.
+
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 07/05/2016
+http://asynframe.sf.net
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+* Redistributions of source code must retain the above
+copyright notice, this list of conditions and the
+following disclaimer.
+
+* Redistributions in binary form must reproduce the
+above copyright notice, this list of conditions
+and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*****************************************************************************/
+import "oaidl.idl";
+import "ocidl.idl";
+
+    cpp_quote("#pragma pack(push, 1)")
+
+    /////////////////////////////////////////////////////////////////////////////
+    typedef struct tagRANGE
+    {
+        uint64_t len;
+        uint64_t pos;
+    } RANGE;
+
+    [
+        object,
+        uuid(864BC6A2-5BDA-4eda-ADD4-B6EBC2BB171D),
+        helpstring("IRangesSetter Interface"),
+        pointer_default(unique)
+    ]
+    interface IRangesSetter : IUnknown
+    {
+        HRESULT Set( [in ][size_is(sizeof(RANGE)*Size)]RANGE* Val, [in ]uint32_t Size );
+    };
+
+    typedef struct tagSTRING
+    {
+        uint32_t len;
+        [size_is(len)]BYTE* ptr;
+    } STRING;
+
+    [
+        object,
+        uuid(30044812-451F-4d2a-888C-A3D8222A6FBA),
+        helpstring("IStringSetter Interface"),
+        pointer_default(unique)
+    ]
+    interface IStringSetter : IUnknown
+    {
+        HRESULT Get( [out]STRING* Val );
+        HRESULT Set( [in ]STRING  Val );
+    };
+
+    [
+        object,
+        uuid(24CEF41C-4C1B-499b-B3A4-85119CB98B3A),
+        helpstring("IStringsStack Interface"),
+        pointer_default(unique)
+    ]
+    interface IStringsStack : IStringSetter
+    {
+        HRESULT Pop( [in ]IStringSetter* Val );
+        HRESULT Add( [in ]STRING  Val );
+    };
+  
+    cpp_quote("#pragma pack(pop)")
