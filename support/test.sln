@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver_socks", "test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetclient_proxy", "testnetclient_proxy\testnetclient_proxy.vcxproj", "{25F12900-2148-45ED-A74F-B2652C333D9E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua_extend_testapi", "testlua\testapi\dll_testap.vcxproj", "{AAEFD9DC-29B6-4515-A57B-543924CBA218}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -181,6 +183,14 @@ Global
 		{25F12900-2148-45ED-A74F-B2652C333D9E}.Release|Win32.Build.0 = Release|Win32
 		{25F12900-2148-45ED-A74F-B2652C333D9E}.Release|x64.ActiveCfg = Release|x64
 		{25F12900-2148-45ED-A74F-B2652C333D9E}.Release|x64.Build.0 = Release|x64
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Debug|Win32.Build.0 = Debug|Win32
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Debug|x64.ActiveCfg = Debug|x64
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Debug|x64.Build.0 = Debug|x64
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Release|Win32.ActiveCfg = Release|Win32
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Release|Win32.Build.0 = Release|Win32
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Release|x64.ActiveCfg = Release|x64
+		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

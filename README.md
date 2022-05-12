@@ -42,7 +42,7 @@
 |proxy|插件[asynsock]|客户端代理<br>1.支持http[s]代理：实现Basic/Digest认证<br>2.支持ftp [s]代理<br>3.支持socks4.0/4.a/5.0代理|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |sqlite|插件|基于sqlite-3.3.20实现IDataTransmit接口|\support\testframe|
 |zip|插件|基于zlib-1.2.11.0实现IDataTransmit接口<br>1.支持压缩zip文件<br>2.deflate/inflate数据|\support\testframe|
-|lua|插件|基于lua-5.4.4实现ICommand接口<br>1.支持多线程|\support\testframe|
+|lua|插件|基于lua-5.4.4实现ICommand接口<br>1.支持多线程|\support\testframe<br>\support\testlua\testapi|
 
 # 变更记录
 > 2022/05/05发布基于windows平台的asynframe版本1.0   
