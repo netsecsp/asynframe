@@ -1,4 +1,4 @@
-## README [english](https://github.com/netsecsp/testapi/blob/master/README.md) | 中文
+## README [english](https://github.com/netsecsp/asynframe/blob/master/README_EN.md) | 中文
 
 # 项目介绍  
 > 这是一款windows平台下基于消息驱动的SDK开发框架，提供线程、管道、文件和网络等基础接口。  
@@ -20,9 +20,8 @@
 8. 集成[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
 
 **开发优势:**  
-1. 协助产品模块化，实现通过组装模块方式堆积产品功能。  
-2. 网络模块支持IPv4/IPv6。  
-3. 统一的开发模板，无锁化机制以及高性能IO框架降低开发者学习成本。能够迅速开发出稳定地，高性能的应用模块。可大幅度降低开发代码量。  
+1. 协助产品模块化。  
+2. 统一的开发模板，无锁化机制以及高性能IO框架降低开发者学习成本。能够迅速开发出稳定地，高性能的应用模块。可大幅度降低开发代码量。  
 
 |模块|类型|功能|例子/程序|
 |:--|:--|:--|:--|
@@ -107,6 +106,8 @@ int main(int argc, const char *argv[])
 # 鸣谢  
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  
 > [Lua](http://www.lua.org)  
+> [Zlib](http://www.zlib.net)  
+> [Sqlite](https://www.sqlite.org/)  
 
 # 版权信息  
 > Copyright (c) 2012 - 2032, All rights reserved.  
