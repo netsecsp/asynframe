@@ -1,14 +1,22 @@
 ## Asynframe framework english | [中文](https://github.com/netsecsp/asynframe/blob/master/README.md)
 
+# Background  
+In the process of software product development, we often encounter problems in the following scenarios:
+1. Centralized management of configuration parameters required by each module-- Involving configuration parameter loading and persistence;  
+2. Can the interface group use the existing network module to develop its own functions, such as submitting the log file to the background through HTTP protocol-- Knowledge difficulties involving network, HTTP DNS and using network agent;  
+3. Problems caused by information interaction between the interface and other SDK modules (including integration of third-party open source projects)-- Thread synchronization, event sequence and long operation time are involved;  
+4. Each module (including the interface) solves time-consuming / synchronous operation and other problems by creating working threads, -- involving resource optimization;  
+5. Using synchronous lock, -- there is a deadlock problem.  
+
 # Introduction  
 > This is a message driven SDK development framework based on Windows platform, which provides basic interfaces such as threads, pipes, files and networks.  
 
-Solve five major problems in the process of software product development:  
-1. Communication / synchronization between multithreading and cross module  
-2. Excessive resource occupation / performance problems  
-3. Deadlock problem  
-4. Control the problem of execution timeout
-5. Memory leak  
+Asynframe framework solves the five problems mentioned above in the process of software product development:  
+1. Manage the parameters of each module through the famous parameter management object  
+2. Reduce the learning cost through plug-in and unified operation interface  
+3. Provide notification results in the caller's thread and set the serial operation chain to solve the problems of thread synchronization, event sequence and long operation time  
+4. Optimize the execution of working threads of each module through the named thread pool  
+5. Provide lockless mechanism  
 
 **Feature:**  
 1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  
@@ -17,7 +25,7 @@ Solve five major problems in the process of software product development:
 4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/proxy  
 6. Reference count management object memory  
 7. Support microsecond timer  
-8. integrate[Log4cplus](https://github.com/log4cplus/log4cplus)，Unified modules output log  
+8. Integrate [Log4cplus](https://github.com/log4cplus/log4cplus)，Unified modules output log  
 
 **Development advantage:**  
 1. Assist in product modularization  
@@ -47,8 +55,8 @@ Solve five major problems in the process of software product development:
 > 2022/05/05Release asynframe 1.0 based on Windows platform
 
 # Build
-> sdk_1.0.0.0-Msvc2019_20220505.zip is an SDK compiled through Microsoft Visual Studio 2019  
-> sdk_1.0.0.0-Msvc2013_20220505.zip is an SDK compiled through Microsoft Visual Studio 2013  
+> sdk_1.0.0.0-Msvc2019_20220505.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_1.0.0.0-Msvc2013_20220505.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -86,7 +94,7 @@ int main(int argc, const char *argv[])
 ```
 
 # Development  
-- [asynframe expport function](https://github.com/netsecsp/asynframe/blob/master/doc/pluginapi.md)  
+- [asynframe export function](https://github.com/netsecsp/asynframe/blob/master/doc/pluginapi.md)  
 
 - Interface  
   [IAsynFrame](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynFrame.txt)  
