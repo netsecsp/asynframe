@@ -1,4 +1,4 @@
-## Asynframe framework english | [中文](https://github.com/netsecsp/asynframe/blob/master/README.md)
+## Asynframe framework english | [中文](/README.md)
 
 # Background  
 In the process of software product development, we often encounter problems in the following scenarios:
@@ -94,22 +94,22 @@ int main(int argc, const char *argv[])
 ```
 
 # Development  
-- [asynframe export function](https://github.com/netsecsp/asynframe/blob/master/doc/pluginapi.md)  
+- [asynframe export function](/doc/pluginapi.md)  
 
 - Interface  
-  [IAsynFrame](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynFrame.txt)  
-  [IAsynFileSystem](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynFileSystem.txt)  
-  [IAsynIpcChannel](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynIpcChannel.txt)  
-  [IAsynNetwork](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynNetwork.txt)  
-  [IAsynNetAgent](https://github.com/netsecsp/asynframe/blob/master/doc/IAsynNetAgent.txt)  
-  [IConsole](https://github.com/netsecsp/asynframe/blob/master/doc/IConsole.txt)  
-  [ICrashExplorer](https://github.com/netsecsp/asynframe/blob/master/doc/ICrashExplorer.txt)  
-  [INet](https://github.com/netsecsp/asynframe/blob/master/doc/INet.txt)  
-  [IProxy](https://github.com/netsecsp/asynframe/blob/master/doc/IProxy.txt)  
-  [ISsl](https://github.com/netsecsp/asynframe/blob/master/doc/ISsl.txt)  
-  [IVmHost](https://github.com/netsecsp/asynframe/blob/master/doc/IVmHost.txt)  
+  [IAsynFrame](/doc/IAsynFrame.txt)  
+  [IAsynFileSystem](/doc/IAsynFileSystem.txt)  
+  [IAsynIpcChannel](/doc/IAsynIpcChannel.txt)  
+  [IAsynNetwork](/doc/IAsynNetwork.txt)  
+  [IAsynNetAgent](/doc/IAsynNetAgent.txt)  
+  [IConsole](/doc/IConsole.txt)  
+  [ICrashExplorer](/doc/ICrashExplorer.txt)  
+  [INet](/doc/INet.txt)  
+  [IProxy](/doc/IProxy.txt)  
+  [ISsl](/doc/ISsl.txt)  
+  [IVmHost](/doc/IVmHost.txt)  
 
-- [Plugins](https://github.com/netsecsp/asynframe/blob/master/doc/externapi.md)   
+- [Plugins](/doc/externapi.md)   
 
 # Thanks  
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  
