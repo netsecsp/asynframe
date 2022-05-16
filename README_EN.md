@@ -7,16 +7,18 @@ In the process of software product development, we often encounter problems in t
 3. Problems caused by information interaction between the interface and other SDK modules (including integration of third-party open source projects)-- Thread synchronization, event sequence and long operation time are involved;  
 4. Each module (including the interface) solves time-consuming / synchronous operation and other problems by creating working threads, -- involving resource optimization;  
 5. Using synchronous lock, -- there is a deadlock problem.  
+6. The complex business logic of the module leads to frequent release of patches  
 
 # Introduction  
 > This is a message driven SDK development framework based on Windows platform, which provides basic interfaces such as threads, pipes, files and networks.  
 
-Asynframe framework solves the five problems mentioned above in the process of software product development:  
+Asynframe framework solves the six problems mentioned above in the process of software product development:  
 1. Manage the parameters of each module through the famous parameter management object  
 2. Reduce the learning cost through plug-in and unified operation interface  
 3. Provide notification results in the caller's thread and set the serial operation chain to solve the problems of thread synchronization, event sequence and long operation time  
 4. Optimize the execution of working threads of each module through the named thread pool  
 5. Provide lockless mechanism  
+6. Integrate Lua plug-in to realize hot update  
 
 **Feature:**  
 1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  
@@ -51,7 +53,7 @@ Asynframe framework solves the five problems mentioned above in the process of s
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
 |lua|plugin|Implementation of ICommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
 
-# Changeling
+# Change log
 > 2022/05/05Release asynframe 1.0 based on Windows platform
 
 # Build
@@ -84,7 +86,7 @@ int main(int argc, const char *argv[])
     CComPtr<IAsynUdpSocket  > spAsynUdpSocket; //Create UDP object
     spAsynNetwork->CreateAsynTcpSocket(&spAsynTcpSocket );
 
-    spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, 0, 0, NULL);ß
+    spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, 0, 0, NULL);  
 
     ......
 
