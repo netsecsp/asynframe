@@ -196,9 +196,9 @@ END_ASYN_IOERROR()
 #define BM_OsAddr                       (0x00010000) //直接引用地址Buffer
 #define BM_IoBuff                       (0x00020000) //直接引用数据Buffer
 #define BM_Device                       (0x00040000) //传递:Device
-#define BM_Copyio                       (0x00080000) //拷贝:IoArea, 一般跟BM_ExBuff组合
+#define BM_Copyio                       (0x00080000) //拷贝:IoArea
 #define BM_Nolink                       (0x40000000) //不做关联
-#define BM_ResetOptimer                 (0x80000000) //移除Op 定时器
+#define BM_ResetOptimer                 (0x80000000) //移除Op定时器
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynIoOperation.GetOsBuffer(index)

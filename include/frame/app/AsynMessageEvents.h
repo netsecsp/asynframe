@@ -53,7 +53,7 @@ public:
 class asyn_message_events_impl : public asyn_message_events_base
 {// 注意子类析构前必须主动调用Stop释放资源-强烈建议不要在子类的析构函数里执行Stop
 public:
-    asyn_message_events_impl();
+    asyn_message_events_impl(bool safe = true);
     virtual ~asyn_message_events_impl();
 
 public:

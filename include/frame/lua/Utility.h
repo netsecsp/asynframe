@@ -41,8 +41,8 @@ NAMESPACE_BEGIN(asynsdk)
 ///////////////////////////////////////////////////////////////////////////////
 InstancesManager *GetInstancesManager( lua_State *pState );
 
-#ifdef _LOG //枚举栈的参数数据类型: 输出到控制台
-void TravelStackTypeName( lua_State *pState );
+#ifdef _LOG //打印栈里的数据类型: 输出到控制台, remark: 用于调试
+void PrintTypenameFromStack( lua_State *pState );
 #endif
 
 NAMESPACE_END(asynsdk)

@@ -37,7 +37,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver_socks", "test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetclient_proxy", "testnetclient_proxy\testnetclient_proxy.vcxproj", "{25F12900-2148-45ED-A74F-B2652C333D9E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua_extend_testapi", "testlua\testapi\dll_testap.vcxproj", "{AAEFD9DC-29B6-4515-A57B-543924CBA218}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua_extend_testapi", "testlua\testapi\dll_testapi.vcxproj", "{AAEFD9DC-29B6-4515-A57B-543924CBA218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
