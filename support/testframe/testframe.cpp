@@ -119,7 +119,7 @@ int _tmain(int argc, _TCHAR *argv[])
             if( argc <=2 || atoi(argv[2]) == 0 )
             {
                 printf("Post %d\n", AF_EVENT_APPID1);
-                pEvent->m_spAsynFrame->PostMessage(AF_EVENT_APPID1, 1, 0, NULL); //异步消息
+                pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, 1, 0, NULL); //异步消息
                 printf("Post ok\n");
             }
             else

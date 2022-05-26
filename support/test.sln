@@ -25,11 +25,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver", "testnetser
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver_ssl", "testnetserver_ssl\testnetserver_ssl.vcxproj", "{A85192AB-F9DA-4EA1-BEE1-21BB6B61723D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetclient_mfc.dlg", "3rd\mfc\testnetclient_dlg\testnetclient_mfc_dlg.vcxproj", "{020BC47A-63F6-4DFA-AF66-A3BDDD227B50}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mfc_testnetclient_dlg", "3rd\mfc\testnetclient_dlg\testnetclient_mfc_dlg.vcxproj", "{020BC47A-63F6-4DFA-AF66-A3BDDD227B50}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetclient_mfc.doc", "3rd\mfc\testnetclient_doc\testnetclient_mfc_doc.vcxproj", "{BDC74AB9-91A5-4928-8167-DBC6DC19918C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mfc_testnetclient_doc", "3rd\mfc\testnetclient_doc\testnetclient_mfc_doc.vcxproj", "{BDC74AB9-91A5-4928-8167-DBC6DC19918C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver_mfc", "3rd\mfc\testnetserver\testnetserver_mfc.vcxproj", "{885C4A7B-7CF4-4D73-90A2-231DACC812EB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mfc_testnetserver", "3rd\mfc\testnetserver\testnetserver_mfc.vcxproj", "{885C4A7B-7CF4-4D73-90A2-231DACC812EB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testconsole", "testconsole\testconsole.vcxproj", "{1180EF36-619C-4889-A38E-5BDEBA1C217D}"
 EndProject
@@ -38,6 +38,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetclient_proxy", "testnetclient_proxy\testnetclient_proxy.vcxproj", "{25F12900-2148-45ED-A74F-B2652C333D9E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua_extend_testapi", "testlua\testapi\dll_testapi.vcxproj", "{AAEFD9DC-29B6-4515-A57B-543924CBA218}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetclient_websocket", "testnetclient_websocket\testnetclient_websocket.vcxproj", "{7E2E64B4-5373-4A75-891C-B423949B8FA8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver_websocket", "testnetserver_websocket\testnetserver_websocket.vcxproj", "{F9A2C410-39C3-426E-8907-D9B0DF53C58B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +195,22 @@ Global
 		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Release|Win32.Build.0 = Release|Win32
 		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Release|x64.ActiveCfg = Release|x64
 		{AAEFD9DC-29B6-4515-A57B-543924CBA218}.Release|x64.Build.0 = Release|x64
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Debug|Win32.Build.0 = Debug|Win32
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Debug|x64.ActiveCfg = Debug|x64
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Debug|x64.Build.0 = Debug|x64
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Release|Win32.ActiveCfg = Release|Win32
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Release|Win32.Build.0 = Release|Win32
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Release|x64.ActiveCfg = Release|x64
+		{7E2E64B4-5373-4A75-891C-B423949B8FA8}.Release|x64.Build.0 = Release|x64
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Debug|Win32.Build.0 = Debug|Win32
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Debug|x64.ActiveCfg = Debug|x64
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Debug|x64.Build.0 = Debug|x64
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Release|Win32.ActiveCfg = Release|Win32
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Release|Win32.Build.0 = Release|Win32
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Release|x64.ActiveCfg = Release|x64
+		{F9A2C410-39C3-426E-8907-D9B0DF53C58B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

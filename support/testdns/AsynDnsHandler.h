@@ -1,9 +1,9 @@
 #ifndef __AsynDnsHandler_H__
 #define __AsynDnsHandler_H__
 /*****************************************************************************
-Copyright (c) 2012 - 2019, All rights reserved.
+Copyright (c) 2012 - 2032, All rights reserved.
 
-Author: Shengqian Yang, netsecsp@hotmail.com, China, last updated 07/01/2016
+Author: Shengqian Yang, netsecsp@hotmail.com, China, last updated 05/01/2022
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without

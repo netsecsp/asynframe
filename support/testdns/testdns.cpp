@@ -1,7 +1,7 @@
 /*****************************************************************************
-Copyright (c) 2012 - 2019, All rights reserved.
+Copyright (c) 2012 - 2032, All rights reserved.
 
-Author: Shengqian Yang, netsecsp@hotmail.com, China, last updated 07/01/2016
+Author: Shengqian Yang, netsecsp@hotmail.com, China, last updated 05/01/2022
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -62,15 +62,15 @@ int _tmain(int argc, _TCHAR *argv[])
     HRESULT hr1 = Initialize(NULL, NULL);
 
     {
-        CComPtr<InstancesManager> spInstancesManager = GetInstancesManager();
+        InstancesManager *pInstancesManager = GetInstancesManager();
 
-        CComPtr<IAsynFrameThread> spAsynFrameThread;
-        spInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        CComPtr<IAsynFrameThread > spAsynFrameThread;
+        pInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
-        spInstancesManager->Verify(STRING_from_string(IN_AsynNetwork));
+        pInstancesManager->Verify(STRING_from_string(IN_AsynNetwork));
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
-        spInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
+        pInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
 
         CComPtr<IAsynDnsResolver> spAsynDnsResolver;
         spAsynNetwork->CreateAsynDnsResolver(STRING_from_string("dns"), 0, STRING_from_string(puri), 0, &spAsynDnsResolver);

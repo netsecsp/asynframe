@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Apr 26 17:24:38 2022
+/* at Wed May 25 18:28:22 2022
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -2665,6 +2665,9 @@ EXTERN_C const IID IID_IAsynFrame;
     IAsynFrame : public IObjectHolder
     {
     public:
+        virtual HRESULT STDMETHODCALLTYPE GetAsynFrameThread( 
+            /* [out] */ IAsynFrameThread **ppAsynFrameThread) = 0;
+        
         virtual HRESULT STDMETHODCALLTYPE SendMessage( 
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
@@ -2672,6 +2675,7 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [in] */ IUnknown *object) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE PostMessage( 
+            /* [in] */ BOOL check,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2685,6 +2689,9 @@ EXTERN_C const IID IID_IAsynFrame;
         
         virtual HRESULT STDMETHODCALLTYPE DeleteTimer( 
             /* [in] */ uint64_t timerid) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE NewIoBuffer( 
+            /* [out] */ IBuffer **ppBuffer) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynIoOperation( 
             /* [in] */ uint32_t lparam1,
@@ -2741,6 +2748,10 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [in] */ uint32_t lparam,
             /* [in] */ IUnknown *pObject);
         
+        HRESULT ( STDMETHODCALLTYPE *GetAsynFrameThread )( 
+            IAsynFrame * This,
+            /* [out] */ IAsynFrameThread **ppAsynFrameThread);
+        
         HRESULT ( STDMETHODCALLTYPE *SendMessage )( 
             IAsynFrame * This,
             /* [in] */ uint32_t message,
@@ -2750,6 +2761,7 @@ EXTERN_C const IID IID_IAsynFrame;
         
         HRESULT ( STDMETHODCALLTYPE *PostMessage )( 
             IAsynFrame * This,
+            /* [in] */ BOOL check,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2765,6 +2777,10 @@ EXTERN_C const IID IID_IAsynFrame;
         HRESULT ( STDMETHODCALLTYPE *DeleteTimer )( 
             IAsynFrame * This,
             /* [in] */ uint64_t timerid);
+        
+        HRESULT ( STDMETHODCALLTYPE *NewIoBuffer )( 
+            IAsynFrame * This,
+            /* [out] */ IBuffer **ppBuffer);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynFrame * This,
@@ -2823,17 +2839,23 @@ EXTERN_C const IID IID_IAsynFrame;
     ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
 
 
+#define IAsynFrame_GetAsynFrameThread(This,ppAsynFrameThread)	\
+    ( (This)->lpVtbl -> GetAsynFrameThread(This,ppAsynFrameThread) ) 
+
 #define IAsynFrame_SendMessage(This,message,lparam1,lparam2,object)	\
     ( (This)->lpVtbl -> SendMessage(This,message,lparam1,lparam2,object) ) 
 
-#define IAsynFrame_PostMessage(This,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> PostMessage(This,message,lparam1,lparam2,object) ) 
+#define IAsynFrame_PostMessage(This,check,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> PostMessage(This,check,message,lparam1,lparam2,object) ) 
 
 #define IAsynFrame_CreateTimer(This,timerid,lparam2,lTimeout,bCycled)	\
     ( (This)->lpVtbl -> CreateTimer(This,timerid,lparam2,lTimeout,bCycled) ) 
 
 #define IAsynFrame_DeleteTimer(This,timerid)	\
     ( (This)->lpVtbl -> DeleteTimer(This,timerid) ) 
+
+#define IAsynFrame_NewIoBuffer(This,ppBuffer)	\
+    ( (This)->lpVtbl -> NewIoBuffer(This,ppBuffer) ) 
 
 #define IAsynFrame_CreateAsynIoOperation(This,lparam1,lparam2,ppAsynIoOperation)	\
     ( (This)->lpVtbl -> CreateAsynIoOperation(This,lparam1,lparam2,ppAsynIoOperation) ) 

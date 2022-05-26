@@ -1,4 +1,5 @@
-## Asynframe framework english | [中文](/README.md)
+## Asynframe framework 1.1 english | [中文](/README.md)
+> https://github.com/netsecsp/asynframe  
 
 # Background  
 In the process of software product development, we often encounter problems in the following scenarios:
@@ -24,7 +25,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  
 2. Provide a unified device operation interface (including file, pipe, socket, etc.)  
 3. The operation chain is used to solve the problems of synchronization / communication between threads, execution timeout and resource / performance when integrating third-party open source projects  
-4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/proxy  
+4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/proxy/websocket  
 6. Reference count management object memory  
 7. Support microsecond timer  
 8. Integrate [Log4cplus](https://github.com/log4cplus/log4cplus)，Unified modules output log  
@@ -42,23 +43,25 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |console|plugin[asyncore]|console<br>1.implement loading / unloading ICommand plug-ins：cmd/lua<br>2.implement keyboard / mouse input|\support\testconsole|
 |asynfile|plugin[asyncore]|file|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|plugin[asyncore]|Interprocess communication|\support\testipcclient<br>\support\testipcserver|
-|asynneta|plugin[asyncore]|network agent service<br>1.implement http[s] agent：Basic/Digest认证<br>2.implement ftp[s] agent<br>3. implement socks4.0/4.a/5.0 agent|[aneta](https://github.com/netsecsp/aneta)|
+|asynneta|plugin[asyncore]|network agent service<br>1.implement http[s] agent：Basic/Digest authorize<br>2.implement ftp[s] agent<br>3. implement socks4.0/4.a/5.0 agent|[aneta](https://github.com/netsecsp/aneta)|
 |asynsock|plugin[asyncore]|network: <br>1.implement IPv6 and compatible with IPv4<br>2.implement DNS|\support\testnetclient<br>\support\testnetserver<br>[ping](https://github.com/netsecsp/pingx)|
 |dns|plugin[asynsock]|DNS<br>1.implement udp dns<br>2.implement tcp dns<br>3.implement httpDNS: Alibaba cloud/Tengxun cloud|\support\testdns|
 |ftp|plugin[asynsock]|ftp protocol|[aftpx](https://github.com/netsecsp/aftpx)|
 |http|plugin[asynsock]|http protocol|[ahttp](https://github.com/netsecsp/ahttp)|
-|ssl|plugin[asynsock]|ssl/tls Encryption / decryption<br>1.implement p12 certificate|\support\testsslclient<br>\support\testsslserver|
-|proxy|plugin[asynsock]|client proxy<br>1.implement http[s] proxy：Basic/Digest认证<br>2.implement ftp[s] proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
+|ssl|plugin[asynsock]|ssl/tls Encryption / decryption<br>1.implement p12 certificate|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
+|proxy|plugin[asynsock]|client proxy<br>1.implement http[s] proxy：Basic/Digest authorize<br>2.implement ftp[s] proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
+|websocket|plugin[asynsock]|websocket protocol<br>1.implement data frame slice<br>2.priority transmission control frame|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
 |sqlite|plugin|Implementation of IDataTransmit interface based on sqlite-3.3.20|\support\testframe|
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
 |lua|plugin|Implementation of ICommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
 
 # Change log
-> 2022/05/05Release asynframe 1.0 based on Windows platform
+> 2022/05/26 Release websocket plugin  
+> 2022/05/05 Release asynframe framework v1.0  
 
 # Build
-> sdk_1.0.0.0-Msvc2019_20220505.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_1.0.0.0-Msvc2013_20220505.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.1-Msvc2019_20220526.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.1-Msvc2013_20220526.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
