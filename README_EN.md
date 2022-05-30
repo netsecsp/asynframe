@@ -1,4 +1,4 @@
-## Asynframe framework 1.1 english | [中文](/README.md)
+## Asynframe framework v1.1 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -25,9 +25,9 @@ Asynframe framework solves the six problems mentioned above in the process of so
 1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  
 2. Provide a unified device operation interface (including file, pipe, socket, etc.)  
 3. The operation chain is used to solve the problems of synchronization / communication between threads, execution timeout and resource / performance when integrating third-party open source projects  
-4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/proxy/websocket  
+4. Provide basic network protocol module： dns/udp/tcp/ssl/ftp/http/proxy/websocket  
 6. Reference count management object memory  
-7. Support microsecond timer  
+7. Provide microsecond timer  
 8. Integrate [Log4cplus](https://github.com/log4cplus/log4cplus)，Unified modules output log  
 
 **Development advantage:**  
@@ -48,8 +48,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |dns|plugin[asynsock]|DNS<br>1.implement udp dns<br>2.implement tcp dns<br>3.implement httpDNS: Alibaba cloud/Tengxun cloud|\support\testdns|
 |ftp|plugin[asynsock]|ftp protocol|[aftpx](https://github.com/netsecsp/aftpx)|
 |http|plugin[asynsock]|http protocol|[ahttp](https://github.com/netsecsp/ahttp)|
-|ssl|plugin[asynsock]|ssl/tls Encryption / decryption<br>1.implement p12 certificate|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
-|proxy|plugin[asynsock]|client proxy<br>1.implement http[s] proxy：Basic/Digest authorize<br>2.implement ftp[s] proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
+|ssl|plugin[asynsock]|ssl/tls Encryption/decryption<br>1.implement p12 certificate|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
+|proxy|plugin[asynsock]|client proxy<br>1.implement http/https proxy：Basic/Digest authorize<br>2.implement ftp/ftps proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |websocket|plugin[asynsock]|websocket protocol<br>1.implement data frame slice<br>2.priority transmission control frame|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
 |sqlite|plugin|Implementation of IDataTransmit interface based on sqlite-3.3.20|\support\testframe|
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
