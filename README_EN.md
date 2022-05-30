@@ -2,7 +2,7 @@
 > https://github.com/netsecsp/asynframe  
 
 # Background  
-In the process of software product development, we often encounter problems in the following scenarios:
+In the process of software product development, we often encounter problems in the following scenarios:  
 1. Centralized management of configuration parameters required by each module-- Involving configuration parameter loading and persistence;  
 2. Can the interface group use the existing network module to develop its own functions, such as submitting the log file to the background through HTTP protocol-- Knowledge difficulties involving network, HTTP DNS and using network agent;  
 3. Problems caused by information interaction between the interface and other SDK modules (including integration of third-party open source projects)-- Thread synchronization, event sequence and long operation time are involved;  
@@ -99,7 +99,7 @@ int main(int argc, const char *argv[])
 ```
 
 # Development  
-- [asynframe export function](/doc/pluginapi.md)  
+- [asynframe framework export functions](/doc/pluginapi.md)  
 
 - Interface  
   [IAsynFrame](/doc/IAsynFrame.txt)  
