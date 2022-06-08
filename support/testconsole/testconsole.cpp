@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "stdafx.h"
 #include <conio.h>
 
-#include <frame/Console_internal.h>
+#include <frame/Console.h>
 #define AAPIDLL_USING
 
 #ifdef  AAPIDLL_USING

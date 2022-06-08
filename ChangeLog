@@ -1,3 +1,8 @@
+版本信息：1.2
+变更日期：2022-06-08
+变更描述：
+1. 发布rtsp插件
+
 版本信息：1.1
 变更日期：2022-05-26
 变更描述：
@@ -22,16 +27,16 @@
      asyncore.dll: 1.0.0.0
      asynfile.dll: 1.0.0.0
      asynipcs.dll: 1.0.0.0
-     asynneta.dll: 1.0.0.0
+     asynneta.dll: 1.0.1.0
      asynsock.dll: 1.0.0.0
       console.dll: 1.0.0.0
 crashexplorer.dll: 1.0.0.0
-      dns.dll: 1.0.0.0
+      dns.dll: 1.0.1.0
       dtp.dll: 1.0.0.0
-      ftp.dll: 1.0.0.0
-     http.dll: 1.0.0.0
-    proxy.dll: 1.0.0.0
-websocket.dll: 1.0.0.0
+      ftp.dll: 1.0.1.0
+     http.dll: 1.0.1.0
+    proxy.dll: 1.0.1.0
+websocket.dll: 1.0.1.0
       ssl.dll: 1.0.0.0
       lua.dll: 5.4.4.504
    sqlite.dll: 3.38.2.0

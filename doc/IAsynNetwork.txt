@@ -153,7 +153,7 @@ import "IAsynFrame.idl";
     interface IAsynTcpSocket : IAsynRawSocket
     {
         //Priority：连接优先级，值越小优先级越低，允许pAsynIoOperation等于NULL，Port=0由具体模块处理, 支持设置连接IP地址组实现proxy
-        HRESULT Connect( [in ]STRING Host, [in ]PORT Port, [in ]uint32_t Priority/*默认等于0*/, [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint32_t lTimeoutMillisec );
+        HRESULT Connect( [in ]STRING Host, [in ]PORT Port, [in ]uint32_t Priority/*默认等于0*/, [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint32_t lTimeoutms );
     };
 
     [// 提供Tcp.SOCKET

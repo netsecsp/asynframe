@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A85192AB-F9DA-4EA1-BEE1-21BB6B61723D}</ProjectGuid>
+    <ProjectGuid>{64B8BD5F-1165-4DA2-BCC1-C3646644D2A3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <ProjectName>testnetserver_websocket</ProjectName>
   </PropertyGroup>

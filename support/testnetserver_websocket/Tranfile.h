@@ -73,11 +73,11 @@ public: // interface of asyn_message_events_impl
                     asynsdk::PostBindIoOperation(lpAsynIoOperation, lErrorCode);
                     return E_NOTIMPL;
                 }
-
+                
                 if( lParam1 == 0x81 )
                 {
-                    lpAsynIoOperation->GetIoBuffer(0, 0, &m_frame);
-                    std::string file((char*)m_frame, lTransferedBytes);
+                    BYTE *frame; lpAsynIoOperation->GetIoBuffer(0, 0, &frame);
+                    std::string file((char*)frame, lTransferedBytes);
                     printf("recv: %s\n", file.c_str());
                     m_hFile = _open(file.c_str(), O_BINARY|O_RDWR|O_CREAT, 0666);
                     if( m_hFile < 0 ) {
@@ -96,8 +96,8 @@ public: // interface of asyn_message_events_impl
                 else
                 {
                     printf("recv: %d\n", lTransferedBytes);
-                    lpAsynIoOperation->GetIoBuffer(0, 0, &m_frame);
-                    int ret = _write(m_hFile, m_frame, lTransferedBytes);
+                    BYTE *frame; lpAsynIoOperation->GetIoBuffer(0, 0, &frame);
+                    int ret = _write(m_hFile, frame, lTransferedBytes);
                     return m_spAsynPtlSocket->Read(lpAsynIoOperation); //接收数据
                 }
             }
@@ -114,7 +114,8 @@ public: // interface of asyn_message_events_impl
                     return E_NOTIMPL;
                 }
 
-                int ret = _read(m_hFile, m_frame, 4096);
+                BYTE *frame; lpAsynIoOperation->GetIoBuffer(0, 0, &frame);
+                int ret = _read(m_hFile, frame, 4096);
                 if(!ret )
                 {
                     printf("send file completed\n");
@@ -150,7 +151,7 @@ public:
             return;
         }
 
-        m_spAsynIoOperation->NewIoBuffer(0, (BYTE*)file.c_str(), 0, file.size(), 4096, &m_frame);
+        m_spAsynIoOperation->NewIoBuffer(0, (BYTE*)file.c_str(), 0, file.size(), 4096, 0);
         m_spAsynIoOperation->SetIoParams(0, file.size(), 0);
         m_spAsynPtlSocket->Write(m_spAsynIoOperation, 0x81); //发送文件名字
     }
@@ -165,8 +166,7 @@ protected:
     CComPtr<IAsynRawSocket  > m_spAsynPtlSocket;
     CComPtr<IAsynFrame      > m_spAsynFrame;
     CComPtr<IAsynIoOperation> m_spAsynIoOperation;
-    int   m_hFile;
-    BYTE *m_frame;
+    int m_hFile;
 };
 
 #endif//__TRANFILE_H__

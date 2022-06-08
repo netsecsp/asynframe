@@ -45,8 +45,8 @@ class CNetmsg :
         public CMultiThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
 {
 public:
-    CNetmsg(uint32_t dwRef = 0)
-      : CMultiThreadModelObject(dwRef)
+    CNetmsg(uint32_t dwRef = 0, BOOL ack = 0)
+      : CMultiThreadModelObject(dwRef), m_ack(ack)
     {
     }
     virtual ~CNetmsg() { }
@@ -88,8 +88,9 @@ public: //interface of IKeyvalSetter
     }
 
 public: //interface of INetmsg
-    STDMETHOD(Getline)( /*[out]*/STRING *pMethod, /*[out]*/STRING *pParam1, /*[out]*/STRING *pParam2 )
+    STDMETHOD(Getline)( /*[out]*/STRING *pMethod, /*[out]*/STRING *pParam1, /*[out]*/STRING *pParam2, /*[out]*/BOOL *ack )
     {
+        if( ack ) *ack = m_ack;
         if( pMethod )
         {
             pMethod->ptr = (BYTE *)m_method.c_str();
@@ -120,6 +121,7 @@ public:
     std::string m_param1;
     std::string m_param2;
     CKeyval m_val;
+    BOOL    m_ack;//0-req 1-ack
 };
 
 NAMESPACE_END(asynsdk)

@@ -41,7 +41,7 @@ import "IAsynFrame.idl";
     ]
     interface IConsole : IAsynMessageObject
     {
-        //param2重定向设备
+        //object重定向设备
         HRESULT AllocWindow( [in ]IAsynFrameThread* thread, [in ]STRING title, [in ]uint32_t param2, [in ]IUnknown* object );
         //////////////////////////////////////////////////////////////////////
         //模拟输入：显示在控制台上

@@ -42,7 +42,7 @@ import "IAsynNetwork.idl";
     ]
     interface INetmsg : IKeyvalSetter
     {
-        HRESULT Getline( [out]STRING* Method, [out]STRING* Param1, [out]STRING* Param2 );
+        HRESULT Getline( [out]STRING* Method, [out]STRING* Param1, [out]STRING* Param2, [out]BOOL* ack );
         HRESULT Setline( [in ]STRING  Method, [in ]STRING  Param1, [in ]STRING  Param2 );
     };
 

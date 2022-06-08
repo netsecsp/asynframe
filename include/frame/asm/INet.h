@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Apr 26 17:24:45 2022
+/* at Wed Jun 08 09:11:21 2022
  */
 /* Compiler settings for INet.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -101,7 +101,8 @@ EXTERN_C const IID IID_INetmsg;
         virtual HRESULT STDMETHODCALLTYPE Getline( 
             /* [out] */ STRING *Method,
             /* [out] */ STRING *Param1,
-            /* [out] */ STRING *Param2) = 0;
+            /* [out] */ STRING *Param2,
+            /* [out] */ BOOL *ack) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Setline( 
             /* [in] */ STRING Method,
@@ -166,7 +167,8 @@ EXTERN_C const IID IID_INetmsg;
             INetmsg * This,
             /* [out] */ STRING *Method,
             /* [out] */ STRING *Param1,
-            /* [out] */ STRING *Param2);
+            /* [out] */ STRING *Param2,
+            /* [out] */ BOOL *ack);
         
         HRESULT ( STDMETHODCALLTYPE *Setline )( 
             INetmsg * This,
@@ -216,8 +218,8 @@ EXTERN_C const IID IID_INetmsg;
     ( (This)->lpVtbl -> Travel(This,pParams) ) 
 
 
-#define INetmsg_Getline(This,Method,Param1,Param2)	\
-    ( (This)->lpVtbl -> Getline(This,Method,Param1,Param2) ) 
+#define INetmsg_Getline(This,Method,Param1,Param2,ack)	\
+    ( (This)->lpVtbl -> Getline(This,Method,Param1,Param2,ack) ) 
 
 #define INetmsg_Setline(This,Method,Param1,Param2)	\
     ( (This)->lpVtbl -> Setline(This,Method,Param1,Param2) ) 

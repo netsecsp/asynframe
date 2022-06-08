@@ -1,4 +1,4 @@
-## Asynframe framework v1.1 [english](/README_EN.md) | 中文
+## Asynframe framework v1.2 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -25,7 +25,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 1. 可轻松集成到MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) 等其他第三方开源项目  
 2. 通过设备链提供统一设备操作接口（包括File、Pipe、Socket等）  
 3. 通过操作链解决集成第三方开源项目时的线程之间的同步/通讯、执行超时以及资源/性能等问题  
-4. 提供基本网络协议模块：dns/udp/tcp/ssl/ftp/http/proxy/websocket  
+4. 提供基本网络协议模块：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
 6. 引用计数管理对象内存  
 7. 支持微秒级定时器  
 8. 集成[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
@@ -48,6 +48,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |dns|插件[asynsock]|域名解析<br>1.udp dns<br>2.tcp dns<br>3.httpDNS: 实现阿里云/腾迅云|\support\testdns|
 |ftp |插件[asynsock]|ftp 协议|[aftpx](https://github.com/netsecsp/aftpx)|
 |http|插件[asynsock]|http协议|[ahttp](https://github.com/netsecsp/ahttp)|
+|rtsp|插件[asynsock]|rtsp协议<br>1.支持rtsp over http|\support\testnetclient_rtsp<br>\support\testnetserver_rtsp|
 |ssl|插件[asynsock]|ssl/tls加/解密<br>1.支持p12证书|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
 |proxy|插件[asynsock]|客户端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |websocket|插件[asynsock]|websocket协议<br>1.支持数据帧分片<br>2.优先发送控制帧|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
@@ -56,12 +57,13 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |lua|插件|基于lua-5.4.4实现ICommand接口<br>1.支持多线程|\support\testframe<br>\support\testlua\testapi|
 
 # 变更记录
-> 2022/05/26 发布websocket插件  
+> 2022/06/08 发布windows平台的asynframe framework v1.2: rtsp插件  
+> 2022/05/26 发布windows平台的asynframe framework v1.1: websocket插件  
 > 2022/05/05 发布windows平台的asynframe framework v1.0   
 
 # 编译环境
-> sdk_v1.1-Msvc2019_20220526.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.1-Msvc2013_20220526.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.2-Msvc2019_20220608.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.2-Msvc2013_20220608.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  

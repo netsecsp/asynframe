@@ -74,7 +74,7 @@ import "IAsynFileSystem.idl";
     interface IAsynIpcDevice : IAsynIoDevice
     {
         //注意参数：pAsynIoOperation必须是IAsynIpcIoOperation类型
-        HRESULT Connect( [in ]IAsynFrameThread* pAsynFrameThread, [in ]STRING IpcName, [in ]uint32_t lDstProcessId, [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint32_t lTimeoutMillisec );
+        HRESULT Connect( [in ]IAsynFrameThread* pAsynFrameThread, [in ]STRING IpcName, [in ]uint32_t lDstProcessId, [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint32_t lTimeoutms );
     };
 
     [// 模拟面向连接的Udp数据包传输方式, 读IAsynIoOperation无需分配IoBuffer，lParam1参数由对端Write的lParam1参数决定
