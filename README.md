@@ -119,14 +119,14 @@ int main(int argc, const char *argv[])
 - [插件使用](/doc/externapi.md)   
 
   <u>基础模块</u>  
-  - [asyncore](/doc/asyncore.md)  
-  - [asynfile](/doc/asynfile.md)  
-  - [asynipcs](/doc/asynipcs.md)  
-  - [asynsock](/doc/asynsock.md)  
-  - [crashexplorer](/doc/crashexplorer.md)  
+  - asyncore  
+  - asynfile  
+  - asynipcs  
+  - asynsock  
+  - crashexplorer  
 
   <u>网络模块</u>  
-  - [asynneta](/doc/asynneta.md)  
+  - asynneta  
   - [dtp](/doc/dtp.md)  
   - [dns](/doc/dns.md)  
   - [ftp](/doc/ftp.md)  

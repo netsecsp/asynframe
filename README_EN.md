@@ -117,15 +117,30 @@ int main(int argc, const char *argv[])
   [IVmHost](/doc/IVmHost.txt)  
 
 - [Plugins](/doc/externapi.md)   
-  [dns](/doc/dns.md)  
-  [ftp](/doc/ftp.md)  
-  [http](/doc/http.md)  
-  [rtsp](/doc/rtsp.md)  
-  [proxy](/doc/proxy.md)  
-  [ssl](/doc/ssl.md)  
-  [websocket](/doc/websocket.md)  
+  <u>base modules</u>  
+  - asyncore  
+  - asynfile  
+  - asynipcs  
+  - asynsock  
+  - crashexplorer  
 
-# Thanks  
+  <u>network modules</u>  
+  - asynneta  
+  - [dtp](/doc/dtp.md)  
+  - [dns](/doc/dns.md)  
+  - [ftp](/doc/ftp.md)  
+  - [http](/doc/http.md)  
+  - [rtsp](/doc/rtsp.md)  
+  - [proxy](/doc/proxy.md)  
+  - [ssl](/doc/ssl.md)  
+  - [websocket](/doc/websocket.md)  
+
+  <u>extend modules</u>  
+  - [console](/doc/console.md)  
+  - [lua](/doc/lua.md)  
+  - [zip](/doc/zip.md)  
+  - [sqlite](/doc/sqlite.md)  
+
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  
 > [Lua](http://www.lua.org)  
 > [Zlib](http://www.zlib.net)  
