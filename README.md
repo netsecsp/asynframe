@@ -69,169 +69,39 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
 3. 链接asyncore.lib(提供3个api函数[^1])  
 [^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IKeyvalSetter *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
-4. 附上例子 [Pingx -4 www.baidu.com -d=udp://*:53/](https://github.com/netsecsp/pingx)  
-```c++
-class CAsynPingHandler : public asynsdk::asyn_message_events_impl
-{
-public:
-    CAsynPingHandler(IAsynFrameThread *lpAsynFrameThread, IAsynNetwork *lpAsynNetwork)
-    {
-        m_spAsynFrameThread = lpAsynFrameThread;
-        CreateAsynFrame(lpAsynFrameThread, 0, &m_spAsynFrame);
-        m_spAsynNetwork = lpAsynNetwork;
-        m_spAsynNetwork->CreateAsynRawSocket(1, &m_spAsynRawSocket);
-        m_spAsynRawSocket->Open(lpAsynFrameThread, 0, 0, 0);
-        m_hNotify = CreateEvent(NULL, TRUE, FALSE, NULL);
-    }
-
-public: // interface of asyn_message_events_impl
-    DECLARE_ASYN_MESSAGE_MAP(CAsynPingHandler)
-    HRESULT OnIomsgNotify( uint64_t lParam1, uint64_t lParam2, IAsynIoOperation *lpAsynIoOperation )
-    {
-        uint32_t lErrorCode = NO_ERROR;
-        lpAsynIoOperation->GetCompletedResult(&lErrorCode, 0, 0 );
-
-        CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        lpAsynIoOperation->QueryInterface(IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
-
-        if( lparam2 == Io_hostdns )
-        {
-            STRING host;
-            spAsynIoOperation->GetHost(&host );
-            if( lErrorCode != NO_ERROR )
-            {
-                printf("can't to resolver %*s, error=%d\n", host.len, host.ptr, lErrorCode);
-                SetEvent(m_hNotify);
-                return S_OK;
-            }
-
-            CComPtr<IStringsStack> lstIps;
-            lpAsynIoOperation->GetCompletedObject(1, IID_IStringsStack, (void **)&lstIps);
-            asynsdk::CStringSetter ipvx;
-            lstIps->Pop(&ipvx);
-            spAsynIoOperation->SetPeerAddress(0,&STRING_from_string(ipvx.m_val), 0, 0, 0);
-            lstIps->Get(&host);
-            printf("start to ping %*s[%s]...\n", host.len, host.ptr, ipvx.m_val.c_str());
-            m_spAsynFrame->CreateTimer(1, 0, 0, 0);
-            return S_OK;
-        }
-
-        asynsdk::CStringSetter host(1);
-        spAsynIoOperation->GetPeerAddress(&host, 0, 0, 0);
-
-        if( lErrorCode == NO_ERROR )
-            printf("from %s: seq=%lld ttl=%lld rtt=%lldms\n", host.m_val.c_str(), lparam1, lparam2 >> 56, (lparam2 << 8) >> 8);
-        else
-            printf("from %s: seq=%lld, error=%d\n", host.m_val.c_str(), lparam1, lErrorCode);
-        return E_NOTIMPL;
-    }
-    HRESULT OnTimer( uint64_t lParam1, uint64_t lParam2 )
-    {
-        CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
-        m_spAsynFrameThread->BindAsynIoOperation(m_spAsynIoOperation, spAsynIoOperation, BM_Oneway | BM_OsAddr, 0);
-
-        m_spAsynFrame->CreateTimer(1, ++ lparam2, 1000, 0); //1second timer
-
-        spAsynIoOperation->SetOpParam1(lparam2);
-        m_spAsynRawSocket->Write(spAsynIoOperation, 0/*ttl*/);
-        return S_OK;
-    }
-
-public:
-    bool Start(const std::string &host, uint32_t af, const char *DNS_uri)
-    {
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, af, 0, IID_IAsynNetIoOperation, (void **)&m_spAsynIoOperation);
-        if( m_spAsynIoOperation->SetHost(STRING_from_string(host), TRUE) == S_OK )
-        {// ipvx
-            printf("start to ping %s...\n", host.c_str());
-            m_spAsynFrame->CreateTimer(1, 0, 0, 0);
-        }
-        else
-        {// need to dns
-            m_spAsynNetwork->CreateAsynDnsResolver(STRING_from_string("dns"), 0, STRING_from_string(DNS_uri), 0, &m_spAsynDnsResolver);
-            m_spAsynDnsResolver->Commit(m_spAsynIoOperation, 0);
-        }
-        return true;
-    }
-    void Shutdown()
-    {
-        Stop(m_spAsynFrame);
-        m_spAsynFrame = NULL;
-    }
-
-public:
-    CComPtr<IAsynRawSocket     > m_spAsynRawSocket;
-    CComPtr<IAsynNetwork       > m_spAsynNetwork;
-    CComPtr<IAsynFrame         > m_spAsynFrame;
-    CComPtr<IAsynDnsResolver   > m_spAsynDnsResolver;
-    CComPtr<IAsynNetIoOperation> m_spAsynIoOperation;
-    CComPtr<IAsynFrameThread   > m_spAsynFrameThread;
-    HANDLE m_hNotify;
-};
-```
-
 ```c++
 int main(int argc, const char *argv[])
 {
-    char *host = "www.baidu.com", ipvx = '4', *durl = "udp://*:53/"; //tcp://*:53  http://119.29.29.29/d?dn=[host].&ip=[ip]&ttl=1
-    for(int i = 1; i < argc; ++ i)
+    HRESULT ret = Initialize(NULL, NULL); //Initialize asynframe
+    if( ret != NO_ERROR )
     {
-        if( argv[i][0] == '-' )
-        {
-            if( memcmp(argv[i], "-d=", 3) == 0 )
-            {
-                durl = argv[i]+ 3;
-            }
-            else
-            {
-                ipvx = argv[i][1];
-            }
-        }
-        else
-        {
-            host = argv[i];
-        }
-    }
-
-    if( Initialize(NULL, NULL) != NO_ERROR )
-    {
-        printf("fail to Initialize asynframe\n");
         return 1;
     }
 
-    do
-    {
-        InstancesManager *lpInstancesManager = GetInstancesManager(); //获取实例管理器
+    InstancesManager *lpInstancesManager = GetInstancesManager(); //Get the instance manager, which can get all interfaces
 
-        CComPtr<IAsynFrameThread> spAsynFrameThread; //创建线程
-        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+    CComPtr<IAsynFrameThread> spAsynFrameThread; //Create thread
+    lpInstancesManager->NewInstance(0,0,IID_IAsynFrameThread, (void**)&spAsynFrameThread);
 
-        lpInstancesManager->Verify(STRING_from_string(IN_AsynNetwork)); //加载网络模块
+    lpInstancesManager->Verify(STRING_from_string(IN_AsynNetwork)); //Load network module
 
-        CComPtr<IAsynNetwork    > spAsynNetwork;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
+    CComPtr<IAsynNetwork    > spAsynNetwork;
+    lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
 
-        std::unique_ptr<CAsynPingHandler> pEvent(new CAsynPingHandler(spAsynFrameThread, spAsynNetwork));
-        if( pEvent->Start(host, ipvx=='4'? AF_INET : 23, durl) )
-        {
-            while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                   kbhit() == 0 )
-            {
-                Sleep(100); //0.1sec
-            }
-        }
-        pEvent->Shutdown();
-    }while(0);
+    CComPtr<IAsynUdpSocket  > spAsynUdpSocket; //Create UDP object
+    spAsynNetwork->CreateAsynTcpSocket(&spAsynTcpSocket );
 
-    Destory();
+    spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, 0, 0, NULL);  
 
+    ......
+
+    Destory(); //Destory asynframe
     return 0;
 }
 ```
 
 # 开发  
-- [asynframe导出函数](/doc/pluginapi.md)  
+- [asynframe framework 导出函数](/doc/pluginapi.md)  
 
 - 接口  
   [IAsynFrame](/doc/IAsynFrame.txt)  
@@ -247,6 +117,13 @@ int main(int argc, const char *argv[])
   [IVmHost](/doc/IVmHost.txt)  
 
 - [插件](/doc/externapi.md)   
+  [dns](/doc/dns.md)  
+  [ftp](/doc/ftp.md)  
+  [http](/doc/http.md)  
+  [rtsp](/doc/rtsp.md)  
+  [proxy](/doc/proxy.md)  
+  [ssl](/doc/ssl.md)  
+  [websocket](/doc/websocket.md)  
 
 # 鸣谢  
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  
