@@ -1,7 +1,7 @@
 # websocket 插件  
 
-实现websocket的协议处理模块，支持INet/IAsynTcpSocket/IAsynRawSocket/IAsynTcpSocketListener等接口
-自动把http/1.1协议升级到websocket协议
+实现websocket的协议处理模块，支持INet/IAsynTcpSocket/IAsynRawSocket/IAsynTcpSocketListener等接口  
+自动把http/1.1协议升级到websocket协议  
 
 ## 导出函数  
 ```c++  
@@ -47,7 +47,7 @@ opcode定义：
 spNet->Write(lpAsynIoOperation, 0x08); //发送断开命令  
 ```  
 
-发送websocket数据帧[opcode=0x00~0x07 0x80~0x87]  
+发送websocket数据帧[opcode=0x00~0x07/0x80~0x87]  
 ```c++  
 spNet->Write(lpAsynIoOperation, 0x82); //发送数据  
 ```  
@@ -102,7 +102,7 @@ HRESULT CService::OnIomsgNotify( uint64_t lParam1, uint64_t lAction, IAsynIoOper
                  else
                  {// server
                      spNet->SendPacket(STRING_from_string("101"), STRING_from_string("Switching Protocols"), 0, lpAsynIoOperation);
-                     m_upgrade = 1; //mark: 接受升级websokcet协议
+                     m_upgrade = 1; //mark: 接受http升级到websokcet协议
                  }
                  .....
              }

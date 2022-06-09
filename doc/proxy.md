@@ -42,7 +42,7 @@ m_spAsynNetwork->CreateAsynTcpSocket(&spAsynInnSocket);
 m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("proxy"), (IUnknown**)&spAsynInnSocket.p, STRING_from_string("socks/" SOCKS_VERNO), &spAsynPtlSocket);
 ```  
 
-#设置代理信息  
+设置代理信息  
 ```c++  
 CComPtr<IAsynProxySocket> spProxy; spAsynPtlSocket->QueryInterface(IID_IAsynProxySocket, (void **)&spProxy);
 asynsdk::CKeyvalSetter params(1);
@@ -51,5 +51,5 @@ spProxy->SetProxyContext(STRING_from_string(m_setsfile.get_string("proxy", "host
 ```  
 
 ## 例子  
-[ftpx client](https://github.com/netsecsp/aftpx)
-[http client](https://github.com/netsecsp/ahttp)
+[ftpx client](https://github.com/netsecsp/aftpx)  
+[http client](https://github.com/netsecsp/ahttp)  

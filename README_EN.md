@@ -54,7 +54,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |websocket|plugin[asynsock]|websocket protocol<br>1.implement data frame slice<br>2.priority transmission control frame|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
 |sqlite|plugin|Implementation of IDataTransmit interface based on sqlite-3.3.20|\support\testframe|
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
-|lua|plugin|Implementation of ICommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
+|lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
 
 # Change log
 > 2022/06/08 Release asynframe framework v1.2: rtsp plugin  
@@ -67,7 +67,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
-3. Link asyncore.lib(Three API functions are provided[^1])  
+3. Link asyncore.lib(3 API functions are provided[^1])  
 [^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IKeyvalSetter *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
 ```c++
 int main(int argc, const char *argv[])
@@ -117,6 +117,13 @@ int main(int argc, const char *argv[])
   [IVmHost](/doc/IVmHost.txt)  
 
 - [Plugins](/doc/externapi.md)   
+  [dns](/doc/dns.md)  
+  [ftp](/doc/ftp.md)  
+  [http](/doc/http.md)  
+  [rtsp](/doc/rtsp.md)  
+  [proxy](/doc/proxy.md)  
+  [ssl](/doc/ssl.md)  
+  [websocket](/doc/websocket.md)  
 
 # Thanks  
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  

@@ -27,6 +27,38 @@ D-->E(加到列表)
 E-->F(结束)
 ```
 
+# CreateCommand函数  
+  调用实例管理器InstancesManager::NewInstance接口创建IOsCommand对象  
+
+# 语法  
+```c++  
+HRESULT __stdcall CreateCommand(/*[in ]*/InstancesManager* lpInstancesManager,  
+      /*[in ]*/IUnknown* param1,  
+      /*[in ]*/uint64_t param2,  
+      /*[out]*/IOsCommand** object)  
+```  
+
+# 参数  
+*[in ]lpInstancesManager*  
+实例管理器，禁止lpInstancesManager=NULL  
+*[in ]param1*  
+*[in ]param2*  
+*[out]object*  
+返回对象指针
+
+# 返回值  
+S_OK表创建对象成功，其他值表示失败  
+
+# 备注  
+```c++
+CComPtr<IOsCommand> object;
+asynsdk::CStringSetter Soname(1, name);
+IUnknown *params[2];
+params[0] =&Soname;
+params[1] = param1;
+lpInstancesManager->NewInstance(params, param2, IID_IOsCommand, (void **)&object.p);
+```
+
 # CreateDataTransmit函数  
   调用实例管理器InstancesManager::NewInstance接口创建IDataTransmit对象  
 

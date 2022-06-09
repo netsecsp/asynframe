@@ -54,11 +54,11 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |websocket|插件[asynsock]|websocket协议<br>1.支持数据帧分片<br>2.优先发送控制帧|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
 |sqlite|插件|基于sqlite-3.3.20实现IDataTransmit接口|\support\testframe|
 |zip|插件|基于zlib-1.2.11.0实现IDataTransmit接口<br>1.支持压缩zip文件<br>2.deflate/inflate数据|\support\testframe|
-|lua|插件|基于lua-5.4.4实现ICommand接口<br>1.支持多线程|\support\testframe<br>\support\testlua\testapi|
+|lua|插件|基于lua-5.4.4实现IOsCommand接口<br>1.支持多线程|\support\testframe<br>\support\testlua\testapi|
 
 # 变更记录
-> 2022/06/08 发布windows平台的asynframe framework v1.2: rtsp插件  
-> 2022/05/26 发布windows平台的asynframe framework v1.1: websocket插件  
+> 2022/06/08 发布windows平台的asynframe framework v1.2: **rtsp插件**  
+> 2022/05/26 发布windows平台的asynframe framework v1.1: **websocket插件**  
 > 2022/05/05 发布windows平台的asynframe framework v1.0   
 
 # 编译环境
@@ -101,9 +101,9 @@ int main(int argc, const char *argv[])
 ```
 
 # 开发  
-- [asynframe framework 导出函数](/doc/pluginapi.md)  
+- asynframe framework [导出函数](/doc/pluginapi.md)  
 
-- 接口  
+- 接口定义  
   [IAsynFrame](/doc/IAsynFrame.txt)  
   [IAsynFileSystem](/doc/IAsynFileSystem.txt)  
   [IAsynIpcChannel](/doc/IAsynIpcChannel.txt)  
@@ -116,14 +116,31 @@ int main(int argc, const char *argv[])
   [ISsl](/doc/ISsl.txt)  
   [IVmHost](/doc/IVmHost.txt)  
 
-- [插件](/doc/externapi.md)   
-  [dns](/doc/dns.md)  
-  [ftp](/doc/ftp.md)  
-  [http](/doc/http.md)  
-  [rtsp](/doc/rtsp.md)  
-  [proxy](/doc/proxy.md)  
-  [ssl](/doc/ssl.md)  
-  [websocket](/doc/websocket.md)  
+- [插件使用](/doc/externapi.md)   
+
+  <u>基础模块</u>  
+  - [asyncore](/doc/asyncore.md)  
+  - [asynfile](/doc/asynfile.md)  
+  - [asynipcs](/doc/asynipcs.md)  
+  - [asynsock](/doc/asynsock.md)  
+  - [crashexplorer](/doc/crashexplorer.md)  
+
+  <u>网络模块</u>  
+  - [asynneta](/doc/asynneta.md)  
+  - [dtp](/doc/dtp.md)  
+  - [dns](/doc/dns.md)  
+  - [ftp](/doc/ftp.md)  
+  - [http](/doc/http.md)  
+  - [rtsp](/doc/rtsp.md)  
+  - [proxy](/doc/proxy.md)  
+  - [ssl](/doc/ssl.md)  
+  - [websocket](/doc/websocket.md)  
+
+  <u>扩展模块</u>  
+  - [console](/doc/console.md)  
+  - [lua](/doc/lua.md)  
+  - [zip](/doc/zip.md)  
+  - [sqlite](/doc/sqlite.md)  
 
 # 鸣谢  
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  
