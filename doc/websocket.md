@@ -42,12 +42,12 @@ opcode定义：
 0xA：表示这是一个pong操作。  
 0xB-F：保留的操作代码，用于后续定义的控制帧  
 
-发送websocket控制帧[opcode=0x08~0x0F]  
+发送websocket控制帧[opcode=0x08\~0x0F]  
 ```c++  
 spNet->Write(lpAsynIoOperation, 0x08); //发送断开命令  
 ```  
 
-发送websocket数据帧[opcode=0x00~0x07/0x80~0x87]  
+发送websocket数据帧[opcode=0x00\~0x07/0x80\~0x87]  
 ```c++  
 spNet->Write(lpAsynIoOperation, 0x82); //发送数据  
 ```  

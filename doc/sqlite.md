@@ -7,7 +7,7 @@
 HRESULT __stdcall CreateCommand(/*[in ]*/InstancesManager* lpInstancesManager,  
       /*[in ]*/IUnknown* param1,  
       /*[in ]*/uint64_t param2,  
-      /*[out]*/IDataTransmit** object)  
+      /*[out]*/IOsCommand** object)  
 ```  
 
 ## 开发  
@@ -24,7 +24,7 @@ spCommand->Execute(0, STRING_from_string("INSERT INTO coreinfo(info, vals) VALUE
 ```  
 查询数据  
 ```c++  
-spCommand->Execute(0, STRING_from_string("SELECT * FROM coreinfo;"), 0, 0, 0, GetAsynMessageEvents(), 0);
+spCommand->Execute(0, STRING_from_string("SELECT * FROM coreinfo;"), 0, 0, 0, GetAsynMessageEvents());
 ```  
 ```c++  
 void CSqlite::OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnknown *object)

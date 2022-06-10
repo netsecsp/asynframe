@@ -1,6 +1,6 @@
 # dns 插件  
 
-实现基于udp/tcp/http的域名解析模块，通过网络模块[asynsock]加载
+实现基于udp/tcp/http的域名解析模块  
 
 ## 导出函数  
 ```c++  
@@ -25,7 +25,7 @@ const char *uri = "udp://8.8.8.8|8.8.4.4:53";
 spAsynNetwork->CreateAsynDnsResolver(STRING_from_string("dns"), 0, STRING_from_string(uri), 0, &spAsynDnsResolver);
 ```  
 
-提交解析域名：  
+提交解析请求：  
 ```c++  
 CComPtr<IAsynNetIoOperation> spAsynIoOperation;
 m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);

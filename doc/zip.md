@@ -47,6 +47,5 @@ if( spDataTransmit )
 }
 ```  
 
-
 ## 例子  
 \support\testframe  
