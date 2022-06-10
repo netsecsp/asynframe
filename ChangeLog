@@ -1,3 +1,9 @@
+版本信息：1.2.1
+变更日期：2022-06-10
+变更描述：
+1. 修正console解析命令/参数错误
+2. sqlite实现IOsCommand接口
+
 版本信息：1.2
 变更日期：2022-06-08
 变更描述：
@@ -29,7 +35,7 @@
      asynipcs.dll: 1.0.0.0
      asynneta.dll: 1.0.1.0
      asynsock.dll: 1.0.0.0
-      console.dll: 1.0.0.0
+      console.dll: 1.0.1.0
 crashexplorer.dll: 1.0.0.0
       dns.dll: 1.0.1.0
       dtp.dll: 1.0.0.0

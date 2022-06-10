@@ -129,23 +129,6 @@ int _tmain(int argc, _TCHAR *argv[])
                 printf("Send ok\n");
             }
         }
-        else if( strcmp(argv[1], "sqlite") == 0 )
-        {
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.db");
-            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "sqlite", &name, 0));
-
-            asynsdk::CStringSetter sql1(1, "CREATE TABLE IF NOT EXISTS coreinfo(iseq INTEGER PRIMARY KEY AUTOINCREMENT, info TEXT);");
-            spDataTransmit->Write(&sql1, 0, 0);
-
-            asynsdk::CStringSetter sql2(1, "insert into coreinfo(info) values('show1');");
-            spDataTransmit->Write(&sql2, 0, 0);
-
-            asynsdk::CStringSetter sql3(1, "insert into coreinfo(info) values('show2');");
-            spDataTransmit->Write(&sql3, 0, 0);
-
-            asynsdk::CStringSetter sql4(1, "select * from coreinfo;");
-            spDataTransmit->Write(&sql4, pEvent->GetAsynMessageEvents(), 0);
-        }
         else if( strcmp(argv[1], "zipfile") == 0 )
         {
             asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "1.zip");
@@ -202,6 +185,21 @@ int _tmain(int argc, _TCHAR *argv[])
             spDataTransmit->Write(0, b, n);
             spDataTransmit->Write(0, 0, 0);
         }
+        else if( strcmp(argv[1], "sqlite") == 0 )
+        {
+            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.db");
+            spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "sqlite", &name, 0));
+			if( spCommand )
+			{
+	            spCommand->Execute(0, STRING_from_string("CREATE TABLE IF NOT EXISTS coreinfo(iseq INTEGER PRIMARY KEY AUTOINCREMENT, info TEXT, vals int);"), 0, 0, 0, 0);
+
+	            spCommand->Execute(0, STRING_from_string("insert into coreinfo(info, vals) values('show', 1);"), 0, 0, 0, 0);
+
+	            spCommand->Execute(0, STRING_from_string("insert into coreinfo(info, vals) values('show', 2);"), 0, 0, 0, 0);
+
+	            spCommand->Execute(0, STRING_from_string("select * from coreinfo;"), 0, 0, 0, pEvent->GetAsynMessageEvents());
+  			}
+        }
         else
         {
             CComPtr<IAsynIoOperation> spAsynIoOperation;
@@ -210,8 +208,10 @@ int _tmain(int argc, _TCHAR *argv[])
 
             lpInstancesManager->NewInstance(0, ((uint64_t)2) << 32, IID_IThreadPool, (void **)&spThreadpool);
             spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "cmd", spThreadpool, 0));
-            if( spCommand )
-                spCommand->Execute(0, STRING_from_string(argv[1]), 0, 0, 0, spAsynIoOperation);
+			if( spCommand )
+			{
+            	spCommand->Execute(0, STRING_from_string(argv[1]), 0, 0, 0, spAsynIoOperation);
+			}
         }
 
         while( kbhit() == 0 )
