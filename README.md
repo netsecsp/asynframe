@@ -57,6 +57,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |lua|插件|基于lua-5.4.4实现IOsCommand接口<br>1.支持多线程|\support\testframe<br>\support\testlua\testapi|
 
 # 变更记录
+> 2022/06/10 修正console解析命令行错误
 > 2022/06/08 发布windows平台的asynframe framework v1.2: **rtsp插件**  
 > 2022/05/26 发布windows平台的asynframe framework v1.1: **websocket插件**  
 > 2022/05/05 发布windows平台的asynframe framework v1.0   

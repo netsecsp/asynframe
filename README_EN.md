@@ -57,6 +57,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
 
 # Change log
+> 2022/06/10 fix console parse commands error
 > 2022/06/08 Release asynframe framework v1.2: rtsp plugin  
 > 2022/05/26 Release asynframe framework v1.1: websocket plugin  
 > 2022/05/05 Release asynframe framework v1.0  
