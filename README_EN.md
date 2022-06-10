@@ -63,8 +63,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0  
 
 # Build
-> sdk_v1.2-Msvc2019_20220608.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.2-Msvc2013_20220608.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.2-Msvc2019_20220610.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.2-Msvc2013_20220610.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -127,7 +127,7 @@ int main(int argc, const char *argv[])
 
   <u>network modules</u>  
   - asynneta  
-  - [dtp](/doc/dtp.md)  
+  - dtp  
   - [dns](/doc/dns.md)  
   - [ftp](/doc/ftp.md)  
   - [http](/doc/http.md)  
