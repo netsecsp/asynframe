@@ -57,14 +57,14 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2022/06/10 fix console parse commands error
+> 2022/06/13 fix console parse commands error
 > 2022/06/08 Release asynframe framework v1.2: rtsp plugin  
 > 2022/05/26 Release asynframe framework v1.1: websocket plugin  
 > 2022/05/05 Release asynframe framework v1.0  
 
 # Build
-> sdk_v1.2-Msvc2019_20220610.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.2-Msvc2013_20220610.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.2-Msvc2019_20220613.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.2-Msvc2013_20220613.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
