@@ -5,7 +5,7 @@
 ## 导出函数  
 ```c++  
 HRESULT __stdcall CreateCommand(/*[in ]*/InstancesManager* lpInstancesManager,  
-      /*[in ]*/IUnknown* param1,  
+      /*[in ]*/IUnknown** ppParam1,  
       /*[in ]*/uint64_t param2,  
       /*[out]*/IOsCommand** object)  
 ```  
@@ -14,7 +14,7 @@ HRESULT __stdcall CreateCommand(/*[in ]*/InstancesManager* lpInstancesManager,
 插入数据  
 ```c++  
 asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.db");
-spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "sqlite", &name, 0));
+spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "sqlite", 0, &name, 0));
 
 spCommand->Execute(0, STRING_from_string("CREATE TABLE IF NOT EXISTS coreinfo(iseq INTEGER PRIMARY KEY AUTOINCREMENT, info TEXT, vals int);"), 0, 0, 0, 0);
 
@@ -22,6 +22,7 @@ spCommand->Execute(0, STRING_from_string("INSERT INTO coreinfo(info, vals) VALUE
 
 spCommand->Execute(0, STRING_from_string("INSERT INTO coreinfo(info, vals) VALUES('show2', 2);"), 0, 0, 0, 0);
 ```  
+
 查询数据  
 ```c++  
 spCommand->Execute(0, STRING_from_string("SELECT * FROM coreinfo;"), 0, 0, 0, GetAsynMessageEvents());

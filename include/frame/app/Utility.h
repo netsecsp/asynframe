@@ -73,11 +73,11 @@ IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInsta
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建数据传输器
-IDataTransmit        *CreateDataTransmit(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
+IDataTransmit        *CreateDataTransmit(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/IUnknown *pParam2, /*[in ]*/uint64_t lparam2);
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建命令执行器: name="cmd"表示创建系统命令执行器
-IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
+IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/IUnknown *pParam2, /*[in ]*/uint64_t lparam2);
 
 ///////////////////////////////////////////////////////////////////////////////
 //获取frame 目录

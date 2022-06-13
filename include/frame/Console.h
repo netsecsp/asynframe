@@ -1,8 +1,8 @@
-﻿// Console_internal.h: interface.
+﻿// Console.h: interface.
 //
 /////////////////////////////////////////////////////////////////////////////////
-#if !defined(AFX_CONSOLE_INTERNAL_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)
-#define AFX_CONSOLE_INTERNAL_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_
+#if !defined(AFX_CONSOLE_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)
+#define AFX_CONSOLE_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
@@ -48,4 +48,4 @@ NAMESPACE_BEGIN(asynsdk)
 
 NAMESPACE_END(asynsdk)
 
-#endif // !defined(AFX_CONSOLE_INTERNAL_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)
+#endif // !defined(AFX_CONSOLE_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)

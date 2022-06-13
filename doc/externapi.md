@@ -33,7 +33,7 @@ E-->F(结束)
 # 语法  
 ```c++  
 HRESULT __stdcall CreateCommand(/*[in ]*/InstancesManager* lpInstancesManager,  
-      /*[in ]*/IUnknown* param1,  
+      /*[in ]*/IUnknown** ppParam1,  
       /*[in ]*/uint64_t param2,  
       /*[out]*/IOsCommand** object)  
 ```  
@@ -41,7 +41,7 @@ HRESULT __stdcall CreateCommand(/*[in ]*/InstancesManager* lpInstancesManager,
 # 参数  
 *[in ]lpInstancesManager*  
 实例管理器，禁止lpInstancesManager=NULL  
-*[in ]param1*  
+*[in ]ppParam1*  
 *[in ]param2*  
 *[out]object*  
 返回对象指针
@@ -55,7 +55,8 @@ CComPtr<IOsCommand> object;
 asynsdk::CStringSetter Soname(1, name);
 IUnknown *params[2];
 params[0] =&Soname;
-params[1] = param1;
+params[1] = ppParam1[0];
+params[2] = ppParam1[1];
 lpInstancesManager->NewInstance(params, param2, IID_IOsCommand, (void **)&object.p);
 ```
 
@@ -65,7 +66,7 @@ lpInstancesManager->NewInstance(params, param2, IID_IOsCommand, (void **)&object
 # 语法  
 ```c++  
 HRESULT __stdcall CreateDataTransmit(/*[in ]*/InstancesManager* lpInstancesManager,  
-      /*[in ]*/IUnknown* param1,  
+      /*[in ]*/IUnknown** ppParam1,  
       /*[in ]*/uint64_t param2,  
       /*[out]*/IDataTransmit** object)  
 ```  
@@ -73,7 +74,7 @@ HRESULT __stdcall CreateDataTransmit(/*[in ]*/InstancesManager* lpInstancesManag
 # 参数  
 *[in ]lpInstancesManager*  
 实例管理器，禁止lpInstancesManager=NULL  
-*[in ]param1*  
+*[in ]ppParam1*  
 *[in ]param2*  
 *[out]object*  
 返回对象指针
@@ -87,7 +88,8 @@ CComPtr<IDataTransmit> object;
 asynsdk::CStringSetter Soname(1, name);
 IUnknown *params[2];
 params[0] =&Soname;
-params[1] = param1;
+params[1] = ppParam1[0];
+params[2] = ppParam1[1];
 lpInstancesManager->NewInstance(params, param2, IID_IDataTransmit, (void **)&object.p);
 ```
 
@@ -97,14 +99,14 @@ lpInstancesManager->NewInstance(params, param2, IID_IDataTransmit, (void **)&obj
 # 语法  
 ```c++  
 HRESULT __stdcall CreateAsynPtlSocket(/*[in ]*/InstancesManager* lpInstancesManager,  
-      /*[in ]*/IUnknown** param1,  
+      /*[in ]*/IUnknown** ppParam1,  
       /*[in ]*/const char* param2,  
       /*[in ]*/IAsynRawSocket** object )  
 ```  
 # 参数  
 *[in ]lpInstancesManager*  
 实例管理器，禁止lpInstancesManager=NULL  
-*[in ]param1*  
+*[in ]ppParam1*  
 *[in ]param2*  
 *[out]object*  
 返回对象指针
@@ -112,23 +114,13 @@ HRESULT __stdcall CreateAsynPtlSocket(/*[in ]*/InstancesManager* lpInstancesMana
 # 返回值  
 S_OK表创建插件成功，其他值表示失败  
 
-# 备注  
-```c++  
-CComPtr<IOsCommand   > object;
-asynsdk::CStringSetter Soname(1, name == 0 || name[0] == 0 ? "cmd" : name);
-IUnknown *params[2];
-params[0] =&Soname;
-params[1] = param1;
-lpInstancesManager->NewInstance(params, param2, IID_IOsCommand, (void **)&object.p);
-```
-
 # CreateAsynDnsResolver函数  
 调用网络模块IAsynNetwork::CreateAsynDnsResolver接口创建IAsynDnsResolver对象  
 
 # 语法  
 ```c++  
 HRESULT __stdcall CreateAsynDnsResolver(/*[in ]*/InstancesManager* lpInstancesManager,  
-      /*[in ]*/IUnknown** param1,  
+      /*[in ]*/IUnknown** ppParam1,  
       /*[in ]*/const char* param2,  
       /*[in ]*/IAsynMessageEvents* events,  
       /*[out]*/IAsynDnsResolver** object )  
@@ -136,7 +128,7 @@ HRESULT __stdcall CreateAsynDnsResolver(/*[in ]*/InstancesManager* lpInstancesMa
 # 参数  
 *[in ]lpInstancesManager*  
 实例管理器，禁止lpInstancesManager=NULL  
-*[in ]param1*  
+*[in ]ppParam1*  
 *[in ]param2*  
 *[in ]events*  
 *[out]object*  
@@ -150,7 +142,7 @@ S_OK表创建对象成功，其他值表示失败
 # 语法  
 ```c++  
 HRESULT __stdcall CreateAppService(/*[in ]*/InstancesManager* lpInstancesManager,  
-      /*[in ]*/IUnknown** param1,  
+      /*[in ]*/IUnknown** ppParam1,  
       /*[in ]*/const char* param2,  
       /*[in ]*/IAsynMessageEvents* events,  
       /*[out]*/IAppService** object )  
@@ -158,7 +150,7 @@ HRESULT __stdcall CreateAppService(/*[in ]*/InstancesManager* lpInstancesManager
 # 参数  
 *[in ]lpInstancesManager*  
 实例管理器，禁止lpInstancesManager=NULL  
-*[in ]param1*  
+*[in ]ppParam1*  
 *[in ]param2*  
 *[in ]events*  
 *[out]object* 

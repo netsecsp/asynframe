@@ -29,7 +29,12 @@ S_OK表Initialize asynframe成功，其他值表示失败。
 7. key="asynsock_dns_url" 表示配置默认dnsurl  
 udp://\*:53 表示udp, tcp://\*:53 表示tcp, http://119.29.29.29/d?dn=[host].&ip=[ip]&ttl=1 表示使用腾讯云  
 
-通过InstancesManager::GetInstance(STRING_from_string(IN_SysArgv), IID_IKeyvalSetter, &configure)获得配置对象，configure->Travel(0)表示把配置信息刷新到应用数据目录的config.ini文件里  
+> 获取配置对象  
+```c++   
+CComPtr<IKeyvalSetter> configure;
+InstancesManager::GetInstance(STRING_from_string(IN_SysArgv), IID_IKeyvalSetter, &configure);
+configure->Travel(0); //表示把配置信息刷新到应用数据目录的config.ini文件里  
+```  
 
 # GetInstancesManager函数  
 获取实例管理器  

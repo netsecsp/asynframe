@@ -52,9 +52,9 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |ssl|plugin[asynsock]|ssl/tls encryption/decryption<br>1.implement p12 certificate|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
 |proxy|plugin[asynsock]|client proxy<br>1.implement http/https proxy：Basic/Digest authorize<br>2.implement ftp/ftps proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |websocket|plugin[asynsock]|websocket protocol<br>1.implement data frame slice<br>2.priority transmission control frame|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
-|sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
 |lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
+|sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
 > 2022/06/10 fix console parse commands error
