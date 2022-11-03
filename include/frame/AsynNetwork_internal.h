@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynNetwork(InstanceName)
-#define IN_AsynNetwork "com.app.asynsock"
+#define IN_AsynNetwork "com.asynframe.asynsock"
 
 /////////////////////////////////////////////////////////////////////////////////
 BEGIN_ASYN_IOERROR(IAsynNetwork)
@@ -58,7 +58,7 @@ END_ASYN_IOERROR()
 #define DT_GetDnsHostZone        ( 1 ) //获取IAsynDnsResolver内部IDnsHostZone
 
 //IAsynNetwork.IObjectHolder(lType)
-#define DT_GetAsynTcplinkManager ( 9 ) //获取内部的IAsynTcplinkManager
+#define DT_GetAsynTcplinkManager (100) //获取内部的IAsynTcplinkManager
 
 /////////////////////////////////////////////////////////////////////////////////
 //SetSockopt/GetSockopt的定义level

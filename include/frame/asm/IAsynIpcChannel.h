@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Apr 26 17:24:39 2022
+/* at Thu Oct 13 22:02:10 2022
  */
 /* Compiler settings for IAsynIpcChannel.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -626,7 +626,7 @@ EXTERN_C const IID IID_IAsynIpcDevice;
             /* [in] */ STRING IpcName,
             /* [in] */ uint32_t lDstProcessId,
             /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint32_t lTimeoutMillisec) = 0;
+            /* [in] */ uint32_t lTimeoutms) = 0;
         
     };
     
@@ -713,7 +713,7 @@ EXTERN_C const IID IID_IAsynIpcDevice;
             /* [in] */ STRING IpcName,
             /* [in] */ uint32_t lDstProcessId,
             /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint32_t lTimeoutMillisec);
+            /* [in] */ uint32_t lTimeoutms);
         
         END_INTERFACE
     } IAsynIpcDeviceVtbl;
@@ -773,8 +773,8 @@ EXTERN_C const IID IID_IAsynIpcDevice;
     ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
 
 
-#define IAsynIpcDevice_Connect(This,pAsynFrameThread,IpcName,lDstProcessId,pAsynIoOperation,lTimeoutMillisec)	\
-    ( (This)->lpVtbl -> Connect(This,pAsynFrameThread,IpcName,lDstProcessId,pAsynIoOperation,lTimeoutMillisec) ) 
+#define IAsynIpcDevice_Connect(This,pAsynFrameThread,IpcName,lDstProcessId,pAsynIoOperation,lTimeoutms)	\
+    ( (This)->lpVtbl -> Connect(This,pAsynFrameThread,IpcName,lDstProcessId,pAsynIoOperation,lTimeoutms) ) 
 
 #endif /* COBJMACROS */
 

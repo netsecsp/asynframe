@@ -44,7 +44,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "app/Unknown.h"
 #include "app/Utility.h"
 #include "log/Logger.h"
-#include "app/STRING.h"
+#include "app/String.h"
 #include "app/StringSetter.h"
 #include "app/StringsStack.h"
 #include "app/KeyvalSetter.h"
@@ -74,23 +74,24 @@ typedef enum tag_ObjectIdStart
 /////////////////////////////////////////////////////////////////////////////////
 //InstanceName
 #ifdef _LOG
-#define IN_AsynLoggerFactory            "com.app.loggerfactory"
-#define IN_ObjectsLeaker                "com.app.objectsleaker"
+#define IN_AsynLoggerFactory            "loggerfactory"
+#define IN_ObjectsLeaker                "objectsleaker"
 #endif
-#define IN_AsynFrameThreadFactory       "com.app.threadfactory"
+#define IN_AsynFrameThreadFactory       "threadfactory"
 #define IN_UniqueFrameThread            "uniqueasynframethread"
-#define IN_MultiLanguage                "com.app.multilanguage"
+#define IN_MultiLanguage                "multilanguage"
 #define IN_UniqueMempool                "uniquemempool"
-#define IN_UniqueEvtpool                "uniqueevtpool"
-#define IN_UniqueOpspool                "uniqueopspool"
-#define IN_UniqueNetpool                "uniquenetpool"
+#define IN_Evtthreadpool                "evtthreadpool"
+#define IN_Opsthreadpool                "opsthreadpool"
+#define IN_Netthreadpool                "netthreadpool"
 #define IN_SysArgv                      "sysargv" //获取系统参数
 #define IN_SysRoot                      "sysroot" //获取系统路径
 #define IN_AppData                      "appdata" //获取数据路径
 #define IN_SysInfo                      "sysinfo"
 #define IN_SysTime                      "systime"
+#define IN_MemData                      "memdata"
 
-#define IN_Instancesmanager             "instancesmanager" //for lua
+#define IN_Instancesmanager             "instancesmanager" //used for lua
 
 /////////////////////////////////////////////////////////////////////////////////
 #define Io_recv                         ( 0)
@@ -156,10 +157,11 @@ END_ASYN_IOERROR()
 #define DT_GetAsynIoOperationFactory    ( 6) //获取内部IAsynIoOperationFactory
 
 #define DT_GetAsynFrameThread           ( 7) //获取内部IAsynFrameThread[第一个]
-#define DT_SetAsynFrameThread           ( 7) //设置内部IAsynFrameThread, 注意: 只有IAsynTcpSocketListener有效
 
-#define DT_SetAsynDnsResolver           ( 8) //获取内部的IAsynDnsResolver
-#define DT_GetAsynDnsResolver           ( 8)
+#define DT_SetThreadpool                ( 8) //设置内部线程池, 注意: 只有IAsynTcpSocketListener有效
+
+#define DT_SetAsynDnsResolver           ( 9) //获取内部的IAsynDnsResolver
+#define DT_GetAsynDnsResolver           ( 9)
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynIoBridge.IObjectHolder(lType)

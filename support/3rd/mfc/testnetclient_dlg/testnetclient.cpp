@@ -66,7 +66,7 @@ BOOL CtestnetclientApp::InitInstance()
     CWinApp::InitInstance();
 
     Initialize(NULL, NULL); //Initialize asynframe
-    GetInstancesManager()->Verify(STRING_from_string(IN_AsynNetwork));
+    GetInstancesManager()->Require(STRING_from_string(IN_AsynNetwork), 0);
 
     AfxEnableControlContainer();
 

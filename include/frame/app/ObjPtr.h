@@ -36,15 +36,22 @@ template <class T>
 class CObjPtr
 {
 public:
-    CObjPtr(T *v = NULL, bool doAddref = true) throw()
+    CObjPtr(T *v = NULL, bool nAddref = true)
     {
         p = v;
         if( p )
         {
-            if( doAddref ) p->AddRef();
+            if( nAddref ) p->AddRef();
         }
     }
-    CObjPtr(const CObjPtr<T> &v) throw()
+    CObjPtr(bool unused, IUnknown *v)
+    {
+        if( v->QueryInterface(__uuidof(T), (void**)&p) != S_OK )
+        {
+            p = 0;
+        }
+    }
+    CObjPtr(const CObjPtr<T> &v)
     {
         p = v.p;
         if( p )
@@ -70,7 +77,7 @@ public:
         p = v;
     }
     // Detach the interface (does not Release)
-    T  *Detach() throw()
+    T  *Detach()
     {
         T *t = p;
         p = NULL;
@@ -88,6 +95,7 @@ public:
         T* t = p; p = v.p; v.p = t;
     }
 
+public:
     T  *From(IUnknown *v)
     {
         if( p )

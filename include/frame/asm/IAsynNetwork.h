@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Apr 26 17:24:41 2022
+/* at Thu Oct 20 12:30:42 2022
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -1284,7 +1284,7 @@ EXTERN_C const IID IID_IAsynTcpSocket;
             /* [in] */ PORT Port,
             /* [in] */ uint32_t Priority,
             /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint32_t lTimeoutMillisec) = 0;
+            /* [in] */ uint32_t lTimeoutms) = 0;
         
     };
     
@@ -1399,7 +1399,7 @@ EXTERN_C const IID IID_IAsynTcpSocket;
             /* [in] */ PORT Port,
             /* [in] */ uint32_t Priority,
             /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint32_t lTimeoutMillisec);
+            /* [in] */ uint32_t lTimeoutms);
         
         END_INTERFACE
     } IAsynTcpSocketVtbl;
@@ -1472,8 +1472,8 @@ EXTERN_C const IID IID_IAsynTcpSocket;
     ( (This)->lpVtbl -> SetSockopt(This,type,level,optname,optval) ) 
 
 
-#define IAsynTcpSocket_Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutMillisec)	\
-    ( (This)->lpVtbl -> Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutMillisec) ) 
+#define IAsynTcpSocket_Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutms)	\
+    ( (This)->lpVtbl -> Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutms) ) 
 
 #endif /* COBJMACROS */
 
@@ -1954,7 +1954,7 @@ EXTERN_C const IID IID_IAsynMuxSocket;
             /* [in] */ PORT Port,
             /* [in] */ uint32_t Priority,
             /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint32_t lTimeoutMillisec);
+            /* [in] */ uint32_t lTimeoutms);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynTcpSocket )( 
             IAsynMuxSocket * This,
@@ -2036,8 +2036,8 @@ EXTERN_C const IID IID_IAsynMuxSocket;
     ( (This)->lpVtbl -> SetSockopt(This,type,level,optname,optval) ) 
 
 
-#define IAsynMuxSocket_Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutMillisec)	\
-    ( (This)->lpVtbl -> Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutMillisec) ) 
+#define IAsynMuxSocket_Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutms)	\
+    ( (This)->lpVtbl -> Connect(This,Host,Port,Priority,pAsynIoOperation,lTimeoutms) ) 
 
 
 #define IAsynMuxSocket_CreateAsynTcpSocket(This,argv,ppAsynTcpSocket)	\

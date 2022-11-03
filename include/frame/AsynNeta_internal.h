@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynNetAgent(InstanceName)
-#define IN_AsynNetAgent "com.app.asynneta"
+#define IN_AsynNetAgent "com.asynframe.asynneta"
 
 NAMESPACE_END(asynsdk)
 

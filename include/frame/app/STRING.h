@@ -1,4 +1,4 @@
-﻿// STRING.h: Definition of the STRING_EX class
+﻿// String.h: Definition of the STRING_EX class
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_STRING_H__EAB9B945_803E_460B_8137_8C63F70CB605__INCLUDED_)
@@ -50,9 +50,9 @@ NAMESPACE_BEGIN(asynsdk)
 struct STRING_EX : public STRING
 {
 public:
-    STRING_EX(const char *s = "", uint32_t l = 0)
+    STRING_EX(const char *s = "")
     {
-        Set(s, l? l : strlen(s));
+        Set(s, strlen(s));
     }
     STRING_EX(const std::string &s)
     {

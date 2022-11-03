@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Wed May 25 18:28:22 2022
+/* at Thu Oct 20 12:30:27 2022
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -242,11 +242,12 @@ extern "C"{
 
 
 #define AF_EVENT_SYSTEM (  0  )
-#define AF_TIMER        (  5  )
-#define AF_EVENT_NOTIFY (  6  )
-#define AF_QUERY_RESULT (  7  )
-#define AF_IOMSG_NOTIFY (  8  )
-#define AF_DATATRANSMIT (  9  )
+#define AF_EVENT_WINDOW (  1  )
+#define AF_TIMER        (  2  )
+#define AF_EVENT_NOTIFY (  5  )
+#define AF_QUERY_RESULT (  6  )
+#define AF_IOMSG_NOTIFY (  7  )
+#define AF_DATATRANSMIT (  8  )
 #define AF_EVENT_APPID1 (10000)
 #define AF_EVENT_APPID2 (10001)
 #define AF_EVENT_APPID3 (10002)
@@ -862,7 +863,7 @@ EXTERN_C const IID IID_IAsynMessageObject;
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
-            /* [in] */ IUnknown *object) = 0;
+            /* [out][in] */ IUnknown **object) = 0;
         
     };
     
@@ -900,7 +901,7 @@ EXTERN_C const IID IID_IAsynMessageObject;
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
-            /* [in] */ IUnknown *object);
+            /* [out][in] */ IUnknown **object);
         
         END_INTERFACE
     } IAsynMessageObjectVtbl;
@@ -1367,20 +1368,28 @@ EXTERN_C const IID IID_IBuffer;
             /* [in] */ BYTE *pFillBuffer,
             /* [in] */ uint32_t lFillOffset,
             /* [in] */ uint32_t lFillSize,
-            /* [in] */ uint32_t lNewBufferSize) = 0;
+            /* [in] */ uint32_t lBufferSize) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetBuffer( 
             /* [out] */ BYTE **ppDataBuffer,
-            /* [out] */ uint32_t *pDataBufferSize) = 0;
+            /* [out] */ uint32_t *pDataSize) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE Reference( 
+            /* [in] */ uint32_t Offset,
+            /* [in] */ uint32_t size,
+            /* [out] */ IBuffer **ppBuffer) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetOffset( 
-            /* [out] */ uint32_t *pOffset) = 0;
+            /* [out] */ uint32_t *Offset) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE SetOffset( 
-            /* [in] */ uint32_t lOffset) = 0;
+            /* [in] */ uint32_t Offset) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Move( 
             /* [in] */ int32_t val) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE AdjustDataSize( 
+            /* [in] */ uint32_t lDataSize) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetExtraBuffer( 
             /* [in] */ uint32_t Index,
@@ -1428,24 +1437,34 @@ EXTERN_C const IID IID_IBuffer;
             /* [in] */ BYTE *pFillBuffer,
             /* [in] */ uint32_t lFillOffset,
             /* [in] */ uint32_t lFillSize,
-            /* [in] */ uint32_t lNewBufferSize);
+            /* [in] */ uint32_t lBufferSize);
         
         HRESULT ( STDMETHODCALLTYPE *GetBuffer )( 
             IBuffer * This,
             /* [out] */ BYTE **ppDataBuffer,
-            /* [out] */ uint32_t *pDataBufferSize);
+            /* [out] */ uint32_t *pDataSize);
+        
+        HRESULT ( STDMETHODCALLTYPE *Reference )( 
+            IBuffer * This,
+            /* [in] */ uint32_t Offset,
+            /* [in] */ uint32_t size,
+            /* [out] */ IBuffer **ppBuffer);
         
         HRESULT ( STDMETHODCALLTYPE *GetOffset )( 
             IBuffer * This,
-            /* [out] */ uint32_t *pOffset);
+            /* [out] */ uint32_t *Offset);
         
         HRESULT ( STDMETHODCALLTYPE *SetOffset )( 
             IBuffer * This,
-            /* [in] */ uint32_t lOffset);
+            /* [in] */ uint32_t Offset);
         
         HRESULT ( STDMETHODCALLTYPE *Move )( 
             IBuffer * This,
             /* [in] */ int32_t val);
+        
+        HRESULT ( STDMETHODCALLTYPE *AdjustDataSize )( 
+            IBuffer * This,
+            /* [in] */ uint32_t lDataSize);
         
         HRESULT ( STDMETHODCALLTYPE *GetExtraBuffer )( 
             IBuffer * This,
@@ -1489,20 +1508,26 @@ EXTERN_C const IID IID_IBuffer;
 #define IBuffer_SetObject(This,pObject,lParams)	\
     ( (This)->lpVtbl -> SetObject(This,pObject,lParams) ) 
 
-#define IBuffer_NewBuffer(This,pFillBuffer,lFillOffset,lFillSize,lNewBufferSize)	\
-    ( (This)->lpVtbl -> NewBuffer(This,pFillBuffer,lFillOffset,lFillSize,lNewBufferSize) ) 
+#define IBuffer_NewBuffer(This,pFillBuffer,lFillOffset,lFillSize,lBufferSize)	\
+    ( (This)->lpVtbl -> NewBuffer(This,pFillBuffer,lFillOffset,lFillSize,lBufferSize) ) 
 
-#define IBuffer_GetBuffer(This,ppDataBuffer,pDataBufferSize)	\
-    ( (This)->lpVtbl -> GetBuffer(This,ppDataBuffer,pDataBufferSize) ) 
+#define IBuffer_GetBuffer(This,ppDataBuffer,pDataSize)	\
+    ( (This)->lpVtbl -> GetBuffer(This,ppDataBuffer,pDataSize) ) 
 
-#define IBuffer_GetOffset(This,pOffset)	\
-    ( (This)->lpVtbl -> GetOffset(This,pOffset) ) 
+#define IBuffer_Reference(This,Offset,size,ppBuffer)	\
+    ( (This)->lpVtbl -> Reference(This,Offset,size,ppBuffer) ) 
 
-#define IBuffer_SetOffset(This,lOffset)	\
-    ( (This)->lpVtbl -> SetOffset(This,lOffset) ) 
+#define IBuffer_GetOffset(This,Offset)	\
+    ( (This)->lpVtbl -> GetOffset(This,Offset) ) 
+
+#define IBuffer_SetOffset(This,Offset)	\
+    ( (This)->lpVtbl -> SetOffset(This,Offset) ) 
 
 #define IBuffer_Move(This,val)	\
     ( (This)->lpVtbl -> Move(This,val) ) 
+
+#define IBuffer_AdjustDataSize(This,lDataSize)	\
+    ( (This)->lpVtbl -> AdjustDataSize(This,lDataSize) ) 
 
 #define IBuffer_GetExtraBuffer(This,Index,ppBuffer)	\
     ( (This)->lpVtbl -> GetExtraBuffer(This,Index,ppBuffer) ) 
@@ -2675,7 +2700,7 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [in] */ IUnknown *object) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE PostMessage( 
-            /* [in] */ BOOL check,
+            /* [in] */ BOOL checkthread,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2761,7 +2786,7 @@ EXTERN_C const IID IID_IAsynFrame;
         
         HRESULT ( STDMETHODCALLTYPE *PostMessage )( 
             IAsynFrame * This,
-            /* [in] */ BOOL check,
+            /* [in] */ BOOL checkthread,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2845,8 +2870,8 @@ EXTERN_C const IID IID_IAsynFrame;
 #define IAsynFrame_SendMessage(This,message,lparam1,lparam2,object)	\
     ( (This)->lpVtbl -> SendMessage(This,message,lparam1,lparam2,object) ) 
 
-#define IAsynFrame_PostMessage(This,check,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> PostMessage(This,check,message,lparam1,lparam2,object) ) 
+#define IAsynFrame_PostMessage(This,checkthread,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> PostMessage(This,checkthread,message,lparam1,lparam2,object) ) 
 
 #define IAsynFrame_CreateTimer(This,timerid,lparam2,lTimeout,bCycled)	\
     ( (This)->lpVtbl -> CreateTimer(This,timerid,lparam2,lTimeout,bCycled) ) 
@@ -3087,8 +3112,9 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
     IAsynFrameThreadFactory : public IUnknown
     {
     public:
-        virtual HRESULT STDMETHODCALLTYPE GetCurrentThread( 
-            /* [out] */ IAsynFrameThread **ppAsynFrameThread) = 0;
+        virtual HRESULT STDMETHODCALLTYPE QueryThread( 
+            /* [in] */ uint32_t threadid,
+            /* [out] */ IAsynFrameThread **ppThread) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynFrameThread( 
             /* [in] */ handle hThread,
@@ -3118,9 +3144,10 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
         ULONG ( STDMETHODCALLTYPE *Release )( 
             IAsynFrameThreadFactory * This);
         
-        HRESULT ( STDMETHODCALLTYPE *GetCurrentThread )( 
+        HRESULT ( STDMETHODCALLTYPE *QueryThread )( 
             IAsynFrameThreadFactory * This,
-            /* [out] */ IAsynFrameThread **ppAsynFrameThread);
+            /* [in] */ uint32_t threadid,
+            /* [out] */ IAsynFrameThread **ppThread);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynFrameThread )( 
             IAsynFrameThreadFactory * This,
@@ -3153,8 +3180,8 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynFrameThreadFactory_GetCurrentThread(This,ppAsynFrameThread)	\
-    ( (This)->lpVtbl -> GetCurrentThread(This,ppAsynFrameThread) ) 
+#define IAsynFrameThreadFactory_QueryThread(This,threadid,ppThread)	\
+    ( (This)->lpVtbl -> QueryThread(This,threadid,ppThread) ) 
 
 #define IAsynFrameThreadFactory_CreateAsynFrameThread(This,hThread,pParam1,unused,events,ppAsynFrameThread)	\
     ( (This)->lpVtbl -> CreateAsynFrameThread(This,hThread,pParam1,unused,events,ppAsynFrameThread) ) 
@@ -3182,7 +3209,7 @@ EXTERN_C const IID IID_InstancesManager;
 #if defined(__cplusplus) && !defined(CINTERFACE)
     
     MIDL_INTERFACE("AB2CD54D-2BCB-41c8-9757-99B43F202024")
-    InstancesManager : public IAsynMessageObject
+    InstancesManager : public IAsynMessageEvents
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE NewInstance( 
@@ -3198,10 +3225,14 @@ EXTERN_C const IID IID_InstancesManager;
         
         virtual HRESULT STDMETHODCALLTYPE SetInstance( 
             /* [in] */ STRING Name,
-            /* [in] */ IUnknown *pObject) = 0;
+            /* [in] */ IUnknown *lpObject) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE Verify( 
-            /* [in] */ STRING Owner) = 0;
+        virtual HRESULT STDMETHODCALLTYPE Require( 
+            /* [in] */ STRING Owner,
+            /* [out] */ IUnknown **ppObject) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE Observe( 
+            /* [in] */ handle Soctx) = 0;
         
     };
     
@@ -3224,22 +3255,12 @@ EXTERN_C const IID IID_InstancesManager;
         ULONG ( STDMETHODCALLTYPE *Release )( 
             InstancesManager * This);
         
-        HRESULT ( STDMETHODCALLTYPE *Attach )( 
+        HRESULT ( STDMETHODCALLTYPE *OnMessage )( 
             InstancesManager * This,
-            /* [in] */ IUnknown *observer,
-            /* [in] */ STRING *subject);
-        
-        HRESULT ( STDMETHODCALLTYPE *Detach )( 
-            InstancesManager * This,
-            /* [in] */ IUnknown *observer);
-        
-        HRESULT ( STDMETHODCALLTYPE *Notify )( 
-            InstancesManager * This,
-            /* [in] */ STRING *subject,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
-            /* [in] */ IUnknown *object);
+            /* [out][in] */ IUnknown **object);
         
         HRESULT ( STDMETHODCALLTYPE *NewInstance )( 
             InstancesManager * This,
@@ -3257,11 +3278,16 @@ EXTERN_C const IID IID_InstancesManager;
         HRESULT ( STDMETHODCALLTYPE *SetInstance )( 
             InstancesManager * This,
             /* [in] */ STRING Name,
-            /* [in] */ IUnknown *pObject);
+            /* [in] */ IUnknown *lpObject);
         
-        HRESULT ( STDMETHODCALLTYPE *Verify )( 
+        HRESULT ( STDMETHODCALLTYPE *Require )( 
             InstancesManager * This,
-            /* [in] */ STRING Owner);
+            /* [in] */ STRING Owner,
+            /* [out] */ IUnknown **ppObject);
+        
+        HRESULT ( STDMETHODCALLTYPE *Observe )( 
+            InstancesManager * This,
+            /* [in] */ handle Soctx);
         
         END_INTERFACE
     } InstancesManagerVtbl;
@@ -3286,14 +3312,8 @@ EXTERN_C const IID IID_InstancesManager;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define InstancesManager_Attach(This,observer,subject)	\
-    ( (This)->lpVtbl -> Attach(This,observer,subject) ) 
-
-#define InstancesManager_Detach(This,observer)	\
-    ( (This)->lpVtbl -> Detach(This,observer) ) 
-
-#define InstancesManager_Notify(This,subject,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> Notify(This,subject,message,lparam1,lparam2,object) ) 
+#define InstancesManager_OnMessage(This,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> OnMessage(This,message,lparam1,lparam2,object) ) 
 
 
 #define InstancesManager_NewInstance(This,param1,param2,riid,ppObject)	\
@@ -3302,11 +3322,14 @@ EXTERN_C const IID IID_InstancesManager;
 #define InstancesManager_GetInstance(This,Name,riid,ppObject)	\
     ( (This)->lpVtbl -> GetInstance(This,Name,riid,ppObject) ) 
 
-#define InstancesManager_SetInstance(This,Name,pObject)	\
-    ( (This)->lpVtbl -> SetInstance(This,Name,pObject) ) 
+#define InstancesManager_SetInstance(This,Name,lpObject)	\
+    ( (This)->lpVtbl -> SetInstance(This,Name,lpObject) ) 
 
-#define InstancesManager_Verify(This,Owner)	\
-    ( (This)->lpVtbl -> Verify(This,Owner) ) 
+#define InstancesManager_Require(This,Owner,ppObject)	\
+    ( (This)->lpVtbl -> Require(This,Owner,ppObject) ) 
+
+#define InstancesManager_Observe(This,Soctx)	\
+    ( (This)->lpVtbl -> Observe(This,Soctx) ) 
 
 #endif /* COBJMACROS */
 
@@ -3339,6 +3362,8 @@ EXTERN_C const IID IID_IAsynFramePlugin;
             /* [in] */ IAsynMessageEvents *events,
             /* [in] */ IKeyvalSetter *param2) = 0;
         
+        virtual HRESULT STDMETHODCALLTYPE CanUnloadNow( void) = 0;
+        
         virtual HRESULT STDMETHODCALLTYPE Shutdown( void) = 0;
         
     };
@@ -3368,6 +3393,9 @@ EXTERN_C const IID IID_IAsynFramePlugin;
             /* [in] */ IAsynMessageEvents *events,
             /* [in] */ IKeyvalSetter *param2);
         
+        HRESULT ( STDMETHODCALLTYPE *CanUnloadNow )( 
+            IAsynFramePlugin * This);
+        
         HRESULT ( STDMETHODCALLTYPE *Shutdown )( 
             IAsynFramePlugin * This);
         
@@ -3396,6 +3424,9 @@ EXTERN_C const IID IID_IAsynFramePlugin;
 
 #define IAsynFramePlugin_Initialize(This,pInstancesManager,events,param2)	\
     ( (This)->lpVtbl -> Initialize(This,pInstancesManager,events,param2) ) 
+
+#define IAsynFramePlugin_CanUnloadNow(This)	\
+    ( (This)->lpVtbl -> CanUnloadNow(This) ) 
 
 #define IAsynFramePlugin_Shutdown(This)	\
     ( (This)->lpVtbl -> Shutdown(This) ) 

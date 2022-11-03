@@ -63,7 +63,7 @@ int _tmain(int argc, _TCHAR *argv[])
     {
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        lpInstancesManager->Verify(STRING_from_string(IN_AsynIpcChannel));
+        lpInstancesManager->Require(STRING_from_string(IN_AsynIpcChannel), 0);
 
         CComPtr<IAsynIpcChannel > spAsynIpcsChannel;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynIpcChannel), IID_IAsynIpcChannel, (void **)&spAsynIpcsChannel);

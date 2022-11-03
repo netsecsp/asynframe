@@ -56,14 +56,14 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s name pid\n\texample: %s 3456 server\n", argv[0], argv[0]);
+    printf("usage: %s pid pipename\n\texample: %s 3456 server\n", argv[0], argv[0]);
     if( argc < 2 ) return 0;
 
     HRESULT hr1 = Initialize(NULL, NULL);
     {
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        lpInstancesManager->Verify(STRING_from_string(IN_AsynIpcChannel));
+        lpInstancesManager->Require(STRING_from_string(IN_AsynIpcChannel), 0);
 
         CComPtr<IAsynIpcChannel > spAsynIpcsChannel;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynIpcChannel), IID_IAsynIpcChannel, (void **)&spAsynIpcsChannel);

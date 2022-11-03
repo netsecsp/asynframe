@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 class asyn_message_events_base
 {
 public:
-    STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown **objects )
+    STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
     {
         return E_NOTIMPL;
     }
@@ -58,11 +58,11 @@ public:
 
 public:
     IAsynMessageEvents *GetAsynMessageEvents() { return m_lpAsynMessageEvents;}
-    void Reset( /*[in ]*/asyn_message_events_base *c ); //切换回调对象
+    void Reset( /*[in ]*/asyn_message_events_base* c ); //切换回调对象
 
-    void Stop ( /*[in ]*/IAsynFrame *lpAsynFrame = 0 ); //注意释放对象前必须主动调用Stop释放资源
+    void Stop ( /*[in ]*/IAsynFrame* lpAsynFrame = 0 ); //注意释放对象前必须主动调用Stop释放资源
 
-    void CreateAsynFrame( /*[in ]*/IAsynFrameThread *lpAsynFrameThread, /*[in ]*/uint32_t lMaxIdlepools, /*[out]*/IAsynFrame **ppAsynFrame )
+    void CreateAsynFrame( /*[in ]*/IAsynFrameThread* lpAsynFrameThread, /*[in ]*/uint32_t lMaxIdlepools, /*[out]*/IAsynFrame** ppAsynFrame )
     {
         lpAsynFrameThread->CreateAsynFrame(m_lpAsynMessageEvents, lMaxIdlepools, ppAsynFrame);
     }

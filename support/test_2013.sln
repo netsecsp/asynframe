@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver_rtsp", "testn
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetclient_rtsp", "testnetclient_rtsp\testnetclient_rtsp_2013.vcxproj", "{1079CFFA-0DDC-445F-806E-62A9DB04E50A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testcrashrpt", "testcrashexplorer\testcrashrpt_2013.vcxproj", "{A42607B7-668F-44BF-AFED-4DBF2E36BC01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -231,6 +233,14 @@ Global
 		{1079CFFA-0DDC-445F-806E-62A9DB04E50A}.Release|Win32.Build.0 = Release|Win32
 		{1079CFFA-0DDC-445F-806E-62A9DB04E50A}.Release|x64.ActiveCfg = Release|x64
 		{1079CFFA-0DDC-445F-806E-62A9DB04E50A}.Release|x64.Build.0 = Release|x64
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Debug|Win32.Build.0 = Debug|Win32
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Debug|x64.ActiveCfg = Debug|x64
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Debug|x64.Build.0 = Debug|x64
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Release|Win32.ActiveCfg = Release|Win32
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Release|Win32.Build.0 = Release|Win32
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Release|x64.ActiveCfg = Release|x64
+		{A42607B7-668F-44BF-AFED-4DBF2E36BC01}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

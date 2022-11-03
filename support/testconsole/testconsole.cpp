@@ -59,7 +59,7 @@ int _tmain(int argc, _TCHAR *argv[])
     {
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        HRESULT r = lpInstancesManager->Verify( STRING_from_string(IN_Console));
+        HRESULT r = lpInstancesManager->Require( STRING_from_string(IN_Console), 0 );
         CComPtr<IConsole> console;
         lpInstancesManager->GetInstance(STRING_from_string(IN_Console), IID_IConsole, (void **)&console);
 

@@ -67,7 +67,7 @@ int _tmain(int argc, _TCHAR *argv[])
         CComPtr<IAsynFrameThread > spAsynFrameThread;
         pInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
-        pInstancesManager->Verify(STRING_from_string(IN_AsynNetwork));
+        pInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0);
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
         pInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);

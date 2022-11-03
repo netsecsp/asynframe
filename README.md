@@ -1,4 +1,4 @@
-## Asynframe framework v1.2 [english](/README_EN.md) | 中文
+## Asynframe framework v1.3 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -57,14 +57,14 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2022/06/13 修正console解析命令行错误  
+> 2022/11/02 发布windows平台的asynframe framework v1.3: **支持插件热升级**  
 > 2022/06/08 发布windows平台的asynframe framework v1.2: **rtsp插件**  
 > 2022/05/26 发布windows平台的asynframe framework v1.1: **websocket插件**  
 > 2022/05/05 发布windows平台的asynframe framework v1.0   
 
 # 编译环境
-> sdk_v1.2-Msvc2019_20220613.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.2-Msvc2013_20220613.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.3-Msvc2019_20221102.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.3-Msvc2013_20221102.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -84,7 +84,7 @@ int main(int argc, const char *argv[])
     CComPtr<IAsynFrameThread> spAsynFrameThread; //Create thread
     lpInstancesManager->NewInstance(0,0,IID_IAsynFrameThread, (void**)&spAsynFrameThread);
 
-    lpInstancesManager->Verify(STRING_from_string(IN_AsynNetwork)); //Load network module
+    lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0); //Load network module
 
     CComPtr<IAsynNetwork    > spAsynNetwork;
     lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
@@ -111,7 +111,7 @@ int main(int argc, const char *argv[])
   [IAsynNetwork](/doc/IAsynNetwork.txt)  
   [IAsynNetAgent](/doc/IAsynNetAgent.txt)  
   [IConsole](/doc/IConsole.txt)  
-  [ICrashExplorer](/doc/ICrashExplorer.txt)  
+  [IExceptionTrapper](/doc/IExceptionTrapper.txt)  
   [INet](/doc/INet.txt)  
   [IProxy](/doc/IProxy.txt)  
   [ISsl](/doc/ISsl.txt)  

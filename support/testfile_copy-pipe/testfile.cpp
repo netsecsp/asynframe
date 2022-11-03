@@ -62,16 +62,15 @@ int _tmain(int argc, _TCHAR *argv[])
 
     HRESULT hr1 = Initialize(NULL, NULL);
     {
-        CComPtr<InstancesManager> spInstancesManager = GetInstancesManager();
+        InstancesManager *lpInstancesManager = GetInstancesManager();
 
-
-        spInstancesManager->Verify(STRING_from_string(IN_AsynFileSystem));
+        lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem), 0);
 
         CComPtr<IAsynFileSystem  > spAsynFileSystem;
-        spInstancesManager->GetInstance(STRING_from_string(IN_AsynFileSystem), IID_IAsynFileSystem, (void **)&spAsynFileSystem);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFileSystem), IID_IAsynFileSystem, (void **)&spAsynFileSystem);
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;
-        spInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         CComPtr<IAsynFile> spSrcAsynFile;
         spAsynFileSystem->CreateAsynFile(&spSrcAsynFile );

@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynIpcChannel(InstanceName)
-#define IN_AsynIpcChannel "com.app.asynipcs"
+#define IN_AsynIpcChannel "com.asynframe.asynipcs"
 
 NAMESPACE_END(asynsdk)
 

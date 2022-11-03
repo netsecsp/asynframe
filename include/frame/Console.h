@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
 //IConsole(InstanceName)
-#define IN_Console "com.app.console"
+#define IN_Console "com.asynframe.console"
 
 NAMESPACE_END(asynsdk)
 

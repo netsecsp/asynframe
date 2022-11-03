@@ -43,7 +43,7 @@ import "IAsynNetwork.idl";
     interface IAsynNetAgent : IAsynMessageEvents
     {
         //注意: IAsynIoOperation可能携带数据或参数，接入Tcp连接协议代理: http/ftp/socks/telnet/pop3/smtp/rtmp/rtsp/mms, 返回IAsynIoBridge接口
-        //                                                  数据转发: forward=schema://host:port, tcp/ssl/ssh/udt
+        //                                                  数据转发: forward=schema://host:port, udp/tcp/ssl/ssh/udt
         HRESULT Connect( [in ]IAsynRawSocket* pAsynSrcSocket, [in ]STRING Protocol, [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint32_t lTimeoutms );
     };
 

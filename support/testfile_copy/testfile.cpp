@@ -62,16 +62,15 @@ int _tmain(int argc, _TCHAR *argv[])
 
     HRESULT hr1 = Initialize(NULL, NULL);
     {
-        CComPtr<InstancesManager> spInstancesManager = GetInstancesManager();
+        InstancesManager *lpInstancesManager = GetInstancesManager();
 
-
-        spInstancesManager->Verify(STRING_from_string(IN_AsynFileSystem));
+        lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem), 0);
 
         CComPtr<IAsynFileSystem > spAsynFileSystem;
-        spInstancesManager->GetInstance(STRING_from_string(IN_AsynFileSystem), IID_IAsynFileSystem, (void **)&spAsynFileSystem);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFileSystem), IID_IAsynFileSystem, (void **)&spAsynFileSystem);
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;
-        spInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         CFileEvent *pEvent = new CFileEvent( spAsynFrameThread, spAsynFileSystem );
         HRESULT r1 = pEvent->m_spSrcAsynFile->Open(spAsynFrameThread,
@@ -94,7 +93,7 @@ int _tmain(int argc, _TCHAR *argv[])
                 r2 == S_OK )
         {
             CComPtr<IBuffer> spBuffer;
-            spInstancesManager->NewInstance(0, 0, IID_IBuffer, (void **)&spBuffer);
+            lpInstancesManager->NewInstance(0, 0, IID_IBuffer, (void **)&spBuffer);
             if( pEvent->Copy(spBuffer) )
             {
                 while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&

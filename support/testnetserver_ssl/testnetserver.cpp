@@ -103,7 +103,7 @@ int _tmain(int argc, _TCHAR *argv[])
     {
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        lpInstancesManager->Verify(STRING_from_string(IN_AsynNetwork));
+        lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0);
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);

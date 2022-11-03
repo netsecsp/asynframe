@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Apr 26 17:24:55 2022
+/* at Thu Oct 13 22:02:27 2022
  */
 /* Compiler settings for IConsole.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -131,7 +131,7 @@ EXTERN_C const IID IID_IConsole;
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
-            /* [in] */ IUnknown *object);
+            /* [out][in] */ IUnknown **object);
         
         HRESULT ( STDMETHODCALLTYPE *AllocWindow )( 
             IConsole * This,

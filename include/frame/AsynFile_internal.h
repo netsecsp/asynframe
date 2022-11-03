@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynFileSystem(InstanceName)
-#define IN_AsynFileSystem "com.app.asynfile"
+#define IN_AsynFileSystem "com.asynframe.asynfile"
 
 NAMESPACE_END(asynsdk)
 

@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Apr 26 17:24:41 2022
+/* at Thu Oct 20 12:30:42 2022
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

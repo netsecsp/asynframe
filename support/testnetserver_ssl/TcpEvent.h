@@ -56,7 +56,7 @@ public:
             if( lParam1 == 0 )
             {
                 asynsdk::CStringSetter d(1);
-                asynsdk::CMemorySetter c(1, 0);
+                asynsdk::CMemorySetter c((void*)0);
                 ((IKeyvalSetter*)objects[0])->Get(STRING_from_string(";dattype"), 0, 0, &d);
                 ((IKeyvalSetter*)objects[0])->Get(STRING_from_string(";context"), 0, 0, &c);
                 if( d.m_val.rfind("cert.verify") != std::string::npos )
