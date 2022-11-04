@@ -29,6 +29,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 6. 引用计数管理对象内存  
 7. 支持微秒级定时器  
 8. 集成[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
+[架构图](/doc/01_asynframe.jpg)  
 
 **开发优势:**  
 1. 支持可升级的插件化，协助windows产品模块化。  
