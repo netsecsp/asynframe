@@ -31,8 +31,11 @@ Asynframe framework solves the six problems mentioned above in the process of so
 8. Integrate [Log4cplus](https://github.com/log4cplus/log4cplus)，Unified modules output log  
 
 **Development advantage:**  
-1. Assist in product modularization  
-2. Unified development template, lockless mechanism and high-performance IO framework reduce the learning cost of developers. It can quickly develop stable and high-performance application modules. It can greatly reduce the amount of development code  
+1. Support the upgradable plug-in and assist the modularization of windows products.  
+2. Support the generation of stack information and dmp files when cross process acquisition crashes.  
+3. Embed the micro thread core object into other threads to isolate other codes, so as to facilitate code reconstruction.  
+4. Get a very smooth user experience through the asynchronous execution framework.  
+5. The unified development template, non locking mechanism, high-performance IO framework and demo reduce the learning cost of developers. It can rapidly develop stable and high-performance application modules. It can greatly reduce the amount of developed code.  
 
 |module|type|function|demo|
 |:--|:--|:--|:--|
