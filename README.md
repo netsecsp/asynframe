@@ -60,9 +60,12 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2022/11/02 发布windows平台的asynframe framework v1.3: **支持插件热升级**  
-> 2022/06/08 发布windows平台的asynframe framework v1.2: **rtsp插件**  
-> 2022/05/26 发布windows平台的asynframe framework v1.1: **websocket插件**  
+> 2022/11/02 发布windows平台的asynframe framework v1.3  
+1. crashexplorer 实现崩溃时跨进程输出栈信息和dmp文件  
+2. ssl 修复兼容性问题  
+3. 支持插件热升级  
+> 2022/06/08 发布windows平台的asynframe framework v1.2  
+> 2022/05/26 发布windows平台的asynframe framework v1.1  
 > 2022/05/05 发布windows平台的asynframe framework v1.0  
 
 # 编译环境

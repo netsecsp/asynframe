@@ -60,9 +60,12 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2022/11/02 Release asynframe framework v1.3: support plugin hot upgrade
-> 2022/06/08 Release asynframe framework v1.2: rtsp plugin  
-> 2022/05/26 Release asynframe framework v1.1: websocket plugin  
+> 2022/11/02 Release asynframe framework v1.3  
+1. Crash explorer implements cross process output of stack information and dmp files when crashing  
+2. SSL fixes compatibility issues  
+3. Support plug-in hot upgrade  
+> 2022/06/08 Release asynframe framework v1.2  
+> 2022/05/26 Release asynframe framework v1.1  
 > 2022/05/05 Release asynframe framework v1.0  
 
 # Build
