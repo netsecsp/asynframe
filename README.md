@@ -29,8 +29,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 6. 引用计数管理对象内存  
 7. 支持微秒级定时器  
 8. 集成[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
-
-![](/img/01_asynframe.jpg)  
+![](https://github.com/netsecsp/asynframe/blob/master/img/01_asynframe.jpg)  
 
 **开发优势:**  
 1. 支持可升级的插件化，协助windows产品模块化。  
@@ -45,7 +44,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |||集成到mfc|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
 |||集成到DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
 |crashexplorer|插件[asyncore]|捕获当前进程的崩溃信息，同时生成dmp文件|\support\testcrashexplorer|
-|console|插件[asyncore]|命令控制台<br>1.支持加载/卸载ICommand插件：cmd/lua<br>2.支持键盘/鼠标输入|\support\testconsole|
+|console|插件[asyncore]|命令控制台<br>1.支持加载/卸载ICommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|插件[asyncore]|进程间通讯|\support\testipcclient<br>\support\testipcserver|
 |asynneta|插件[asyncore]|服务端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理|[aneta](https://github.com/netsecsp/aneta)|
@@ -63,7 +62,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 
 # 变更记录
 > 2022/11/02 发布windows平台的asynframe framework v1.3  
-1. crashexplorer 实现崩溃时跨进程输出栈信息和dmp文件  
+1. crashexplorer 实现崩溃时跨进程输出栈信息和dmpfile  
 2. ssl 修复兼容性问题  
 3. 支持插件热升级  
 > 2022/06/08 发布windows平台的asynframe framework v1.2  

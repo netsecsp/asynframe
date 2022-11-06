@@ -29,8 +29,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 6. Reference count management object memory  
 7. Provide microsecond timer  
 8. Integrate [Log4cplus](https://github.com/log4cplus/log4cplus)，Unified modules output log  
-
-![](/img/01_asynframe.jpg)  
+![](https://github.com/netsecsp/asynframe/blob/master/img/01_asynframe.jpg)  
 
 **Development advantage:**  
 1. Support the upgradable plug-in and assist the modularization of windows products.  
