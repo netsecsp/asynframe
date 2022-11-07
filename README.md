@@ -29,7 +29,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 6. 引用计数管理对象内存  
 7. 支持微秒级定时器  
 8. 集成[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
-![](https://github.com/netsecsp/asynframe/blob/master/img/01_asynframe.jpg)  
+![image](https://netsecsp.github.io/img/01_asynframe.jpg)  
 
 **开发优势:**  
 1. 支持可升级的插件化，协助windows产品模块化。  
@@ -109,22 +109,22 @@ int main(int argc, const char *argv[])
 ```
 
 # 开发  
-- asynframe framework [导出函数](/doc/pluginapi.md)  
+- asynframe framework [导出函数](https://netsecsp.github.io/doc/pluginapi.md)  
 
 - 接口定义  
-  [IAsynFrame](/doc/IAsynFrame.txt)  
-  [IAsynFileSystem](/doc/IAsynFileSystem.txt)  
-  [IAsynIpcChannel](/doc/IAsynIpcChannel.txt)  
-  [IAsynNetwork](/doc/IAsynNetwork.txt)  
-  [IAsynNetAgent](/doc/IAsynNetAgent.txt)  
-  [IConsole](/doc/IConsole.txt)  
-  [IExceptionTrapper](/doc/IExceptionTrapper.txt)  
-  [INet](/doc/INet.txt)  
-  [IProxy](/doc/IProxy.txt)  
-  [ISsl](/doc/ISsl.txt)  
-  [IVmHost](/doc/IVmHost.txt)  
+  [IAsynFrame](https://netsecsp.github.io/doc/IAsynFrame.txt)  
+  [IAsynFileSystem](https://netsecsp.github.io/doc/IAsynFileSystem.txt)  
+  [IAsynIpcChannel](https://netsecsp.github.io/doc/IAsynIpcChannel.txt)  
+  [IAsynNetwork](https://netsecsp.github.io/doc/IAsynNetwork.txt)  
+  [IAsynNetAgent](https://netsecsp.github.io/doc/IAsynNetAgent.txt)  
+  [IConsole](https://netsecsp.github.io/doc/IConsole.txt)  
+  [IExceptionTrapper](https://netsecsp.github.io/doc/IExceptionTrapper.txt)  
+  [INet](https://netsecsp.github.io/doc/INet.txt)  
+  [IProxy](https://netsecsp.github.io/doc/IProxy.txt)  
+  [ISsl](https://netsecsp.github.io/doc/ISsl.txt)  
+  [IVmHost](https://netsecsp.github.io/doc/IVmHost.txt)  
 
-- [插件使用](/doc/externapi.md)   
+- [插件使用](https://netsecsp.github.io/doc/externapi.md)   
 
   <u>基础模块</u>  
   - asyncore  
@@ -136,19 +136,19 @@ int main(int argc, const char *argv[])
   <u>网络模块</u>  
   - asynneta  
   - dtp  
-  - [dns](/doc/dns.md)  
-  - [ftp](/doc/ftp.md)  
-  - [http](/doc/http.md)  
-  - [rtsp](/doc/rtsp.md)  
-  - [proxy](/doc/proxy.md)  
-  - [ssl](/doc/ssl.md)  
-  - [websocket](/doc/websocket.md)  
+  - [dns](https://netsecsp.github.io/doc/dns.md)  
+  - [ftp](https://netsecsp.github.io/doc/ftp.md)  
+  - [http](https://netsecsp.github.io/doc/http.md)  
+  - [rtsp](https://netsecsp.github.io/doc/rtsp.md)  
+  - [proxy](https://netsecsp.github.io/doc/proxy.md)  
+  - [ssl](https://netsecsp.github.io/doc/ssl.md)  
+  - [websocket](https://netsecsp.github.io/doc/websocket.md)  
 
   <u>扩展模块</u>  
-  - [console](/doc/console.md)  
-  - [lua](/doc/lua.md)  
-  - [zip](/doc/zip.md)  
-  - [sqlite](/doc/sqlite.md)  
+  - [console](https://netsecsp.github.io/doc/console.md)  
+  - [lua](https://netsecsp.github.io/doc/lua.md)  
+  - [zip](https://netsecsp.github.io/doc/zip.md)  
+  - [sqlite](https://netsecsp.github.io/doc/sqlite.md)  
 
 # 鸣谢  
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  
