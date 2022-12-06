@@ -48,13 +48,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma comment(lib,"asynframe_lib.lib")
 #endif
 
-STDAPI_(extern HRESULT) Initialize( /*[in ]*/IAsynMessageEvents *param1, /*[in ]*/IKeyvalSetter *param2 );
+STDAPI_(extern HRESULT) Initialize( /*[in ]*/IAsynMessageEvents *param1, /*[in ]*/IUnknown *param2 );
 STDAPI_(extern HRESULT) Destory();
 STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    HRESULT hr1 = Initialize(NULL, NULL);
+    asynsdk::CStringSetter fileconf(1, "config.ini");
+    HRESULT hr1 = Initialize(NULL, &fileconf);
 
     {
         InstancesManager *lpInstancesManager = GetInstancesManager();

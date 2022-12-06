@@ -82,24 +82,11 @@ void CAsynFrameHandler::OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnkno
 
 HRESULT CAsynFrameHandler::OnTimer( uint64_t lParam1, uint64_t lParam2 )
 {
-    uint64_t e;
-    m_spOsTime->GetTickcount(&e);
+    uint64_t   e; m_spOsTime->GetTickcount(&e );
 
-    struct tm tm, *p = &tm;
-    SYSTEMTIME wtm;
-    GetLocalTime(&wtm);
-    tm.tm_year  = wtm.wYear - 1900;
-    tm.tm_mon   = wtm.wMonth - 1;
-    tm.tm_mday  = wtm.wDay;
-    tm.tm_hour  = wtm.wHour;
-    tm.tm_min   = wtm.wMinute;
-    tm.tm_sec   = wtm.wSecond;
-    tm.tm_isdst = -1;
-    struct timeval v;
-    v.tv_sec  = mktime(&tm);
-    v.tv_usec = wtm.wMilliseconds * 1000;
+    SYSTEMTIME t; GetLocalTime(&t );
+    printf("%02d-%02d %02d:%02d:%02d.%03d diff=%.03fms\n", t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond, t.wMilliseconds, (e - s) / 1000.0);
 
-    printf("%02d-%02d %02d:%02d:%02d.%03d diff=%.03fms\n", 1 + p->tm_mon, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec, (int)(v.tv_usec / 1000), (e - s) / 1000.0);
     s = e;
-	return S_OK;
+    return S_OK;
 }

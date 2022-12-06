@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Thu Oct 20 12:30:42 2022
+/* at Tue Dec 06 10:45:40 2022
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -2072,7 +2072,7 @@ EXTERN_C const IID IID_IAppService;
     IAppService : public IUnknown
     {
     public:
-        virtual HRESULT STDMETHODCALLTYPE Invoke( 
+        virtual HRESULT STDMETHODCALLTYPE Control( 
             /* [in] */ uint32_t action) = 0;
         
     };
@@ -2096,7 +2096,7 @@ EXTERN_C const IID IID_IAppService;
         ULONG ( STDMETHODCALLTYPE *Release )( 
             IAppService * This);
         
-        HRESULT ( STDMETHODCALLTYPE *Invoke )( 
+        HRESULT ( STDMETHODCALLTYPE *Control )( 
             IAppService * This,
             /* [in] */ uint32_t action);
         
@@ -2123,8 +2123,8 @@ EXTERN_C const IID IID_IAppService;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAppService_Invoke(This,action)	\
-    ( (This)->lpVtbl -> Invoke(This,action) ) 
+#define IAppService_Control(This,action)	\
+    ( (This)->lpVtbl -> Control(This,action) ) 
 
 #endif /* COBJMACROS */
 

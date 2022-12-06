@@ -46,7 +46,8 @@ public:
     }
     CObjPtr(bool unused, IUnknown *v)
     {
-        if( v->QueryInterface(__uuidof(T), (void**)&p) != S_OK )
+        if(!v ||
+            v->QueryInterface(__uuidof(T), (void**)&p) != S_OK )
         {
             p = 0;
         }

@@ -9,7 +9,7 @@
 extern "C" { 
 #endif
 
-DUILIB_API HRESULT frame_Initialize( /*[in ]*/IAsynMessageEvents *events, /*[in ]*/IKeyvalSetter *param2 );
+DUILIB_API HRESULT frame_Initialize( /*[in ]*/IAsynMessageEvents *events, /*[in ]*/IUnknown *param2 );
 DUILIB_API InstancesManager *frame_GetInstancesManager( void );
 DUILIB_API HRESULT frame_Destory( void );
 

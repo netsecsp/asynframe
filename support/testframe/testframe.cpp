@@ -47,7 +47,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma comment(lib,"asynframe_lib.lib")
 #endif
 
-STDAPI_(extern HRESULT) Initialize( /*[in ]*/IAsynMessageEvents *param1, /*[in ]*/IKeyvalSetter *param2 );
+STDAPI_(extern HRESULT) Initialize( /*[in ]*/IAsynMessageEvents *param1, /*[in ]*/IUnknown *param2 );
 STDAPI_(extern HRESULT) Destory();
 STDAPI_(extern InstancesManager *) GetInstancesManager();
 
@@ -97,7 +97,7 @@ int _tmain(int argc, _TCHAR *argv[])
 #if 1
         CComPtr<IAsynFrameThreadFactory> spAsynFrameThreadFactory;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFrameThreadFactory), IID_IAsynFrameThreadFactory, (void **)&spAsynFrameThreadFactory);
-        spAsynFrameThreadFactory->CreateAsynFrameThread(0, 0, 0, 0, &spAsynFrameThread);
+        spAsynFrameThreadFactory->CreateAsynFrameThread(0, 0, argc>3 && strcmp(argv[1], "timer") == 0? atoi(argv[3]) : 0, 0, &spAsynFrameThread);
 #else
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 #endif

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Thu Oct 20 12:30:27 2022
+/* at Tue Dec 06 10:45:37 2022
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -1389,7 +1389,7 @@ EXTERN_C const IID IID_IBuffer;
             /* [in] */ int32_t val) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE AdjustDataSize( 
-            /* [in] */ uint32_t lDataSize) = 0;
+            /* [in] */ uint32_t DataSize) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetExtraBuffer( 
             /* [in] */ uint32_t Index,
@@ -1464,7 +1464,7 @@ EXTERN_C const IID IID_IBuffer;
         
         HRESULT ( STDMETHODCALLTYPE *AdjustDataSize )( 
             IBuffer * This,
-            /* [in] */ uint32_t lDataSize);
+            /* [in] */ uint32_t DataSize);
         
         HRESULT ( STDMETHODCALLTYPE *GetExtraBuffer )( 
             IBuffer * This,
@@ -1526,8 +1526,8 @@ EXTERN_C const IID IID_IBuffer;
 #define IBuffer_Move(This,val)	\
     ( (This)->lpVtbl -> Move(This,val) ) 
 
-#define IBuffer_AdjustDataSize(This,lDataSize)	\
-    ( (This)->lpVtbl -> AdjustDataSize(This,lDataSize) ) 
+#define IBuffer_AdjustDataSize(This,DataSize)	\
+    ( (This)->lpVtbl -> AdjustDataSize(This,DataSize) ) 
 
 #define IBuffer_GetExtraBuffer(This,Index,ppBuffer)	\
     ( (This)->lpVtbl -> GetExtraBuffer(This,Index,ppBuffer) ) 
