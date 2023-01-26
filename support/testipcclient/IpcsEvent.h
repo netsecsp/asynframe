@@ -75,7 +75,7 @@ public:
                         m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (void **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer );
-                        sprintf((char *)lpBuffer, "0%08I64d", m_lSeqno);
+                        sprintf_s((char *)lpBuffer, 10, "0%08I64d", m_lSeqno);
                         spAsynIoOperation->SetIoParams( 0, 10, 0 );
                         spAsynIoOperation->SetOpParam1( m_lSeqno ++ );
                         m_spAsynIpcDevice->Write( spAsynIoOperation, 0 );
@@ -116,7 +116,7 @@ public:
                     {
                         unsigned char *lpBuffer;
                         lpAsynIoOperation->GetIoBuffer( 0, 0, &lpBuffer );
-                        sprintf((char *)lpBuffer, "0%08I64d", m_lSeqno);
+                        sprintf_s((char *)lpBuffer, 10, "0%08I64d", m_lSeqno);
                         lpAsynIoOperation->SetIoParams(0, 10, 0);
                         lpAsynIoOperation->SetOpParam1( m_lSeqno ++ );
                         return m_spAsynIpcDevice->Write(lpAsynIoOperation, 0);

@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 class asyn_message_events_base
 {
 public:
-    STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
+    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
     {
         return E_NOTIMPL;
     }
@@ -96,6 +96,10 @@ private:
 #define ON_IOMSG_NOTIFY(memberFxn) \
             case AF_IOMSG_NOTIFY:  \
                  return memberFxn( lparam1, lparam2, (IAsynIoOperation*)*objects );
+
+#define ON_CTASK(memberFxn, T) \
+            case AF_CTASK_NOTIFY:  \
+                 return memberFxn( lparam1, lparam2, objects? (T*)*objects : (T*)0 );
 
 #define ON_TIMER(memberFxn) \
             case AF_TIMER:  \

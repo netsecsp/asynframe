@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Dec 06 10:45:37 2022
+/* at Wed Jan 18 10:39:48 2023
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -66,9 +66,6 @@ typedef IID CLSID;
         const type name = {l,w1,w2,{b1,b2,b3,b4,b5,b6,b7,b8}}
 
 #endif !_MIDL_USE_GUIDDEF_
-
-MIDL_DEFINE_GUID(IID, IID_IKeyvalSetter,0x92552692,0x3635,0x4e41,0xAF,0x63,0xD9,0x21,0xE0,0xCE,0xE6,0xD4);
-
 
 MIDL_DEFINE_GUID(IID, IID_IObjectHolder,0xF8CE1A45,0x9316,0x430a,0xBA,0xE5,0xD9,0x05,0x20,0x1C,0xC1,0x80);
 

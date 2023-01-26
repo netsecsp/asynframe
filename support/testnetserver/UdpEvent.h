@@ -84,7 +84,7 @@ public:
 
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
-                        sprintf((char *)lpBuffer, "1%08d", m_lSeqno ++);
+                        sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                         spAsynIoOperation->SetIoParams(0, 10, 0);
                         m_spAsynUdpSocket->Write(spAsynIoOperation, 0);
                     }
@@ -113,7 +113,7 @@ public:
 
                     unsigned char *lpBuffer;
                     lpAsynIoOperation->GetIoBuffer( 0, 0, &lpBuffer );
-                    sprintf((char *)lpBuffer, "1%08d", m_lSeqno ++);
+                    sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
                     return m_spAsynUdpSocket->Write(lpAsynIoOperation, 0);
                 }

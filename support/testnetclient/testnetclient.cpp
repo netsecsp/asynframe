@@ -45,7 +45,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "UdpEvent.h"
 
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -75,10 +79,10 @@ int _tmain(int argc, _TCHAR *argv[])
         if( strcmp(argv[1], "tcp") == 0 )
         {
             CTcpEvent *pEvent = new CTcpEvent( spAsynFrameThread, spAsynNetwork, argc <= 2 || strcmp(argv[2], "ipv4") == 0 ? AF_INET : 23 );
-            if( pEvent->Connect(argc > 3 ? argv[3] : "127.0.0.1", atol(argc > 4 ? argv[4] : "7675")) )
+            if( pEvent->Connect(argc > 3 ? argv[3] : "127.0.0.1", atoi(argc > 4 ? argv[4] : "7675")) )
             {
                 while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                       kbhit() == 0 )
+                       _kbhit() == 0 )
                 {
                     Sleep(100);
                 }
@@ -89,10 +93,10 @@ int _tmain(int argc, _TCHAR *argv[])
         else if( strcmp(argv[1], "udp") == 0 )
         {
             CUdpEvent *pEvent = new CUdpEvent( spAsynFrameThread, spAsynNetwork, argc <= 2 || strcmp(argv[2], "ipv4") == 0 ? AF_INET : 23 );
-            if( pEvent->Write(argc > 3 ? argv[3] : "127.0.0.1", atol(argc > 4 ? argv[4] : "7675"), argc > 5 ? argv[5] : 0) )
+            if( pEvent->Write(argc > 3 ? argv[3] : "127.0.0.1", atoi(argc > 4 ? argv[4] : "7675"), argc > 5 ? argv[5] : 0) )
             {
                 while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                       kbhit() == 0 )
+                       _kbhit() == 0 )
                 {
                     Sleep(100);
                 }
@@ -103,10 +107,10 @@ int _tmain(int argc, _TCHAR *argv[])
         else if( strcmp(argv[1], "spx") == 0 )
         {
             CTcpEvent *pEvent = new CTcpEvent( spAsynFrameThread, spAsynNetwork, AF_IPX );
-            if( pEvent->Connect(argc > 2 ? argv[2] : "10510028:0080A044880F", atol(argc > 3 ? argv[3] : "7675")) )
+            if( pEvent->Connect(argc > 2 ? argv[2] : "10510028:0080A044880F", atoi(argc > 3 ? argv[3] : "7675")) )
             {
                 while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                        kbhit() == 0 )
+                        _kbhit() == 0 )
                 {
                     Sleep(100);
                 }
@@ -117,10 +121,10 @@ int _tmain(int argc, _TCHAR *argv[])
         else if( strcmp(argv[1], "ipx") == 0 )
         {
             CUdpEvent *pEvent = new CUdpEvent( spAsynFrameThread, spAsynNetwork, AF_IPX );
-            if( pEvent->Write(argc > 2 ? argv[2] : "10510028:0080A044880F", atol(argc > 3 ? argv[3] : "7675")) )
+            if( pEvent->Write(argc > 2 ? argv[2] : "10510028:0080A044880F", atoi(argc > 3 ? argv[3] : "7675")) )
             {
                 while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                       kbhit() == 0 )
+                       _kbhit() == 0 )
                 {
                     Sleep(100);
                 }

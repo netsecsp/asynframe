@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Dec 06 10:45:38 2022
+/* at Wed Jan 18 10:39:50 2023
  */
 /* Compiler settings for IAsynIpcChannel.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -511,7 +511,7 @@ EXTERN_C const IID IID_IAsynNamedPipe;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynNamedPipe * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -585,8 +585,8 @@ EXTERN_C const IID IID_IAsynNamedPipe;
 #define IAsynNamedPipe_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynNamedPipe_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynNamedPipe_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynNamedPipe_Open(This,pAsynFrameThread,PipeName,lOpenMode,bIsStream,lMaxInstances,lOutBufferSize,lInBufferSize,lDefaultTimeOut,pSecurityAttributes)	\
@@ -703,7 +703,7 @@ EXTERN_C const IID IID_IAsynIpcDevice;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynIpcDevice * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -769,8 +769,8 @@ EXTERN_C const IID IID_IAsynIpcDevice;
 #define IAsynIpcDevice_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynIpcDevice_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynIpcDevice_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynIpcDevice_Connect(This,pAsynFrameThread,IpcName,lDstProcessId,pAsynIoOperation,lTimeoutms)	\
@@ -884,7 +884,7 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynIpcDeviceListener * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -951,8 +951,8 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
 #define IAsynIpcDeviceListener_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynIpcDeviceListener_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynIpcDeviceListener_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynIpcDeviceListener_Open(This,pAsynFrameThread,IpcName)	\

@@ -91,7 +91,7 @@ public:
                         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0,  0, 0, 0, PER_DATA_SIZE, &lpBuffer );
-                        sprintf((char *)lpBuffer, "%09d", m_lSeqno ++);
+                        sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
                         spAsynIoOperation->SetIoParams( 0, 10, 0 );
                         m_spAsynPtlSocket->Write( spAsynIoOperation, 0 );
                     }
@@ -106,7 +106,7 @@ public:
             {
                 if( lErrorCode )
                 {
-                    printf("recv error: %d\n", lErrorCode);
+                    printf("recv, error: %d\n", lErrorCode);
                     SetEvent(m_hNotify);
                     return E_NOTIMPL;
                 }
@@ -133,7 +133,7 @@ public:
                     if( m_lSeqno > 10 ) return E_NOTIMPL;
                     unsigned char *lpBuffer;
                     lpAsynIoOperation->GetIoBuffer( 0, 0, &lpBuffer );
-                    sprintf((char *)lpBuffer, "%09d", m_lSeqno ++);
+                    sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
                     return m_spAsynPtlSocket->Write(lpAsynIoOperation, 0);
                 }
@@ -143,7 +143,7 @@ public:
     }
 
 public:
-    bool Connect(handle pctx, STRING cert, char *password, const std::string &host, PORT port, uint32_t connect_timeout = 2000/*2sec*/)
+    bool Connect(handle pctx, STRING *certandpasswd, const std::string &host, PORT port, uint32_t connect_timeout = 2000/*2sec*/)
     {
         CComPtr<IAsynTcpSocket> spAsynInnSocket;
         m_spAsynNetwork->CreateAsynTcpSocket(&spAsynInnSocket );
@@ -156,7 +156,8 @@ public:
 
         CComPtr<ISsl> spSsl;
         m_spAsynPtlSocket->QueryInterface(IID_ISsl, (void **)&spSsl);
-        spSsl->SetCryptContext(&STRING_from_string("test"), pctx, cert.len==0? 0 : &cert, password==0? 0 : &asynsdk::STRING_EX(password));
+
+        spSsl->SetCryptContext(&STRING_from_string("test"), pctx, certandpasswd);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);

@@ -110,7 +110,7 @@ public:
                     unsigned char *lpBuffer;
                     lpAsynIoOperation->GetIoBuffer(0, 0, &lpBuffer);
 
-                    sprintf((char *)lpBuffer, "1%08d", m_lSeqno ++);
+                    sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
                     return m_arOp2AsynTcpSockets[lpAsynIoOperation]->Write(lpAsynIoOperation, 0);
                 }
@@ -146,7 +146,7 @@ public:
 
                     unsigned char *lpBuffer;
                     spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
-                    sprintf((char *)lpBuffer, "1%08d", m_lSeqno ++);
+                    sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                     spAsynIoOperation->SetIoParams(0, 10, 0);
                     spNewAsynTcpSocket->Write(spAsynIoOperation, 0);
                 }
@@ -169,7 +169,7 @@ public:
     }
 
 public:
-    bool Start(handle pctx, STRING cert, char *password, PORT port)
+    bool Start(handle pctx, STRING *certandpasswd, PORT port)
     {
         CComPtr<IAsynTcpSocketListener> spAsynInnSocket;
         m_spAsynNetwork->CreateAsynTcpSocketListener(asynsdk::STRING_EX::null, &spAsynInnSocket);
@@ -182,7 +182,7 @@ public:
 
         CComPtr<ISsl> spSsl;
         m_spAsynPtlSocket->QueryInterface(IID_ISsl, (void **)&spSsl);
-        spSsl->SetCryptContext(0, pctx, cert.len==0? 0 : &cert, password==0? 0 : &asynsdk::STRING_EX(password));
+        spSsl->SetCryptContext(0, pctx, pctx? 0 : certandpasswd);
 
         m_spAsynPtlSocket->QueryInterface(IID_IAsynTcpSocketListener, (void **)&m_spAsynTcpSocketListener);
         m_spAsynTcpSocketListener->Open(m_spAsynFrameThread, m_af, SOCK_STREAM, IPPROTO_TCP);

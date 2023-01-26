@@ -48,7 +48,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #pragma comment(lib,"crypt32.lib")
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -83,10 +87,15 @@ int _tmain(int argc, _TCHAR *argv[])
 {
     printf("usage: %s port thumb[40]\n\texample: %s 7675 22a6a24961f51a4d0d74c8499d5e32d97fff9c1b\n\t         %s 7675 p12 password\n", argv[0], argv[0], argv[0]);
 
-    PCCERT_CONTEXT  pctx = 0;
-	BYTE temp[4096]; STRING cert; cert.ptr = temp; cert.len = 0;
-    char*  password = 0;
+    PCCERT_CONTEXT pctx = 0;
+	BYTE temp[4096];
+    STRING certandpasswd[2];
 	HCERTSTORE hMyCertStore = 0;
+
+    certandpasswd[0].ptr = temp;
+    certandpasswd[0].len = 0;
+    certandpasswd[1].ptr = 0;
+    certandpasswd[1].len = 0;
     #if  0
     char *hex = argc > 2 ? argv[2] : "22a6a24961f51a4d0d74c8499d5e32d97fff9c1b";
     BYTE thumb[21]; for(int i = 0, n = 0; i < 40; i += 2, n ++) thumb[n] = (B2H(hex[i + 0]) << 4) + B2H(hex[i + 1]);
@@ -94,8 +103,15 @@ int _tmain(int argc, _TCHAR *argv[])
     CRYPT_HASH_BLOB hash = {20, thumb};
     pctx = CertFindCertificateInStore(hMyCertStore, PKCS_7_ASN_ENCODING, 0, CERT_FIND_HASH, &hash, NULL);
     #else
-    FILE *f = fopen(argc > 3 ? argv[3] : "server.p12", "rb"); cert.len = fread(cert.ptr, 1, sizeof(temp), f); fclose(f);
-	password = argc > 4 ? argv[4] : "123456";
+    FILE* f = 0; fopen_s(&f, argc > 3 ? argv[3] : "server.p12", "rb");
+	if(!f ) {
+        printf("not found %s\n", argc > 3 ? argv[3] : "server.p12");
+        return 1;
+    }
+    certandpasswd[0].len = fread(certandpasswd[0].ptr, 1, sizeof(temp), f);
+	fclose(f);
+    certandpasswd[1].ptr = (unsigned char*)(argc > 4 ? argv[4] : "123456");
+    certandpasswd[1].len = strlen((char*)certandpasswd[1].ptr);
     #endif
 
     HRESULT hr1 = Initialize(NULL, NULL);
@@ -112,11 +128,11 @@ int _tmain(int argc, _TCHAR *argv[])
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         CTcpEvent *pEvent = new CTcpEvent(spAsynNetwork, spAsynFrameThread, 23);
-        if (pEvent->Start((handle)pctx, cert, password, atol(argc > 1 ? argv[1] : "7675")))
+        if (pEvent->Start((handle)pctx, pctx? 0 : certandpasswd, atol(argc > 1 ? argv[1] : "7675")))
         {
 			if (pctx) CertFreeCertificateContext(pctx);
 			if (hMyCertStore) CertCloseStore(hMyCertStore, 0);
-            while( kbhit() == 0 )
+            while( _kbhit() == 0 )
             {
                 Sleep(100);
             }

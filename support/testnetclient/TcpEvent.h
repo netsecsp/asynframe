@@ -75,7 +75,7 @@ public:
                         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0,  0, 0, 0, PER_DATA_SIZE, &lpBuffer );
-                        sprintf((char *)lpBuffer, "%09d", m_lSeqno ++);
+                        sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
                         spAsynIoOperation->SetIoParams( 0, 10, 0 );
                         m_spAsynTcpSocket->Write( spAsynIoOperation, 0 );
                     }
@@ -117,7 +117,7 @@ public:
                     if( m_lSeqno > 20 ) return E_NOTIMPL;
                     unsigned char *lpBuffer;
                     lpAsynIoOperation->GetIoBuffer(0, 0, &lpBuffer);
-                    sprintf((char *)lpBuffer, "%09d", m_lSeqno ++);
+                    sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
                     return m_spAsynTcpSocket->Write(lpAsynIoOperation, 0);
                 }

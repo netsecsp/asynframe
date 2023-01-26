@@ -87,7 +87,7 @@ long setting::get_long(const std::string &section, const std::string &entry, lon
 void setting::set_long(const std::string &section, const std::string &entry, long value )
 {
     char out[16];
-    _ultoa(value, out, 10);
+    _ultoa_s(value, out, sizeof(out), 10);
 
     _values[section + entry] = out;
 }
@@ -108,7 +108,7 @@ bool setting::get_bool(const std::string &section, const std::string &entry, boo
 void setting::set_bool(const std::string &section, const std::string &entry, bool value)
 {
     char out[16];
-    _ultoa(value, out, 10);
+    _ultoa_s(value, out, sizeof(out), 10);
 
     _values[section + entry] = out;
 }

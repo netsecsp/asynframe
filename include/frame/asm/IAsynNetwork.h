@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Dec 06 10:45:40 2022
+/* at Wed Jan 18 10:39:51 2023
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -817,7 +817,7 @@ EXTERN_C const IID IID_IAsynRawSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynRawSocket * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -903,8 +903,8 @@ EXTERN_C const IID IID_IAsynRawSocket;
 #define IAsynRawSocket_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynRawSocket_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynRawSocket_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynRawSocket_Open(This,pAsynFrameThread,af,type,protocol)	\
@@ -1026,7 +1026,7 @@ EXTERN_C const IID IID_IAsynUdpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynUdpSocket * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -1119,8 +1119,8 @@ EXTERN_C const IID IID_IAsynUdpSocket;
 #define IAsynUdpSocket_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynUdpSocket_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynUdpSocket_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynUdpSocket_Open(This,pAsynFrameThread,af,type,protocol)	\
@@ -1361,7 +1361,7 @@ EXTERN_C const IID IID_IAsynTcpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynTcpSocket * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -1455,8 +1455,8 @@ EXTERN_C const IID IID_IAsynTcpSocket;
 #define IAsynTcpSocket_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynTcpSocket_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynTcpSocket_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynTcpSocket_Open(This,pAsynFrameThread,af,type,protocol)	\
@@ -1585,7 +1585,7 @@ EXTERN_C const IID IID_IAsynTcpSocketListener;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynTcpSocketListener * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -1682,8 +1682,8 @@ EXTERN_C const IID IID_IAsynTcpSocketListener;
 #define IAsynTcpSocketListener_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynTcpSocketListener_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynTcpSocketListener_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynTcpSocketListener_Open(This,pAsynFrameThread,af,type,protocol)	\
@@ -1916,7 +1916,7 @@ EXTERN_C const IID IID_IAsynMuxSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynMuxSocket * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -2019,8 +2019,8 @@ EXTERN_C const IID IID_IAsynMuxSocket;
 #define IAsynMuxSocket_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynMuxSocket_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynMuxSocket_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynMuxSocket_Open(This,pAsynFrameThread,af,type,protocol)	\
@@ -2186,10 +2186,9 @@ EXTERN_C const IID IID_IAsynNetwork;
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAppService **ppAppService) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE EnumLocalAdapter( 
+        virtual HRESULT STDMETHODCALLTYPE EnumLocalAddress( 
             /* [in] */ uint32_t iaf,
-            /* [in] */ uint32_t flags,
-            /* [in] */ IAsynMessageEvents *events) = 0;
+            /* [in] */ IStringVector *output) = 0;
         
     };
     
@@ -2261,11 +2260,10 @@ EXTERN_C const IID IID_IAsynNetwork;
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAppService **ppAppService);
         
-        HRESULT ( STDMETHODCALLTYPE *EnumLocalAdapter )( 
+        HRESULT ( STDMETHODCALLTYPE *EnumLocalAddress )( 
             IAsynNetwork * This,
             /* [in] */ uint32_t iaf,
-            /* [in] */ uint32_t flags,
-            /* [in] */ IAsynMessageEvents *events);
+            /* [in] */ IStringVector *output);
         
         END_INTERFACE
     } IAsynNetworkVtbl;
@@ -2315,8 +2313,8 @@ EXTERN_C const IID IID_IAsynNetwork;
 #define IAsynNetwork_CreateAppService(This,Owner,param1,param2,events,ppAppService)	\
     ( (This)->lpVtbl -> CreateAppService(This,Owner,param1,param2,events,ppAppService) ) 
 
-#define IAsynNetwork_EnumLocalAdapter(This,iaf,flags,events)	\
-    ( (This)->lpVtbl -> EnumLocalAdapter(This,iaf,flags,events) ) 
+#define IAsynNetwork_EnumLocalAddress(This,iaf,output)	\
+    ( (This)->lpVtbl -> EnumLocalAddress(This,iaf,output) ) 
 
 #endif /* COBJMACROS */
 

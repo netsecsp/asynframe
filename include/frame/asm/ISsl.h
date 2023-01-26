@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Dec 06 10:45:56 2022
+/* at Wed Jan 18 10:39:59 2023
  */
 /* Compiler settings for ISsl.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -87,8 +87,7 @@ EXTERN_C const IID IID_ISsl;
         virtual HRESULT STDMETHODCALLTYPE SetCryptContext( 
             /* [in] */ STRING *target,
             /* [in] */ handle pctx,
-            /* [in] */ STRING *cert,
-            /* [in] */ STRING *password) = 0;
+            /* [in] */ STRING *certandpasswd) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE VerifyPeerCertificate( 
             /* [in] */ handle pctx,
@@ -169,7 +168,7 @@ EXTERN_C const IID IID_ISsl;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             ISsl * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -205,8 +204,7 @@ EXTERN_C const IID IID_ISsl;
             ISsl * This,
             /* [in] */ STRING *target,
             /* [in] */ handle pctx,
-            /* [in] */ STRING *cert,
-            /* [in] */ STRING *password);
+            /* [in] */ STRING *certandpasswd);
         
         HRESULT ( STDMETHODCALLTYPE *VerifyPeerCertificate )( 
             ISsl * This,
@@ -267,8 +265,8 @@ EXTERN_C const IID IID_ISsl;
 #define ISsl_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define ISsl_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define ISsl_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define ISsl_Open(This,pAsynFrameThread,af,type,protocol)	\
@@ -284,8 +282,8 @@ EXTERN_C const IID IID_ISsl;
     ( (This)->lpVtbl -> SetSockopt(This,type,level,optname,optval) ) 
 
 
-#define ISsl_SetCryptContext(This,target,pctx,cert,password)	\
-    ( (This)->lpVtbl -> SetCryptContext(This,target,pctx,cert,password) ) 
+#define ISsl_SetCryptContext(This,target,pctx,certandpasswd)	\
+    ( (This)->lpVtbl -> SetCryptContext(This,target,pctx,certandpasswd) ) 
 
 #define ISsl_VerifyPeerCertificate(This,pctx,flags)	\
     ( (This)->lpVtbl -> VerifyPeerCertificate(This,pctx,flags) ) 

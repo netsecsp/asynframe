@@ -46,8 +46,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "log/Logger.h"
 #include "app/String.h"
 #include "app/StringSetter.h"
-#include "app/StringsStack.h"
+#include "app/StringVector.h"
 #include "app/KeyvalSetter.h"
+#include "app/StringStack.h"
 #include "app/AsynMessageEvents.h"
 NAMESPACE_BEGIN(asynsdk)
 
@@ -60,7 +61,7 @@ NAMESPACE_BEGIN(asynsdk)
         UE_##label,
 
 #define END_ASYN_IOERROR() \
-    };
+   };
 
 /////////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ObjectIdStart
@@ -84,12 +85,13 @@ typedef enum tag_ObjectIdStart
 #define IN_Evtthreadpool                "evtthreadpool"
 #define IN_Opsthreadpool                "opsthreadpool"
 #define IN_Netthreadpool                "netthreadpool"
-#define IN_SysArgv                      "sysargv" //获取系统参数
-#define IN_SysRoot                      "sysroot" //获取系统路径
-#define IN_AppData                      "appdata" //获取数据路径
+#define IN_SysArgv                      "sysargv" //系统参数
+#define IN_SysRoot                      "sysroot" //系统路径
+#define IN_AppData                      "appdata" //数据路径
 #define IN_SysInfo                      "sysinfo"
 #define IN_SysTime                      "systime"
 #define IN_MemData                      "memdata"
+#define IN_LogProp                      "logprop" //log4cplus配置的全路径
 
 #define IN_Instancesmanager             "instancesmanager" //used for lua
 
@@ -220,6 +222,13 @@ typedef struct tag_OSBUFFER_IOAREA
     uint32_t lMaxIoNum; //(r)
     STRING  *iovectors; //(r)
 } OSBUFFER_IOAREA;
+
+typedef struct tag_FRAMEAPI
+{
+    const char *ident; //接口标识
+    int         ftype; //地址类型
+    void *symbol;      //接口地址
+} FRAMEAPI;
 /////////////////////////////////////////////////////////////////////////////////
 #pragma pack(pop)
 

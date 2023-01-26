@@ -18,7 +18,11 @@ extern "C" {
 #endif
 
 #ifndef _LIB //只有动态链接库才生效
+#ifdef _DEBUG
 #pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #endif
 #pragma comment(lib, "lua_dll.lib")
 

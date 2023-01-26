@@ -45,7 +45,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "TcpEvent.h"
 
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -73,9 +77,9 @@ int _tmain(int argc, _TCHAR *argv[])
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         CTcpEvent *pEvent = new CTcpEvent( spAsynNetwork, spAsynFrameThread);
-        if( pEvent->Start(argc<=1? 1554 : atol(argv[1]), argc<=2? 0 : strcmp(argv[2], "http") == 0) )
+        if( pEvent->Start(argc<=1? 1554 : atoi(argv[1]), argc<=2? 0 : strcmp(argv[2], "http") == 0) )
         {
-            while( kbhit() == 0 )
+            while( _kbhit() == 0 )
             {
                 Sleep(100);
             }

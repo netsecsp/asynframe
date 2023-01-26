@@ -144,7 +144,7 @@ public:
         }
         std::string schema = url.substr(0, pos1);
         pos1 += 3/*skip "://" */;
-        strlwr((char *)schema.c_str());
+        _strlwr_s((char *)schema.c_str(), schema.size());
         if( schema != "ws" && schema != "wss" )
         {
             printf("invalid schema: %s\n", url.c_str());

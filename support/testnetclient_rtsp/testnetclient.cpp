@@ -45,7 +45,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "TcpEvent.h"
 
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -76,7 +80,7 @@ int _tmain(int argc, _TCHAR *argv[])
         if( pEvent->Connect(argc<=1? "rtsp://127.0.0.1:1554/1.mp4" : argv[1], argc<=2? 0 : strcmp(argv[2], "http") == 0) )
         {
             while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                   kbhit() == 0 )
+                   _kbhit() == 0 )
             {
                 Sleep(100);
             }

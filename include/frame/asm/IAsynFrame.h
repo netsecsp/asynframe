@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Dec 06 10:45:37 2022
+/* at Wed Jan 18 10:39:48 2023
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -44,13 +44,6 @@
 #endif
 
 /* Forward Declarations */ 
-
-#ifndef __IKeyvalSetter_FWD_DEFINED__
-#define __IKeyvalSetter_FWD_DEFINED__
-typedef interface IKeyvalSetter IKeyvalSetter;
-
-#endif 	/* __IKeyvalSetter_FWD_DEFINED__ */
-
 
 #ifndef __IObjectHolder_FWD_DEFINED__
 #define __IObjectHolder_FWD_DEFINED__
@@ -242,12 +235,11 @@ extern "C"{
 
 
 #define AF_EVENT_SYSTEM (  0  )
-#define AF_EVENT_WINDOW (  1  )
+#define AF_CTASK_NOTIFY (  1  )
 #define AF_TIMER        (  2  )
-#define AF_EVENT_NOTIFY (  5  )
-#define AF_QUERY_RESULT (  6  )
-#define AF_IOMSG_NOTIFY (  7  )
-#define AF_DATATRANSMIT (  8  )
+#define AF_IOMSG_NOTIFY (  5  )
+#define AF_EVENT_NOTIFY (  6  )
+#define AF_QUERY_RESULT (  7  )
 #define AF_EVENT_APPID1 (10000)
 #define AF_EVENT_APPID2 (10001)
 #define AF_EVENT_APPID3 (10002)
@@ -257,154 +249,6 @@ extern "C"{
 
 extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0000_v0_0_c_ifspec;
 extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0000_v0_0_s_ifspec;
-
-#ifndef __IKeyvalSetter_INTERFACE_DEFINED__
-#define __IKeyvalSetter_INTERFACE_DEFINED__
-
-/* interface IKeyvalSetter */
-/* [unique][helpstring][uuid][object] */ 
-
-
-EXTERN_C const IID IID_IKeyvalSetter;
-
-#if defined(__cplusplus) && !defined(CINTERFACE)
-    
-    MIDL_INTERFACE("92552692-3635-4e41-AF63-D921E0CEE6D4")
-    IKeyvalSetter : public IUnknown
-    {
-    public:
-        virtual HRESULT STDMETHODCALLTYPE Get( 
-            /* [in] */ STRING Key,
-            /* [in] */ uint32_t Index,
-            /* [in] */ BOOL Remove,
-            /* [in] */ IStringSetter *value) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Set( 
-            /* [in] */ STRING Key,
-            /* [in] */ BOOL Multi,
-            /* [in] */ STRING value) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Del( 
-            /* [in] */ STRING Key,
-            /* [in] */ uint32_t Index) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Has( 
-            /* [in] */ STRING Key,
-            /* [out] */ uint32_t *Count) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Format( 
-            /* [in] */ STRING Sep,
-            /* [in] */ STRING End,
-            /* [out][in] */ STRING *out) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Travel( 
-            /* [in] */ IUnknown *pParams) = 0;
-        
-    };
-    
-    
-#else 	/* C style interface */
-
-    typedef struct IKeyvalSetterVtbl
-    {
-        BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IKeyvalSetter * This,
-            /* [in] */ REFIID riid,
-            /* [annotation][iid_is][out] */ 
-            _COM_Outptr_  void **ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IKeyvalSetter * This);
-        
-        ULONG ( STDMETHODCALLTYPE *Release )( 
-            IKeyvalSetter * This);
-        
-        HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IKeyvalSetter * This,
-            /* [in] */ STRING Key,
-            /* [in] */ uint32_t Index,
-            /* [in] */ BOOL Remove,
-            /* [in] */ IStringSetter *value);
-        
-        HRESULT ( STDMETHODCALLTYPE *Set )( 
-            IKeyvalSetter * This,
-            /* [in] */ STRING Key,
-            /* [in] */ BOOL Multi,
-            /* [in] */ STRING value);
-        
-        HRESULT ( STDMETHODCALLTYPE *Del )( 
-            IKeyvalSetter * This,
-            /* [in] */ STRING Key,
-            /* [in] */ uint32_t Index);
-        
-        HRESULT ( STDMETHODCALLTYPE *Has )( 
-            IKeyvalSetter * This,
-            /* [in] */ STRING Key,
-            /* [out] */ uint32_t *Count);
-        
-        HRESULT ( STDMETHODCALLTYPE *Format )( 
-            IKeyvalSetter * This,
-            /* [in] */ STRING Sep,
-            /* [in] */ STRING End,
-            /* [out][in] */ STRING *out);
-        
-        HRESULT ( STDMETHODCALLTYPE *Travel )( 
-            IKeyvalSetter * This,
-            /* [in] */ IUnknown *pParams);
-        
-        END_INTERFACE
-    } IKeyvalSetterVtbl;
-
-    interface IKeyvalSetter
-    {
-        CONST_VTBL struct IKeyvalSetterVtbl *lpVtbl;
-    };
-
-    
-
-#ifdef COBJMACROS
-
-
-#define IKeyvalSetter_QueryInterface(This,riid,ppvObject)	\
-    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
-
-#define IKeyvalSetter_AddRef(This)	\
-    ( (This)->lpVtbl -> AddRef(This) ) 
-
-#define IKeyvalSetter_Release(This)	\
-    ( (This)->lpVtbl -> Release(This) ) 
-
-
-#define IKeyvalSetter_Get(This,Key,Index,Remove,value)	\
-    ( (This)->lpVtbl -> Get(This,Key,Index,Remove,value) ) 
-
-#define IKeyvalSetter_Set(This,Key,Multi,value)	\
-    ( (This)->lpVtbl -> Set(This,Key,Multi,value) ) 
-
-#define IKeyvalSetter_Del(This,Key,Index)	\
-    ( (This)->lpVtbl -> Del(This,Key,Index) ) 
-
-#define IKeyvalSetter_Has(This,Key,Count)	\
-    ( (This)->lpVtbl -> Has(This,Key,Count) ) 
-
-#define IKeyvalSetter_Format(This,Sep,End,out)	\
-    ( (This)->lpVtbl -> Format(This,Sep,End,out) ) 
-
-#define IKeyvalSetter_Travel(This,pParams)	\
-    ( (This)->lpVtbl -> Travel(This,pParams) ) 
-
-#endif /* COBJMACROS */
-
-
-#endif 	/* C style interface */
-
-
-
-
-#endif 	/* __IKeyvalSetter_INTERFACE_DEFINED__ */
-
 
 #ifndef __IObjectHolder_INTERFACE_DEFINED__
 #define __IObjectHolder_INTERFACE_DEFINED__
@@ -2412,7 +2256,7 @@ EXTERN_C const IID IID_IAsynIoDevice;
             /* [in] */ uint32_t level) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Clone( 
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject) = 0;
         
@@ -2491,7 +2335,7 @@ EXTERN_C const IID IID_IAsynIoDevice;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynIoDevice * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -2549,8 +2393,8 @@ EXTERN_C const IID IID_IAsynIoDevice;
 #define IAsynIoDevice_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynIoDevice_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynIoDevice_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 #endif /* COBJMACROS */
 
@@ -2720,7 +2564,7 @@ EXTERN_C const IID IID_IAsynFrame;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynIoOperation( 
             /* [in] */ uint32_t lparam1,
-            /* [in] */ uint32_t lparam2,
+            /* [in] */ uint32_t unused,
             /* [out] */ IAsynIoOperation **ppAsynIoOperation) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CancelAsynIoOperation( 
@@ -2810,7 +2654,7 @@ EXTERN_C const IID IID_IAsynFrame;
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynFrame * This,
             /* [in] */ uint32_t lparam1,
-            /* [in] */ uint32_t lparam2,
+            /* [in] */ uint32_t unused,
             /* [out] */ IAsynIoOperation **ppAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *CancelAsynIoOperation )( 
@@ -2882,8 +2726,8 @@ EXTERN_C const IID IID_IAsynFrame;
 #define IAsynFrame_NewIoBuffer(This,ppBuffer)	\
     ( (This)->lpVtbl -> NewIoBuffer(This,ppBuffer) ) 
 
-#define IAsynFrame_CreateAsynIoOperation(This,lparam1,lparam2,ppAsynIoOperation)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,lparam1,lparam2,ppAsynIoOperation) ) 
+#define IAsynFrame_CreateAsynIoOperation(This,lparam1,unused,ppAsynIoOperation)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,lparam1,unused,ppAsynIoOperation) ) 
 
 #define IAsynFrame_CancelAsynIoOperation(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> CancelAsynIoOperation(This,pAsynIoOperation) ) 
@@ -2936,6 +2780,13 @@ EXTERN_C const IID IID_IAsynFrameThread;
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE PostTask( 
+            /* [in] */ IUnknown *pOwner,
+            /* [in] */ IUnknown **param1,
+            /* [in] */ STRING param2,
+            /* [in] */ IUnknown *object,
+            /* [out] */ IUnknown **ppTask) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE SendAsynIoOperation( 
             /* [in] */ IAsynIoOperation *pDstAsynIoOperation) = 0;
@@ -3007,6 +2858,14 @@ EXTERN_C const IID IID_IAsynFrameThread;
             /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object);
         
+        HRESULT ( STDMETHODCALLTYPE *PostTask )( 
+            IAsynFrameThread * This,
+            /* [in] */ IUnknown *pOwner,
+            /* [in] */ IUnknown **param1,
+            /* [in] */ STRING param2,
+            /* [in] */ IUnknown *object,
+            /* [out] */ IUnknown **ppTask);
+        
         HRESULT ( STDMETHODCALLTYPE *SendAsynIoOperation )( 
             IAsynFrameThread * This,
             /* [in] */ IAsynIoOperation *pDstAsynIoOperation);
@@ -3070,6 +2929,9 @@ EXTERN_C const IID IID_IAsynFrameThread;
 
 #define IAsynFrameThread_Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object)	\
     ( (This)->lpVtbl -> Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object) ) 
+
+#define IAsynFrameThread_PostTask(This,pOwner,param1,param2,object,ppTask)	\
+    ( (This)->lpVtbl -> PostTask(This,pOwner,param1,param2,object,ppTask) ) 
 
 #define IAsynFrameThread_SendAsynIoOperation(This,pDstAsynIoOperation)	\
     ( (This)->lpVtbl -> SendAsynIoOperation(This,pDstAsynIoOperation) ) 
@@ -3442,14 +3304,14 @@ EXTERN_C const IID IID_IAsynFramePlugin;
 #endif 	/* __IAsynFramePlugin_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_IAsynFrame_0000_0024 */
+/* interface __MIDL_itf_IAsynFrame_0000_0023 */
 /* [local] */ 
 
 #pragma pack(pop)
 
 
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0024_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0024_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0023_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0023_v0_0_s_ifspec;
 
 /* Additional Prototypes for ALL interfaces */
 

@@ -41,7 +41,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifdef  AAPIDLL_USING
+#ifdef _DEBUG
 #pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib, "asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -73,6 +77,65 @@ static BYTE B2H( char ch )
     {
         return 0;
     }
+}
+
+//https://blog.csdn.net/weixin_36212459/article/details/117078475
+static void WindowCapture(InstancesManager *lpInstancesManager, HWND hWnd, const std::string &file, int gray)
+{
+    //MONITORINFOEX mi; memset(&mi, 0, sizeof(mi)); mi.cbSize = sizeof(MONITORINFOEX);
+    //GetMonitorInfo(0, &mi);
+
+    // Get the device context for this monitor
+    //hDC = CreateDC(_T("DISPLAY"), mi.szDevice, NULL, NULL);
+
+    int w = 2880;
+    int h = 1604;
+
+    CComPtr<IDataTransmit> target;
+    asynsdk::CStringSetter File(file);
+    target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, ("file?gray=" + std::to_string(gray) + "&w=" + std::to_string(w) + "&h=" + std::to_string(h)).c_str(), &File, 0, file.find(".bmp") != std::string::npos ? 1 : (file.find(".jpg") != std::string::npos ? 3 : (file.find(".png") != std::string::npos ? 2 : 0))));
+
+    HDC hWndDC = GetDC(hWnd);   //获得屏幕的HDC.
+    HDC hMemDC = CreateCompatibleDC(hWndDC);
+
+    HBITMAP hBitmap = CreateCompatibleBitmap(hWndDC, w, h);//改成创建的幕布的大小。
+    HGDIOBJ hOldBMP = SelectObject(hMemDC, hBitmap);
+
+    BITMAPINFO bmi; memset(&bmi.bmiHeader, 0, sizeof(BITMAPINFOHEADER));
+    bmi.bmiHeader.biSize     = sizeof(BITMAPINFOHEADER); 
+    bmi.bmiHeader.biWidth    = w;
+    bmi.bmiHeader.biHeight   =-h; //biHeight>0自下而上DIB的原点为位图的左下角，biHeight<0自上而下DIB的原点为其左上角。
+    bmi.bmiHeader.biPlanes   = 1;
+    bmi.bmiHeader.biBitCount =24; //24-BGR, 32-BGRA
+    bmi.bmiHeader.biCompression = BI_RGB;
+
+    //int screenx = GetSystemMetrics(SM_CXSCREEN);
+    //int screeny = GetSystemMetrics(SM_CYSCREEN);
+
+    // This is the best stretch mode.
+    //SetStretchBltMode(hWndDC, HALFTONE);
+    //::StretchBlt(hMemDC, 0, 0, w, h, hWndDC, 0, 0, w, h, SRCCOPY | 0x40000000/*CAPTUREBLT*/);
+    BitBlt(hMemDC, 0, 0, w, h, hWndDC, 0, 0, SRCCOPY | 0x40000000/*CAPTUREBLT*/);
+
+    int v = ((w + 3) >> 2) << 2;
+    #if  0
+    BYTE *pRowBits = new BYTE[v * 3];
+    asynsdk::CMemorySetter row(pRowBits, v * 3);
+    for(int i = h; i > 0; -- i)
+    {
+        ::GetDIBits(hMemDC, hBitmap, h - i, 1, pRowBits, &bmi, DIB_RGB_COLORS);
+        target->Write(&row, 0, i);
+    }
+    #else
+    BYTE *imageptr = new BYTE[v * 3 * h];
+    asynsdk::CMemorySetter row(imageptr, v * 3);
+    ::GetDIBits(hMemDC, hBitmap, 0, h, imageptr, &bmi, DIB_RGB_COLORS);
+    target->Write(&row, 0, 0);
+    #endif
+
+    SelectObject(hMemDC, hOldBMP);
+    DeleteObject(hMemDC);
+    ReleaseDC(hWnd, hWndDC);
 }
 
 int _tmain(int argc, _TCHAR *argv[])
@@ -108,19 +171,19 @@ int _tmain(int argc, _TCHAR *argv[])
 
         CAsynFrameHandler *pEvent = new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread);
         if( argc == 1 || strcmp(argv[1], "timer") == 0 )
-        {
+        {// timer 1000 0/2
             uint32_t elapse = argc < 3 ? 1000 : atol(argv[2]);
             LOGGER_INFO(logger, "Create Timer: " << elapse);
             pEvent->m_spOsTime->GetTickcount(&pEvent->s);
             pEvent->m_spAsynFrame->CreateTimer(1, 2, elapse, TRUE);
             
-            while( kbhit() == 0 )
+            while( _kbhit() == 0 )
             {
                 Sleep(100);
             }
         }
         else if( strcmp(argv[1], "ops") == 0 )
-        {
+        {// ops 0/1
             if( argc <=2 || atoi(argv[2]) == 0 )
             {
                 printf("Post %d\n", AF_EVENT_APPID1);
@@ -134,18 +197,18 @@ int _tmain(int argc, _TCHAR *argv[])
                 printf("Send ok\n");
             }
             
-            while( kbhit() == 0 )
+            while( _kbhit() == 0 )
             {
                 Sleep(100);
             }
         }
         else if( strcmp(argv[1], "zipfile") == 0 )
-        {
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "1.zip");
+        {// zipfile test.zip
+            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.zip");
             spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", &name, 0, 0));
 
             BYTE tmp[1024]; 
-            FILE *f1 = fopen(".\\1.txt", "rb");
+            FILE *f1 = 0; fopen_s(&f1, ".\\1.txt", "rb");
             if( f1 )
             {
                 asynsdk::CStringSetter v(1, ".\\scripts\\1.txt");
@@ -155,7 +218,7 @@ int _tmain(int argc, _TCHAR *argv[])
                 spDataTransmit->Write(0, tmp, l);
                 fclose(f1);
             }
-            FILE *f2 = fopen(".\\2.txt", "rb");
+            FILE* f2 = 0; fopen_s(&f2, ".\\2.txt", "rb");
             if( f2 )
             {
                 asynsdk::CStringSetter v(1, ".\\scripts\\2.txt");
@@ -167,8 +230,8 @@ int _tmain(int argc, _TCHAR *argv[])
             }
         }
         else if( strcmp(argv[1], "zipencoder") == 0 )
-        {
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "e.zip");
+        {// zipencoder test.zip
+            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.zip");
             CComPtr<IDataTransmit> target;
             target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0, 0));
 
@@ -179,8 +242,8 @@ int _tmain(int argc, _TCHAR *argv[])
             spDataTransmit->Write(0, 0, 0); //1F8B080000000000000A33343236313533B7B03448840300E77A6FFA14000000
         }
         else if( strcmp(argv[1], "zipdecoder") == 0 )
-        {
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "d.txt");
+        {// zipdecoder test.txt
+            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.txt");
             CComPtr<IDataTransmit> target;
             target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0, 0));
 
@@ -195,8 +258,12 @@ int _tmain(int argc, _TCHAR *argv[])
             spDataTransmit->Write(0, b, n);
             spDataTransmit->Write(0, 0, 0);
         }
+        else if( strcmp(argv[1], "capture") == 0 )
+        {// capture test.bmp
+            WindowCapture(lpInstancesManager, GetDesktopWindow(), argc>2? argv[2] : "test.bmp", argc>3? atoi(argv[3]) : 0);
+        }
         else if( strcmp(argv[1], "sqlite") == 0 )
-        {
+        {// sqlite test.db
             asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.db");
             spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "sqlite", 0, &name, 0));
 
@@ -218,7 +285,7 @@ int _tmain(int argc, _TCHAR *argv[])
             spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "cmd", spThreadpool, 0, 0));
             spCommand->Execute(0, STRING_from_string(argv[1]), 0, 0, 0, spAsynIoOperation);
             
-            while( kbhit() == 0 )
+            while( _kbhit() == 0 )
             {
                 Sleep(100);
             }

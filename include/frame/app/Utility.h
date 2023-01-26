@@ -65,6 +65,10 @@ void   *AcquireBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in, out]*/uint32_t 
 bool    ReleaseBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in ]*/void *addr);
 
 ///////////////////////////////////////////////////////////////////////////////
+//检测是否ISsl
+bool    IsSslSocket  (IUnknown *pSocket);
+
+///////////////////////////////////////////////////////////////////////////////
 //建立消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events=0，pParam1!=0表示建立窗口线程循环泵, 允许events=0, 注意: 不能用于模态对话框
 void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/uint32_t unused, /*[in ]*/asyn_message_events_base *events);
 
@@ -82,10 +86,6 @@ IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManage
 ///////////////////////////////////////////////////////////////////////////////
 //获取frame 目录
 std::string GetFrameFolderDirectory(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/bool data, /*[in ]*/uint32_t nDstCodepage = 0); //nDstCodepage=0[CP_ACP]表示ansi
-
-///////////////////////////////////////////////////////////////////////////////
-//检测是否ISsl
-bool     IsSslSocket(IUnknown *pSocket);
 
 ///////////////////////////////////////////////////////////////////////////////
 //转换编码格式

@@ -47,7 +47,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "windows.h"
 
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -76,7 +80,7 @@ int _tmain(int argc, _TCHAR *argv[])
         CTcpEvent *pEvent = new CTcpEvent(spAsynNetwork, spAsynFrameThread);
         if( pEvent->Start(argc>1? atoi(argv[1]) : 7675, argc>2? atoi(argv[2]) : 0, argc>3? argv[3] : "") )
         {
-            while( kbhit() == 0 )
+            while( _kbhit() == 0 )
             {
                 Sleep(100);
             }

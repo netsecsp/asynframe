@@ -44,7 +44,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "IpcsEvent.h"
 
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -75,7 +79,7 @@ int _tmain(int argc, _TCHAR *argv[])
         if( pEvent->Connect(argc > 2 ? argv[2] : "server", atol(argv[1])))
         {
             while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                   kbhit() == 0 )
+                   _kbhit() == 0 )
             {
                 Sleep(100);
             }

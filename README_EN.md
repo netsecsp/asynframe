@@ -1,4 +1,4 @@
-## Asynframe framework v1.3.1 english | [中文](/README.md)
+## Asynframe framework v1.3.2 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -61,7 +61,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2022/12/06 Release asynframe framework v1.3.1  
+> 2023/01/20 Release asynframe framework v1.3.2  
 1. Crash explorer implements cross process output of stack information and dmp file when crashing  
 2. SSL fixes compatibility issues  
 3. Support plug-in upgrade  
@@ -70,8 +70,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0  
 
 # Build
-> sdk_v1.3-Msvc2019_20221206.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.3-Msvc2013_20221206.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.3-Msvc2019_20230120.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.3-Msvc2013_20230120.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  

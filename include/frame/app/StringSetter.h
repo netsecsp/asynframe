@@ -125,23 +125,10 @@ public: //interface of IStringSetter
     STDMETHOD(Set)( /*[in ]*/STRING  buf );
 
 public:
-    CObjectSetter *Set(const void *val, uint32_t len);
-    CObjectSetter *Clear()
-    {
-        {// clear
-            buffer = "";
-        }
-        if( object )
-        {
-            object->Release();
-            object = 0;
-        }
-        return this;
-    }
+    CObjectSetter *Set(IUnknown *o);
 
 public:
-    std::string buffer;
-    IUnknown   *object;
+    IUnknown *object;
 };
 
 class CMemorySetter :

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Dec 06 10:45:36 2022
+/* at Wed Jan 18 10:39:49 2023
  */
 /* Compiler settings for IAsynFileSystem.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -502,7 +502,7 @@ EXTERN_C const IID IID_IAsynRawDevice;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynRawDevice * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -570,8 +570,8 @@ EXTERN_C const IID IID_IAsynRawDevice;
 #define IAsynRawDevice_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynRawDevice_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynRawDevice_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynRawDevice_Open(This,pAsynFrameThread,Path,lDesiredAccess,lShareMode,pSecurityAttributes,lCreationDisposition,lFlagsAndAttributes)	\
@@ -688,7 +688,7 @@ EXTERN_C const IID IID_IAsynFile;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynFile * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -769,8 +769,8 @@ EXTERN_C const IID IID_IAsynFile;
 #define IAsynFile_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define IAsynFile_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define IAsynFile_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define IAsynFile_Open(This,pAsynFrameThread,Path,lDesiredAccess,lShareMode,pSecurityAttributes,lCreationDisposition,lFlagsAndAttributes)	\

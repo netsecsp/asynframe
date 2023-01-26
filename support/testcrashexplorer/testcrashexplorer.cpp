@@ -47,7 +47,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -263,7 +267,7 @@ int _tmain(int argc, _TCHAR *argv[])
         printf("\td - throw C++ typed exception\n");
         printf("\te - exit\n"); 
         printf("Your choice-> ");
-        scanf("%c", &ExceptionType);
+        scanf_s("%c", &ExceptionType, 1);
         }while((ExceptionType < '0' || ExceptionType > '9') && (ExceptionType < 'a' || ExceptionType > 'e'));
         EmulateCrash(ExceptionType);
     }

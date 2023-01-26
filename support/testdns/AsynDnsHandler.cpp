@@ -52,12 +52,11 @@ HRESULT CAsynDnsHandler::OnIomsgNotify( uint64_t lParam1, uint64_t lAction, IAsy
             break;
         }
 
-        CComPtr<IStringsStack> spDnsResult;
-        HRESULT r = lpAsynIoOperation->GetCompletedObject( TRUE, IID_IStringsStack, (void **)&spDnsResult );
+        CComPtr<IStringStack> spDnsResult;
+        HRESULT r = lpAsynIoOperation->GetCompletedObject( TRUE, IID_IStringStack, (void **)&spDnsResult );
         for(int i = 0; ; i ++)
         {
-            asynsdk::CStringSetter addr;
-            if (spDnsResult->Pop(&addr) != S_OK) break;
+            asynsdk::CStringSetter addr(1); if( spDnsResult->Pop(&addr) != S_OK ) break;
             printf("[%d]: %s\n", i, addr.m_val.c_str());
         }
         break;

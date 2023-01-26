@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Tue Dec 06 10:45:45 2022
+/* at Wed Jan 18 10:39:58 2023
  */
 /* Compiler settings for INet.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -331,7 +331,7 @@ EXTERN_C const IID IID_INet;
         
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             INet * This,
-            /* [in] */ IUnknown *pReserved,
+            /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
@@ -424,8 +424,8 @@ EXTERN_C const IID IID_INet;
 #define INet_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
 
-#define INet_Clone(This,pReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,pReserved,riid,ppObject) ) 
+#define INet_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
 
 
 #define INet_Open(This,pAsynFrameThread,af,type,protocol)	\

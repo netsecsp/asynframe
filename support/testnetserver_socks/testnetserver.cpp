@@ -47,7 +47,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "UdpEvent.h"
 
 #ifdef  AAPIDLL_USING
-#pragma comment(lib,"asynsdk_mini-MDd.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
+#else
+#pragma comment(lib, "asynsdk_mini-MD.lib")
+#endif
 #pragma comment(lib,"asyncore_dll.lib")
 #else
 #pragma comment(lib,"asynframe_lib.lib")
@@ -76,10 +80,10 @@ int _tmain(int argc, _TCHAR *argv[])
         if( argc<=2 || strcmp(argv[2], "tcp") == 0 )
         {
             CTcpEvent *pEvent = new CTcpEvent( spAsynFrameThread, spAsynNetwork, argc <= 3 || strcmp(argv[3], "ipv4") == 0 ? AF_INET : 23);
-            if( pEvent->Start(argc<=1? 7675 : atol(argv[1])) )
+            if( pEvent->Start(argc<=1? 7675 : atoi(argv[1])) )
             {
                 while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                       kbhit() == 0 )
+                       _kbhit() == 0 )
                 {
                     Sleep(100);
                 }
@@ -90,10 +94,10 @@ int _tmain(int argc, _TCHAR *argv[])
         else
         {
             CUdpEvent *pEvent = new CUdpEvent( spAsynFrameThread, spAsynNetwork, argc <= 3 || strcmp(argv[3], "ipv4") == 0 ? AF_INET : 23 );
-            if( pEvent->Start(argc<=1? 7675 : atol(argv[1])) )
+            if( pEvent->Start(argc<=1? 7675 : atoi(argv[1])) )
             {
                 while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                       kbhit() == 0 )
+                       _kbhit() == 0 )
                 {
                     Sleep(100);
                 }
