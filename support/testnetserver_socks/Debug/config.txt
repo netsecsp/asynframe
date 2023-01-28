@@ -1,5 +1,5 @@
 [proxy]
-#´úÀíÅäÖÃ
+#ä»£ç†é…ç½®
 #none/http1.1/socks4.0 4.a 5.0
 protocol=socks
 version=5.0

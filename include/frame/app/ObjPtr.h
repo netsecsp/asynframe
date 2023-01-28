@@ -78,7 +78,7 @@ public:
         p = v;
     }
     // Detach the interface (does not Release)
-    T  *Detach()
+    T   *Detach()
     {
         T *t = p;
         p = NULL;
@@ -86,9 +86,9 @@ public:
     }
 
     template<class C>
-    C  *Docast()
+    C    Docast()
     {
-        return static_cast<C *>(p);
+        return static_cast<C>(p);
     }
 
     void Swap(CObjPtr<T> &v)
@@ -97,7 +97,7 @@ public:
     }
 
 public:
-    T  *From(IUnknown *v)
+    T   *From(IUnknown *v)
     {
         if( p )
         {

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Wed Jan 18 10:39:48 2023
+/* at Sat Jan 28 08:50:47 2023
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -2783,8 +2783,8 @@ EXTERN_C const IID IID_IAsynFrameThread;
         
         virtual HRESULT STDMETHODCALLTYPE PostTask( 
             /* [in] */ IUnknown *pOwner,
-            /* [in] */ IUnknown **param1,
-            /* [in] */ STRING param2,
+            /* [in] */ IUnknown **pParam1,
+            /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object,
             /* [out] */ IUnknown **ppTask) = 0;
         
@@ -2861,8 +2861,8 @@ EXTERN_C const IID IID_IAsynFrameThread;
         HRESULT ( STDMETHODCALLTYPE *PostTask )( 
             IAsynFrameThread * This,
             /* [in] */ IUnknown *pOwner,
-            /* [in] */ IUnknown **param1,
-            /* [in] */ STRING param2,
+            /* [in] */ IUnknown **pParam1,
+            /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object,
             /* [out] */ IUnknown **ppTask);
         
@@ -2930,8 +2930,8 @@ EXTERN_C const IID IID_IAsynFrameThread;
 #define IAsynFrameThread_Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object)	\
     ( (This)->lpVtbl -> Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object) ) 
 
-#define IAsynFrameThread_PostTask(This,pOwner,param1,param2,object,ppTask)	\
-    ( (This)->lpVtbl -> PostTask(This,pOwner,param1,param2,object,ppTask) ) 
+#define IAsynFrameThread_PostTask(This,pOwner,pParam1,lparam2,object,ppTask)	\
+    ( (This)->lpVtbl -> PostTask(This,pOwner,pParam1,lparam2,object,ppTask) ) 
 
 #define IAsynFrameThread_SendAsynIoOperation(This,pDstAsynIoOperation)	\
     ( (This)->lpVtbl -> SendAsynIoOperation(This,pDstAsynIoOperation) ) 
