@@ -65,19 +65,23 @@ int _tmain(int argc, _TCHAR *argv[])
 
     HRESULT hr1 = Initialize(NULL, NULL);
 
-    {
+    do{
         InstancesManager *pInstancesManager = GetInstancesManager();
 
-        CComPtr<IAsynFrameThread > spAsynFrameThread;
-        pInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
-
-        pInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0);
+        if( pInstancesManager->Require(STRING_from_string(IN_AsynNetwork)) != S_OK )
+        {
+            printf("can't load plugin: %s\n", IN_AsynNetwork);
+            break;
+        }
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
         pInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
 
         CComPtr<IAsynDnsResolver> spAsynDnsResolver;
         spAsynNetwork->CreateAsynDnsResolver(STRING_from_string("dns"), 0, STRING_from_string(puri), 0, &spAsynDnsResolver);
+
+        CComPtr<IAsynFrameThread > spAsynFrameThread;
+        pInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         CAsynDnsHandler *pEvent = new CAsynDnsHandler(spAsynFrameThread, spAsynNetwork);
         if( pEvent->Start(spAsynDnsResolver, host, strcmp(ipvx, "ipv4") == 0 ? AF_INET : 23) )
@@ -90,7 +94,7 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         pEvent->Shutdown();
         delete pEvent;
-    }
+    }while(0);
 
     HRESULT hr2 = Destory();
     return 0;

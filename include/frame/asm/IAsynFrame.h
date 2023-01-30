@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 28 08:50:47 2023
+/* at Sun Jan 29 15:12:31 2023
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -3090,8 +3090,7 @@ EXTERN_C const IID IID_InstancesManager;
             /* [in] */ IUnknown *lpObject) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Require( 
-            /* [in] */ STRING Owner,
-            /* [out] */ IUnknown **ppObject) = 0;
+            /* [in] */ STRING Owner) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Observe( 
             /* [in] */ handle Soctx) = 0;
@@ -3144,8 +3143,7 @@ EXTERN_C const IID IID_InstancesManager;
         
         HRESULT ( STDMETHODCALLTYPE *Require )( 
             InstancesManager * This,
-            /* [in] */ STRING Owner,
-            /* [out] */ IUnknown **ppObject);
+            /* [in] */ STRING Owner);
         
         HRESULT ( STDMETHODCALLTYPE *Observe )( 
             InstancesManager * This,
@@ -3187,8 +3185,8 @@ EXTERN_C const IID IID_InstancesManager;
 #define InstancesManager_SetInstance(This,Name,lpObject)	\
     ( (This)->lpVtbl -> SetInstance(This,Name,lpObject) ) 
 
-#define InstancesManager_Require(This,Owner,ppObject)	\
-    ( (This)->lpVtbl -> Require(This,Owner,ppObject) ) 
+#define InstancesManager_Require(This,Owner)	\
+    ( (This)->lpVtbl -> Require(This,Owner) ) 
 
 #define InstancesManager_Observe(This,Soctx)	\
     ( (This)->lpVtbl -> Observe(This,Soctx) ) 

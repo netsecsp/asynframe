@@ -61,10 +61,15 @@ int _tmain(int argc, _TCHAR *argv[])
     asynsdk::CStringSetter fileconf(1, "config.ini");
     HRESULT hr1 = Initialize(NULL, &fileconf);
 
-    {
+    do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        HRESULT r = lpInstancesManager->Require( STRING_from_string(IN_Console), 0 );
+        if( lpInstancesManager->Require(STRING_from_string(IN_Console)) != S_OK )
+        {
+            printf("can't load plugin: %s\n", IN_Console);
+            break;
+        }
+
         CComPtr<IConsole> console;
         lpInstancesManager->GetInstance(STRING_from_string(IN_Console), IID_IConsole, (void **)&console);
 
@@ -89,7 +94,8 @@ int _tmain(int argc, _TCHAR *argv[])
         };
 
         asynsdk::DoMessageLoop(lpInstancesManager, 0, 0, &e(console));
-    }
+    }while(0);
+
     HRESULT hr2 = Destory();
     return 0;
 }

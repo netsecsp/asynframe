@@ -150,10 +150,10 @@ int _tmain(int argc, _TCHAR *argv[])
         #endif
 
         //×Ô¶¯¼ÓÔØasynfile/asynsock
-        HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem), 0);
+        HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem));
         LOGGER_INFO(logger, "Require: name=" << IN_AsynFileSystem << (r1 == 0 ? " ok" : " no"));
 
-        HRESULT r2 = lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0);
+        HRESULT r2 = lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork));
         LOGGER_INFO(logger, "Require: name=" << IN_AsynNetwork << (r2 == 0 ? " ok" : " no"));
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;

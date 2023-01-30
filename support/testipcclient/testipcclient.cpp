@@ -64,10 +64,15 @@ int _tmain(int argc, _TCHAR *argv[])
     if( argc < 2 ) return 0;
 
     HRESULT hr1 = Initialize(NULL, NULL);
-    {
+
+    do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        lpInstancesManager->Require(STRING_from_string(IN_AsynIpcChannel), 0);
+        if( lpInstancesManager->Require(STRING_from_string(IN_AsynIpcChannel)) != S_OK )
+        {
+            printf("can't load plugin: %s\n", IN_AsynIpcChannel);
+            break;
+        }
 
         CComPtr<IAsynIpcChannel > spAsynIpcsChannel;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynIpcChannel), IID_IAsynIpcChannel, (void **)&spAsynIpcsChannel);
@@ -86,7 +91,7 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         pEvent->Shutdown();
         delete pEvent;
-    }
+    }while(0);
 
     HRESULT hr2 = Destory();
     return 0;

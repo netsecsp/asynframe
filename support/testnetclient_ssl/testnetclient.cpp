@@ -116,10 +116,14 @@ int _tmain(int argc, _TCHAR *argv[])
 
     HRESULT hr1 = Initialize(NULL, NULL);
 
-    {
+    do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0);
+        if( lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork)) != S_OK )
+        {
+            printf("can't load plugin: %s\n", IN_AsynNetwork);
+            break;
+        }
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
@@ -141,7 +145,7 @@ int _tmain(int argc, _TCHAR *argv[])
 
         pEvent->Shutdown();
         delete pEvent;
-    }
+    }while(0);
 
     HRESULT hr2 = Destory();
     return 0;

@@ -65,10 +65,15 @@ int _tmain(int argc, _TCHAR *argv[])
     const char *dstfile = argc > 2 ? argv[2] : "dst.dat";
 
     HRESULT hr1 = Initialize(NULL, NULL);
-    {
+
+    do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem), 0);
+        if( lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem)) != S_OK )
+        {
+            printf("can't load plugin: %s\n", IN_AsynFileSystem);
+            break;
+        }
 
         CComPtr<IAsynFileSystem  > spAsynFileSystem;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFileSystem), IID_IAsynFileSystem, (void **)&spAsynFileSystem);
@@ -111,7 +116,7 @@ int _tmain(int argc, _TCHAR *argv[])
             pEvent->Shutdown();
             delete pEvent;
         }
-    }
+    }while(0);
 
     HRESULT hr2 = Destory();
     return 0;
