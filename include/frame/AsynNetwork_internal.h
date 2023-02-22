@@ -1,6 +1,3 @@
-﻿// AsynNetwork_internal.h: interface.
-//
-/////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_ASYNNETWORK_INTERNAL_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)
 #define AFX_ASYNNETWORK_INTERNAL_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_
 /*****************************************************************************
@@ -59,6 +56,12 @@ END_ASYN_IOERROR()
 
 //IAsynNetwork.IObjectHolder(lType)
 #define DT_GetAsynTcplinkManager (100) //获取内部的IAsynTcplinkManager
+
+//IAppService.Control(action)
+#define ST_GetState              ( 3 ) //返回服务状态: 0-stopped 1-running 2-paused
+#define ST_ActStop               ( 0 )
+#define ST_ActStart              ( 1 )
+#define ST_ActPause              ( 2 )
 
 /////////////////////////////////////////////////////////////////////////////////
 //SetSockopt/GetSockopt的定义level

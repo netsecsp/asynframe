@@ -172,7 +172,7 @@ public:
     bool Start(handle pctx, STRING *certandpasswd, PORT port)
     {
         CComPtr<IAsynTcpSocketListener> spAsynInnSocket;
-        m_spAsynNetwork->CreateAsynTcpSocketListener(asynsdk::STRING_EX::null, &spAsynInnSocket);
+        m_spAsynNetwork->CreateAsynTcpSocketListener(0, &spAsynInnSocket);
 
         if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("ssl"), (IUnknown **)&spAsynInnSocket.p, STRING_from_string("tls/1.0"), &m_spAsynPtlSocket) != S_OK )
         {

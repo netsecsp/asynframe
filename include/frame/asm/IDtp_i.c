@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 28 08:50:55 2023
+/* at Fri Feb 17 09:29:54 2023
  */
 /* Compiler settings for IDtp.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -67,7 +67,7 @@ typedef IID CLSID;
 
 #endif !_MIDL_USE_GUIDDEF_
 
-MIDL_DEFINE_GUID(IID, IID_IDtp,0xECA80487,0xD902,0x441a,0xB7,0xDF,0x52,0xCE,0xE4,0x7D,0x13,0xAD);
+MIDL_DEFINE_GUID(IID, IID_IDtpService,0xECA80487,0xD902,0x441a,0xB7,0xDF,0x52,0xCE,0xE4,0x7D,0x13,0xAD);
 
 #undef MIDL_DEFINE_GUID
 

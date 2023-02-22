@@ -7,7 +7,8 @@
 #include <frame/AsynNetwork_internal.h>
 
 // CtestnetclientDlg 对话框
-class CtestnetclientDlg : public CDialogEx, public asynsdk::asyn_message_events_base
+class CtestnetclientDlg : public CDialogEx, 
+                          public asynsdk::asyn_message_events_base
 {
     // 构造
 public:
@@ -27,9 +28,9 @@ protected: //interface of asynsdk::asyn_message_events_base
     STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown **objects )
     {
         if( message == AF_EVENT_NOTIFY &&
-                lparam2 != 0 )
+            lparam2 != 0 )
         {
-            m_spAsynFrameThread = (IAsynFrameThread *)objects[0];
+            m_spAsynFrameThread = (IAsynFrameThread*)objects[0];
         }
         return E_NOTIMPL;
     }

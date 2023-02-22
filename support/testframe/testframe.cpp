@@ -177,7 +177,19 @@ int _tmain(int argc, _TCHAR *argv[])
             pEvent->m_spOsTime->GetTickcount(&pEvent->s);
             pEvent->m_spAsynFrame->CreateTimer(1, 2, elapse, TRUE);
             
-            while( _kbhit() == 0 )
+            while(_kbhit() == 0 )
+            {
+                Sleep(100);
+            }
+        }
+        else if( strcmp(argv[1], "task") == 0 ) {
+            asynsdk::CStringSetter  owner(1, "ras");
+            asynsdk::CStringSetter  dname(1, argc < 3? "vpn" : argv[2]);
+            IUnknown *params = &dname;
+            asynsdk::CStringVector result(1);
+            spAsynFrameThread->PostTask(&owner, &params, 0, &result, 0);
+            
+            while(_kbhit() == 0 )
             {
                 Sleep(100);
             }
@@ -197,7 +209,7 @@ int _tmain(int argc, _TCHAR *argv[])
                 printf("Send ok\n");
             }
             
-            while( _kbhit() == 0 )
+            while(_kbhit() == 0 )
             {
                 Sleep(100);
             }
@@ -285,7 +297,7 @@ int _tmain(int argc, _TCHAR *argv[])
             spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "cmd", spThreadpool, 0, 0));
             spCommand->Execute(0, STRING_from_string(argv[1]), 0, 0, 0, spAsynIoOperation);
             
-            while( _kbhit() == 0 )
+            while(_kbhit() == 0 )
             {
                 Sleep(100);
             }

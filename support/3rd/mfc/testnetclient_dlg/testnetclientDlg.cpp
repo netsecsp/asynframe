@@ -150,11 +150,12 @@ HCURSOR CtestnetclientDlg::OnQueryDragIcon()
 
 BOOL CtestnetclientDlg::ContinueModal()
 {
-    return CDialogEx::ContinueModal() || theApp.m_spThreadMessagePump && theApp.m_spThreadMessagePump->QueryStatus() == S_OK;
+    return CDialogEx::ContinueModal() || 
+           theApp.m_spThreadMessagePump && theApp.m_spThreadMessagePump->QueryStatus() == S_OK;
 }
 
 void CtestnetclientDlg::EndModalLoop(int nResult)
 {
     CDialogEx::EndModalLoop(nResult);
-    m_spAsynFrameThread = 0;
+    m_spAsynFrameThread = 0; //free
 }

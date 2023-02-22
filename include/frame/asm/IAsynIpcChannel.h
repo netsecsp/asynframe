@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 28 08:50:49 2023
+/* at Fri Feb 17 09:29:48 2023
  */
 /* Compiler settings for IAsynIpcChannel.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -472,7 +472,7 @@ EXTERN_C const IID IID_IAsynNamedPipe;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynNamedPipe * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynNamedPipe * This,
@@ -664,7 +664,7 @@ EXTERN_C const IID IID_IAsynIpcDevice;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynIpcDevice * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynIpcDevice * This,
@@ -845,7 +845,7 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynIpcDeviceListener * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynIpcDeviceListener * This,

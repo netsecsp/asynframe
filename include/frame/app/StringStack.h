@@ -1,4 +1,4 @@
-﻿// StringStack.h: interface for the CStringStack class.
+﻿// StringStack.h: interface for the CStringStack/CStringStackRef class.
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_STRINGSTACK_H__8D72F57C_CA8F_4812_BEE1_342F9810C19F__INCLUDED_)

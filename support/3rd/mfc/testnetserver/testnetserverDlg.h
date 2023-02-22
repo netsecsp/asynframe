@@ -28,7 +28,7 @@ protected: //interface of asynsdk::asyn_message_events_base
     STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown **objects )
     {
         if( message == AF_EVENT_NOTIFY &&
-                lparam2 != 0 )
+            lparam2 != 0 )
         {
             CComPtr<IAsynNetwork> spAsynNetwork;
             GetInstancesManager()->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);

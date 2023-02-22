@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 28 08:50:50 2023
+/* at Sat Feb 18 14:07:13 2023
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -94,11 +94,11 @@ typedef interface IAsynTcpSocket IAsynTcpSocket;
 #endif 	/* __IAsynTcpSocket_FWD_DEFINED__ */
 
 
-#ifndef __IAsynTcpSocketListener_FWD_DEFINED__
-#define __IAsynTcpSocketListener_FWD_DEFINED__
-typedef interface IAsynTcpSocketListener IAsynTcpSocketListener;
+#ifndef __IAsynMuxSocket_FWD_DEFINED__
+#define __IAsynMuxSocket_FWD_DEFINED__
+typedef interface IAsynMuxSocket IAsynMuxSocket;
 
-#endif 	/* __IAsynTcpSocketListener_FWD_DEFINED__ */
+#endif 	/* __IAsynMuxSocket_FWD_DEFINED__ */
 
 
 #ifndef __IAsynDtpSocketListener_FWD_DEFINED__
@@ -108,11 +108,11 @@ typedef interface IAsynDtpSocketListener IAsynDtpSocketListener;
 #endif 	/* __IAsynDtpSocketListener_FWD_DEFINED__ */
 
 
-#ifndef __IAsynMuxSocket_FWD_DEFINED__
-#define __IAsynMuxSocket_FWD_DEFINED__
-typedef interface IAsynMuxSocket IAsynMuxSocket;
+#ifndef __IAsynTcpSocketListener_FWD_DEFINED__
+#define __IAsynTcpSocketListener_FWD_DEFINED__
+typedef interface IAsynTcpSocketListener IAsynTcpSocketListener;
 
-#endif 	/* __IAsynMuxSocket_FWD_DEFINED__ */
+#endif 	/* __IAsynTcpSocketListener_FWD_DEFINED__ */
 
 
 #ifndef __IAppService_FWD_DEFINED__
@@ -778,7 +778,7 @@ EXTERN_C const IID IID_IAsynRawSocket;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynRawSocket * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynRawSocket * This,
@@ -987,7 +987,7 @@ EXTERN_C const IID IID_IAsynUdpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynUdpSocket * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynUdpSocket * This,
@@ -1322,7 +1322,7 @@ EXTERN_C const IID IID_IAsynTcpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynTcpSocket * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynTcpSocket * This,
@@ -1486,339 +1486,6 @@ EXTERN_C const IID IID_IAsynTcpSocket;
 #endif 	/* __IAsynTcpSocket_INTERFACE_DEFINED__ */
 
 
-#ifndef __IAsynTcpSocketListener_INTERFACE_DEFINED__
-#define __IAsynTcpSocketListener_INTERFACE_DEFINED__
-
-/* interface IAsynTcpSocketListener */
-/* [unique][helpstring][uuid][object] */ 
-
-
-EXTERN_C const IID IID_IAsynTcpSocketListener;
-
-#if defined(__cplusplus) && !defined(CINTERFACE)
-    
-    MIDL_INTERFACE("91AAF082-BA4B-4c28-B042-D3CAB0244E8F")
-    IAsynTcpSocketListener : public IAsynRawSocket
-    {
-    public:
-        virtual HRESULT STDMETHODCALLTYPE Bind( 
-            /* [in] */ STRING Host,
-            /* [in] */ PORT Port,
-            /* [in] */ BOOL bReUseAddr,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Accept( 
-            /* [in] */ IAsynIoOperation *pAsynIoOperation) = 0;
-        
-    };
-    
-    
-#else 	/* C style interface */
-
-    typedef struct IAsynTcpSocketListenerVtbl
-    {
-        BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ REFIID riid,
-            /* [annotation][iid_is][out] */ 
-            _COM_Outptr_  void **ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IAsynTcpSocketListener * This);
-        
-        ULONG ( STDMETHODCALLTYPE *Release )( 
-            IAsynTcpSocketListener * This);
-        
-        HRESULT ( STDMETHODCALLTYPE *Get )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
-            /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
-        
-        HRESULT ( STDMETHODCALLTYPE *Set )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
-            /* [in] */ IUnknown *pObject);
-        
-        HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IStringSetter *pDeviceName);
-        
-        HRESULT ( STDMETHODCALLTYPE *IsStream )( 
-            IAsynTcpSocketListener * This,
-            /* [out] */ uint32_t *pBlockSize);
-        
-        HRESULT ( STDMETHODCALLTYPE *GetDeviceHandle )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t lType,
-            /* [out] */ handle *ppDeviceHandle);
-        
-        HRESULT ( STDMETHODCALLTYPE *Read )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation);
-        
-        HRESULT ( STDMETHODCALLTYPE *Write )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
-        
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t reserved);
-        
-        HRESULT ( STDMETHODCALLTYPE *Attach )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IAsynFrameThread *pAsynFrameThread,
-            /* [in] */ uint32_t lAttachType,
-            /* [in] */ BOOL bCopyHandle,
-            /* [in] */ handle pRecvDeviceHandle,
-            /* [in] */ handle pSendDeviceHandle,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation);
-        
-        HRESULT ( STDMETHODCALLTYPE *Detach )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t level);
-        
-        HRESULT ( STDMETHODCALLTYPE *Clone )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IUnknown *lpReserved,
-            /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
-        
-        HRESULT ( STDMETHODCALLTYPE *Open )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IAsynFrameThread *pAsynFrameThread,
-            /* [in] */ uint32_t af,
-            /* [in] */ uint32_t type,
-            /* [in] */ uint32_t protocol);
-        
-        HRESULT ( STDMETHODCALLTYPE *GetSockAddress )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IStringSetter *Host,
-            /* [out] */ BYTE *Addr,
-            /* [out] */ PORT *Port,
-            /* [out] */ uint32_t *af);
-        
-        HRESULT ( STDMETHODCALLTYPE *GetSockopt )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t type,
-            /* [in] */ uint32_t level,
-            /* [in] */ uint32_t optname,
-            /* [in] */ STRING optval);
-        
-        HRESULT ( STDMETHODCALLTYPE *SetSockopt )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t type,
-            /* [in] */ uint32_t level,
-            /* [in] */ uint32_t optname,
-            /* [in] */ STRING optval);
-        
-        HRESULT ( STDMETHODCALLTYPE *Bind )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ STRING Host,
-            /* [in] */ PORT Port,
-            /* [in] */ BOOL bReUseAddr,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation);
-        
-        HRESULT ( STDMETHODCALLTYPE *Accept )( 
-            IAsynTcpSocketListener * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation);
-        
-        END_INTERFACE
-    } IAsynTcpSocketListenerVtbl;
-
-    interface IAsynTcpSocketListener
-    {
-        CONST_VTBL struct IAsynTcpSocketListenerVtbl *lpVtbl;
-    };
-
-    
-
-#ifdef COBJMACROS
-
-
-#define IAsynTcpSocketListener_QueryInterface(This,riid,ppvObject)	\
-    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
-
-#define IAsynTcpSocketListener_AddRef(This)	\
-    ( (This)->lpVtbl -> AddRef(This) ) 
-
-#define IAsynTcpSocketListener_Release(This)	\
-    ( (This)->lpVtbl -> Release(This) ) 
-
-
-#define IAsynTcpSocketListener_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
-
-#define IAsynTcpSocketListener_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
-
-
-#define IAsynTcpSocketListener_IsOpened(This,pDeviceName)	\
-    ( (This)->lpVtbl -> IsOpened(This,pDeviceName) ) 
-
-#define IAsynTcpSocketListener_IsStream(This,pBlockSize)	\
-    ( (This)->lpVtbl -> IsStream(This,pBlockSize) ) 
-
-#define IAsynTcpSocketListener_GetDeviceHandle(This,lType,ppDeviceHandle)	\
-    ( (This)->lpVtbl -> GetDeviceHandle(This,lType,ppDeviceHandle) ) 
-
-#define IAsynTcpSocketListener_Read(This,pAsynIoOperation)	\
-    ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
-
-#define IAsynTcpSocketListener_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
-
-#define IAsynTcpSocketListener_Close(This,reserved)	\
-    ( (This)->lpVtbl -> Close(This,reserved) ) 
-
-#define IAsynTcpSocketListener_Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation)	\
-    ( (This)->lpVtbl -> Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation) ) 
-
-#define IAsynTcpSocketListener_Detach(This,level)	\
-    ( (This)->lpVtbl -> Detach(This,level) ) 
-
-#define IAsynTcpSocketListener_Clone(This,lpReserved,riid,ppObject)	\
-    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
-
-
-#define IAsynTcpSocketListener_Open(This,pAsynFrameThread,af,type,protocol)	\
-    ( (This)->lpVtbl -> Open(This,pAsynFrameThread,af,type,protocol) ) 
-
-#define IAsynTcpSocketListener_GetSockAddress(This,Host,Addr,Port,af)	\
-    ( (This)->lpVtbl -> GetSockAddress(This,Host,Addr,Port,af) ) 
-
-#define IAsynTcpSocketListener_GetSockopt(This,type,level,optname,optval)	\
-    ( (This)->lpVtbl -> GetSockopt(This,type,level,optname,optval) ) 
-
-#define IAsynTcpSocketListener_SetSockopt(This,type,level,optname,optval)	\
-    ( (This)->lpVtbl -> SetSockopt(This,type,level,optname,optval) ) 
-
-
-#define IAsynTcpSocketListener_Bind(This,Host,Port,bReUseAddr,pAsynIoOperation)	\
-    ( (This)->lpVtbl -> Bind(This,Host,Port,bReUseAddr,pAsynIoOperation) ) 
-
-#define IAsynTcpSocketListener_Accept(This,pAsynIoOperation)	\
-    ( (This)->lpVtbl -> Accept(This,pAsynIoOperation) ) 
-
-#endif /* COBJMACROS */
-
-
-#endif 	/* C style interface */
-
-
-
-
-#endif 	/* __IAsynTcpSocketListener_INTERFACE_DEFINED__ */
-
-
-#ifndef __IAsynDtpSocketListener_INTERFACE_DEFINED__
-#define __IAsynDtpSocketListener_INTERFACE_DEFINED__
-
-/* interface IAsynDtpSocketListener */
-/* [unique][helpstring][uuid][object] */ 
-
-
-EXTERN_C const IID IID_IAsynDtpSocketListener;
-
-#if defined(__cplusplus) && !defined(CINTERFACE)
-    
-    MIDL_INTERFACE("A243506A-6E9C-453c-B556-F0C9619550DE")
-    IAsynDtpSocketListener : public IAsynMessageEvents
-    {
-    public:
-        virtual HRESULT STDMETHODCALLTYPE CreateAsynTcpSocket( 
-            /* [in] */ STRING argv,
-            /* [out] */ IAsynTcpSocket **ppAsynTcpSocket) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Accept( 
-            /* [in] */ IAsynIoOperation *pAsynIoOperation) = 0;
-        
-    };
-    
-    
-#else 	/* C style interface */
-
-    typedef struct IAsynDtpSocketListenerVtbl
-    {
-        BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IAsynDtpSocketListener * This,
-            /* [in] */ REFIID riid,
-            /* [annotation][iid_is][out] */ 
-            _COM_Outptr_  void **ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IAsynDtpSocketListener * This);
-        
-        ULONG ( STDMETHODCALLTYPE *Release )( 
-            IAsynDtpSocketListener * This);
-        
-        HRESULT ( STDMETHODCALLTYPE *OnMessage )( 
-            IAsynDtpSocketListener * This,
-            /* [in] */ uint32_t message,
-            /* [in] */ uint64_t lparam1,
-            /* [in] */ uint64_t lparam2,
-            /* [out][in] */ IUnknown **object);
-        
-        HRESULT ( STDMETHODCALLTYPE *CreateAsynTcpSocket )( 
-            IAsynDtpSocketListener * This,
-            /* [in] */ STRING argv,
-            /* [out] */ IAsynTcpSocket **ppAsynTcpSocket);
-        
-        HRESULT ( STDMETHODCALLTYPE *Accept )( 
-            IAsynDtpSocketListener * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation);
-        
-        END_INTERFACE
-    } IAsynDtpSocketListenerVtbl;
-
-    interface IAsynDtpSocketListener
-    {
-        CONST_VTBL struct IAsynDtpSocketListenerVtbl *lpVtbl;
-    };
-
-    
-
-#ifdef COBJMACROS
-
-
-#define IAsynDtpSocketListener_QueryInterface(This,riid,ppvObject)	\
-    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
-
-#define IAsynDtpSocketListener_AddRef(This)	\
-    ( (This)->lpVtbl -> AddRef(This) ) 
-
-#define IAsynDtpSocketListener_Release(This)	\
-    ( (This)->lpVtbl -> Release(This) ) 
-
-
-#define IAsynDtpSocketListener_OnMessage(This,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> OnMessage(This,message,lparam1,lparam2,object) ) 
-
-
-#define IAsynDtpSocketListener_CreateAsynTcpSocket(This,argv,ppAsynTcpSocket)	\
-    ( (This)->lpVtbl -> CreateAsynTcpSocket(This,argv,ppAsynTcpSocket) ) 
-
-#define IAsynDtpSocketListener_Accept(This,pAsynIoOperation)	\
-    ( (This)->lpVtbl -> Accept(This,pAsynIoOperation) ) 
-
-#endif /* COBJMACROS */
-
-
-#endif 	/* C style interface */
-
-
-
-
-#endif 	/* __IAsynDtpSocketListener_INTERFACE_DEFINED__ */
-
-
 #ifndef __IAsynMuxSocket_INTERFACE_DEFINED__
 #define __IAsynMuxSocket_INTERFACE_DEFINED__
 
@@ -1877,7 +1544,7 @@ EXTERN_C const IID IID_IAsynMuxSocket;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynMuxSocket * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynMuxSocket * This,
@@ -2057,6 +1724,328 @@ EXTERN_C const IID IID_IAsynMuxSocket;
 #endif 	/* __IAsynMuxSocket_INTERFACE_DEFINED__ */
 
 
+#ifndef __IAsynDtpSocketListener_INTERFACE_DEFINED__
+#define __IAsynDtpSocketListener_INTERFACE_DEFINED__
+
+/* interface IAsynDtpSocketListener */
+/* [unique][helpstring][uuid][object] */ 
+
+
+EXTERN_C const IID IID_IAsynDtpSocketListener;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("A243506A-6E9C-453c-B556-F0C9619550DE")
+    IAsynDtpSocketListener : public IUnknown
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE CreateAsynTcpSocket( 
+            /* [in] */ STRING argv,
+            /* [out] */ IAsynTcpSocket **ppAsynTcpSocket) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE Accept( 
+            /* [in] */ IAsynIoOperation *pAsynIoOperation) = 0;
+        
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct IAsynDtpSocketListenerVtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            IAsynDtpSocketListener * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            IAsynDtpSocketListener * This);
+        
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            IAsynDtpSocketListener * This);
+        
+        HRESULT ( STDMETHODCALLTYPE *CreateAsynTcpSocket )( 
+            IAsynDtpSocketListener * This,
+            /* [in] */ STRING argv,
+            /* [out] */ IAsynTcpSocket **ppAsynTcpSocket);
+        
+        HRESULT ( STDMETHODCALLTYPE *Accept )( 
+            IAsynDtpSocketListener * This,
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
+        
+        END_INTERFACE
+    } IAsynDtpSocketListenerVtbl;
+
+    interface IAsynDtpSocketListener
+    {
+        CONST_VTBL struct IAsynDtpSocketListenerVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IAsynDtpSocketListener_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define IAsynDtpSocketListener_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define IAsynDtpSocketListener_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define IAsynDtpSocketListener_CreateAsynTcpSocket(This,argv,ppAsynTcpSocket)	\
+    ( (This)->lpVtbl -> CreateAsynTcpSocket(This,argv,ppAsynTcpSocket) ) 
+
+#define IAsynDtpSocketListener_Accept(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Accept(This,pAsynIoOperation) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __IAsynDtpSocketListener_INTERFACE_DEFINED__ */
+
+
+#ifndef __IAsynTcpSocketListener_INTERFACE_DEFINED__
+#define __IAsynTcpSocketListener_INTERFACE_DEFINED__
+
+/* interface IAsynTcpSocketListener */
+/* [unique][helpstring][uuid][object] */ 
+
+
+EXTERN_C const IID IID_IAsynTcpSocketListener;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("91AAF082-BA4B-4c28-B042-D3CAB0244E8F")
+    IAsynTcpSocketListener : public IAsynRawSocket
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE Bind( 
+            /* [in] */ STRING Host,
+            /* [in] */ PORT Port,
+            /* [in] */ BOOL bReUseAddr,
+            /* [in] */ IAsynIoOperation *pAsynIoOperation) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE Accept( 
+            /* [in] */ IAsynIoOperation *pAsynIoOperation) = 0;
+        
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct IAsynTcpSocketListenerVtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            IAsynTcpSocketListener * This);
+        
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            IAsynTcpSocketListener * This);
+        
+        HRESULT ( STDMETHODCALLTYPE *Get )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ uint32_t method,
+            /* [in] */ uint32_t lparam,
+            /* [in] */ REFIID riid,
+            /* [iid_is][out] */ void **ppObject);
+        
+        HRESULT ( STDMETHODCALLTYPE *Set )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ uint32_t method,
+            /* [in] */ uint32_t lparam,
+            /* [in] */ IUnknown *pObject);
+        
+        HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
+            IAsynTcpSocketListener * This,
+            /* [out] */ STRING *pDeviceName);
+        
+        HRESULT ( STDMETHODCALLTYPE *IsStream )( 
+            IAsynTcpSocketListener * This,
+            /* [out] */ uint32_t *pBlockSize);
+        
+        HRESULT ( STDMETHODCALLTYPE *GetDeviceHandle )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ uint32_t lType,
+            /* [out] */ handle *ppDeviceHandle);
+        
+        HRESULT ( STDMETHODCALLTYPE *Read )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
+        
+        HRESULT ( STDMETHODCALLTYPE *Write )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ IAsynIoOperation *pAsynIoOperation,
+            /* [in] */ uint64_t reserved);
+        
+        HRESULT ( STDMETHODCALLTYPE *Close )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ uint32_t reserved);
+        
+        HRESULT ( STDMETHODCALLTYPE *Attach )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ IAsynFrameThread *pAsynFrameThread,
+            /* [in] */ uint32_t lAttachType,
+            /* [in] */ BOOL bCopyHandle,
+            /* [in] */ handle pRecvDeviceHandle,
+            /* [in] */ handle pSendDeviceHandle,
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
+        
+        HRESULT ( STDMETHODCALLTYPE *Detach )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ uint32_t level);
+        
+        HRESULT ( STDMETHODCALLTYPE *Clone )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ IUnknown *lpReserved,
+            /* [in] */ REFIID riid,
+            /* [iid_is][out] */ void **ppObject);
+        
+        HRESULT ( STDMETHODCALLTYPE *Open )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ IAsynFrameThread *pAsynFrameThread,
+            /* [in] */ uint32_t af,
+            /* [in] */ uint32_t type,
+            /* [in] */ uint32_t protocol);
+        
+        HRESULT ( STDMETHODCALLTYPE *GetSockAddress )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ IStringSetter *Host,
+            /* [out] */ BYTE *Addr,
+            /* [out] */ PORT *Port,
+            /* [out] */ uint32_t *af);
+        
+        HRESULT ( STDMETHODCALLTYPE *GetSockopt )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ uint32_t type,
+            /* [in] */ uint32_t level,
+            /* [in] */ uint32_t optname,
+            /* [in] */ STRING optval);
+        
+        HRESULT ( STDMETHODCALLTYPE *SetSockopt )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ uint32_t type,
+            /* [in] */ uint32_t level,
+            /* [in] */ uint32_t optname,
+            /* [in] */ STRING optval);
+        
+        HRESULT ( STDMETHODCALLTYPE *Bind )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ STRING Host,
+            /* [in] */ PORT Port,
+            /* [in] */ BOOL bReUseAddr,
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
+        
+        HRESULT ( STDMETHODCALLTYPE *Accept )( 
+            IAsynTcpSocketListener * This,
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
+        
+        END_INTERFACE
+    } IAsynTcpSocketListenerVtbl;
+
+    interface IAsynTcpSocketListener
+    {
+        CONST_VTBL struct IAsynTcpSocketListenerVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IAsynTcpSocketListener_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define IAsynTcpSocketListener_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define IAsynTcpSocketListener_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define IAsynTcpSocketListener_Get(This,method,lparam,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+
+#define IAsynTcpSocketListener_Set(This,method,lparam,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+
+
+#define IAsynTcpSocketListener_IsOpened(This,pDeviceName)	\
+    ( (This)->lpVtbl -> IsOpened(This,pDeviceName) ) 
+
+#define IAsynTcpSocketListener_IsStream(This,pBlockSize)	\
+    ( (This)->lpVtbl -> IsStream(This,pBlockSize) ) 
+
+#define IAsynTcpSocketListener_GetDeviceHandle(This,lType,ppDeviceHandle)	\
+    ( (This)->lpVtbl -> GetDeviceHandle(This,lType,ppDeviceHandle) ) 
+
+#define IAsynTcpSocketListener_Read(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
+
+#define IAsynTcpSocketListener_Write(This,pAsynIoOperation,reserved)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+
+#define IAsynTcpSocketListener_Close(This,reserved)	\
+    ( (This)->lpVtbl -> Close(This,reserved) ) 
+
+#define IAsynTcpSocketListener_Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation) ) 
+
+#define IAsynTcpSocketListener_Detach(This,level)	\
+    ( (This)->lpVtbl -> Detach(This,level) ) 
+
+#define IAsynTcpSocketListener_Clone(This,lpReserved,riid,ppObject)	\
+    ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
+
+
+#define IAsynTcpSocketListener_Open(This,pAsynFrameThread,af,type,protocol)	\
+    ( (This)->lpVtbl -> Open(This,pAsynFrameThread,af,type,protocol) ) 
+
+#define IAsynTcpSocketListener_GetSockAddress(This,Host,Addr,Port,af)	\
+    ( (This)->lpVtbl -> GetSockAddress(This,Host,Addr,Port,af) ) 
+
+#define IAsynTcpSocketListener_GetSockopt(This,type,level,optname,optval)	\
+    ( (This)->lpVtbl -> GetSockopt(This,type,level,optname,optval) ) 
+
+#define IAsynTcpSocketListener_SetSockopt(This,type,level,optname,optval)	\
+    ( (This)->lpVtbl -> SetSockopt(This,type,level,optname,optval) ) 
+
+
+#define IAsynTcpSocketListener_Bind(This,Host,Port,bReUseAddr,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Bind(This,Host,Port,bReUseAddr,pAsynIoOperation) ) 
+
+#define IAsynTcpSocketListener_Accept(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Accept(This,pAsynIoOperation) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __IAsynTcpSocketListener_INTERFACE_DEFINED__ */
+
+
 #ifndef __IAppService_INTERFACE_DEFINED__
 #define __IAppService_INTERFACE_DEFINED__
 
@@ -2170,7 +2159,7 @@ EXTERN_C const IID IID_IAsynNetwork;
             /* [out] */ IAsynTcpSocket **ppAsynTcpSocket) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynTcpSocketListener( 
-            /* [in] */ STRING argv,
+            /* [in] */ IUnknown *unused,
             /* [out] */ IAsynTcpSocketListener **ppAsynTcpSocketListener) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynPtlSocket( 
@@ -2242,7 +2231,7 @@ EXTERN_C const IID IID_IAsynNetwork;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynTcpSocketListener )( 
             IAsynNetwork * This,
-            /* [in] */ STRING argv,
+            /* [in] */ IUnknown *unused,
             /* [out] */ IAsynTcpSocketListener **ppAsynTcpSocketListener);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynPtlSocket )( 
@@ -2304,8 +2293,8 @@ EXTERN_C const IID IID_IAsynNetwork;
 #define IAsynNetwork_CreateAsynTcpSocket(This,ppAsynTcpSocket)	\
     ( (This)->lpVtbl -> CreateAsynTcpSocket(This,ppAsynTcpSocket) ) 
 
-#define IAsynNetwork_CreateAsynTcpSocketListener(This,argv,ppAsynTcpSocketListener)	\
-    ( (This)->lpVtbl -> CreateAsynTcpSocketListener(This,argv,ppAsynTcpSocketListener) ) 
+#define IAsynNetwork_CreateAsynTcpSocketListener(This,unused,ppAsynTcpSocketListener)	\
+    ( (This)->lpVtbl -> CreateAsynTcpSocketListener(This,unused,ppAsynTcpSocketListener) ) 
 
 #define IAsynNetwork_CreateAsynPtlSocket(This,Owner,param1,param2,ppAsynRawSocket)	\
     ( (This)->lpVtbl -> CreateAsynPtlSocket(This,Owner,param1,param2,ppAsynRawSocket) ) 

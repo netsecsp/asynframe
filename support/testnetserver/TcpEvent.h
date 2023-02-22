@@ -159,7 +159,7 @@ public:
 public:
     bool Start(PORT port)
     {
-        m_spAsynNetwork->CreateAsynTcpSocketListener(asynsdk::STRING_EX::null, &m_spAsynTcpSocketListener);
+        m_spAsynNetwork->CreateAsynTcpSocketListener(0, &m_spAsynTcpSocketListener);
 
         m_spAsynTcpSocketListener->Open(m_spAsynFrameThread, m_af, SOCK_STREAM, m_af==AF_IPX? NSPROTO_SPXII : IPPROTO_TCP);
 

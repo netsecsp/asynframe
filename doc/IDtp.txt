@@ -34,15 +34,16 @@ import "IAsynNetwork.idl";
     cpp_quote("#pragma pack(push, 1)")
 
     /////////////////////////////////////////////////////////////////////////////
-    [// ÏÔÊ½¼Ì³ĞIAppService, param2²ÎÊı¸ñÊ½£º¶ÔÓÚtcp£¬len=32&min=16 ¶ÔÓÚudp£¬mss=1476£¬eventsÓÃÓÚ²éÑ¯ÊÇ·ñ¿ÉÒÔ½ÓÊÜÊı¾İ|ÊÇ·ñ¿ÉÒÔ½¨Á¢ĞÅµÀÒÔ¼°Á¬½Ó×ª·¢
+    [// æ˜¾å¼ç»§æ‰¿IAppService, param2å‚æ•°æ ¼å¼ï¼šå¯¹äºtcpï¼Œlen=32&min=16 å¯¹äºudpï¼Œmss=1476ï¼Œeventsç”¨äºæŸ¥è¯¢æ˜¯å¦å¯ä»¥æ¥å—æ•°æ®/è¿æ¥|å»ºç«‹ä¿¡é“|è¿æ¥è½¬å‘ç­‰
         object,
         uuid(ECA80487-D902-441a-B7DF-52CEE47D13AD),
-        helpstring("IDtp Interface"),
+        helpstring("IDtpService Interface"),
         pointer_default(unique)
     ]
-    interface IDtp : IAppService
+    interface IDtpService : IAppService
     {
-        HRESULT SetupAsynDtpSocketLayer( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [in ]IAsynMessageEvents* events, [out]IUnknown** ppObject );
+        //pOwneræ”¯æŒç±»å‹: IStringSetter/IAsynMessageEvents, positionä»£è¡¨ä½ç½®ï¼Œ0è¡¨ç¤ºé˜Ÿå°¾, ppObjectè¿”å›ç±»å‹ï¼šIAsynDtpSocketListener/IAsynUdpSocket
+        HRESULT CreateAsynDtpSocketLayer( [in ]IUnknown* pOwner, [in ]IUnknown** param1, [in ]STRING param2, [in ]uint32_t position, [out]IUnknown** ppObject );
     };
 
     cpp_quote("#pragma pack(pop)")

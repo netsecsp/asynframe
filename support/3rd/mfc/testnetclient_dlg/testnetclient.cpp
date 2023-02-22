@@ -132,24 +132,14 @@ BOOL CtestnetclientApp::PumpMessage()
         m_spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(GetInstancesManager(), GetMainWnd()->GetSafeHwnd(), 0, DYNAMIC_DOWNCAST(CtestnetclientDlg, m_pMainWnd)));
     }
 
-    #if  0
-    static int i = 0;
-    #endif
     HRESULT ret = m_spThreadMessagePump->WaitMessage(NULL, 5000/*5ms*/);
     if( ret == E_ABORT )
     {
         m_spThreadMessagePump = 0;
     }
-    else
+    else if( ret == NO_ERROR )
     {
-        if(ret == S_OK ) m_spThreadMessagePump->PumpMessage(NULL);
-        #if  0
-        if((i ++) % 20== 0)
-        {
-            SetEvent(hNotify);
-            LOGGER_TRACE(logger, "SetEvent");
-        }
-        #endif
+        m_spThreadMessagePump->PumpMessage(NULL);
     }
 
     return TRUE;

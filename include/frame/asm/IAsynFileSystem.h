@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 28 08:50:48 2023
+/* at Fri Feb 17 09:29:47 2023
  */
 /* Compiler settings for IAsynFileSystem.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -463,7 +463,7 @@ EXTERN_C const IID IID_IAsynRawDevice;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynRawDevice * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynRawDevice * This,
@@ -649,7 +649,7 @@ EXTERN_C const IID IID_IAsynFile;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynFile * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynFile * This,

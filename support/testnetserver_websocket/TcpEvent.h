@@ -149,7 +149,7 @@ public:
         m_sendfile = sendfile;
 
         CComPtr<IAsynTcpSocketListener> spAsynInnSocket;
-        m_spAsynNetwork->CreateAsynTcpSocketListener(STRING_EX::null, &spAsynInnSocket );
+        m_spAsynNetwork->CreateAsynTcpSocketListener(0, &spAsynInnSocket );
 
         CComPtr<IAsynRawSocket> spAsynPtlSocket;
         if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("websocket"), (IUnknown **)&spAsynInnSocket.p, STRING_from_string(ssl? "tls/13" : "tcp/13"), &spAsynPtlSocket) != S_OK )

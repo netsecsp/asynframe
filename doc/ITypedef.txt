@@ -1,4 +1,4 @@
-﻿/*****************************************************************************
+/*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
 Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
@@ -44,11 +44,13 @@ import "ocidl.idl";
     [
         object,
         uuid(864BC6A2-5BDA-4eda-ADD4-B6EBC2BB171D),
-        helpstring("IRangesSetter Interface"),
+        helpstring("IRangesVector Interface"),
         pointer_default(unique)
     ]
-    interface IRangesSetter : IUnknown
+    interface IRangesVector : IUnknown
     {
+        HRESULT Get( [in ]uint32_t index, [out]RANGE* Val );
+        HRESULT Add( [in ]RANGE Val );
         HRESULT Set( [in ][size_is(sizeof(RANGE)*Size)]RANGE* Val, [in ]uint32_t Size );
     };
 
@@ -72,14 +74,46 @@ import "ocidl.idl";
 
     [
         object,
-        uuid(24CEF41C-4C1B-499b-B3A4-85119CB98B3A),
-        helpstring("IStringsStack Interface"),
+        uuid(B8A6AAB4-0DA2-49C1-8B83-7EF4A916BF16),
+        helpstring("IStringVector Interface"),
         pointer_default(unique)
     ]
-    interface IStringsStack : IStringSetter
+    interface IStringVector : IUnknown
+    {
+        HRESULT Get( [in ]uint32_t index, [out]STRING* Val );
+        HRESULT Add( [in ]STRING Val );
+        HRESULT Set( [in ][size_is(sizeof(STRING)*Size)]STRING* Val, [in ]uint32_t Size );
+    };
+
+    [
+        object,
+        uuid(24CEF41C-4C1B-499b-B3A4-85119CB98B3A),
+        helpstring("IStringStack Interface"),
+        pointer_default(unique)
+    ]
+    interface IStringStack : IStringSetter
     {
         HRESULT Pop( [in ]IStringSetter* Val );
-        HRESULT Add( [in ]STRING  Val );
+        HRESULT Add( [in ]STRING Val );
     };
-  
+
+    [// 获取/设置Keyval接口
+        object,
+        uuid(92552692-3635-4e41-AF63-D921E0CEE6D4),
+        helpstring("IKeyvalSetter Interface"),
+        pointer_default(unique)
+    ]
+    interface IKeyvalSetter : IUnknown
+    {
+        //返 回 值：S_OK   -表示STRING
+        //          S_FALSE-表示OBJECT
+        HRESULT Get( [in ]STRING Key, [in ]uint32_t  Index, [in ]BOOL Remove, [in ]IStringSetter* value );
+        HRESULT Set( [in ]STRING Key, [in ]BOOL Multi, [in ]STRING value );
+        HRESULT Del( [in ]STRING Key, [in ]uint32_t  Index );
+        HRESULT Has( [in ]STRING Key, [out]uint32_t* Count );
+        /////////////////////////////////////////////////////////////////////////////
+        HRESULT Format( [in ]STRING Sep, [in ]STRING End, [in, out]STRING* out );
+        HRESULT Travel( [in ]IUnknown* pParams );
+    };
+
     cpp_quote("#pragma pack(pop)")

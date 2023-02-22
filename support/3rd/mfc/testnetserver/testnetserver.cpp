@@ -133,9 +133,9 @@ BOOL CtestnetserverApp::PumpMessage()
     {
         m_spThreadMessagePump = 0;
     }
-    else
+    else if( ret == NO_ERROR )
     {
-        if(ret == S_OK ) m_spThreadMessagePump->PumpMessage(NULL);
+        m_spThreadMessagePump->PumpMessage(NULL);
     }
 
     return TRUE;

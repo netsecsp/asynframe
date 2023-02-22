@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sun Jan 29 15:12:31 2023
+/* at Fri Feb 17 09:29:46 2023
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -235,11 +235,11 @@ extern "C"{
 
 
 #define AF_EVENT_SYSTEM (  0  )
-#define AF_CTASK_NOTIFY (  1  )
-#define AF_TIMER        (  2  )
+#define AF_TIMER        (  1  )
 #define AF_IOMSG_NOTIFY (  5  )
 #define AF_EVENT_NOTIFY (  6  )
 #define AF_QUERY_RESULT (  7  )
+#define AF_CTASK_NOTIFY (  8  )
 #define AF_EVENT_APPID1 (10000)
 #define AF_EVENT_APPID2 (10001)
 #define AF_EVENT_APPID3 (10002)
@@ -2225,7 +2225,7 @@ EXTERN_C const IID IID_IAsynIoDevice;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE IsOpened( 
-            /* [in] */ IStringSetter *pDeviceName) = 0;
+            /* [out] */ STRING *pDeviceName) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE IsStream( 
             /* [out] */ uint32_t *pBlockSize) = 0;
@@ -2296,7 +2296,7 @@ EXTERN_C const IID IID_IAsynIoDevice;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynIoDevice * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynIoDevice * This,
@@ -2775,7 +2775,7 @@ EXTERN_C const IID IID_IAsynFrameThread;
         
         virtual HRESULT STDMETHODCALLTYPE Dispatch( 
             /* [in] */ IAsynIoOperation *pSrcAsynIoOperation,
-            /* [in] */ IAsynMessageEvents *events,
+            /* [in] */ IUnknown *pOwner,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2852,7 +2852,7 @@ EXTERN_C const IID IID_IAsynFrameThread;
         HRESULT ( STDMETHODCALLTYPE *Dispatch )( 
             IAsynFrameThread * This,
             /* [in] */ IAsynIoOperation *pSrcAsynIoOperation,
-            /* [in] */ IAsynMessageEvents *events,
+            /* [in] */ IUnknown *pOwner,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2927,8 +2927,8 @@ EXTERN_C const IID IID_IAsynFrameThread;
 #define IAsynFrameThread_InThread(This,threadid)	\
     ( (This)->lpVtbl -> InThread(This,threadid) ) 
 
-#define IAsynFrameThread_Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object) ) 
+#define IAsynFrameThread_Dispatch(This,pSrcAsynIoOperation,pOwner,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> Dispatch(This,pSrcAsynIoOperation,pOwner,message,lparam1,lparam2,object) ) 
 
 #define IAsynFrameThread_PostTask(This,pOwner,pParam1,lparam2,object,ppTask)	\
     ( (This)->lpVtbl -> PostTask(This,pOwner,pParam1,lparam2,object,ppTask) ) 

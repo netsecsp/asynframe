@@ -359,7 +359,7 @@ public:
         m_http = http;
 
         CComPtr<IAsynTcpSocketListener> spAsynInnSocket;
-        m_spAsynNetwork->CreateAsynTcpSocketListener(asynsdk::STRING_EX::null, &spAsynInnSocket);
+        m_spAsynNetwork->CreateAsynTcpSocketListener(0, &spAsynInnSocket);
 
         CComPtr<IAsynRawSocket> spAsynPtlSocket;
         if( m_http )

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 28 08:51:03 2023
+/* at Fri Feb 17 09:30:01 2023
  */
 /* Compiler settings for IProxy.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -126,7 +126,7 @@ EXTERN_C const IID IID_IAsynProxySocket;
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
             IAsynProxySocket * This,
-            /* [in] */ IStringSetter *pDeviceName);
+            /* [out] */ STRING *pDeviceName);
         
         HRESULT ( STDMETHODCALLTYPE *IsStream )( 
             IAsynProxySocket * This,

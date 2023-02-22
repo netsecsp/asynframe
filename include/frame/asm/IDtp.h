@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 28 08:50:55 2023
+/* at Fri Feb 17 09:29:54 2023
  */
 /* Compiler settings for IDtp.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -45,11 +45,11 @@
 
 /* Forward Declarations */ 
 
-#ifndef __IDtp_FWD_DEFINED__
-#define __IDtp_FWD_DEFINED__
-typedef interface IDtp IDtp;
+#ifndef __IDtpService_FWD_DEFINED__
+#define __IDtpService_FWD_DEFINED__
+typedef interface IDtpService IDtpService;
 
-#endif 	/* __IDtp_FWD_DEFINED__ */
+#endif 	/* __IDtpService_FWD_DEFINED__ */
 
 
 /* header files for imported files */
@@ -69,26 +69,26 @@ extern "C"{
 extern RPC_IF_HANDLE __MIDL_itf_IDtp_0000_0000_v0_0_c_ifspec;
 extern RPC_IF_HANDLE __MIDL_itf_IDtp_0000_0000_v0_0_s_ifspec;
 
-#ifndef __IDtp_INTERFACE_DEFINED__
-#define __IDtp_INTERFACE_DEFINED__
+#ifndef __IDtpService_INTERFACE_DEFINED__
+#define __IDtpService_INTERFACE_DEFINED__
 
-/* interface IDtp */
+/* interface IDtpService */
 /* [unique][helpstring][uuid][object] */ 
 
 
-EXTERN_C const IID IID_IDtp;
+EXTERN_C const IID IID_IDtpService;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
     
     MIDL_INTERFACE("ECA80487-D902-441a-B7DF-52CEE47D13AD")
-    IDtp : public IAppService
+    IDtpService : public IAppService
     {
     public:
-        virtual HRESULT STDMETHODCALLTYPE SetupAsynDtpSocketLayer( 
-            /* [in] */ STRING Owner,
+        virtual HRESULT STDMETHODCALLTYPE CreateAsynDtpSocketLayer( 
+            /* [in] */ IUnknown *pOwner,
             /* [in] */ IUnknown **param1,
             /* [in] */ STRING param2,
-            /* [in] */ IAsynMessageEvents *events,
+            /* [in] */ uint32_t position,
             /* [out] */ IUnknown **ppObject) = 0;
         
     };
@@ -96,40 +96,40 @@ EXTERN_C const IID IID_IDtp;
     
 #else 	/* C style interface */
 
-    typedef struct IDtpVtbl
+    typedef struct IDtpServiceVtbl
     {
         BEGIN_INTERFACE
         
         HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IDtp * This,
+            IDtpService * This,
             /* [in] */ REFIID riid,
             /* [annotation][iid_is][out] */ 
             _COM_Outptr_  void **ppvObject);
         
         ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IDtp * This);
+            IDtpService * This);
         
         ULONG ( STDMETHODCALLTYPE *Release )( 
-            IDtp * This);
+            IDtpService * This);
         
         HRESULT ( STDMETHODCALLTYPE *Control )( 
-            IDtp * This,
+            IDtpService * This,
             /* [in] */ uint32_t action);
         
-        HRESULT ( STDMETHODCALLTYPE *SetupAsynDtpSocketLayer )( 
-            IDtp * This,
-            /* [in] */ STRING Owner,
+        HRESULT ( STDMETHODCALLTYPE *CreateAsynDtpSocketLayer )( 
+            IDtpService * This,
+            /* [in] */ IUnknown *pOwner,
             /* [in] */ IUnknown **param1,
             /* [in] */ STRING param2,
-            /* [in] */ IAsynMessageEvents *events,
+            /* [in] */ uint32_t position,
             /* [out] */ IUnknown **ppObject);
         
         END_INTERFACE
-    } IDtpVtbl;
+    } IDtpServiceVtbl;
 
-    interface IDtp
+    interface IDtpService
     {
-        CONST_VTBL struct IDtpVtbl *lpVtbl;
+        CONST_VTBL struct IDtpServiceVtbl *lpVtbl;
     };
 
     
@@ -137,22 +137,22 @@ EXTERN_C const IID IID_IDtp;
 #ifdef COBJMACROS
 
 
-#define IDtp_QueryInterface(This,riid,ppvObject)	\
+#define IDtpService_QueryInterface(This,riid,ppvObject)	\
     ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
 
-#define IDtp_AddRef(This)	\
+#define IDtpService_AddRef(This)	\
     ( (This)->lpVtbl -> AddRef(This) ) 
 
-#define IDtp_Release(This)	\
+#define IDtpService_Release(This)	\
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IDtp_Control(This,action)	\
+#define IDtpService_Control(This,action)	\
     ( (This)->lpVtbl -> Control(This,action) ) 
 
 
-#define IDtp_SetupAsynDtpSocketLayer(This,Owner,param1,param2,events,ppObject)	\
-    ( (This)->lpVtbl -> SetupAsynDtpSocketLayer(This,Owner,param1,param2,events,ppObject) ) 
+#define IDtpService_CreateAsynDtpSocketLayer(This,pOwner,param1,param2,position,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynDtpSocketLayer(This,pOwner,param1,param2,position,ppObject) ) 
 
 #endif /* COBJMACROS */
 
@@ -162,7 +162,7 @@ EXTERN_C const IID IID_IDtp;
 
 
 
-#endif 	/* __IDtp_INTERFACE_DEFINED__ */
+#endif 	/* __IDtpService_INTERFACE_DEFINED__ */
 
 
 /* interface __MIDL_itf_IDtp_0000_0001 */

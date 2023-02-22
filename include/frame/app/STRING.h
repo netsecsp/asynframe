@@ -64,10 +64,10 @@ public:
     }
 
 public:
-    static unsigned int Set(STRING &v, const void *s, uint32_t l)
+    static unsigned int Set(STRING *v, const void *s, uint32_t l)
     {
-        v.ptr = (unsigned char *)s;
-        v.len = l;
+        v->ptr = (unsigned char *)s;
+        v->len = l;
         return l;
     }
     STRING_EX *Set(const void *s, uint32_t l)

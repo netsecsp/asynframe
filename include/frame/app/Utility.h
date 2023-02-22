@@ -84,6 +84,10 @@ IDataTransmit        *CreateDataTransmit(/*[in ]*/InstancesManager *lpInstancesM
 IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *thread, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
 
 ///////////////////////////////////////////////////////////////////////////////
+//创建线程池
+IThreadPool          *CreateThreadPool(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/uint32_t type);
+
+///////////////////////////////////////////////////////////////////////////////
 //获取frame 目录
 std::string GetFrameFolderDirectory(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/bool data, /*[in ]*/uint32_t nDstCodepage = 0); //nDstCodepage=0[CP_ACP]表示ansi
 

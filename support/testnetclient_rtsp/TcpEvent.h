@@ -282,7 +282,7 @@ public:
         }
         std::string schema = url.substr(0, pos1);
         pos1 += 3/*skip "://" */;
-        _strlwr_s((char *)schema.c_str(), schema.size());
+        _strlwr_s((char *)schema.c_str(), schema.size() + 1);
         if( schema != "rtsp" )
         {
             printf("invalid schema: %s\n", url.c_str());

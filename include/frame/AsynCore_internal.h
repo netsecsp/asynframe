@@ -1,6 +1,3 @@
-﻿// AsynCore_internal.h: interface.
-//
-/////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_ASYNCORE_INTERNAL_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)
 #define AFX_ASYNCORE_INTERNAL_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_
 /*****************************************************************************
@@ -41,14 +38,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "asynsdk_common.h"
 #include "asm/ITypedef.h"
 #include "asm/IAsynFrame.h"
-#include "app/Unknown.h"
-#include "app/Utility.h"
+#include "com/Unknown.h"
+#include "com/ObjPtr.h"
 #include "log/Logger.h"
 #include "app/String.h"
 #include "app/StringSetter.h"
 #include "app/StringVector.h"
 #include "app/KeyvalSetter.h"
 #include "app/StringStack.h"
+#include "app/Utility.h"
 #include "app/AsynMessageEvents.h"
 NAMESPACE_BEGIN(asynsdk)
 
@@ -186,8 +184,9 @@ END_ASYN_IOERROR()
 #define DN_File                         ("file"    ) //文件
 #define DN_Pipe                         ("pipe"    ) //管道
 #define DN_Device                       ("device"  ) //设备
-#define DN_Socket                       ("socket"  ) //网络套接字
-#define DN_Icmp                         ("icmp"    )
+#define DN_Icmp                         ("icmp"    ) //icmp
+#define DN_Filter                       ("filter"  ) //过滤器
+#define DN_Socket                       ("socket"  ) //套接字
 #define DN_Tunnel                       ("tunnel"  ) //隧道
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -209,6 +208,14 @@ END_ASYN_IOERROR()
 #define OB_OsOverlapped                 ( 0) //Overlapped
 #define OB_OsAddr                       ( 1) //OsAddr
 #define OB_IoArea                       ( 2) //IoArea
+
+/////////////////////////////////////////////////////////////////////////////////
+//IThreadPool.type
+#define TP_AutoxThreadpool              ( 0) //自动调整线程池
+#define TP_FixedThreadpool              ( 1) //固定大小线程池
+#define TP_SocksThreadpool              ( 2) //socket  线程池
+#define TP_EventThreadpool              ( 3) //监控事件线程池
+
 
 #pragma pack(push, 1)
 /////////////////////////////////////////////////////////////////////////////////

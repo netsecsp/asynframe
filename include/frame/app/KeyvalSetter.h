@@ -1,4 +1,4 @@
-﻿// KeyvalSetter.h: Definition of the CKeyvalSetter class
+﻿// KeyvalSetter.h: Definition of the CKeyval/CKeyvalSetter class
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_KEYVALSETTER_H__EAB9B945_803E_460B_8137_8C63F70CB605__INCLUDED_)

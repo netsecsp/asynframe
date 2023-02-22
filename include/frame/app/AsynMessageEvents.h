@@ -1,4 +1,4 @@
-﻿// AsynMessageEvents.h: interface for the CAsynMessageEvents class.
+﻿// AsynMessageEvents.h: interface for the asyn_message_events_base/asyn_message_events_impl class.
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_ASYNMESSAGEEVENTS_H__B2A00F47_9C06_4B38_8CC1_312322D02E91__INCLUDED_)

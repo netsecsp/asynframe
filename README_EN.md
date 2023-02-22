@@ -1,4 +1,4 @@
-## Asynframe framework v1.3.2 english | [中文](/README.md)
+## Asynframe framework v1.4.0 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -56,22 +56,24 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |ssl|plugin[asynsock]|ssl/tls encryption/decryption<br>1.implement p12 certificate|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
 |proxy|plugin[asynsock]|client proxy<br>1.implement http/https proxy：Basic/Digest authorize<br>2.implement ftp/ftps proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |websocket|plugin[asynsock]|websocket protocol<br>1.implement data frame slice<br>2.priority transmission control frame|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
+|Dtp|plugin[asyncock]|port reuse framework to implement tcp/udp|support testnetserver_ dtp-tcp.port<br>\support\testnetserver_ dtp-udp.port|
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
 |lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
+> 2023/02/22 Release asynframe framework v1.4.0  
+1. Publish plugin: dtp/ras  
+2. Adjust interface definition  
+3. Fix known problems  
 > 2023/02/02 Release asynframe framework v1.3.2  
-1. Crash explorer implements cross process output of stack information and dmp file when crashing  
-2. SSL fixes compatibility issues  
-3. Support plug-in upgrade  
-> 2022/06/08 Release asynframe framework v1.2  
-> 2022/05/26 Release asynframe framework v1.1  
-> 2022/05/05 Release asynframe framework v1.0  
+> 2022/06/08 Release asynframe framework v1.2.0  
+> 2022/05/26 Release asynframe framework v1.1.0  
+> 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.3.2-Msvc2019_20230202.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.3.2-Msvc2013_20230202.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.4.0-Msvc2019_20230222.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.4.0-Msvc2013_20230222.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -91,7 +93,7 @@ int main(int argc, const char *argv[])
     CComPtr<IAsynFrameThread> spAsynFrameThread; //Create thread
     lpInstancesManager->NewInstance(0,0,IID_IAsynFrameThread, (void**)&spAsynFrameThread);
 
-    lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0); //Load network module
+    lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork)); //Load network module
 
     CComPtr<IAsynNetwork    > spAsynNetwork;
     lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
@@ -123,6 +125,7 @@ int main(int argc, const char *argv[])
   [IProxy](https://netsecsp.github.io/doc/IProxy.txt)  
   [ISsl](https://netsecsp.github.io/doc/ISsl.txt)  
   [IVmHost](https://netsecsp.github.io/doc/IVmHost.txt)  
+  [IDtp](https://netsecsp.github.io/doc/IDtp.txt)  
 
 - [Plugins](https://netsecsp.github.io/doc/externapi.md)   
   <u>base modules</u>  

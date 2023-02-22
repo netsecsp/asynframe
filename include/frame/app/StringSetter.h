@@ -1,4 +1,4 @@
-// StringSetter.h: Definition of the CStringSetter/CObjectSetter/CStringSetterRef class
+// StringSetter.h: Definition of the CStringSetter/CObjectSetter/CMemorySetter/CStringSetterRef class
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_STRINGSETTER_H__EAB9B945_803E_460B_8137_8C63F70CB605__INCLUDED_)
@@ -174,7 +174,7 @@ public: //interface of IStringSetter
 public:
     CMemorySetter *Set(const void *val, uint32_t len)
     {
-        STRING_EX::Set(m_val, val, len);
+        STRING_EX::Set(&m_val, val, len );
         return this;
     }
 

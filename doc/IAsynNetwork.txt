@@ -1,4 +1,4 @@
-﻿/*****************************************************************************
+/*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
 Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
@@ -39,9 +39,9 @@ import "IAsynFrame.idl";
     interface IAsynUdpSocket;
     interface IAsynGrpSocket;
     interface IAsynTcpSocket;
+    interface IAsynMuxSocket;
     interface IAsynTcpSocketListener;
     interface IAsynDtpSocketListener;
-    interface IAsynMuxSocket;
     interface IAppService;
     /////////////////////////////////////////////////////////////////////////////
     typedef USHORT PORT; //端口：主机字节序
@@ -156,6 +156,32 @@ import "IAsynFrame.idl";
         HRESULT Connect( [in ]STRING Host, [in ]PORT Port, [in ]uint32_t Priority/*默认等于0*/, [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint32_t lTimeoutms );
     };
 
+    //  本地连接转发，IAsynTcpSocket.Connect参数port等于0时代表仅仅建立信道[host代表信道名字]，lparam1标识远端信道号[本端=远端]
+    //  远程连接转发：IAsynTcpSocketListener.Accept返回IAsynTcpSocket/IAsynIoBridge, lparam1标识远端信道号[本端=远端]
+    [// 提供Tcp.SOCKET, 实现多路信道复用
+        object,
+        uuid(85AE4F4C-A618-49fc-9C01-E41E8FE8965E),
+        helpstring("IAsynMuxSocket Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynMuxSocket : IAsynTcpSocket
+    {
+        HRESULT CreateAsynTcpSocket( [in ]STRING argv, [out]IAsynTcpSocket** ppAsynTcpSocket );
+        HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
+    };
+
+    [// 提供接入Tcp/Udp连接
+        object,
+        uuid(A243506A-6E9C-453c-B556-F0C9619550DE),
+        helpstring("IAsynDtpSocketListener Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynDtpSocketListener : IUnknown
+    {
+        HRESULT CreateAsynTcpSocket( [in ]STRING argv, [out]IAsynTcpSocket** ppAsynTcpSocket );
+        HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
+    };
+
     [// 提供Tcp.SOCKET
         object,
         uuid(91AAF082-BA4B-4c28-B042-D3CAB0244E8F),
@@ -167,31 +193,6 @@ import "IAsynFrame.idl";
         //绑定地址，Port=0表示随机，允许pAsynIoOperation等于NULL
         HRESULT Bind( [in ]STRING Host, [in ]PORT Port, [in ]BOOL bReUseAddr, [in ]IAsynIoOperation* pAsynIoOperation );
         /////////////////////////////////////////////////////////////////////////
-        HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
-    };
-
-    /////////////////////////////////////////////////////////////////////////////
-    [// 处理接入Tcp连接, 产生AF_QUERY_RESULT(IAsynDtpSocketListener/lTransferedBytes)
-        object,
-        uuid(A243506A-6E9C-453c-B556-F0C9619550DE),
-        helpstring("IAsynDtpSocketListener Interface"),
-        pointer_default(unique)
-    ]
-    interface IAsynDtpSocketListener : IAsynMessageEvents
-    {
-        HRESULT CreateAsynTcpSocket( [in ]STRING argv, [out]IAsynTcpSocket** ppAsynTcpSocket );
-        HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
-    };
-
-    [// 提供Tcp.SOCKET, 实现多路信道复用
-        object,
-        uuid(85AE4F4C-A618-49fc-9C01-E41E8FE8965E),
-        helpstring("IAsynMuxSocket Interface"),
-        pointer_default(unique)
-    ]
-    interface IAsynMuxSocket : IAsynTcpSocket
-    {
-        HRESULT CreateAsynTcpSocket( [in ]STRING argv, [out]IAsynTcpSocket** ppAsynTcpSocket );
         HRESULT Accept( [in ]IAsynIoOperation* pAsynIoOperation );
     };
 
@@ -219,17 +220,19 @@ import "IAsynFrame.idl";
         //创建异步域名解析器
         HRESULT CreateAsynDnsResolver( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [in ]STRING* etchost, [out]IAsynDnsResolver** ppAsynDnsResolver );
         /////////////////////////////////////////////////////////////////////////
-        HRESULT CreateAsynRawSocket( [in ]uint32_t lType/*默认等于0, 1: icmp  */, [out]IAsynRawSocket** ppAsynRawSocket );
+        HRESULT CreateAsynRawSocket( [in ]uint32_t lType/*默认等于0, 1:icmp*/, [out]IAsynRawSocket** ppAsynRawSocket );
         HRESULT CreateAsynUdpSocket( [out]IAsynUdpSocket** ppAsynUdpSocket );
         HRESULT CreateAsynTcpSocket( [out]IAsynTcpSocket** ppAsynTcpSocket );
-        HRESULT CreateAsynTcpSocketListener( [in ]STRING argv/*默认等于null*/, [out]IAsynTcpSocketListener** ppAsynTcpSocketListener );
-        //创建IAsynPtlSocket：建立Socket链, param1传IAsynRawSocket数组, param2传参数
+        //参数unused只能是IStringSetter/IAsynDtpSocketListener
+        HRESULT CreateAsynTcpSocketListener( [in ]IUnknown* unused, [out]IAsynTcpSocketListener** ppAsynTcpSocketListener );
+        //创建IAsynRawSocket：建立Socket链, param1传IAsynRawSocket数组
         HRESULT CreateAsynPtlSocket( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [out]IAsynRawSocket** ppAsynRawSocket );
         /////////////////////////////////////////////////////////////////////////
         //创建应用服务
         HRESULT CreateAppService( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [in ]IAsynMessageEvents* events, [out]IAppService** ppAppService );
         /////////////////////////////////////////////////////////////////////////
-        HRESULT EnumLocalAdapter( [in ]uint32_t iaf, [in ]uint32_t flags, [in ]IAsynMessageEvents* events );
+        //获得本地地址，iaf=AF_INET获取ipv4列表/iaf=AF_INET6获取ipv6列表/iaf=0获取ipv4+ipv6列表
+        HRESULT EnumLocalAddress( [in ]uint32_t iaf, [in ]IStringVector* output );
     };
 
     cpp_quote("#pragma pack(pop)")
