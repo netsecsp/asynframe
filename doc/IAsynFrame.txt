@@ -359,18 +359,7 @@ import "ITypedef.idl";
         HRESULT Write( [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint64_t reserved/*具体模块定义，一般为零*/ );
     };
 
-    [// 提供安全关闭的接口
-        object,
-        uuid(E9260A0C-A2F7-41AF-B8C7-737E267A0B25),
-        helpstring("IAsynIoObject Interface"),
-        pointer_default(unique)
-    ]
-    interface IAsynIoObject : IUnknown
-    {
-        HRESULT Close( [in ]uint32_t reserved/*具体模块定义，一般为零*/ );
-    };
-
-    [// 显式继承：IObjectHolder，隐含继承：IDataTransmit/IDataRwInvoke, 可以继承: IAsynIoObject
+    [// 显式继承：IObjectHolder，隐含继承：IDataTransmit/IDataRwInvoke
         object,
         uuid(CBFDC32B-6AC7-4dd6-BB9D-E8248366249A),
         helpstring("IAsynIoDevice Interface"),
@@ -429,9 +418,6 @@ import "ITypedef.idl";
     {
         //激活关联，允许events=NULL
         HRESULT Invoke( [in ]uint64_t unused, [in ]IAsynMessageEvents* events );
-        /////////////////////////////////////////////////////////////////////////////
-        //0-关闭两端/1-关闭Dst端/2-关闭Src端
-        HRESULT Close( [in ]uint32_t how );
     };
 
     /////////////////////////////////////////////////////////////////////////////////
