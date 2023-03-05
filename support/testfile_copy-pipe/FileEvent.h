@@ -96,7 +96,6 @@ public:
 
     void Shutdown()
     {
-        m_spAsynIoBridge->Close(0); //Í¬Ê±¹Ø±ÕlpSrcAsynFile/lpDstAsynFile
         Stop(m_spAsynFrame);
         m_spAsynFrame = NULL;
     }

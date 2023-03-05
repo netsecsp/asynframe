@@ -77,7 +77,7 @@ int _tmain(int argc, _TCHAR *argv[])
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
 
         asynsdk::CStringVector ipvx(1);
-        spAsynNetwork->EnumLocalAddress(0,&ipvx); for(int i = 0; i < ipvx.m_vals.size(); ++i) printf("%d: %s\n", i, ipvx.m_vals[i].c_str()); printf("\n");
+        spAsynNetwork->EnumLocalAddress(0,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
 
         CComPtr<IAsynFrameThread > spAsynFrameThread;
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);

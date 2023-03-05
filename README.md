@@ -1,4 +1,4 @@
-## Asynframe framework v1.4.0 [english](/README_EN.md) | 中文
+## Asynframe framework v1.4.1 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -62,23 +62,25 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2023/02/22 发布windows平台的asynframe framework v1.4.0  
-1. 发布插件: dtp/ras
-2. 调整接口定义
-3. 修复已知问题
+> 2023/03/05 发布windows平台的asynframe framework v1.4.1  
+1. 发布插件: dtp/ras  
+2. asynneta 支持tcp/udp端口转发  
+3. 调整接口定义  
+4. 修复已知问题  
+5. 修复内存泄露  
 > 2023/02/02 发布windows平台的asynframe framework v1.3.2  
 > 2022/06/08 发布windows平台的asynframe framework v1.2.0  
 > 2022/05/26 发布windows平台的asynframe framework v1.1.0  
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.4.0-Msvc2019_20230222.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.4.0-Msvc2013_20230222.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.4.1-Msvc2019_20230305.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.4.1-Msvc2013_20230305.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
 3. 链接asyncore.lib(提供3个api函数[^1])  
-[^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IKeyvalSetter *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
+[^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IUnknown *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
 ```c++
 int main(int argc, const char *argv[])
 {

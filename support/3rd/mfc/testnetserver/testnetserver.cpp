@@ -125,7 +125,8 @@ BOOL CtestnetserverApp::PumpMessage()
 {
     if(!m_spThreadMessagePump )
     {
-        m_spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(GetInstancesManager(), GetMainWnd()->GetSafeHwnd(), 0, DYNAMIC_DOWNCAST(CtestnetserverDlg, m_pMainWnd)));
+        CtestnetserverDlg *dlg = DYNAMIC_DOWNCAST(CtestnetserverDlg, m_pMainWnd);
+        m_spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(GetInstancesManager(), GetMainWnd()->GetSafeHwnd(), 0, dlg->GetAsynMessageEvents()));
     }
 
     HRESULT ret = m_spThreadMessagePump->WaitMessage(NULL, 5000/*5ms*/);

@@ -1733,16 +1733,16 @@ void CPaintManagerUI::RemoveAllOptionGroups()
 	m_mOptionGroup.RemoveAll();
 }
 
-class frame_CAsynMessageEvents : public asynsdk::asyn_message_events_base
+class frame_CAsynMessageEvents : public asynsdk::CAsynMessageEvents_base
 {
 public:
     frame_CAsynMessageEvents()
+      : asynsdk::CAsynMessageEvents_base(1)
     {
     }
     virtual ~frame_CAsynMessageEvents() { }
 
-
-public: //interface of asynsdk::asyn_message_events_base
+public: //interface of asynsdk::CAsynMessageEvents_base
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** object)
     {
         if( message == AF_QUERY_RESULT )

@@ -173,7 +173,7 @@ int _tmain(int argc, _TCHAR *argv[])
         if( argc == 1 || strcmp(argv[1], "timer") == 0 )
         {// timer 1000 0/2
             uint32_t elapse = argc < 3 ? 1000 : atol(argv[2]);
-            LOGGER_INFO(logger, "Create Timer: " << elapse);
+            LOGGER_INFO(logger, "CreateTimer: " << elapse);
             pEvent->m_spOsTime->GetTickcount(&pEvent->s);
             pEvent->m_spAsynFrame->CreateTimer(1, 2, elapse, TRUE);
             

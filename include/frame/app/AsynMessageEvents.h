@@ -1,4 +1,4 @@
-﻿// AsynMessageEvents.h: interface for the asyn_message_events_base/asyn_message_events_impl class.
+﻿// AsynMessageEvents.h: interface for the CAsynMessageEvents_base/asyn_message_events_base/asyn_message_events_impl class.
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_ASYNMESSAGEEVENTS_H__B2A00F47_9C06_4B38_8CC1_312322D02E91__INCLUDED_)
@@ -41,10 +41,37 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
+class CAsynMessageEvents_base :
+        public IAsynMessageEvents,
+        public CMultiThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
+{
+public:
+    CAsynMessageEvents_base(uint32_t dwRef = 0)
+      : CMultiThreadModelObject(dwRef)
+    {
+    }
+    virtual ~CAsynMessageEvents_base() { }
+
+//  DECLARE_NOT_AGGREGATABLE(CAsynMessageEvents_base)
+//  BEGIN_COM_MAP(CAsynMessageEvents_base)
+//      COM_INTERFACE_ENTRY(IAsynMessageEvents)
+//  END_COM_MAP()
+    BEGIN_OBJ_MAP(CAsynMessageEvents_base)
+    OBJ_INTERFACE_ENTRY(IAsynMessageEvents)
+    END_OBJ_MAP()
+
+public: //interface of IAsynMessageEvents
+    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
+    {
+        return E_NOTIMPL;
+    }
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 class asyn_message_events_base
 {
 public:
-    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
+    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
     {
         return E_NOTIMPL;
     }
@@ -73,10 +100,10 @@ private:
 
 /////////////////////////////////////////////////////////////////////////////////
 #define DECLARE_ASYN_MESSAGE_MAP(class_name) \
-    STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects );
+    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects );
 
 #define BEGIN_ASYN_MESSAGE_MAP(class_name) \
-    STDMETHODIMP class_name::OnMessage( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects ) \
+    STDMETHODIMP class_name::OnMessage( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects ) \
     { \
         switch(message) {
 
@@ -103,7 +130,8 @@ private:
 
 #define ON_TIMER(memberFxn) \
             case AF_TIMER:  \
-                 return memberFxn( lparam1, lparam2 );
+                 memberFxn( lparam1, lparam2 ); \
+                 return S_OK;
 
 #define END_ASYN_MESSAGE_MAP() \
             default: \

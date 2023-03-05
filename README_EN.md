@@ -1,4 +1,4 @@
-## Asynframe framework v1.4.0 english | [中文](/README.md)
+## Asynframe framework v1.4.1 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -62,23 +62,24 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2023/02/22 Release asynframe framework v1.4.0  
+> 2023/03/05 Release asynframe framework v1.4.1  
 1. Publish plugin: dtp/ras  
 2. Adjust interface definition  
 3. Fix known problems  
+4. Fix memory leak  
 > 2023/02/02 Release asynframe framework v1.3.2  
 > 2022/06/08 Release asynframe framework v1.2.0  
 > 2022/05/26 Release asynframe framework v1.1.0  
 > 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.4.0-Msvc2019_20230222.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.4.0-Msvc2013_20230222.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.4.1-Msvc2019_20230305.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.4.1-Msvc2013_20230305.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
 3. Link asyncore.lib(3 API functions are provided[^1])  
-[^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IKeyvalSetter *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
+[^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IUnknown *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
 ```c++
 int main(int argc, const char *argv[])
 {

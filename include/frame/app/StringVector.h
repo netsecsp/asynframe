@@ -76,23 +76,23 @@ public:
         {
             for(t_vecips::iterator it = vals.begin(); it != vals.end(); ++ it)
             {
-                m_vals.emplace_back(it->c_str());
+                m_val.emplace_back(it->c_str());
             }
         }
         else
         {
-            m_vals.swap(vals);
+            m_val.swap(vals);
         }
         return this;
     }
     CStringVector *Set(const std::string &val)
     {
-        m_vals.emplace_back(val);
+        m_val.emplace_back(val);
         return this;
     }
 
 public:
-    t_vecips  m_vals;
+    t_vecips  m_val;
 };
 
 class CStringVectorRef :
@@ -101,7 +101,7 @@ class CStringVectorRef :
 {
 public:
     CStringVectorRef(uint32_t dwRef = 0, t_vecips *vals = 0)
-      : CSingleThreadModelObject(dwRef), m_vals(vals)
+      : CSingleThreadModelObject(dwRef), m_val(vals)
     {
     }
     virtual ~CStringVectorRef() { }
@@ -120,7 +120,7 @@ public: //interface of IStringVector
     STDMETHOD(Set)( /*[in ][size_is(sizeof(STRING)*Size)]*/STRING* Val, /*[in ]*/uint32_t Size );
 
 public:
-    t_vecips *m_vals;
+    t_vecips *m_val;
 };
 
 NAMESPACE_END(asynsdk)

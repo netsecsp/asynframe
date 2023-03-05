@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Fri Feb 17 09:29:46 2023
+/* at Sat Mar 04 07:47:13 2023
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -148,13 +148,6 @@ typedef interface IDataTransmit IDataTransmit;
 typedef interface IDataRwInvoke IDataRwInvoke;
 
 #endif 	/* __IDataRwInvoke_FWD_DEFINED__ */
-
-
-#ifndef __IAsynIoObject_FWD_DEFINED__
-#define __IAsynIoObject_FWD_DEFINED__
-typedef interface IAsynIoObject IAsynIoObject;
-
-#endif 	/* __IAsynIoObject_FWD_DEFINED__ */
 
 
 #ifndef __IAsynIoDevice_FWD_DEFINED__
@@ -2129,86 +2122,6 @@ EXTERN_C const IID IID_IDataRwInvoke;
 #endif 	/* __IDataRwInvoke_INTERFACE_DEFINED__ */
 
 
-#ifndef __IAsynIoObject_INTERFACE_DEFINED__
-#define __IAsynIoObject_INTERFACE_DEFINED__
-
-/* interface IAsynIoObject */
-/* [unique][helpstring][uuid][object] */ 
-
-
-EXTERN_C const IID IID_IAsynIoObject;
-
-#if defined(__cplusplus) && !defined(CINTERFACE)
-    
-    MIDL_INTERFACE("E9260A0C-A2F7-41AF-B8C7-737E267A0B25")
-    IAsynIoObject : public IUnknown
-    {
-    public:
-        virtual HRESULT STDMETHODCALLTYPE Close( 
-            /* [in] */ uint32_t reserved) = 0;
-        
-    };
-    
-    
-#else 	/* C style interface */
-
-    typedef struct IAsynIoObjectVtbl
-    {
-        BEGIN_INTERFACE
-        
-        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-            IAsynIoObject * This,
-            /* [in] */ REFIID riid,
-            /* [annotation][iid_is][out] */ 
-            _COM_Outptr_  void **ppvObject);
-        
-        ULONG ( STDMETHODCALLTYPE *AddRef )( 
-            IAsynIoObject * This);
-        
-        ULONG ( STDMETHODCALLTYPE *Release )( 
-            IAsynIoObject * This);
-        
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            IAsynIoObject * This,
-            /* [in] */ uint32_t reserved);
-        
-        END_INTERFACE
-    } IAsynIoObjectVtbl;
-
-    interface IAsynIoObject
-    {
-        CONST_VTBL struct IAsynIoObjectVtbl *lpVtbl;
-    };
-
-    
-
-#ifdef COBJMACROS
-
-
-#define IAsynIoObject_QueryInterface(This,riid,ppvObject)	\
-    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
-
-#define IAsynIoObject_AddRef(This)	\
-    ( (This)->lpVtbl -> AddRef(This) ) 
-
-#define IAsynIoObject_Release(This)	\
-    ( (This)->lpVtbl -> Release(This) ) 
-
-
-#define IAsynIoObject_Close(This,reserved)	\
-    ( (This)->lpVtbl -> Close(This,reserved) ) 
-
-#endif /* COBJMACROS */
-
-
-#endif 	/* C style interface */
-
-
-
-
-#endif 	/* __IAsynIoObject_INTERFACE_DEFINED__ */
-
-
 #ifndef __IAsynIoDevice_INTERFACE_DEFINED__
 #define __IAsynIoDevice_INTERFACE_DEFINED__
 
@@ -2426,9 +2339,6 @@ EXTERN_C const IID IID_IAsynIoBridge;
             /* [in] */ uint64_t unused,
             /* [in] */ IAsynMessageEvents *events) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE Close( 
-            /* [in] */ uint32_t how) = 0;
-        
     };
     
     
@@ -2468,10 +2378,6 @@ EXTERN_C const IID IID_IAsynIoBridge;
             /* [in] */ uint64_t unused,
             /* [in] */ IAsynMessageEvents *events);
         
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            IAsynIoBridge * This,
-            /* [in] */ uint32_t how);
-        
         END_INTERFACE
     } IAsynIoBridgeVtbl;
 
@@ -2504,9 +2410,6 @@ EXTERN_C const IID IID_IAsynIoBridge;
 
 #define IAsynIoBridge_Invoke(This,unused,events)	\
     ( (This)->lpVtbl -> Invoke(This,unused,events) ) 
-
-#define IAsynIoBridge_Close(This,how)	\
-    ( (This)->lpVtbl -> Close(This,how) ) 
 
 #endif /* COBJMACROS */
 
@@ -3302,14 +3205,14 @@ EXTERN_C const IID IID_IAsynFramePlugin;
 #endif 	/* __IAsynFramePlugin_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_IAsynFrame_0000_0023 */
+/* interface __MIDL_itf_IAsynFrame_0000_0022 */
 /* [local] */ 
 
 #pragma pack(pop)
 
 
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0023_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0023_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0022_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0022_v0_0_s_ifspec;
 
 /* Additional Prototypes for ALL interfaces */
 

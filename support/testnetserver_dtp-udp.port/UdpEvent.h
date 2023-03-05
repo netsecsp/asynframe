@@ -56,7 +56,7 @@ public:
         if( port == 0 ) spAsynUdpSocket->GetSockAddress(0, 0, &port, 0);
         printf("udp.listen *:%d\n", port);
 
-        if( m_spAsynNetwork->CreateAppService(STRING_from_string(IN_Dtp), (IUnknown**)&spAsynUdpSocket.p, asynsdk::STRING_EX::null, 0, (IAppService**)&m_spDtp) != S_OK )
+        if( m_spAsynNetwork->CreateAppService(STRING_from_string(IN_Dtp), (IUnknown**)&spAsynUdpSocket.p, STRING_from_string("mss=1500&obw=1000"), 0, (IAppService**)&m_spDtp) != S_OK )
         {
             printf("fail to load plugin: %s\n", IN_Dtp);
             return false;

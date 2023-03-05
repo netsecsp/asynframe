@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Fri Feb 17 09:29:57 2023
+/* at Sat Mar 04 07:47:25 2023
  */
 /* Compiler settings for INet.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

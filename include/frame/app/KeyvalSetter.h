@@ -93,6 +93,7 @@ public:
 
 class CKeyvalSetter :
         public IKeyvalSetter,
+        public CKeyval      ,
         public CMultiThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
 {
 public:
@@ -113,32 +114,29 @@ public:
 public: //interface of IKeyvalSetter
     STDMETHOD(Get   )( /*[in ]*/STRING Key, /*[in ]*/uint32_t Index, /*[in ]*/BOOL remove, /*[in ]*/IStringSetter *value )
     {
-        return m_val.Get(Key, Index, remove, value);
+        return CKeyval::Get(Key, Index, remove, value);
     }
     STDMETHOD(Set   )( /*[in ]*/STRING Key, /*[in ]*/BOOL Multi, /*[in ]*/STRING value )
     {
-        return m_val.Set(Key, Multi, value);
+        return CKeyval::Set(Key, Multi, value);
     }
     STDMETHOD(Del   )( /*[in ]*/STRING Key, /*[in ]*/uint32_t  Index )
     {
-        return m_val.Del(Key, Index);
+        return CKeyval::Del(Key, Index);
     }
     STDMETHOD(Has   )( /*[in ]*/STRING Key, /*[out]*/uint32_t *Count )
     {
-        return m_val.Has(Key, Count);
+        return CKeyval::Has(Key, Count);
     }
     STDMETHOD(Format)( /*[in ]*/STRING sep, /*[in ]*/STRING end, /*[in,out]*/STRING *out )
     {
-        return m_val.Format(sep, end, out);
+        return CKeyval::Format(sep, end, out);
     }
     
     STDMETHOD(Travel)( /*[in ]*/IUnknown* pParams )
     {
-        return m_val.Travel(pParams); //remark: IN_SysArgv所对应的对象增加支持传入IStringSetter参数: 用于保存参数到指定文件
+        return CKeyval::Travel(pParams); //remark: IN_SysArgv所对应的对象增加支持传入IStringSetter参数: 用于保存参数到指定文件
     }
-
-public:
-    CKeyval m_val;
 };
 
 NAMESPACE_END(asynsdk)

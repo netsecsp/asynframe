@@ -132,11 +132,11 @@ int _tmain(int argc, _TCHAR *argv[])
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         CTcpEvent *pEvent = new CTcpEvent(spAsynNetwork, spAsynFrameThread, 23);
-        if (pEvent->Start((handle)pctx, pctx? 0 : certandpasswd, atol(argc > 1 ? argv[1] : "7675")))
+        if( pEvent->Start((handle)pctx, pctx? 0 : certandpasswd, atoi(argc > 1 ? argv[1] : "7675")))
         {
-			if (pctx) CertFreeCertificateContext(pctx);
-			if (hMyCertStore) CertCloseStore(hMyCertStore, 0);
-            while( _kbhit() == 0 )
+			if( pctx ) CertFreeCertificateContext(pctx);
+			if( hMyCertStore ) CertCloseStore(hMyCertStore, 0);
+            while(_kbhit() == 0 )
             {
                 Sleep(100);
             }

@@ -42,6 +42,7 @@ NAMESPACE_BEGIN(asynsdk)
 
 class CNetmsg :
         public INetmsg,
+        public CKeyval,
         public CMultiThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
 {
 public:
@@ -64,27 +65,27 @@ public:
 public: //interface of IKeyvalSetter
     STDMETHOD(Get    )( /*[in ]*/STRING Key, /*[in ]*/uint32_t Index, /*[in ]*/BOOL remove, /*[in ]*/IStringSetter *value )
     {
-        return m_val.Get(Key, Index, remove, value);
+        return CKeyval::Get(Key, Index, remove, value);
     }
     STDMETHOD(Set    )( /*[in ]*/STRING Key, /*[in ]*/BOOL Multi, /*[in ]*/STRING value )
     {
-        return m_val.Set(Key, Multi, value);
+        return CKeyval::Set(Key, Multi, value);
     }
     STDMETHOD(Del    )( /*[in ]*/STRING Key, /*[in ]*/uint32_t Index )
     {
-        return m_val.Del(Key, Index);
+        return CKeyval::Del(Key, Index);
     }
     STDMETHOD(Has    )( /*[in ]*/STRING Key, /*[out]*/uint32_t *pCount )
     {
-        return m_val.Has(Key, pCount);
+        return CKeyval::Has(Key, pCount);
     }
     STDMETHOD(Format )( /*[in ]*/STRING sep, /*[in ]*/STRING end, /*[in,out]*/STRING *out )
     {
-        return m_val.Format(sep, end, out);
+        return CKeyval::Format(sep, end, out);
     }
     STDMETHOD(Travel)( /*[in ]*/IUnknown* pParams )
     {
-        return m_val.Travel(pParams);
+        return CKeyval::Travel(pParams);
     }
 
 public: //interface of INetmsg
@@ -120,8 +121,7 @@ public:
     std::string m_method;
     std::string m_param1;
     std::string m_param2;
-    CKeyval m_val;
-    BOOL    m_ack;//0-req 1-ack
+    BOOL  m_ack; //0-req 1-ack
 };
 
 NAMESPACE_END(asynsdk)

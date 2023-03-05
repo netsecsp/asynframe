@@ -61,7 +61,6 @@ public:
                 printf("transmit completed\n");
             else
                 printf("occur error: %lld from %p\n", lParam2, pAsynIoBridge);
-            info->spAsynIoBridge->Close(3);
 
             printf("remove client: %s\n", info->ident.c_str());
             m_arId2Userinfos.erase(info->ident);

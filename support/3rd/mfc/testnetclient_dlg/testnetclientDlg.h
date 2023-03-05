@@ -8,7 +8,7 @@
 
 // CtestnetclientDlg 对话框
 class CtestnetclientDlg : public CDialogEx, 
-                          public asynsdk::asyn_message_events_base
+                          public asynsdk::asyn_message_events_impl
 {
     // 构造
 public:

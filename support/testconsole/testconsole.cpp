@@ -56,10 +56,53 @@ STDAPI_(extern HRESULT) Initialize( /*[in ]*/IAsynMessageEvents *param1, /*[in ]
 STDAPI_(extern HRESULT) Destory();
 STDAPI_(extern InstancesManager *) GetInstancesManager();
 
+class CGlobalEvents : public asynsdk::CAsynMessageEvents_base
+{
+public:
+    CGlobalEvents()
+      :  asynsdk::CAsynMessageEvents_base(1)
+    {
+    }
+
+    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
+    {
+        if( message == AF_EVENT_NOTIFY &&
+            lparam1 == 0 )
+        {
+            printf("recv ctrl[%lld]\n", lparam2);
+            return S_OK;
+        }
+        return E_NOTIMPL;
+    }
+};
+
+class CThreadEvents : public asynsdk::CAsynMessageEvents_base
+{
+public:
+    CThreadEvents( InstancesManager* lpInstancesManager )
+      : asynsdk::CAsynMessageEvents_base(1)
+    {
+        lpInstancesManager->GetInstance(STRING_from_string(IN_Console), IID_IConsole, (void**)&console);
+    }
+    STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown **objects )
+    {
+        if( message == AF_EVENT_NOTIFY &&
+            lparam2 )
+        {
+            console->AllocWindow((IAsynFrameThread *)objects[0], asynsdk::STRING_EX::null, 3, 0);
+        }
+        return E_NOTIMPL;
+    }
+
+    CComPtr<IConsole> console;
+};
+
 int _tmain(int argc, _TCHAR *argv[])
 {
     asynsdk::CStringSetter fileconf(1, "config.ini");
-    HRESULT hr1 = Initialize(NULL, &fileconf);
+    CGlobalEvents e;
+
+    HRESULT hr1 = Initialize(&e, &fileconf);
 
     do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
@@ -70,30 +113,8 @@ int _tmain(int argc, _TCHAR *argv[])
             break;
         }
 
-        CComPtr<IConsole> console;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_Console), IID_IConsole, (void **)&console);
-
-        class e : public asynsdk::asyn_message_events_base
-        {
-        public:
-            e(IConsole *p)
-              : console(p)
-            {
-            }
-            STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown **objects )
-            {
-                if( message == AF_EVENT_NOTIFY &&
-                    lparam2 )
-                {
-                    console->AllocWindow((IAsynFrameThread *)objects[0], asynsdk::STRING_EX::null, 3, 0);
-                }
-                return E_NOTIMPL;
-            }
-
-            CComPtr<IConsole> console;
-        };
-
-        asynsdk::DoMessageLoop(lpInstancesManager, 0, 0, &e(console));
+        CThreadEvents t(lpInstancesManager);
+        asynsdk::DoMessageLoop(lpInstancesManager, 0, 0, &t);
     }while(0);
 
     HRESULT hr2 = Destory();

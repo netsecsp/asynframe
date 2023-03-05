@@ -53,11 +53,11 @@ HRESULT PostBindIoOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation, /*[in 
 
 ///////////////////////////////////////////////////////////////////////////////
 //枚举KeyvalSetter数据
-void    TravelKeyvalSetter ( /*[in ]*/IKeyvalSetter *object, /*[in ]*/asyn_message_events_base *events );
+void    TravelKeyvalSetter ( /*[in ]*/IKeyvalSetter *object, /*[in ]*/IAsynMessageEvents *events );
 
 ///////////////////////////////////////////////////////////////////////////////
 //设置读||写速度限制器
-bool    SetSpeedController (/*[in ]*/IAsynIoDevice    *lpDstAsynIoDevice, /*[in ]*/uint32_t type, /*[in ]*/uint32_t level, /*[in ]*/ISpeedController *pSpeedController);
+bool    SetSpeedController (/*[in ]*/IAsynIoDevice *lpDstAsynIoDevice, /*[in ]*/uint32_t type, /*[in ]*/uint32_t level, /*[in ]*/ISpeedController *pSpeedController);
 
 ///////////////////////////////////////////////////////////////////////////////
 //申请||释放内存
@@ -70,10 +70,10 @@ bool    IsSslSocket  (IUnknown *pSocket);
 
 ///////////////////////////////////////////////////////////////////////////////
 //建立消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events=0，pParam1!=0表示建立窗口线程循环泵, 允许events=0, 注意: 不能用于模态对话框
-void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/uint32_t unused, /*[in ]*/asyn_message_events_base *events);
+void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/uint32_t unused, /*[in ]*/IAsynMessageEvents *events);
 
 //创建消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events=0，pParam1!=0表示建立窗口线程循环泵, 允许events=0, 注意: 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵, 并且禁止events=0
-IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/uint32_t unused, /*[in ]*/asyn_message_events_base *events);
+IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/uint32_t unused, /*[in ]*/IAsynMessageEvents *events);
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建数据传输器
@@ -82,6 +82,10 @@ IDataTransmit        *CreateDataTransmit(/*[in ]*/InstancesManager *lpInstancesM
 ///////////////////////////////////////////////////////////////////////////////
 //创建命令执行器: name="cmd"表示创建系统命令执行器
 IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *thread, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
+
+///////////////////////////////////////////////////////////////////////////////
+//创建线程
+IThread              *CreateThread (/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/uint32_t type);
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建线程池

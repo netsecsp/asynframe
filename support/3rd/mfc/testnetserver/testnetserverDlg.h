@@ -8,7 +8,8 @@
 #include "UdpEvent.h"
 
 // CtestnetserverDlg 对话框
-class CtestnetserverDlg : public CDialogEx, public asynsdk::asyn_message_events_base
+class CtestnetserverDlg : public CDialogEx, 
+                          public asynsdk::asyn_message_events_impl
 {
     // 构造
 public:

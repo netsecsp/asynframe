@@ -198,10 +198,11 @@ int EmulateCrash(char ExceptionType) throw (...)
     return 1;
 }
 
-class CEvent : public asynsdk::asyn_message_events_impl
+class CGlobalEvents : public asynsdk::CAsynMessageEvents_base
 {
 public:
-    CEvent()
+    CGlobalEvents()
+      : CAsynMessageEvents_base(1)
     {
     }
 
@@ -243,11 +244,9 @@ public: // interface of asyn_message_events_impl
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    CEvent event;
-    HRESULT hr1 = Initialize(event.GetAsynMessageEvents(), NULL);
+    CGlobalEvents e;
+    HRESULT hr1 = Initialize(&e, NULL);
     {
-        InstancesManager *lpInstancesManager = GetInstancesManager();
-
         char ExceptionType = 0;
         do{
         printf("Choose an exception type:\n");

@@ -81,23 +81,23 @@ public:
         {
             for(t_lstips::iterator it = vals.begin(); it != vals.end(); ++ it)
             {
-                m_vals.emplace_back(it->c_str());
+                m_val.emplace_back(it->c_str());
             }
         }
         else
         {
-            m_vals.swap(vals);
+            m_val.swap(vals);
         }
         return this;
     }
     CStringStack *Set(const std::string &val)
     {
-        m_vals.emplace_back(val);
+        m_val.emplace_back(val);
         return this;
     }
 
 public:
-    t_lstips  m_vals;
+    t_lstips  m_val;
 };
 
 class CStringStackRef :
@@ -106,7 +106,7 @@ class CStringStackRef :
 {
 public:
     CStringStackRef(uint32_t dwRef = 0, t_lstips *vals = 0)
-      : CSingleThreadModelObject(dwRef), m_vals(vals)
+      : CSingleThreadModelObject(dwRef), m_val(vals)
     {
     }
     virtual ~CStringStackRef() { }
@@ -130,7 +130,7 @@ public: //interface of IStringStack
     STDMETHOD(Add)( /*[in ]*/STRING  Val );
 
 public:
-    t_lstips *m_vals;
+    t_lstips *m_val;
 };
 
 NAMESPACE_END(asynsdk)
