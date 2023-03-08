@@ -43,6 +43,10 @@ NAMESPACE_BEGIN(asynsdk)
 //IConsole(InstanceName)
 #define IN_Console "com.asynframe.console"
 
+/////////////////////////////////////////////////////////////////////////////////
+#define ENABLE_INPUT_KEYBOARD 0x1
+#define ENABLE_INPUT_MOUSE    0x2
+
 NAMESPACE_END(asynsdk)
 
 #endif // !defined(AFX_CONSOLE_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)

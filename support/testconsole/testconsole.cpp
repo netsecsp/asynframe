@@ -89,7 +89,7 @@ public:
         if( message == AF_EVENT_NOTIFY &&
             lparam2 )
         {
-            console->AllocWindow((IAsynFrameThread *)objects[0], asynsdk::STRING_EX::null, 3, 0);
+            console->AllocWindow((IAsynFrameThread*)objects[0], asynsdk::STRING_EX::null, ENABLE_INPUT_KEYBOARD|ENABLE_INPUT_MOUSE, 0);
         }
         return E_NOTIMPL;
     }

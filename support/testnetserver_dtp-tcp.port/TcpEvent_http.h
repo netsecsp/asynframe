@@ -236,8 +236,8 @@ public:
 
     void Shutdown()
     {
-        m_spAsynFrame->Shutdown();
-        m_spAsynFrame = NULL;
+        Stop(m_spAsynFrame);
+        m_spAsynFrame = 0;
     }
 
 public:

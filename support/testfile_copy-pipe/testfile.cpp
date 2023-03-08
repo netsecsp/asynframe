@@ -89,6 +89,7 @@ int _tmain(int argc, _TCHAR *argv[])
         if( r1 != S_OK )
         {
             printf("open %s, error: %d\n", srcfile, r1);
+            break;
         }
 
         CComPtr<IAsynFile> spDstAsynFile;
@@ -99,23 +100,19 @@ int _tmain(int argc, _TCHAR *argv[])
         if( r2 != S_OK )
         {
             printf("open %s, error: %d\n", dstfile, r2);
+            break;
         }
 
-        if( r1 == S_OK &&
-                r2 == S_OK)
+        CFileEvent *pEvent = new CFileEvent( spAsynFrameThread, spAsynFileSystem );
+        if( pEvent->Copy(spSrcAsynFile, spDstAsynFile) )
         {
-            CFileEvent *pEvent = new CFileEvent( spAsynFrameThread, spAsynFileSystem );
-            if( pEvent->Copy(spSrcAsynFile, spDstAsynFile) )
+            while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) && _kbhit() == 0 )
             {
-                while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                        _kbhit() == 0 )
-                {
-                    Sleep(100);
-                }
+                Sleep(100);
             }
-            pEvent->Shutdown();
-            delete pEvent;
         }
+        pEvent->Shutdown();
+        delete pEvent;
     }while(0);
 
     HRESULT hr2 = Destory();

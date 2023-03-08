@@ -57,7 +57,7 @@ public:
 //      COM_INTERFACE_ENTRY(IAsynMessageEvents)
 //  END_COM_MAP()
     BEGIN_OBJ_MAP(CAsynMessageEvents_base)
-    OBJ_INTERFACE_ENTRY(IAsynMessageEvents)
+        OBJ_INTERFACE_ENTRY(IAsynMessageEvents)
     END_OBJ_MAP()
 
 public: //interface of IAsynMessageEvents

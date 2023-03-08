@@ -113,6 +113,8 @@ END_ASYN_IOERROR()
 #define Io_connect                      ( 17)
 #define Io_bind                         ( 18)
 #define Io_hostdns                      ( 19)
+#define Io_allocsize                    ( 20)
+#define Io_flushfile                    ( 21)
 
 /////////////////////////////////////////////////////////////////////////////////
 //ISpeedController.IObjectHolder(lType)

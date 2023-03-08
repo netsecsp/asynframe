@@ -59,16 +59,24 @@ public:
             uint32_t lErrorCode, lTransferedBytes;
             lpAsynIoOperation->GetCompletedResult(&lErrorCode, &lTransferedBytes, 0);
 
+            if( lParam2 == Io_flushfile )
+            {
+                SetEvent(m_hNotify);
+                return E_NOTIMPL;
+            }
+
             if( lParam2 == Io_recv )
             {
                 if( lErrorCode )
                 {
-                    if( lErrorCode == AE_RESET ) //读到文件结尾
+                    if( lErrorCode == AE_RESET )
+                    {// 读到文件结尾
                         printf("copy completed\n");
-                    else
-                        printf("read, error: %d\n", lErrorCode);
+                        return m_spDstAsynFile->FlushBuffer(lpAsynIoOperation);
+                    }
+
+                    printf("read, error: %d\n", lErrorCode);
                     SetEvent(m_hNotify);
-                    m_spSrcAsynIoOperation = 0;
                     return E_NOTIMPL;
                 }
                 else

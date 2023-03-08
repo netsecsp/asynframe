@@ -1,4 +1,4 @@
-## Asynframe framework v1.4.1 [english](/README_EN.md) | 中文
+## Asynframe framework v1.4.2 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -47,7 +47,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |console|插件[asyncore]|命令控制台<br>1.支持加载/卸载ICommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|插件[asyncore]|进程间通讯|\support\testipcclient<br>\support\testipcserver|
-|asynneta|插件[asyncore]|服务端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理|[aneta](https://github.com/netsecsp/aneta)|
+|asynneta|插件[asyncore]|服务端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理<br>4.提供tcp/udp端口转发|[aneta](https://github.com/netsecsp/aneta)|
 |asynsock|插件[asyncore]|网络<br>1.支持ipv6兼容ipv4<br>2.支持默认DNS 解析|\support\testnetclient<br>\support\testnetserver<br>[ping](https://github.com/netsecsp/pingx)|
 |dns|插件[asynsock]|域名解析<br>1.udp dns<br>2.tcp dns<br>3.httpDNS: 实现阿里云/腾迅云|\support\testdns|
 |ftp |插件[asynsock]|ftp 协议|[aftpx](https://github.com/netsecsp/aftpx)|
@@ -62,7 +62,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2023/03/05 发布windows平台的asynframe framework v1.4.1  
+> 2023/03/08 发布windows平台的asynframe framework v1.4.2  
 1. 发布插件: dtp/ras  
 2. asynneta 支持tcp/udp端口转发  
 3. 调整接口定义  
@@ -74,8 +74,8 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.4.1-Msvc2019_20230305.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.4.1-Msvc2013_20230305.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.4.2-Msvc2019_20230308.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.4.2-Msvc2013_20230308.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -113,7 +113,6 @@ int main(int argc, const char *argv[])
 ```
 
 # 开发  
-- asynframe framework [导出函数](https://netsecsp.github.io/doc/pluginapi.md)  
 
 - 接口定义  
   [IAsynFrame](https://netsecsp.github.io/doc/IAsynFrame.txt)  
@@ -132,28 +131,28 @@ int main(int argc, const char *argv[])
 - [插件使用](https://netsecsp.github.io/doc/externapi.md)   
 
   <u>基础模块</u>  
-  - asyncore  
-  - asynfile  
-  - asynipcs  
-  - asynsock  
-  - crashexplorer  
+  - [asyncore](https://netsecsp.github.io/mds/asynframe.md)  
+  - [asynfile](https://netsecsp.github.io/mds/asynfile.md)  
+  - [asynipcs](https://netsecsp.github.io/mds/asynipcs.md)  
+  - [asynsock](https://netsecsp.github.io/mds/asynsock.md)  
+  - [crashexplorer](https://netsecsp.github.io/mds/crashexplorer.md)  
 
   <u>网络模块</u>  
-  - asynneta  
-  - dtp  
-  - [dns](https://netsecsp.github.io/doc/dns.md)  
-  - [ftp](https://netsecsp.github.io/doc/ftp.md)  
-  - [http](https://netsecsp.github.io/doc/http.md)  
-  - [rtsp](https://netsecsp.github.io/doc/rtsp.md)  
-  - [proxy](https://netsecsp.github.io/doc/proxy.md)  
-  - [ssl](https://netsecsp.github.io/doc/ssl.md)  
-  - [websocket](https://netsecsp.github.io/doc/websocket.md)  
+  - [asynneta](https://netsecsp.github.io/mds/asynneta.md)    
+  - [dtp](https://netsecsp.github.io/mds/dtp.md)  
+  - [dns](https://netsecsp.github.io/mds/dns.md)  
+  - [ftp](https://netsecsp.github.io/mds/ftp.md)  
+  - [http](https://netsecsp.github.io/mds/http.md)  
+  - [rtsp](https://netsecsp.github.io/mds/rtsp.md)  
+  - [proxy](https://netsecsp.github.io/mds/proxy.md)  
+  - [ssl](https://netsecsp.github.io/mds/ssl.md)  
+  - [websocket](https://netsecsp.github.io/mds/websocket.md)  
 
   <u>扩展模块</u>  
-  - [console](https://netsecsp.github.io/doc/console.md)  
-  - [lua](https://netsecsp.github.io/doc/lua.md)  
-  - [zip](https://netsecsp.github.io/doc/zip.md)  
-  - [sqlite](https://netsecsp.github.io/doc/sqlite.md)  
+  - [console](https://netsecsp.github.io/mds/console.md)  
+  - [lua](https://netsecsp.github.io/mds/lua.md)  
+  - [zip](https://netsecsp.github.io/mds/zip.md)  
+  - [sqlite](https://netsecsp.github.io/mds/sqlite.md)  
 
 # 鸣谢  
 > [Log4cplus](https://github.com/log4cplus/log4cplus)  

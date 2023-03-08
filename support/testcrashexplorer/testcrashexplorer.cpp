@@ -224,7 +224,7 @@ public: // interface of asyn_message_events_impl
             // Create process using the command line prepared earlier
             if(!CreateProcess(NULL, (char*)("./snd/testcrashrpt.exe " + v.m_val).c_str(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
             {
-                printf("call CreateProcess return 0, lErrorcode=%d\n", GetLastError());
+                printf("call CreateProcess testcrashrpt.exe return 0, lErrorcode=%d\n", GetLastError());
             }
             else
             {

@@ -82,12 +82,15 @@ int _tmain(int argc, _TCHAR *argv[])
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         CFileEvent *pEvent = new CFileEvent( spAsynFrameThread, spAsynFileSystem );
+        
+        do{
         HRESULT r1 = pEvent->m_spSrcAsynFile->Open(spAsynFrameThread,
                      STRING_from_string(srcfile),
                      GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL);
         if( r1 != S_OK )
         {
             printf("open %s, error: %d\n", srcfile, r1);
+            break;
         }
 
         HRESULT r2 = pEvent->m_spDstAsynFile->Open(spAsynFrameThread,
@@ -96,25 +99,22 @@ int _tmain(int argc, _TCHAR *argv[])
         if( r2 != S_OK )
         {
             printf("open %s, error: %d\n", dstfile, r2);
+            break;
         }
 
-        if( r1 == S_OK &&
-                r2 == S_OK )
+        CComPtr<IBuffer> spBuffer;
+        lpInstancesManager->NewInstance(0, 0, IID_IBuffer, (void**)&spBuffer);
+        if( pEvent->Copy(spBuffer) )
         {
-            CComPtr<IBuffer> spBuffer;
-            lpInstancesManager->NewInstance(0, 0, IID_IBuffer, (void **)&spBuffer);
-            if( pEvent->Copy(spBuffer) )
+            while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) && _kbhit() == 0 )
             {
-                while( WAIT_OBJECT_0 != WaitForSingleObject(pEvent->m_hNotify, 0) &&
-                        _kbhit() == 0 )
-                {
-                    Sleep(100);
-                }
+                Sleep(100);
             }
-
-            pEvent->Shutdown();
-            delete pEvent;
         }
+        }while(0);
+
+        pEvent->Shutdown();
+        delete pEvent;
     }while(0);
 
     HRESULT hr2 = Destory();
