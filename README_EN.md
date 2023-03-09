@@ -1,4 +1,4 @@
-## Asynframe framework v1.4.2 english | [中文](/README.md)
+## Asynframe framework v1.4.3 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -62,7 +62,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2023/03/08 Release asynframe framework v1.4.2  
+> 2023/03/09 Release asynframe framework v1.4.3  
 1. Publish plugin: dtp/ras  
 2. Adjust interface definition  
 3. Fix known problems  
@@ -73,8 +73,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.4.2-Msvc2019_20230308.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.4.2-Msvc2013_20230308.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.4.3-Msvc2019_20230309.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.4.3-Msvc2013_20230309.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  

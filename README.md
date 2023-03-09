@@ -1,4 +1,4 @@
-## Asynframe framework v1.4.2 [english](/README_EN.md) | 中文
+## Asynframe framework v1.4.3 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -62,7 +62,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2023/03/08 发布windows平台的asynframe framework v1.4.2  
+> 2023/03/09 发布windows平台的asynframe framework v1.4.3  
 1. 发布插件: dtp/ras  
 2. asynneta 支持tcp/udp端口转发  
 3. 调整接口定义  
@@ -74,8 +74,8 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.4.2-Msvc2019_20230308.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.4.2-Msvc2013_20230308.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.4.3-Msvc2019_20230309.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.4.3-Msvc2013_20230309.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
