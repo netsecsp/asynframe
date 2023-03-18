@@ -1760,7 +1760,7 @@ public: //interface of asynsdk::CAsynMessageEvents_base
 int CPaintManagerUI::MessageLoop_frame(/*[in ]*/HWND w)
 {
     frame_CAsynMessageEvents e;
-    asynsdk::DoMessageLoop(frame_GetInstancesManager(), w, 0, &e);
+    asynsdk::DoMessageLoop(frame_GetInstancesManager(), w, asynsdk::TC_Auto, &e);
 	return 0;
 }
 

@@ -154,7 +154,7 @@ int  CtestnetclientApp::Run()
 
     CComPtr<IThreadMessagePump> spThreadMessagePump;
     CComPtr<InstancesManager> spInstancesManager = GetInstancesManager();
-    spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(spInstancesManager, GetMainWnd()->GetSafeHwnd(), 0, NULL));
+    spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(spInstancesManager, GetMainWnd()->GetSafeHwnd(), asynsdk::TC_Auto, NULL));
 
     // for tracking the idle time state
     LONG lIdleCount = 0;

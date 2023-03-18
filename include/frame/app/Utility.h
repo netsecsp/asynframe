@@ -41,6 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAMESPACE_BEGIN(asynsdk)
 
 ///////////////////////////////////////////////////////////////////////////////
+//添加到空闲的消息队列
 HRESULT AppendIdleOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation, /*[in ]*/uint32_t param2 = 0);
 
 HRESULT SendAsynIoOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation);
@@ -53,11 +54,15 @@ HRESULT PostBindIoOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation, /*[in 
 
 ///////////////////////////////////////////////////////////////////////////////
 //枚举KeyvalSetter数据
-void    TravelKeyvalSetter ( /*[in ]*/IKeyvalSetter *object, /*[in ]*/IAsynMessageEvents *events );
+void    TravelKeyvalSetter (/*[in ]*/IKeyvalSetter *object, /*[in ]*/IAsynMessageEvents *events);
 
 ///////////////////////////////////////////////////////////////////////////////
 //设置读||写速度限制器
 bool    SetSpeedController (/*[in ]*/IAsynIoDevice *lpDstAsynIoDevice, /*[in ]*/uint32_t type, /*[in ]*/uint32_t level, /*[in ]*/ISpeedController *pSpeedController);
+
+///////////////////////////////////////////////////////////////////////////////
+//检测是否ISsl
+bool    IsSslSocket  (/*[in ]*/IUnknown *pSocket);
 
 ///////////////////////////////////////////////////////////////////////////////
 //申请||释放内存
@@ -65,15 +70,19 @@ void   *AcquireBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in, out]*/uint32_t 
 bool    ReleaseBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in ]*/void *addr);
 
 ///////////////////////////////////////////////////////////////////////////////
-//检测是否ISsl
-bool    IsSslSocket  (IUnknown *pSocket);
+typedef enum tag_FrameThreadCore
+{
+    TC_Auto = 0,
+    TC_Iocp,
+    TC_Uapc,
+    TC_Uapc_timeEvent,
+} FrameThreadCore;
 
-///////////////////////////////////////////////////////////////////////////////
 //建立消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events=0，pParam1!=0表示建立窗口线程循环泵, 允许events=0, 注意: 不能用于模态对话框
-void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/uint32_t unused, /*[in ]*/IAsynMessageEvents *events);
+void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events);
 
 //创建消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events=0，pParam1!=0表示建立窗口线程循环泵, 允许events=0, 注意: 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵, 并且禁止events=0
-IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/uint32_t unused, /*[in ]*/IAsynMessageEvents *events);
+IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events);
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建数据传输器
@@ -84,12 +93,25 @@ IDataTransmit        *CreateDataTransmit(/*[in ]*/InstancesManager *lpInstancesM
 IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *thread, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
 
 ///////////////////////////////////////////////////////////////////////////////
-//创建线程
-IThread              *CreateThread (/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/uint32_t type);
+typedef enum tag_ThreadType
+{
+    TT_FrameThread = 0, //IAsynFrameThread
+    TT_WorksThread,     //IThread
+    TT_TwinsThread,     //IThread
+} ThreadType;
+//创建Os线程
+IThread              *CreateThread(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/ThreadType type);
 
 ///////////////////////////////////////////////////////////////////////////////
+typedef enum tag_ThreadpoolType
+{
+    PT_AutoxThreadpool = 0, //自动调整线程池
+    PT_FixedThreadpool,     //固定大小线程池
+    PT_SocksThreadpool,     //socket  线程池
+    PT_EventThreadpool,     //监控事件线程池
+} ThreadpoolType;
 //创建线程池
-IThreadPool          *CreateThreadPool(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/uint32_t type);
+IThreadPool          *CreateThreadPool(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/ThreadpoolType type);
 
 ///////////////////////////////////////////////////////////////////////////////
 //获取frame 目录
@@ -97,9 +119,9 @@ std::string GetFrameFolderDirectory(/*[in ]*/InstancesManager *lpInstancesManage
 
 ///////////////////////////////////////////////////////////////////////////////
 //转换编码格式
-uint32_t Convert( /*[in ]*/uint32_t nSrcCodepage, /*[in ]*/const char *src, /*[in ]*/uint32_t len, /*out*/std::wstring &dst );   // XXXXX->WCHAR
-uint32_t Convert( /*[in ]*/const wchar_t *src, /*[in ]*/uint32_t len, /*[in ]*/uint32_t nDstCodepage, /*out*/std::string &dst ); // WCHAR->XXXXX
-uint32_t Convert( /*[in ]*/uint32_t nSrcCodepage, /*[in ]*/const char *src, /*[in ]*/uint32_t len, /*[in ]*/uint32_t nDstCodepage, /*out*/std::string &dst ); //XXXXX->XXXXX
+uint32_t Convert(/*[in ]*/uint32_t nSrcCodepage, /*[in ]*/const char *src, /*[in ]*/uint32_t len, /*out*/std::wstring &dst);   // XXXXX->WCHAR
+uint32_t Convert(/*[in ]*/const wchar_t *src, /*[in ]*/uint32_t len, /*[in ]*/uint32_t nDstCodepage, /*out*/std::string &dst); // WCHAR->XXXXX
+uint32_t Convert(/*[in ]*/uint32_t nSrcCodepage, /*[in ]*/const char *src, /*[in ]*/uint32_t len, /*[in ]*/uint32_t nDstCodepage, /*out*/std::string &dst); //XXXXX->XXXXX
 
 NAMESPACE_END(asynsdk)
 

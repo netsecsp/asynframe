@@ -114,7 +114,7 @@ int _tmain(int argc, _TCHAR *argv[])
         }
 
         CThreadEvents t(lpInstancesManager);
-        asynsdk::DoMessageLoop(lpInstancesManager, 0, 0, &t);
+        asynsdk::DoMessageLoop(lpInstancesManager, 0, asynsdk::TC_Uapc, &t);
     }while(0);
 
     HRESULT hr2 = Destory();

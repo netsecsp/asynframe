@@ -214,20 +214,6 @@ END_ASYN_IOERROR()
 #define OB_OsAddr                       ( 1 ) //OsAddr
 #define OB_IoArea                       ( 2 ) //IoArea
 
-/////////////////////////////////////////////////////////////////////////////////
-//IThread.type
-#define TT_FrameThread                  ( 0 ) //IAsynFrameThread
-#define TT_WorksThread                  ( 1 ) //IThread
-#define TT_TwinsThread                  ( 2 ) //IThread
-
-/////////////////////////////////////////////////////////////////////////////////
-//IThreadPool.type
-#define TP_AutoxThreadpool              ( 0 ) //自动调整线程池
-#define TP_FixedThreadpool              ( 1 ) //固定大小线程池
-#define TP_SocksThreadpool              ( 2 ) //socket 线程池
-#define TP_EventThreadpool              ( 3 ) //监控事件线程池
-
-
 #pragma pack(push, 1)
 /////////////////////////////////////////////////////////////////////////////////
 typedef struct tag_OSBUFFER_IOAREA
