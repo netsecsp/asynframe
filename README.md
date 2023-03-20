@@ -50,8 +50,8 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |asynneta|插件[asyncore]|服务端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理<br>4.提供tcp/udp端口转发|[aneta](https://github.com/netsecsp/aneta)|
 |asynsock|插件[asyncore]|网络<br>1.支持ipv6兼容ipv4<br>2.支持默认DNS 解析|\support\testnetclient<br>\support\testnetserver<br>[ping](https://github.com/netsecsp/pingx)|
 |dns|插件[asynsock]|域名解析<br>1.udp dns<br>2.tcp dns<br>3.httpDNS: 实现阿里云/腾迅云|\support\testdns|
-|ftp |插件[asynsock]|ftp 协议|[aftpx](https://github.com/netsecsp/aftpx)|
-|http|插件[asynsock]|http协议|[ahttp](https://github.com/netsecsp/ahttp)|
+|ftp |插件[asynsock]|ftp 协议|[aftpx](https://github.com/netsecsp/aftpx)<br>[acurl](https://github.com/netsecsp/acurl)|
+|http|插件[asynsock]|http协议|[ahttp](https://github.com/netsecsp/ahttp)<br>[acurl](https://github.com/netsecsp/acurl)|
 |rtsp|插件[asynsock]|rtsp协议<br>1.支持rtsp over http|\support\testnetclient_rtsp<br>\support\testnetserver_rtsp|
 |ssl|插件[asynsock]|ssl/tls加/解密<br>1.支持p12证书|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
 |proxy|插件[asynsock]|客户端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理|\support\testnetclient_proxy<br>\support\testnetserver_socks|

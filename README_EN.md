@@ -50,8 +50,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |asynneta|plugin[asyncore]|network agent service<br>1.implement http[s] agent：Basic/Digest authorize<br>2.implement ftp[s] agent<br>3. implement socks4.0/4.a/5.0 agent|[aneta](https://github.com/netsecsp/aneta)|
 |asynsock|plugin[asyncore]|network: <br>1.implement IPv6 and compatible with IPv4<br>2.implement DNS|\support\testnetclient<br>\support\testnetserver<br>[ping](https://github.com/netsecsp/pingx)|
 |dns|plugin[asynsock]|DNS<br>1.implement udp dns<br>2.implement tcp dns<br>3.implement httpDNS: Alibaba cloud/Tengxun cloud|\support\testdns|
-|ftp|plugin[asynsock]|ftp protocol|[aftpx](https://github.com/netsecsp/aftpx)|
-|http|plugin[asynsock]|http protocol|[ahttp](https://github.com/netsecsp/ahttp)|
+|ftp|plugin[asynsock]|ftp protocol|[aftpx](https://github.com/netsecsp/aftpx)<br>[acurl](https://github.com/netsecsp/acurl)|
+|http|plugin[asynsock]|http protocol|[ahttp](https://github.com/netsecsp/ahttp)<br>[acurl](https://github.com/netsecsp/acurl)|
 |rtsp|plugin[asynsock]|rtsp protocol<br>1.implement rtsp over http|\support\testnetclient_rtsp<br>\support\testnetserver_rtsp|
 |ssl|plugin[asynsock]|ssl/tls encryption/decryption<br>1.implement p12 certificate|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
 |proxy|plugin[asynsock]|client proxy<br>1.implement http/https proxy：Basic/Digest authorize<br>2.implement ftp/ftps proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
