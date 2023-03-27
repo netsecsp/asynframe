@@ -1,5 +1,5 @@
-版本信息：1.4.4
-变更日期：2023-03-18
+版本信息：1.4.5
+变更日期：2023-03-27
 变更描述：
 1. 发布插件: dtp/ras
 2. asynneta 支持tcp/udp端口转发
@@ -46,11 +46,11 @@
      asynfile.dll: 1.0.0.0
      asynipcs.dll: 1.0.0.0
      asynneta.dll: 1.0.2.1
-     asynsock.dll: 1.0.0.0
+     asynsock.dll: 1.0.1.1
       console.dll: 1.0.3.3
 crashexplorer.dll: 1.1.1.2
       dns.dll: 1.0.1.0
-      dtp.dll: 1.0.0.0
+      dtp.dll: 1.0.1.1
       ras.dll: 1.0.0.0
       ftp.dll: 1.0.1.0
      http.dll: 1.0.1.0

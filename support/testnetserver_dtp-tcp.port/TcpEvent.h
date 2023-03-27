@@ -67,10 +67,10 @@ public:
         }
  
         //注意：以下初始化隐含了查询优先级
-        m_lpTcpEvent_http = new CTcpEvent_http(m_spAsynFrameThread, m_spAsynFileSystem, m_spAsynNetwork);
+        m_lpTcpEvent_http.reset(new CTcpEvent_http(m_spAsynFrameThread, m_spAsynFileSystem, m_spAsynNetwork));
         m_lpTcpEvent_http->Start(m_spDtp);
 
-        m_lpTcpEvent_test = new CTcpEvent_test(m_spAsynFrameThread, m_spAsynNetwork);
+        m_lpTcpEvent_test.reset(new CTcpEvent_test(m_spAsynFrameThread, m_spAsynNetwork));
         m_lpTcpEvent_test->Start(m_spDtp);
 
         HRESULT r2 = m_spDtp->Control(1); //启动服务
@@ -82,8 +82,6 @@ public:
         HRESULT r1 = m_spDtp->Control(0);
         m_lpTcpEvent_http->Shutdown();
         m_lpTcpEvent_test->Shutdown();
-        delete m_lpTcpEvent_http;
-        delete m_lpTcpEvent_test;
     }
 
 public:
@@ -93,6 +91,6 @@ public:
     CComPtr<IAsynFileSystem > m_spAsynFileSystem;
 
     CComPtr<IDtpService> m_spDtp;
-    CTcpEvent_test *m_lpTcpEvent_test;
-    CTcpEvent_http *m_lpTcpEvent_http;
+    std::unique_ptr<CTcpEvent_test> m_lpTcpEvent_test;
+    std::unique_ptr<CTcpEvent_http> m_lpTcpEvent_http;
 };
