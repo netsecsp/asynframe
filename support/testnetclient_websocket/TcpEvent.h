@@ -193,7 +193,7 @@ public:
         m_spAsynNetwork->CreateAsynTcpSocket(&spAsynInnSocket );
 
         CComPtr<IAsynRawSocket> spAsynPtlSocket;
-        if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("websocket"), (IUnknown **)&spAsynInnSocket.p, STRING_from_string(schema == "ws"? "13" : "13:tls/1.0"), &spAsynPtlSocket) != S_OK )
+        if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("websocket"), spAsynInnSocket, 0, STRING_from_string(schema == "ws"? "13" : "13:tls/1.0"), &spAsynPtlSocket) != S_OK )
         {
             printf("can't load plugin: websocket\n");
             return false;

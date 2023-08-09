@@ -157,21 +157,21 @@ public:
     }
 
 public:
-    bool Start(PORT port)
+    bool Start(PORT port, const char *host)
     {
         m_spAsynNetwork->CreateAsynTcpSocketListener(0, &m_spAsynTcpSocketListener);
 
         m_spAsynTcpSocketListener->Open(m_spAsynFrameThread, m_af, SOCK_STREAM, m_af==AF_IPX? NSPROTO_SPXII : IPPROTO_TCP);
 
-        HRESULT r1 = m_spAsynTcpSocketListener->Bind(asynsdk::STRING_EX::null, port, TRUE, NULL); //???bind
+        HRESULT r1 = m_spAsynTcpSocketListener->Bind(STRING_from_string(host), port, TRUE, NULL);
         if( r1 != S_OK)
         {
-            printf("bind *:%d, error: %d\n", port, r1);
+            printf("bind %s:%d, error: %d\n", host, port, r1);
             return false;
         }
 
         if( port == 0 ) m_spAsynTcpSocketListener->GetSockAddress(0, 0, &port, 0);
-        printf("%s.listen *:%d\n", m_af==AF_IPX? "spx" : "tcp", port);
+        printf("%s.listen %s:%d\n", m_af==AF_IPX? "spx" : "tcp", host, port);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Mar 04 07:47:25 2023
+/* at Mon Aug 07 11:29:54 2023
  */
 /* Compiler settings for INet.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -280,14 +280,14 @@ EXTERN_C const IID IID_INet;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             INet * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             INet * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -393,11 +393,11 @@ EXTERN_C const IID IID_INet;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define INet_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define INet_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define INet_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define INet_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define INet_IsOpened(This,pDeviceName)	\

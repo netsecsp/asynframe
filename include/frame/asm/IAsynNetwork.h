@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Mar 04 07:47:16 2023
+/* at Mon Aug 07 11:29:49 2023
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -223,14 +223,14 @@ EXTERN_C const IID IID_IAsynNetIoOperation;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynNetIoOperation * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynNetIoOperation * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *GetAsynFrameThread )( 
@@ -411,11 +411,11 @@ EXTERN_C const IID IID_IAsynNetIoOperation;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynNetIoOperation_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynNetIoOperation_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynNetIoOperation_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynNetIoOperation_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynNetIoOperation_GetAsynFrameThread(This,ppAsynFrameThread)	\
@@ -529,17 +529,13 @@ EXTERN_C const IID IID_IAsynDnsResolver;
 #if defined(__cplusplus) && !defined(CINTERFACE)
     
     MIDL_INTERFACE("13C32332-EED4-4701-8644-C2F6E3CCBFE6")
-    IAsynDnsResolver : public IUnknown
+    IAsynDnsResolver : public IDataProvider
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE SetDnsServer( 
             /* [in] */ STRING svc,
             /* [size_is][in] */ STRING *pHostport,
             /* [in] */ uint32_t Count) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Commit( 
-            /* [in] */ IUnknown *data,
-            /* [in] */ uint32_t af) = 0;
         
     };
     
@@ -562,16 +558,22 @@ EXTERN_C const IID IID_IAsynDnsResolver;
         ULONG ( STDMETHODCALLTYPE *Release )( 
             IAsynDnsResolver * This);
         
+        HRESULT ( STDMETHODCALLTYPE *Queryres )( 
+            IAsynDnsResolver * This,
+            /* [in] */ IUnknown *pdatas,
+            /* [in] */ uint64_t param2,
+            /* [in] */ IUnknown *object);
+        
+        HRESULT ( STDMETHODCALLTYPE *Announce )( 
+            IAsynDnsResolver * This,
+            /* [in] */ IUnknown *pdatas,
+            /* [in] */ uint32_t action);
+        
         HRESULT ( STDMETHODCALLTYPE *SetDnsServer )( 
             IAsynDnsResolver * This,
             /* [in] */ STRING svc,
             /* [size_is][in] */ STRING *pHostport,
             /* [in] */ uint32_t Count);
-        
-        HRESULT ( STDMETHODCALLTYPE *Commit )( 
-            IAsynDnsResolver * This,
-            /* [in] */ IUnknown *data,
-            /* [in] */ uint32_t af);
         
         END_INTERFACE
     } IAsynDnsResolverVtbl;
@@ -596,11 +598,15 @@ EXTERN_C const IID IID_IAsynDnsResolver;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
+#define IAsynDnsResolver_Queryres(This,pdatas,param2,object)	\
+    ( (This)->lpVtbl -> Queryres(This,pdatas,param2,object) ) 
+
+#define IAsynDnsResolver_Announce(This,pdatas,action)	\
+    ( (This)->lpVtbl -> Announce(This,pdatas,action) ) 
+
+
 #define IAsynDnsResolver_SetDnsServer(This,svc,pHostport,Count)	\
     ( (This)->lpVtbl -> SetDnsServer(This,svc,pHostport,Count) ) 
-
-#define IAsynDnsResolver_Commit(This,data,af)	\
-    ( (This)->lpVtbl -> Commit(This,data,af) ) 
 
 #endif /* COBJMACROS */
 
@@ -766,14 +772,14 @@ EXTERN_C const IID IID_IAsynRawSocket;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynRawSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynRawSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -872,11 +878,11 @@ EXTERN_C const IID IID_IAsynRawSocket;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynRawSocket_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynRawSocket_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynRawSocket_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynRawSocket_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynRawSocket_IsOpened(This,pDeviceName)	\
@@ -975,14 +981,14 @@ EXTERN_C const IID IID_IAsynUdpSocket;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynUdpSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynUdpSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -1088,11 +1094,11 @@ EXTERN_C const IID IID_IAsynUdpSocket;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynUdpSocket_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynUdpSocket_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynUdpSocket_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynUdpSocket_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynUdpSocket_IsOpened(This,pDeviceName)	\
@@ -1173,11 +1179,11 @@ EXTERN_C const IID IID_IAsynGrpSocket;
             /* [in] */ uint32_t nttl,
             /* [in] */ BOOL loop) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE Add( 
+        virtual HRESULT STDMETHODCALLTYPE Join( 
             /* [in] */ STRING IHost,
             /* [in] */ STRING MHost) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE Pop( 
+        virtual HRESULT STDMETHODCALLTYPE Drop( 
             /* [in] */ STRING IHost,
             /* [in] */ STRING MHost) = 0;
         
@@ -1211,12 +1217,12 @@ EXTERN_C const IID IID_IAsynGrpSocket;
             /* [in] */ uint32_t nttl,
             /* [in] */ BOOL loop);
         
-        HRESULT ( STDMETHODCALLTYPE *Add )( 
+        HRESULT ( STDMETHODCALLTYPE *Join )( 
             IAsynGrpSocket * This,
             /* [in] */ STRING IHost,
             /* [in] */ STRING MHost);
         
-        HRESULT ( STDMETHODCALLTYPE *Pop )( 
+        HRESULT ( STDMETHODCALLTYPE *Drop )( 
             IAsynGrpSocket * This,
             /* [in] */ STRING IHost,
             /* [in] */ STRING MHost);
@@ -1247,11 +1253,11 @@ EXTERN_C const IID IID_IAsynGrpSocket;
 #define IAsynGrpSocket_Open(This,pAsynFrameThread,af,type,protocol,nttl,loop)	\
     ( (This)->lpVtbl -> Open(This,pAsynFrameThread,af,type,protocol,nttl,loop) ) 
 
-#define IAsynGrpSocket_Add(This,IHost,MHost)	\
-    ( (This)->lpVtbl -> Add(This,IHost,MHost) ) 
+#define IAsynGrpSocket_Join(This,IHost,MHost)	\
+    ( (This)->lpVtbl -> Join(This,IHost,MHost) ) 
 
-#define IAsynGrpSocket_Pop(This,IHost,MHost)	\
-    ( (This)->lpVtbl -> Pop(This,IHost,MHost) ) 
+#define IAsynGrpSocket_Drop(This,IHost,MHost)	\
+    ( (This)->lpVtbl -> Drop(This,IHost,MHost) ) 
 
 #endif /* COBJMACROS */
 
@@ -1310,14 +1316,14 @@ EXTERN_C const IID IID_IAsynTcpSocket;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynTcpSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynTcpSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -1424,11 +1430,11 @@ EXTERN_C const IID IID_IAsynTcpSocket;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynTcpSocket_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynTcpSocket_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynTcpSocket_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynTcpSocket_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynTcpSocket_IsOpened(This,pDeviceName)	\
@@ -1532,14 +1538,14 @@ EXTERN_C const IID IID_IAsynMuxSocket;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynMuxSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynMuxSocket * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -1655,11 +1661,11 @@ EXTERN_C const IID IID_IAsynMuxSocket;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynMuxSocket_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynMuxSocket_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynMuxSocket_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynMuxSocket_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynMuxSocket_IsOpened(This,pDeviceName)	\
@@ -1864,14 +1870,14 @@ EXTERN_C const IID IID_IAsynTcpSocketListener;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynTcpSocketListener * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynTcpSocketListener * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -1981,11 +1987,11 @@ EXTERN_C const IID IID_IAsynTcpSocketListener;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynTcpSocketListener_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynTcpSocketListener_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynTcpSocketListener_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynTcpSocketListener_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynTcpSocketListener_IsOpened(This,pDeviceName)	\
@@ -2143,9 +2149,9 @@ EXTERN_C const IID IID_IAsynNetwork;
     public:
         virtual HRESULT STDMETHODCALLTYPE CreateAsynDnsResolver( 
             /* [in] */ STRING Owner,
-            /* [in] */ IUnknown **param1,
+            /* [in] */ STRING *etchosts,
+            /* [in] */ IUnknown *param1,
             /* [in] */ STRING param2,
-            /* [in] */ STRING *etchost,
             /* [out] */ IAsynDnsResolver **ppAsynDnsResolver) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynRawSocket( 
@@ -2164,15 +2170,16 @@ EXTERN_C const IID IID_IAsynNetwork;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynPtlSocket( 
             /* [in] */ STRING Owner,
-            /* [in] */ IUnknown **param1,
+            /* [in] */ IAsynRawSocket *socket,
+            /* [in] */ IUnknown *param1,
             /* [in] */ STRING param2,
             /* [out] */ IAsynRawSocket **ppAsynRawSocket) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAppService( 
             /* [in] */ STRING Owner,
-            /* [in] */ IUnknown **param1,
+            /* [in] */ IUnknown *object,
+            /* [in] */ IKeyvalSetter *param1,
             /* [in] */ STRING param2,
-            /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAppService **ppAppService) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE EnumLocalAddress( 
@@ -2202,7 +2209,7 @@ EXTERN_C const IID IID_IAsynNetwork;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynNetwork * This,
-            /* [in] */ IAsynFrame *pAsynFrame,
+            /* [in] */ IAsynFrame *frame,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -2211,9 +2218,9 @@ EXTERN_C const IID IID_IAsynNetwork;
         HRESULT ( STDMETHODCALLTYPE *CreateAsynDnsResolver )( 
             IAsynNetwork * This,
             /* [in] */ STRING Owner,
-            /* [in] */ IUnknown **param1,
+            /* [in] */ STRING *etchosts,
+            /* [in] */ IUnknown *param1,
             /* [in] */ STRING param2,
-            /* [in] */ STRING *etchost,
             /* [out] */ IAsynDnsResolver **ppAsynDnsResolver);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynRawSocket )( 
@@ -2237,16 +2244,17 @@ EXTERN_C const IID IID_IAsynNetwork;
         HRESULT ( STDMETHODCALLTYPE *CreateAsynPtlSocket )( 
             IAsynNetwork * This,
             /* [in] */ STRING Owner,
-            /* [in] */ IUnknown **param1,
+            /* [in] */ IAsynRawSocket *socket,
+            /* [in] */ IUnknown *param1,
             /* [in] */ STRING param2,
             /* [out] */ IAsynRawSocket **ppAsynRawSocket);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAppService )( 
             IAsynNetwork * This,
             /* [in] */ STRING Owner,
-            /* [in] */ IUnknown **param1,
+            /* [in] */ IUnknown *object,
+            /* [in] */ IKeyvalSetter *param1,
             /* [in] */ STRING param2,
-            /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAppService **ppAppService);
         
         HRESULT ( STDMETHODCALLTYPE *EnumLocalAddress )( 
@@ -2277,12 +2285,12 @@ EXTERN_C const IID IID_IAsynNetwork;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynNetwork_CreateAsynIoOperation(This,pAsynFrame,param1,param2,riid,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,pAsynFrame,param1,param2,riid,ppObject) ) 
+#define IAsynNetwork_CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject) ) 
 
 
-#define IAsynNetwork_CreateAsynDnsResolver(This,Owner,param1,param2,etchost,ppAsynDnsResolver)	\
-    ( (This)->lpVtbl -> CreateAsynDnsResolver(This,Owner,param1,param2,etchost,ppAsynDnsResolver) ) 
+#define IAsynNetwork_CreateAsynDnsResolver(This,Owner,etchosts,param1,param2,ppAsynDnsResolver)	\
+    ( (This)->lpVtbl -> CreateAsynDnsResolver(This,Owner,etchosts,param1,param2,ppAsynDnsResolver) ) 
 
 #define IAsynNetwork_CreateAsynRawSocket(This,lType,ppAsynRawSocket)	\
     ( (This)->lpVtbl -> CreateAsynRawSocket(This,lType,ppAsynRawSocket) ) 
@@ -2296,11 +2304,11 @@ EXTERN_C const IID IID_IAsynNetwork;
 #define IAsynNetwork_CreateAsynTcpSocketListener(This,unused,ppAsynTcpSocketListener)	\
     ( (This)->lpVtbl -> CreateAsynTcpSocketListener(This,unused,ppAsynTcpSocketListener) ) 
 
-#define IAsynNetwork_CreateAsynPtlSocket(This,Owner,param1,param2,ppAsynRawSocket)	\
-    ( (This)->lpVtbl -> CreateAsynPtlSocket(This,Owner,param1,param2,ppAsynRawSocket) ) 
+#define IAsynNetwork_CreateAsynPtlSocket(This,Owner,socket,param1,param2,ppAsynRawSocket)	\
+    ( (This)->lpVtbl -> CreateAsynPtlSocket(This,Owner,socket,param1,param2,ppAsynRawSocket) ) 
 
-#define IAsynNetwork_CreateAppService(This,Owner,param1,param2,events,ppAppService)	\
-    ( (This)->lpVtbl -> CreateAppService(This,Owner,param1,param2,events,ppAppService) ) 
+#define IAsynNetwork_CreateAppService(This,Owner,object,param1,param2,ppAppService)	\
+    ( (This)->lpVtbl -> CreateAppService(This,Owner,object,param1,param2,ppAppService) ) 
 
 #define IAsynNetwork_EnumLocalAddress(This,iaf,output)	\
     ( (This)->lpVtbl -> EnumLocalAddress(This,iaf,output) ) 

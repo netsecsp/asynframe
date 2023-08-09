@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Mar 04 07:47:22 2023
+/* at Mon Aug 07 11:29:53 2023
  */
 /* Compiler settings for IDtp.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -86,9 +86,9 @@ EXTERN_C const IID IID_IDtpService;
     public:
         virtual HRESULT STDMETHODCALLTYPE CreateAsynDtpSocketLayer( 
             /* [in] */ IUnknown *pOwner,
-            /* [in] */ IUnknown **param1,
-            /* [in] */ STRING param2,
             /* [in] */ uint32_t position,
+            /* [in] */ IUnknown *param1,
+            /* [in] */ STRING param2,
             /* [out] */ IUnknown **ppObject) = 0;
         
     };
@@ -119,9 +119,9 @@ EXTERN_C const IID IID_IDtpService;
         HRESULT ( STDMETHODCALLTYPE *CreateAsynDtpSocketLayer )( 
             IDtpService * This,
             /* [in] */ IUnknown *pOwner,
-            /* [in] */ IUnknown **param1,
-            /* [in] */ STRING param2,
             /* [in] */ uint32_t position,
+            /* [in] */ IUnknown *param1,
+            /* [in] */ STRING param2,
             /* [out] */ IUnknown **ppObject);
         
         END_INTERFACE
@@ -151,8 +151,8 @@ EXTERN_C const IID IID_IDtpService;
     ( (This)->lpVtbl -> Control(This,action) ) 
 
 
-#define IDtpService_CreateAsynDtpSocketLayer(This,pOwner,param1,param2,position,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynDtpSocketLayer(This,pOwner,param1,param2,position,ppObject) ) 
+#define IDtpService_CreateAsynDtpSocketLayer(This,pOwner,position,param1,param2,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynDtpSocketLayer(This,pOwner,position,param1,param2,ppObject) ) 
 
 #endif /* COBJMACROS */
 

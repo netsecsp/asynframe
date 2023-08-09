@@ -61,10 +61,6 @@ void    TravelKeyvalSetter (/*[in ]*/IKeyvalSetter *object, /*[in ]*/IAsynMessag
 bool    SetSpeedController (/*[in ]*/IAsynIoDevice *lpDstAsynIoDevice, /*[in ]*/uint32_t type, /*[in ]*/uint32_t level, /*[in ]*/ISpeedController *pSpeedController);
 
 ///////////////////////////////////////////////////////////////////////////////
-//检测是否ISsl
-bool    IsSslSocket  (/*[in ]*/IUnknown *pSocket);
-
-///////////////////////////////////////////////////////////////////////////////
 //申请||释放内存
 void   *AcquireBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in, out]*/uint32_t *size);
 bool    ReleaseBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in ]*/void *addr);
@@ -86,11 +82,11 @@ IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInsta
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建数据传输器
-IDataTransmit        *CreateDataTransmit(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *target, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
+IDataTransmit        *CreateDataTransmit(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建命令执行器: name="cmd"表示创建系统命令执行器
-IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *thread, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
+IOsCommand           *CreateCommand(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2);
 
 ///////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ThreadType

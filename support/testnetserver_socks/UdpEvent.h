@@ -163,7 +163,7 @@ public:
         }
 
         CComPtr<IAsynRawSocket> spAsynPtlSocket;
-        m_spAsynNetwork->CreateAsynPtlSocket( STRING_from_string("proxy"), (IUnknown**)&spAsynInnSocket.p, STRING_from_string(proxyname + "/" + sets.get_string("proxy", "version", "5.0")), &spAsynPtlSocket );
+        m_spAsynNetwork->CreateAsynPtlSocket( STRING_from_string("proxy"), spAsynInnSocket, 0, STRING_from_string(proxyname + "/" + sets.get_string("proxy", "version", "5.0")), &spAsynPtlSocket );
         if( spAsynPtlSocket == NULL )
         {
             printf("can't load plugin: proxy\n");

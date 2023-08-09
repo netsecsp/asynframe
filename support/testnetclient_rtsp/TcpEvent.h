@@ -311,16 +311,13 @@ public:
             CComPtr<IAsynTcpSocket> spAsynInnSocket[2];
             m_spAsynNetwork->CreateAsynTcpSocket(&spAsynInnSocket[0]);
             m_spAsynNetwork->CreateAsynTcpSocket(&spAsynInnSocket[1]);
-            IUnknown* ppParam2[2];
-            ppParam2[0] = spAsynInnSocket[0];
-            ppParam2[1] = spAsynInnSocket[1];
-            m_spAsynNetwork->CreateAsynPtlSocket( STRING_from_string("rtsp"), ppParam2, STRING_from_string("http/1.0"), &spAsynPtlSocket);
+            m_spAsynNetwork->CreateAsynPtlSocket( STRING_from_string("rtsp"), spAsynInnSocket[0], spAsynInnSocket[1], STRING_from_string("http/1.0"), &spAsynPtlSocket);
         }
         else
         {
             CComPtr<IAsynTcpSocket> spAsynInnSocket;
             m_spAsynNetwork->CreateAsynTcpSocket(&spAsynInnSocket );
-            m_spAsynNetwork->CreateAsynPtlSocket( STRING_from_string("rtsp"), (IUnknown**)&spAsynInnSocket.p, STRING_from_string("tcp/1.0"), &spAsynPtlSocket);
+            m_spAsynNetwork->CreateAsynPtlSocket( STRING_from_string("rtsp"), spAsynInnSocket, 0, STRING_from_string("tcp/1.0"), &spAsynPtlSocket);
         }
         if( spAsynPtlSocket == NULL )
         {

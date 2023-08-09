@@ -43,7 +43,7 @@ import "IAsynNetwork.idl";
     interface IDtpService : IAppService
     {
         //pOwner支持类型: IStringSetter/IAsynMessageEvents, position代表位置，0表示队尾, ppObject返回类型：IAsynDtpSocketListener/IAsynUdpSocket
-        HRESULT CreateAsynDtpSocketLayer( [in ]IUnknown* pOwner, [in ]IUnknown** param1, [in ]STRING param2, [in ]uint32_t position, [out]IUnknown** ppObject );
+        HRESULT CreateAsynDtpSocketLayer( [in ]IUnknown* pOwner, [in ]uint32_t position, [in ]IUnknown* param1, [in ]STRING param2, [out]IUnknown** ppObject );
     };
 
     cpp_quote("#pragma pack(pop)")

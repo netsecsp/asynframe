@@ -136,7 +136,7 @@ class CMemorySetter :
         public CSingleThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
 {
 public:
-    CMemorySetter(uint32_t dwRef = 0, const void *val = "", uint32_t len = 0)
+    CMemorySetter(uint32_t dwRef = 0, const void *val = 0, uint32_t len = 0)
       : CSingleThreadModelObject(dwRef)
     {
         m_val.ptr = (unsigned char*)val;

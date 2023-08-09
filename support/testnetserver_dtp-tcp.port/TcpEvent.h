@@ -60,7 +60,7 @@ public:
         if( port == 0 ) spAsynTcpSocketListener->GetSockAddress(0, 0, &port, 0);
         printf("tcp.listen *:%d\n", port);
 
-        if( m_spAsynNetwork->CreateAppService(STRING_from_string(IN_Dtp), (IUnknown**)&spAsynTcpSocketListener.p, STRING_from_string("rcvsize=1024&minsize=10"), 0, (IAppService**)&m_spDtp) != S_OK)
+        if( m_spAsynNetwork->CreateAppService(STRING_from_string(IN_Dtp), spAsynTcpSocketListener, 0, STRING_from_string("rcvsize=1024&minsize=10"), (IAppService**)&m_spDtp) != S_OK)
         {
             printf("fail to load plugin: %s\n", IN_Dtp);
             return false;

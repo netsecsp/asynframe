@@ -210,7 +210,7 @@ public: // interface of asyn_message_events_impl
     STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
     {
         if( message == AF_QUERY_RESULT &&
-            lparam1 == 0 )
+            lparam1 == EN_SystemEvent )
         {
             // Set up process start up info
             STARTUPINFO si; memset(&si, 0, sizeof(STARTUPINFO));
@@ -225,6 +225,10 @@ public: // interface of asyn_message_events_impl
             if(!CreateProcess(NULL, (char*)("./snd/testcrashrpt.exe " + v.m_val).c_str(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
             {
                 printf("call CreateProcess testcrashrpt.exe return 0, lErrorcode=%d\n", GetLastError());
+                if(((IKeyvalSetter *)objects[0])->Get(STRING_from_string(";context"), 0, 0, &v) == S_OK )
+                {// stack
+                    printf("%s\n", v.m_val.c_str());
+                }
             }
             else
             {

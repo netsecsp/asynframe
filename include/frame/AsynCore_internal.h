@@ -107,8 +107,8 @@ END_ASYN_IOERROR()
 
 /////////////////////////////////////////////////////////////////////////////////
 //AF_IOMSG_NOTIFY.Action
-#define Io_recv                         (  0)
-#define Io_send                         (  1)
+#define Io_recv                         ( 0 )
+#define Io_send                         ( 1 )
 #define Io_acceptd                      ( 16)
 #define Io_connect                      ( 17)
 #define Io_bind                         ( 18)
@@ -117,12 +117,12 @@ END_ASYN_IOERROR()
 #define Io_flushfile                    ( 21)
 
 /////////////////////////////////////////////////////////////////////////////////
-//ISpeedController.IObjectHolder(lType)
+//ISpeedController.IObjectHolder(method)
 #define CT_SetAppSpeedController        ( 0 ) //获取/设置内部的ISpeedController
 #define CT_GetAppSpeedController        ( 0 )
 
 /////////////////////////////////////////////////////////////////////////////////
-//IAsynIoOperation.IObjectHolder(lType)
+//IAsynIoOperation.IObjectHolder(method)
 #define OT_SetAsynIoOperation           ( 0 ) //设置顶级IAsynIoOperation
 #define OT_TakeBindIoOperation          ( 0 ) //获取绑定IAsynIoOperation
 
@@ -135,17 +135,38 @@ END_ASYN_IOERROR()
 
 #define OT_GetAppAsynFrame              ( 4 ) //获取内部IAsynFrame
 
+//IAsynIoOperation.GetOsBuffer(index)
+#define OB_OsOverlapped                 ( 0 ) //Overlapped
+#define OB_OsAddr                       ( 1 ) //OsAddr
+#define OB_IoArea                       ( 2 ) //IoArea
+
 /////////////////////////////////////////////////////////////////////////////////
-////IAsynFrame.IObjectHolder(lType)
+//IAsynFrame.IObjectHolder(method)
 #define FT_GetOsMempool                 ( 0 ) //获取内部IOsMempool
 #define FT_SetOsMempool                 ( 0 ) //设置内部IOsMempool
 
-////IAsynFrame.Add/Pop
-#define FF_Resetio                      ( 1 ) //复位/确保有效iobuffer
-#define FF_Resetaf                      ( 2 ) //复位/确保有效地址
+//IAsynFrame.Add(lparam2)
+#define FF_Resetio                      ( 1 ) //复位iobuffer
+#define FF_Resetaf                      ( 2 ) //复位地址
+#define FF_Resetpb                      ( 4 )
+
+//IAsynIoOperationFactory.CreateAsynIoOperation(param2)
+//IAsynFrame.Pop(lparam2)
+#define FF_Allocio                      ( 1 ) //确保iobuffer
+#define FF_Allocaf                      ( 2 ) //确保地址
+#define FF_Noreuse                      ( 4 ) //一次性io
+#define FF_Notpost                      ( 8 ) //不做post
+#define FF_Nodelay                      ( 16) //不延迟io
 
 /////////////////////////////////////////////////////////////////////////////////
-//IAsynIoDevice.IObjectHolder(lType)
+//global of events.Notify.lparam1{AF_QUERY_RESULT/AF_EVENT_NOTIFY, IKeyval}
+#define EN_SystemEvent                  ( 0 )
+//InstancesManager.Attach.lparam1
+#define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 1 x IAsynFrameThread
+#define EN_NetworkAdpaterChanged        ( 2 ) //AF_EVENT_NOTIFY 2 x IKeyval
+
+/////////////////////////////////////////////////////////////////////////////////
+//IAsynIoDevice.IObjectHolder(method)
 #define DT_SetRecvSpeedController       ( 0 ) //设置内部的接收IWinsSpeedController
 #define DT_GetRecvSpeedController       ( 0 ) //获取内部的接收IWinsSpeedController
 #define DT_SetSendSpeedController       ( 1 ) //设置内部的发送IWinsSpeedController
@@ -153,48 +174,35 @@ END_ASYN_IOERROR()
 
 #define DT_SetAppRecvSpeedController    ( 2 ) //设置内部的接收ISpeedController
 #define DT_SetAppSendSpeedController    ( 3 ) //设置内部的发送ISpeedController
-                                            
-#define DT_GetAppAsynFrame              ( 4 )
-                                            
+
+#define DT_GetAppAsynFrame              ( 4 ) //获取内部IAsynFrame
+
 #define DT_GetAsynIoDevice              ( 5 ) //获取内部IAsynIoDevice
-                                            
+
 #define DT_GetAsynIoOperationFactory    ( 6 ) //获取内部IAsynIoOperationFactory
-                                            
+
 #define DT_GetAsynFrameThread           ( 7 ) //获取内部IAsynFrameThread[第一个]
-                                            
-#define DT_SetThreadpool                ( 8 ) //设置内部线程池, 注意: 只有IAsynTcpSocketListener有效
-                                            
+
+#define DT_SetThreadpool                ( 8 ) //设置内部线程池, 注意: 目前只对IAsynTcpSocketListener有效
+
 #define DT_SetAsynDnsResolver           ( 9 ) //获取内部的IAsynDnsResolver
 #define DT_GetAsynDnsResolver           ( 9 )
 
-/////////////////////////////////////////////////////////////////////////////////
-//IAsynIoBridge.IObjectHolder(lType)
-#define BT_GetSource                    ( 0 ) //获取源IAsynIoDevice
-#define BT_GetTarget                    ( 1 )
-#define BT_GetSourceIoOperation         ( 2 ) //获取读IAsynIoOperation
-#define BT_GetTargetIoOperation         ( 3 ) //获取写IAsynIoOperation
-
-/////////////////////////////////////////////////////////////////////////////////
-//IAsynIoOperationFactory.CreateAsynIoOperation(lType)
-#define BT_SharedMemoryBuffer           ( 1 ) //共享内存
-
-/////////////////////////////////////////////////////////////////////////////////
-//IAsynIoDevice.Attach(lType)
+//IAsynIoDevice.Attach(lAttachType)
 #define DA_PortHandle                   ( 0 ) //主动激活句柄
 #define DA_PasvHandle                   ( 1 ) //被动激活句柄
 
-/////////////////////////////////////////////////////////////////////////////////
 //IAsynIoDevice.IsOpened(pDeviceName)
 #define DN_File                         ("file"    ) //文件
 #define DN_Pipe                         ("pipe"    ) //管道
 #define DN_Device                       ("device"  ) //设备
+#define DN_Socket                       ("socket"  ) //套接字
 #define DN_Icmp                         ("icmp"    ) //icmp
 #define DN_Filter                       ("filter"  ) //过滤器
-#define DN_Socket                       ("socket"  ) //套接字
 #define DN_Tunnel                       ("tunnel"  ) //隧道
 
 /////////////////////////////////////////////////////////////////////////////////
-//IAsynFrameThread.BindAsynIoOperation(lMode):以下值可以自由组合
+//IAsynFrameThread.BindAsynIoOperation(mode):以下值可以自由组合
 #define BM_Oneway                       (0x00000001) //单向关联:1-只能允许front.cancel事件传递/0-允许front.cancel/self事件传递, 不能跟BM_Result|BM_Calcio|BM_Onlyec联合使用
 #define BM_ExBuff                       (0x00000002) //间接引用数据Buffer, SetExtraBuffer(-1, Buffer), 不能跟BM_IoBuff联合使用
 #define BM_Result                       (0x00000004) //拷贝:Result/errors
@@ -209,10 +217,15 @@ END_ASYN_IOERROR()
 #define BM_ResetOptimer                 (0x80000000) //移除Op定时器
 
 /////////////////////////////////////////////////////////////////////////////////
-//IAsynIoOperation.GetOsBuffer(index)
-#define OB_OsOverlapped                 ( 0 ) //Overlapped
-#define OB_OsAddr                       ( 1 ) //OsAddr
-#define OB_IoArea                       ( 2 ) //IoArea
+//IAsynIoBridge.IObjectHolder(method)
+#define BT_GetSource                    ( 0 ) //获取源IAsynIoDevice
+#define BT_GetTarget                    ( 1 )
+#define BT_GetSourceIoOperation         ( 2 ) //获取读IAsynIoOperation
+#define BT_GetTargetIoOperation         ( 3 ) //获取写IAsynIoOperation
+
+/////////////////////////////////////////////////////////////////////////////////
+//IAsynIoOperationFactory.CreateAsynIoOperation(lparam1)
+#define BT_SharedMemoryBuffer           ( 1 ) //共享内存
 
 #pragma pack(push, 1)
 /////////////////////////////////////////////////////////////////////////////////

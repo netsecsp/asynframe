@@ -123,25 +123,34 @@ public:
     }
 
 public:
-    bool Start(PORT port, const char *mhost = 0)
+    bool Start(PORT port, const char *host, const char *mhost = 0)
     {
         m_spAsynNetwork->CreateAsynUdpSocket(&m_spAsynUdpSocket );
-        m_spAsynUdpSocket->Open( m_spAsynFrameThread, m_af, SOCK_DGRAM, m_af==AF_IPX? NSPROTO_IPX : IPPROTO_UDP);
-        
+
+        CComPtr<IAsynGrpSocket> spAsynGroupSocket; 
         if( mhost ) //228.88.88.88
-        {// 查看加入组播命令: netsh interface ipv4/ipv6 show joins
-            CComPtr<IAsynGrpSocket> spAsynGrpSocket; m_spAsynUdpSocket->QueryInterface(IID_IAsynGrpSocket, (void**)&spAsynGrpSocket);
-            spAsynGrpSocket->Add(asynsdk::STRING_EX::null, STRING_from_string(mhost));
+        {
+            m_spAsynUdpSocket->QueryInterface(IID_IAsynGrpSocket, (void**)&spAsynGroupSocket);
+            spAsynGroupSocket->Open( m_spAsynFrameThread, m_af, SOCK_DGRAM, IPPROTO_UDP, 1, 1);
+        }
+        else
+        {
+            m_spAsynUdpSocket->Open( m_spAsynFrameThread, m_af, SOCK_DGRAM, m_af==AF_IPX? NSPROTO_IPX : IPPROTO_UDP);
         }
 
-        HRESULT r1 = m_spAsynUdpSocket->Bind( asynsdk::STRING_EX::null, port, TRUE, NULL );
+        HRESULT r1 = m_spAsynUdpSocket->Bind( STRING_from_string(host), port, TRUE, NULL );
         if( r1 != S_OK)
         {
-            printf("bind *:%d, error: %d\n", port, r1);
+            printf("bind %s:%d, error: %d\n", host, port, r1);
             return false;
         }
         if( port == 0 ) m_spAsynUdpSocket->GetSockAddress(0, 0, &port, 0);
-        printf("%s.listen *:%d\n", m_af==AF_IPX? "ipx" : "udp", port);
+        printf("%s.listen %s:%d\n", m_af==AF_IPX? "ipx" : "udp", host, port);
+
+        if( mhost )
+        {// 查看加入组播命令: netsh interface ipv4/ipv6 show joins
+            spAsynGroupSocket->Join( asynsdk::STRING_EX::null, STRING_from_string(mhost));
+        }
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);

@@ -206,18 +206,18 @@ public:
     }
 
 public:
-    void Start(IDtpService *lpDtp)
+    void Start(IDtpService *lpDtp, uint32_t position = 0)
     {
         m_spDtpService = lpDtp;
 
         CComPtr<IAsynDtpSocketListener> spAsynDtpSocketListener;
-        m_spDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), 0, asynsdk::STRING_EX::null, 0, (IUnknown**)&spAsynDtpSocketListener);
+        m_spDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), position, 0, asynsdk::STRING_EX::null, (IUnknown**)&spAsynDtpSocketListener);
 
         CComPtr<IAsynTcpSocketListener> spAsynTcpSocketListener;
         m_spAsynNetwork->CreateAsynTcpSocketListener(spAsynDtpSocketListener, &spAsynTcpSocketListener);
 
         CComPtr<IAsynRawSocket> spAsynPtlSocket;
-        if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("http"), (IUnknown**)&spAsynTcpSocketListener.p, STRING_from_string("tcp/1.1"), &spAsynPtlSocket) != S_OK )
+        if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("http"), spAsynTcpSocketListener, 0, STRING_from_string("tcp/1.1"), &spAsynPtlSocket) != S_OK )
         {
             printf("fail to load plugin: %s\n", "http");
             return;

@@ -93,7 +93,7 @@ static void WindowCapture(InstancesManager *lpInstancesManager, HWND hWnd, const
 
     CComPtr<IDataTransmit> target;
     asynsdk::CStringSetter File(file);
-    target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, ("file?gray=" + std::to_string(gray) + "&w=" + std::to_string(w) + "&h=" + std::to_string(h)).c_str(), &File, 0, file.find(".bmp") != std::string::npos ? 1 : (file.find(".jpg") != std::string::npos ? 3 : (file.find(".png") != std::string::npos ? 2 : 0))));
+    target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, ("file?gray=" + std::to_string(gray) + "&w=" + std::to_string(w) + "&h=" + std::to_string(h)).c_str(), &File, file.find(".bmp") != std::string::npos ? 1 : (file.find(".jpg") != std::string::npos ? 3 : (file.find(".png") != std::string::npos ? 2 : 0))));
 
     HDC hWndDC = GetDC(hWnd);   //获得屏幕的HDC.
     HDC hMemDC = CreateCompatibleDC(hWndDC);
@@ -149,13 +149,6 @@ int _tmain(int argc, _TCHAR *argv[])
         asynsdk::AsynLogger_Initialize(lpInstancesManager);
         #endif
 
-        //自动加载asynfile/asynsock
-        HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem));
-        LOGGER_INFO(logger, "Require: name=" << IN_AsynFileSystem << (r1 == 0 ? " ok" : " no"));
-
-        HRESULT r2 = lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork));
-        LOGGER_INFO(logger, "Require: name=" << IN_AsynNetwork << (r2 == 0 ? " ok" : " no"));
-
         CComPtr<IAsynFrameThread> spAsynFrameThread;
 #if 1
         CComPtr<IAsynFrameThreadFactory> spAsynFrameThreadFactory;
@@ -182,13 +175,27 @@ int _tmain(int argc, _TCHAR *argv[])
                 Sleep(100);
             }
         }
-        else if( strcmp(argv[1], "task") == 0 ) {
-            asynsdk::CStringSetter  owner(1, "ras");
-            asynsdk::CStringSetter  dname(1, argc < 3? "vpn" : argv[2]);
-            IUnknown *params = &dname;
+        else if( strcmp(argv[1], "task") == 0 )
+        {
             asynsdk::CStringVector result(1);
-            spAsynFrameThread->PostTask(&owner, &params, 0, &result, 0);
-            
+            lpInstancesManager->Execute(STRING_from_string("com.svc.ras"), 0, STRING_from_string(argc < 3 ? "vpn" : argv[2]), &result);
+
+            while(_kbhit() == 0 )
+            {
+                Sleep(100);
+            }
+        }
+        else if( strcmp(argv[1], "plugins") == 0 )
+        {
+            //加载asynfile/asynsock
+            HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem));
+            LOGGER_INFO(logger, "Require: name=" << IN_AsynFileSystem << (r1 == 0 ? " ok" : " no"));
+
+            HRESULT r2 = lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork));
+            LOGGER_INFO(logger, "Require: name=" << IN_AsynNetwork << (r2 == 0 ? " ok" : " no"));
+
+            uint64_t id = EN_FrameThread;
+            lpInstancesManager->Notify(&STRING_from_value(id), AF_EVENT_NOTIFY, id, 0, spAsynFrameThread);
             while(_kbhit() == 0 )
             {
                 Sleep(100);
@@ -217,7 +224,7 @@ int _tmain(int argc, _TCHAR *argv[])
         else if( strcmp(argv[1], "zipfile") == 0 )
         {// zipfile test.zip
             asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.zip");
-            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", &name, 0, 0));
+            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", &name, 0));
 
             BYTE tmp[1024]; 
             FILE *f1 = 0; fopen_s(&f1, ".\\1.txt", "rb");
@@ -245,9 +252,9 @@ int _tmain(int argc, _TCHAR *argv[])
         {// zipencoder test.zip
             asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.zip");
             CComPtr<IDataTransmit> target;
-            target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0, 0));
+            target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0));
 
-            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", target, 0, 0/*encoder*/));
+            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", target, 1));
 
             spDataTransmit->Write(0, "1234567890", 10);
             spDataTransmit->Write(0, "aaaaaaaaaa", 10);
@@ -257,9 +264,9 @@ int _tmain(int argc, _TCHAR *argv[])
         {// zipdecoder test.txt
             asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.txt");
             CComPtr<IDataTransmit> target;
-            target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0, 0));
+            target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0));
 
-            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", target, 0, 1/*decoder*/));
+            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", target, 0));
             char *hex = "1F8B080000000000000A33343236313533B7B03448840300E77A6FFA14000000";
             BYTE b[1024];
             int n = 0;
@@ -277,7 +284,7 @@ int _tmain(int argc, _TCHAR *argv[])
         else if( strcmp(argv[1], "sqlite") == 0 )
         {// sqlite test.db
             asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.db");
-            spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "sqlite", 0, &name, 0));
+            spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "sqlite", &name, 0));
 
             spCommand->Execute(0, STRING_from_string("CREATE TABLE IF NOT EXISTS coreinfo(iseq INTEGER PRIMARY KEY AUTOINCREMENT, info TEXT, vals int);"), 0, 0, 0, 0);
 
@@ -294,7 +301,7 @@ int _tmain(int argc, _TCHAR *argv[])
             spAsynIoOperation->SetOpParams(AF_EVENT_APPID1, 0, 1/*for print extcode*/);
 
             lpInstancesManager->NewInstance(0, 2/*eventthreadpool*/, IID_IThreadPool, (void **)&spThreadpool);
-            spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "cmd", spThreadpool, 0, 0));
+            spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "cmd", spThreadpool, 0));
             spCommand->Execute(0, STRING_from_string(argv[1]), 0, 0, 0, spAsynIoOperation);
             
             while(_kbhit() == 0 )

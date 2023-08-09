@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Mar 04 07:47:15 2023
+/* at Mon Aug 07 11:29:48 2023
  */
 /* Compiler settings for IAsynIpcChannel.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -147,14 +147,14 @@ EXTERN_C const IID IID_IAsynIpcIoOperation;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynIpcIoOperation * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIpcIoOperation * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *GetAsynFrameThread )( 
@@ -313,11 +313,11 @@ EXTERN_C const IID IID_IAsynIpcIoOperation;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynIpcIoOperation_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynIpcIoOperation_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynIpcIoOperation_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynIpcIoOperation_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynIpcIoOperation_GetAsynFrameThread(This,ppAsynFrameThread)	\
@@ -460,14 +460,14 @@ EXTERN_C const IID IID_IAsynNamedPipe;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynNamedPipe * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynNamedPipe * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -554,11 +554,11 @@ EXTERN_C const IID IID_IAsynNamedPipe;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynNamedPipe_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynNamedPipe_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynNamedPipe_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynNamedPipe_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynNamedPipe_IsOpened(This,pDeviceName)	\
@@ -652,14 +652,14 @@ EXTERN_C const IID IID_IAsynIpcDevice;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynIpcDevice * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIpcDevice * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -738,11 +738,11 @@ EXTERN_C const IID IID_IAsynIpcDevice;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynIpcDevice_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynIpcDevice_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynIpcDevice_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynIpcDevice_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynIpcDevice_IsOpened(This,pDeviceName)	\
@@ -833,14 +833,14 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynIpcDeviceListener * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIpcDeviceListener * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -920,11 +920,11 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynIpcDeviceListener_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynIpcDeviceListener_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynIpcDeviceListener_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynIpcDeviceListener_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynIpcDeviceListener_IsOpened(This,pDeviceName)	\
@@ -1020,7 +1020,7 @@ EXTERN_C const IID IID_IAsynIpcChannel;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynIpcChannel * This,
-            /* [in] */ IAsynFrame *pAsynFrame,
+            /* [in] */ IAsynFrame *frame,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -1062,8 +1062,8 @@ EXTERN_C const IID IID_IAsynIpcChannel;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynIpcChannel_CreateAsynIoOperation(This,pAsynFrame,param1,param2,riid,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,pAsynFrame,param1,param2,riid,ppObject) ) 
+#define IAsynIpcChannel_CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject) ) 
 
 
 #define IAsynIpcChannel_CreateAsynNamedPipe(This,ppAsynNamedPipe)	\

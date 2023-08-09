@@ -148,7 +148,7 @@ public:
         CComPtr<IAsynTcpSocket> spAsynInnSocket;
         m_spAsynNetwork->CreateAsynTcpSocket(&spAsynInnSocket );
 
-        if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("ssl"), (IUnknown **)&spAsynInnSocket.p, STRING_from_string("tls/1.0"), &m_spAsynPtlSocket) != S_OK )
+        if( m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("ssl"), spAsynInnSocket, 0, STRING_from_string("tls/1.0"), &m_spAsynPtlSocket) != S_OK )
         {
             printf("can't load plugin: ssl\n");
             return false;

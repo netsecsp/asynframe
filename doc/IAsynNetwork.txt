@@ -58,7 +58,7 @@ import "IAsynFrame.idl";
         HRESULT GetPeerAddress( [in ]IStringSetter* Host, [out]BYTE* Addr, [out]PORT* Port, [out]uint32_t* af );
         HRESULT SetPeerAddress( [in ]BOOL Multi, [in ]STRING* Host, [in ]BYTE* Addr, [in ]PORT Port, [in ]uint32_t af );
         /////////////////////////////////////////////////////////////////////////
-        //获取/设置域名, checkipx=1用于检查Host是否是Addr
+        //获取/设置域名, checkipx=1用于检查Host是否是Address
         HRESULT GetHost( [out]STRING* Host );
         HRESULT SetHost( [in ]STRING  Host, [in ]BOOL checkipx );
         //获取/设置端口
@@ -66,19 +66,16 @@ import "IAsynFrame.idl";
         HRESULT SetPort( [in ]PORT  Port );
     };
 
-    [// 隐式继承：IObjectHolder/IDataTransmit，用于获取内部IDnsHostZone/IAsynDnsResolver,
+    [// 隐式继承：IObjectHolder，用于获取内部IDnsHostZone/IAsynDnsResolver,
         object,
         uuid(13C32332-EED4-4701-8644-C2F6E3CCBFE6),
         helpstring("IAsynDnsResolver Interface"),
         pointer_default(unique)
     ]
-    interface IAsynDnsResolver : IUnknown
+    interface IAsynDnsResolver : IDataProvider
     {
         //设置域名服务器地址，第一个地址为主Dns服务器
         HRESULT SetDnsServer( [in ]STRING svc, [in, size_is(sizeof(STRING)*Count)]STRING* pHostport, [in ]uint32_t Count );
-        /////////////////////////////////////////////////////////////////////////
-        //提交解析请求，注意：调用之前必须通过IAsynIoOperation.SetHost设置域名，
-        HRESULT Commit( [in ]IUnknown* data, [in ]uint32_t af );
     };
 
     /////////////////////////////////////////////////////////////////////////////
@@ -140,8 +137,8 @@ import "IAsynFrame.idl";
     {
         HRESULT Open( [in ]IAsynFrameThread* pAsynFrameThread, [in ]uint32_t af, [in ]uint32_t type, [in ]uint32_t protocol, [in ]uint32_t nttl, [in ]BOOL loop );
         /////////////////////////////////////////////////////////////////////////                     
-        HRESULT Add( [in ]STRING IHost, [in ]STRING MHost );
-        HRESULT Pop( [in ]STRING IHost, [in ]STRING MHost ); 
+        HRESULT Join( [in ]STRING IHost, [in ]STRING MHost ); //加入多播组
+        HRESULT Drop( [in ]STRING IHost, [in ]STRING MHost ); 
     };
 
     [// 提供Tcp.SOCKET
@@ -197,7 +194,7 @@ import "IAsynFrame.idl";
     };
 
     /////////////////////////////////////////////////////////////////////////////
-    [// 提供应用服务
+    [// 提供服务接口
         object,
         uuid(DFDD78F9-309A-4bb9-97D0-161969B9D192),
         helpstring("IAppService Interface"),
@@ -205,7 +202,7 @@ import "IAsynFrame.idl";
     ]
     interface IAppService : IUnknown
     {
-        HRESULT Control( [in ]uint32_t action ); //action=0:stop action=1:start/play action=2:pause
+        HRESULT Control( [in ]uint32_t action ); //action=0:stop action=1:start|play action=2:pause
     };
 
     /////////////////////////////////////////////////////////////////////////////
@@ -218,18 +215,19 @@ import "IAsynFrame.idl";
     interface IAsynNetwork : IAsynIoOperationFactory
     {
         //创建异步域名解析器
-        HRESULT CreateAsynDnsResolver( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [in ]STRING* etchost, [out]IAsynDnsResolver** ppAsynDnsResolver );
+        HRESULT CreateAsynDnsResolver( [in ]STRING Owner, [in ]STRING* etchosts, [in ]IUnknown* param1, [in ]STRING param2, [out]IAsynDnsResolver** ppAsynDnsResolver );
         /////////////////////////////////////////////////////////////////////////
         HRESULT CreateAsynRawSocket( [in ]uint32_t lType/*默认等于0, 1:icmp*/, [out]IAsynRawSocket** ppAsynRawSocket );
         HRESULT CreateAsynUdpSocket( [out]IAsynUdpSocket** ppAsynUdpSocket );
         HRESULT CreateAsynTcpSocket( [out]IAsynTcpSocket** ppAsynTcpSocket );
         //参数unused只能是IStringSetter/IAsynDtpSocketListener
         HRESULT CreateAsynTcpSocketListener( [in ]IUnknown* unused, [out]IAsynTcpSocketListener** ppAsynTcpSocketListener );
-        //创建IAsynRawSocket：建立Socket链, param1传IAsynRawSocket数组
-        HRESULT CreateAsynPtlSocket( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [out]IAsynRawSocket** ppAsynRawSocket );
+        /////////////////////////////////////////////////////////////////////////
+        //创建IAsynRawSocket：建立Socket链
+        HRESULT CreateAsynPtlSocket( [in ]STRING Owner, [in ]IAsynRawSocket* socket, [in ]IUnknown* param1, [in ]STRING param2, [out]IAsynRawSocket** ppAsynRawSocket );
         /////////////////////////////////////////////////////////////////////////
         //创建应用服务
-        HRESULT CreateAppService( [in ]STRING Owner, [in ]IUnknown** param1, [in ]STRING param2, [in ]IAsynMessageEvents* events, [out]IAppService** ppAppService );
+        HRESULT CreateAppService( [in ]STRING Owner, [in ]IUnknown* object, [in ]IKeyvalSetter* param1, [in ]STRING param2, [out]IAppService** ppAppService );
         /////////////////////////////////////////////////////////////////////////
         //获得本地地址，iaf=AF_INET获取ipv4列表/iaf=AF_INET6获取ipv6列表/iaf=0获取ipv4+ipv6列表
         HRESULT EnumLocalAddress( [in ]uint32_t iaf, [in ]IStringVector* output );

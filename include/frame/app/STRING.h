@@ -45,6 +45,9 @@ NAMESPACE_BEGIN(asynsdk)
 #define string_from_BUFFER(S, l) std::string((char*)(S), l)
 #define STRING_from_string(s)    asynsdk::STRING_EX(s)
 #define STRING_from_buffer(S, l) asynsdk::STRING_EX((void*)(S), l)
+#define STRING_from_object(S)    asynsdk::STRING_EX((void*)(S), 0)
+#define STRING_from_value(S)     asynsdk::STRING_EX(&(S), sizeof(S))
+template<typename T> T value_from_STRING(STRING *s) { return *((T*)s->ptr);}
 
 /////////////////////////////////////////////////////////////////////////////////
 struct STRING_EX : public STRING

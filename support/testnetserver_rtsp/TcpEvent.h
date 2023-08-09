@@ -128,10 +128,7 @@ public:
                         }
 
                         CComPtr<IAsynRawSocket> spAsynPtlSocket;
-                        IUnknown* ppParam2[2];
-                        ppParam2[0] = info.spINet;
-                        ppParam2[1] = it->second->spINet;
-                        m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("rtsp"), ppParam2, STRING_from_string("http/1.0"), &spAsynPtlSocket);
+                        m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("rtsp"), info.spINet, it->second->spINet, STRING_from_string("http/1.0"), &spAsynPtlSocket);
                         if( spAsynPtlSocket == NULL )
                         {
                             m_arId2Userinfos.erase(it);
@@ -364,7 +361,7 @@ public:
         CComPtr<IAsynRawSocket> spAsynPtlSocket;
         if( m_http )
         {
-            m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("http"), (IUnknown**)&spAsynInnSocket.p, STRING_from_string("tcp/1.0"), &spAsynPtlSocket);
+            m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("http"), spAsynInnSocket, 0, STRING_from_string("tcp/1.0"), &spAsynPtlSocket);
             if( spAsynPtlSocket == NULL )
             {
                 printf("fail to load plugin: http\n");
@@ -374,7 +371,7 @@ public:
         }
         else
         {
-            m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("rtsp"), (IUnknown**)&spAsynInnSocket.p, STRING_from_string("tcp/1.0"), &spAsynPtlSocket);
+            m_spAsynNetwork->CreateAsynPtlSocket(STRING_from_string("rtsp"), spAsynInnSocket, 0, STRING_from_string("tcp/1.0"), &spAsynPtlSocket);
             if( spAsynPtlSocket == NULL )
             {
                 printf("fail to load plugin: rtsp\n");

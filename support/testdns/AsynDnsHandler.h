@@ -55,7 +55,7 @@ public:
 
         if( spAsynIoOperation->SetHost(STRING_from_string(host), TRUE) != S_OK )
         {
-            return lpAsynDnsResolver->Commit(spAsynIoOperation, af) == S_OK;
+            return lpAsynDnsResolver->Queryres(0, af, spAsynIoOperation) == S_OK;
         }
         else
         {

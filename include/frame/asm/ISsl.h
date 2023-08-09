@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Mar 04 07:47:26 2023
+/* at Mon Aug 07 11:29:55 2023
  */
 /* Compiler settings for ISsl.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -117,14 +117,14 @@ EXTERN_C const IID IID_ISsl;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             ISsl * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             ISsl * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -234,11 +234,11 @@ EXTERN_C const IID IID_ISsl;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define ISsl_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define ISsl_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define ISsl_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define ISsl_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define ISsl_IsOpened(This,pDeviceName)	\

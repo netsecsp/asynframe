@@ -51,27 +51,35 @@ BEGIN_ASYN_IOERROR(IAsynNetwork)
 END_ASYN_IOERROR()
 
 /////////////////////////////////////////////////////////////////////////////////
-//IAsynDnsResolver.IObjectHolder(lType)
-#define DT_GetDnsHostZone        ( 1 ) //获取IAsynDnsResolver内部IDnsHostZone
-
 //IAsynNetwork.IObjectHolder(lType)
 #define DT_GetAsynTcplinkManager (100) //获取内部的IAsynTcplinkManager
 
+#define DT_SetmDNSService        (101) //设置/获取mDNS服务
+#define DT_GetmDNSService        (101)
+
+/////////////////////////////////////////////////////////////////////////////////
+//IAsynDnsResolver.IObjectHolder(lType)
+#define DT_GetDnsHostZone        ( 1 ) //获取IAsynDnsResolver内部IDnsHostZone
+
+/////////////////////////////////////////////////////////////////////////////////
 //IAppService.Control(action)
-#define ST_GetState              ( 3 ) //返回服务状态: 0-stopped 1-running 2-paused
 #define ST_ActStop               ( 0 )
 #define ST_ActStart              ( 1 )
 #define ST_ActPause              ( 2 )
+#define ST_GetState              ( 3 ) //返回服务状态: 0-stopped 1-running 2-paused
 
 /////////////////////////////////////////////////////////////////////////////////
 //SetSockopt/GetSockopt的定义level
 #define EXT_SOCKET               (0xffffffff)
 
-/////////////////////////////////////////////////////////////////////////////////
 //SetSockopt/GetSockopt的定义optname
 #define NET_SNDIO                ( 0 ) //是否同步发送UDP数据
 #define NET_MTU                  ( 1 )
 #define NET_WAN                  ( 2 ) //格式: port[2B]addr[4|16B]
+
+///////////////////////////////////////////////////////////////////////////////
+//检测是否ISsl
+bool IsSslSocket(/*[in ]*/IUnknown *pSocket);
 
 NAMESPACE_END(asynsdk)
 

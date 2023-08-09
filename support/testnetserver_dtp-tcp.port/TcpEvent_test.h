@@ -155,10 +155,10 @@ public:
     }
 
 public:
-    void Start(IDtpService *lpDtp)
+    void Start(IDtpService *lpDtp, uint32_t position = 0)
     {
         m_spDtpService = lpDtp;
-        m_spDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), 0, asynsdk::STRING_EX::null, 0, (IUnknown**)&m_spAsynTcpSocketListener);
+        m_spDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), position, 0, asynsdk::STRING_EX::null, (IUnknown**)&m_spAsynTcpSocketListener);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (void**)&spAsynIoOperation);

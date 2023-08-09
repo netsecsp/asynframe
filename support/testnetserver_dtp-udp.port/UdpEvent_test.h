@@ -99,13 +99,14 @@ public:
     }
 
 public:
-    void Start(IDtpService *lpDtpService)
+    void Start(IDtpService *lpDtpService, uint32_t position = 0)
     {
-        lpDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), 0, asynsdk::STRING_EX::null, 0, (IUnknown**)&m_spAsynUdpSocket);
+        lpDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), position, 0, asynsdk::STRING_EX::null, (IUnknown**)&m_spAsynUdpSocket);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
 
+        m_spAsynUdpSocket->Open(0, AF_INET, SOCK_DGRAM, IPPROTO_UDP);
         spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, 1500, 0);
         spAsynIoOperation->SetIoParams(0, 1500, 0);
         m_spAsynUdpSocket->Read(spAsynIoOperation);

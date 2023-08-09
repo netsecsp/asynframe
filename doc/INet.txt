@@ -47,7 +47,7 @@ import "IAsynNetwork.idl";
     };
 
     /////////////////////////////////////////////////////////////////////////////
-    [// 提供消息/数据分离的接口
+    [// 提供消息数据分离的接口
         object,
         uuid(DCA84EA9-CC7F-4d6a-B7E5-7FD443F83BC1),
         helpstring("INet Interface"),
@@ -59,7 +59,7 @@ import "IAsynNetwork.idl";
     };
     
     /////////////////////////////////////////////////////////////////////////////
-    [// 提供Http数据传输隧道的接口
+    [// 提供数据传输隧道的接口
         object,
         uuid(DFFEA42D-B431-4C7B-876C-D545A4A58EC9),
         helpstring("IHttpTxTunnel Interface"),

@@ -60,7 +60,7 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s port tcp/udp|spx/ipx ipv4/ipv6\n\texample: %s 7675 tcp ipv4\n", argv[0], argv[0]);
+    printf("usage: %s port tcp/udp|spx/ipx [host]\n\texample: %s 7675 tcp\n", argv[0], argv[0]);
 
     HRESULT hr1 = Initialize(NULL, NULL);
 
@@ -76,16 +76,25 @@ int _tmain(int argc, _TCHAR *argv[])
         CComPtr<IAsynNetwork     > spAsynNetwork;
         lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
 
-        asynsdk::CStringVector ipvx(1);
-        spAsynNetwork->EnumLocalAddress(0,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
+        printf("\nlocalip:\n"); asynsdk::CStringVector ipvx(1);
+        spAsynNetwork->EnumLocalAddress(0   ,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++ i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
+
+        printf("mac:\n"); ipvx.m_val.clear();
+        spAsynNetwork->EnumLocalAddress(1<<8,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++ i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
+
+        printf("nid:\n"); ipvx.m_val.clear();
+        spAsynNetwork->EnumLocalAddress(2<<8,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++ i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
+
+        printf("gateway:\n"); ipvx.m_val.clear();
+        spAsynNetwork->EnumLocalAddress(3<<8,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++ i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
 
         CComPtr<IAsynFrameThread > spAsynFrameThread;
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
 
         if( argc <= 2 || strcmp(argv[2], "tcp") == 0 )
         {
-            CTcpEvent *pEvent = new CTcpEvent( spAsynFrameThread, spAsynNetwork, argc <= 3 || strcmp(argv[3], "ipv4") == 0 ? AF_INET : 23 );
-            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1])) )
+            CTcpEvent *pEvent = new CTcpEvent( spAsynFrameThread, spAsynNetwork, argc > 3 && (strlen(argv[3]) == 0 || strchr(argv[3], ':') != 0)? 23 : AF_INET );
+            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1]), argc <= 3? "" : argv[3]) )
             {
                 while( _kbhit() == 0 )
                 {
@@ -97,8 +106,8 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         else if( strcmp(argv[2], "udp") == 0 )
         {
-            CUdpEvent *pEvent = new CUdpEvent( spAsynFrameThread, spAsynNetwork, argc <= 3 || strcmp(argv[3], "ipv4") == 0 ? AF_INET : 23 );
-            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1]), argc > 4? argv[4] : 0) )
+            CUdpEvent *pEvent = new CUdpEvent( spAsynFrameThread, spAsynNetwork, argc > 3 && (strlen(argv[3]) == 0 || strchr(argv[3], ':') != 0)? 23 : AF_INET );
+            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1]), argc <= 3? "" : argv[3], argc <= 4? 0 : argv[4]) )
             {
                 while( _kbhit() == 0 )
                 {
@@ -111,7 +120,7 @@ int _tmain(int argc, _TCHAR *argv[])
         else if( strcmp(argv[2], "spx") == 0 )
         {
             CTcpEvent *pEvent = new CTcpEvent( spAsynFrameThread, spAsynNetwork, AF_IPX );
-            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1])) )
+            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1]), argc <= 3? "" : argv[3]) )
             {
                 while( _kbhit() == 0 )
                 {
@@ -124,7 +133,7 @@ int _tmain(int argc, _TCHAR *argv[])
         else if( strcmp(argv[2], "ipx") == 0 )
         {
             CUdpEvent *pEvent = new CUdpEvent( spAsynFrameThread, spAsynNetwork, AF_IPX );
-            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1])) )
+            if( pEvent->Start(argc <= 1? 7675 : atoi(argv[1]), argc <= 3? "" : argv[3]) )
             {
                 while( _kbhit() == 0 )
                 {

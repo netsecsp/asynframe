@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Mar 04 07:47:14 2023
+/* at Mon Aug 07 11:29:47 2023
  */
 /* Compiler settings for IAsynFileSystem.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -145,14 +145,14 @@ EXTERN_C const IID IID_IAsynFileIoOperation;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynFileIoOperation * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynFileIoOperation * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *GetAsynFrameThread )( 
@@ -309,11 +309,11 @@ EXTERN_C const IID IID_IAsynFileIoOperation;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynFileIoOperation_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynFileIoOperation_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynFileIoOperation_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynFileIoOperation_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynFileIoOperation_GetAsynFrameThread(This,ppAsynFrameThread)	\
@@ -451,14 +451,14 @@ EXTERN_C const IID IID_IAsynRawDevice;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynRawDevice * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynRawDevice * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -539,11 +539,11 @@ EXTERN_C const IID IID_IAsynRawDevice;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynRawDevice_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynRawDevice_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynRawDevice_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynRawDevice_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynRawDevice_IsOpened(This,pDeviceName)	\
@@ -637,14 +637,14 @@ EXTERN_C const IID IID_IAsynFile;
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynFile * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynFile * This,
             /* [in] */ uint32_t method,
-            /* [in] */ uint32_t lparam,
+            /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
         HRESULT ( STDMETHODCALLTYPE *IsOpened )( 
@@ -738,11 +738,11 @@ EXTERN_C const IID IID_IAsynFile;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynFile_Get(This,method,lparam,riid,ppObject)	\
-    ( (This)->lpVtbl -> Get(This,method,lparam,riid,ppObject) ) 
+#define IAsynFile_Get(This,method,lparam2,riid,ppObject)	\
+    ( (This)->lpVtbl -> Get(This,method,lparam2,riid,ppObject) ) 
 
-#define IAsynFile_Set(This,method,lparam,pObject)	\
-    ( (This)->lpVtbl -> Set(This,method,lparam,pObject) ) 
+#define IAsynFile_Set(This,method,lparam2,pObject)	\
+    ( (This)->lpVtbl -> Set(This,method,lparam2,pObject) ) 
 
 
 #define IAsynFile_IsOpened(This,pDeviceName)	\
@@ -930,7 +930,7 @@ EXTERN_C const IID IID_IAsynFileSystem;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynFileSystem * This,
-            /* [in] */ IAsynFrame *pAsynFrame,
+            /* [in] */ IAsynFrame *frame,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -975,8 +975,8 @@ EXTERN_C const IID IID_IAsynFileSystem;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynFileSystem_CreateAsynIoOperation(This,pAsynFrame,param1,param2,riid,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,pAsynFrame,param1,param2,riid,ppObject) ) 
+#define IAsynFileSystem_CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject) ) 
 
 
 #define IAsynFileSystem_CreateAsynRawDevice(This,ppAsynRawDevice)	\

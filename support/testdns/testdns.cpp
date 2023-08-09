@@ -78,7 +78,7 @@ int _tmain(int argc, _TCHAR *argv[])
         pInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
 
         CComPtr<IAsynDnsResolver> spAsynDnsResolver;
-        spAsynNetwork->CreateAsynDnsResolver(STRING_from_string("dns"), 0, STRING_from_string(puri), 0, &spAsynDnsResolver);
+        spAsynNetwork->CreateAsynDnsResolver(STRING_from_string("dns"), 0, 0, STRING_from_string(puri), &spAsynDnsResolver);
 
         CComPtr<IAsynFrameThread > spAsynFrameThread;
         pInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
