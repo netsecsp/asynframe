@@ -56,8 +56,11 @@ public:
                 ((IKeyvalSetter*)objects[0])->Get(STRING_from_string(";context"), 0, 0, &c);
                 if( d.m_val.rfind("cert.verify") != std::string::npos )
                 {// cert.verify
-                    ISsl *pSsl = (ISsl *)lParam2;
-                    return pSsl->VerifyPeerCertificate(*(handle*)c.m_val.ptr, 0x1000);
+                    ISsl *pSsl = (ISsl*)lParam2;
+                    if( c.m_val.ptr )
+                        return pSsl->VerifyPeerCertificate(*(handle*)c.m_val.ptr, 0x1000);
+                    else
+                        return S_OK; //no cert
                 }
             }
             return E_NOTIMPL;
