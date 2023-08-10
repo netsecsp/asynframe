@@ -20,6 +20,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 4. Optimize the execution of working threads of each module through the named thread pool  
 5. Provide lockless mechanism  
 6. Integrate Lua plug-in to realize hot update  
+![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **Feature:**  
 1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  

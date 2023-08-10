@@ -20,6 +20,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 4. 通过有名线程池优化各个模块的工作线程执行  
 5. 提供无锁化机制  
 6. 集成lua插件实现热更新  
+![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **功能特性:**  
 1. 通过微线程核对象可轻松集成到MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) 等其他第三方开源项目  
