@@ -86,7 +86,7 @@ int _tmain(int argc, _TCHAR *argv[])
         spAsynNetwork->EnumLocalAddress(2<<8,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++ i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
 
         printf("gateway:\n"); ipvx.m_val.clear();
-        spAsynNetwork->EnumLocalAddress(3<<8,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++ i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
+        spAsynNetwork->EnumLocalAddress(4<<8,&ipvx); for(int i = 0; i < ipvx.m_val.size(); ++ i) printf("%d: %s\n", i, ipvx.m_val[i].c_str()); printf("\n");
 
         CComPtr<IAsynFrameThread > spAsynFrameThread;
         lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);

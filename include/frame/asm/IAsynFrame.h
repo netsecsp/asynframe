@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 07 11:29:46 2023
+/* at Mon Aug 28 20:05:26 2023
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -242,7 +242,8 @@ extern "C"{
 
 
 #define AF_EVENT_SYSTEM (  0  )
-#define AF_TIMER        (  1  )
+#define AF_EVENT_APPID0 (  1  )
+#define AF_TIMER        (  2  )
 #define AF_IOMSG_NOTIFY (  5  )
 #define AF_EVENT_NOTIFY (  6  )
 #define AF_QUERY_RESULT (  7  )
@@ -1887,7 +1888,7 @@ EXTERN_C const IID IID_IAsynIoOperationFactory;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE CreateAsynIoOperation( 
-            /* [in] */ IAsynFrame *frame,
+            /* [in] */ IUnknown *pdatas,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -1916,7 +1917,7 @@ EXTERN_C const IID IID_IAsynIoOperationFactory;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynIoOperationFactory * This,
-            /* [in] */ IAsynFrame *frame,
+            /* [in] */ IUnknown *pdatas,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -1945,8 +1946,8 @@ EXTERN_C const IID IID_IAsynIoOperationFactory;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynIoOperationFactory_CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject) ) 
+#define IAsynIoOperationFactory_CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject) ) 
 
 #endif /* COBJMACROS */
 
@@ -2646,6 +2647,9 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object) = 0;
         
+        virtual HRESULT STDMETHODCALLTYPE NewIoBuffer( 
+            /* [out] */ IBuffer **ppBuffer) = 0;
+        
         virtual HRESULT STDMETHODCALLTYPE CreateTimer( 
             /* [in] */ uint64_t timerid,
             /* [in] */ uint64_t lparam2,
@@ -2655,12 +2659,12 @@ EXTERN_C const IID IID_IAsynFrame;
         virtual HRESULT STDMETHODCALLTYPE DeleteTimer( 
             /* [in] */ uint64_t timerid) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE NewIoBuffer( 
-            /* [out] */ IBuffer **ppBuffer) = 0;
+        virtual HRESULT STDMETHODCALLTYPE Sleep( 
+            /* [in] */ int32_t iTimeout) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynIoOperation( 
             /* [in] */ uint32_t lparam1,
-            /* [in] */ uint32_t unused,
+            /* [in] */ uint32_t lparam2,
             /* [out] */ IAsynIoOperation **ppAsynIoOperation) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CancelAsynIoOperation( 
@@ -2732,6 +2736,10 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object);
         
+        HRESULT ( STDMETHODCALLTYPE *NewIoBuffer )( 
+            IAsynFrame * This,
+            /* [out] */ IBuffer **ppBuffer);
+        
         HRESULT ( STDMETHODCALLTYPE *CreateTimer )( 
             IAsynFrame * This,
             /* [in] */ uint64_t timerid,
@@ -2743,14 +2751,14 @@ EXTERN_C const IID IID_IAsynFrame;
             IAsynFrame * This,
             /* [in] */ uint64_t timerid);
         
-        HRESULT ( STDMETHODCALLTYPE *NewIoBuffer )( 
+        HRESULT ( STDMETHODCALLTYPE *Sleep )( 
             IAsynFrame * This,
-            /* [out] */ IBuffer **ppBuffer);
+            /* [in] */ int32_t iTimeout);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynFrame * This,
             /* [in] */ uint32_t lparam1,
-            /* [in] */ uint32_t unused,
+            /* [in] */ uint32_t lparam2,
             /* [out] */ IAsynIoOperation **ppAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *CancelAsynIoOperation )( 
@@ -2813,17 +2821,20 @@ EXTERN_C const IID IID_IAsynFrame;
 #define IAsynFrame_PostMessage(This,checkthread,message,lparam1,lparam2,object)	\
     ( (This)->lpVtbl -> PostMessage(This,checkthread,message,lparam1,lparam2,object) ) 
 
+#define IAsynFrame_NewIoBuffer(This,ppBuffer)	\
+    ( (This)->lpVtbl -> NewIoBuffer(This,ppBuffer) ) 
+
 #define IAsynFrame_CreateTimer(This,timerid,lparam2,lTimeout,bCycled)	\
     ( (This)->lpVtbl -> CreateTimer(This,timerid,lparam2,lTimeout,bCycled) ) 
 
 #define IAsynFrame_DeleteTimer(This,timerid)	\
     ( (This)->lpVtbl -> DeleteTimer(This,timerid) ) 
 
-#define IAsynFrame_NewIoBuffer(This,ppBuffer)	\
-    ( (This)->lpVtbl -> NewIoBuffer(This,ppBuffer) ) 
+#define IAsynFrame_Sleep(This,iTimeout)	\
+    ( (This)->lpVtbl -> Sleep(This,iTimeout) ) 
 
-#define IAsynFrame_CreateAsynIoOperation(This,lparam1,unused,ppAsynIoOperation)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,lparam1,unused,ppAsynIoOperation) ) 
+#define IAsynFrame_CreateAsynIoOperation(This,lparam1,lparam2,ppAsynIoOperation)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,lparam1,lparam2,ppAsynIoOperation) ) 
 
 #define IAsynFrame_CancelAsynIoOperation(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> CancelAsynIoOperation(This,pAsynIoOperation) ) 
@@ -2877,17 +2888,14 @@ EXTERN_C const IID IID_IAsynFrameThread;
             /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE SendAsynIoOperation( 
-            /* [in] */ IAsynIoOperation *pDstAsynIoOperation) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE PostAsynIoOperation( 
-            /* [in] */ IAsynIoOperation *pDstAsynIoOperation) = 0;
-        
         virtual HRESULT STDMETHODCALLTYPE BindAsynIoOperation( 
             /* [in] */ IAsynIoOperation *pSrcAsynIoOperation,
             /* [in] */ IAsynIoOperation *pDstAsynIoOperation,
             /* [in] */ uint32_t mode,
             /* [in] */ int32_t iTimeout) = 0;
+        
+        virtual HRESULT STDMETHODCALLTYPE PostAsynIoOperation( 
+            /* [in] */ IAsynIoOperation *pDstAsynIoOperation) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynFrame( 
             /* [in] */ IAsynMessageEvents *events,
@@ -2947,20 +2955,16 @@ EXTERN_C const IID IID_IAsynFrameThread;
             /* [in] */ uint64_t lparam2,
             /* [in] */ IUnknown *object);
         
-        HRESULT ( STDMETHODCALLTYPE *SendAsynIoOperation )( 
-            IAsynFrameThread * This,
-            /* [in] */ IAsynIoOperation *pDstAsynIoOperation);
-        
-        HRESULT ( STDMETHODCALLTYPE *PostAsynIoOperation )( 
-            IAsynFrameThread * This,
-            /* [in] */ IAsynIoOperation *pDstAsynIoOperation);
-        
         HRESULT ( STDMETHODCALLTYPE *BindAsynIoOperation )( 
             IAsynFrameThread * This,
             /* [in] */ IAsynIoOperation *pSrcAsynIoOperation,
             /* [in] */ IAsynIoOperation *pDstAsynIoOperation,
             /* [in] */ uint32_t mode,
             /* [in] */ int32_t iTimeout);
+        
+        HRESULT ( STDMETHODCALLTYPE *PostAsynIoOperation )( 
+            IAsynFrameThread * This,
+            /* [in] */ IAsynIoOperation *pDstAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynFrame )( 
             IAsynFrameThread * This,
@@ -3011,14 +3015,11 @@ EXTERN_C const IID IID_IAsynFrameThread;
 #define IAsynFrameThread_Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object)	\
     ( (This)->lpVtbl -> Dispatch(This,pSrcAsynIoOperation,events,message,lparam1,lparam2,object) ) 
 
-#define IAsynFrameThread_SendAsynIoOperation(This,pDstAsynIoOperation)	\
-    ( (This)->lpVtbl -> SendAsynIoOperation(This,pDstAsynIoOperation) ) 
+#define IAsynFrameThread_BindAsynIoOperation(This,pSrcAsynIoOperation,pDstAsynIoOperation,mode,iTimeout)	\
+    ( (This)->lpVtbl -> BindAsynIoOperation(This,pSrcAsynIoOperation,pDstAsynIoOperation,mode,iTimeout) ) 
 
 #define IAsynFrameThread_PostAsynIoOperation(This,pDstAsynIoOperation)	\
     ( (This)->lpVtbl -> PostAsynIoOperation(This,pDstAsynIoOperation) ) 
-
-#define IAsynFrameThread_BindAsynIoOperation(This,pSrcAsynIoOperation,pDstAsynIoOperation,mode,iTimeout)	\
-    ( (This)->lpVtbl -> BindAsynIoOperation(This,pSrcAsynIoOperation,pDstAsynIoOperation,mode,iTimeout) ) 
 
 #define IAsynFrameThread_CreateAsynFrame(This,events,lMaxIdleSize,ppAsynFrame)	\
     ( (This)->lpVtbl -> CreateAsynFrame(This,events,lMaxIdleSize,ppAsynFrame) ) 

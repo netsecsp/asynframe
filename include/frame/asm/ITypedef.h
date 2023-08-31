@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 07 11:29:43 2023
+/* at Mon Aug 28 20:05:23 2023
  */
 /* Compiler settings for ITypedef.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -93,6 +93,7 @@ extern "C"{
 /* [local] */ 
 
 #pragma pack(push, 1)
+
 typedef void *handle;
 
 typedef struct tagRANGE
@@ -334,11 +335,8 @@ EXTERN_C const IID IID_IStringVector;
             /* [out] */ STRING *Val) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Add( 
+            /* [in] */ uint32_t index,
             /* [in] */ STRING Val) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Set( 
-            /* [size_is][in] */ STRING *Val,
-            /* [in] */ uint32_t Size) = 0;
         
     };
     
@@ -368,12 +366,8 @@ EXTERN_C const IID IID_IStringVector;
         
         HRESULT ( STDMETHODCALLTYPE *Add )( 
             IStringVector * This,
+            /* [in] */ uint32_t index,
             /* [in] */ STRING Val);
-        
-        HRESULT ( STDMETHODCALLTYPE *Set )( 
-            IStringVector * This,
-            /* [size_is][in] */ STRING *Val,
-            /* [in] */ uint32_t Size);
         
         END_INTERFACE
     } IStringVectorVtbl;
@@ -401,11 +395,8 @@ EXTERN_C const IID IID_IStringVector;
 #define IStringVector_Get(This,index,Val)	\
     ( (This)->lpVtbl -> Get(This,index,Val) ) 
 
-#define IStringVector_Add(This,Val)	\
-    ( (This)->lpVtbl -> Add(This,Val) ) 
-
-#define IStringVector_Set(This,Val,Size)	\
-    ( (This)->lpVtbl -> Set(This,Val,Size) ) 
+#define IStringVector_Add(This,index,Val)	\
+    ( (This)->lpVtbl -> Add(This,index,Val) ) 
 
 #endif /* COBJMACROS */
 

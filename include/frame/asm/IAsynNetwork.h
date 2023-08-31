@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 07 11:29:49 2023
+/* at Mon Aug 28 20:05:29 2023
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -191,7 +191,7 @@ EXTERN_C const IID IID_IAsynNetIoOperation;
         
         virtual HRESULT STDMETHODCALLTYPE SetHost( 
             /* [in] */ STRING Host,
-            /* [in] */ BOOL checkipx) = 0;
+            /* [in] */ uint32_t af) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetPort( 
             /* [out] */ PORT *Port) = 0;
@@ -378,7 +378,7 @@ EXTERN_C const IID IID_IAsynNetIoOperation;
         HRESULT ( STDMETHODCALLTYPE *SetHost )( 
             IAsynNetIoOperation * This,
             /* [in] */ STRING Host,
-            /* [in] */ BOOL checkipx);
+            /* [in] */ uint32_t af);
         
         HRESULT ( STDMETHODCALLTYPE *GetPort )( 
             IAsynNetIoOperation * This,
@@ -497,8 +497,8 @@ EXTERN_C const IID IID_IAsynNetIoOperation;
 #define IAsynNetIoOperation_GetHost(This,Host)	\
     ( (This)->lpVtbl -> GetHost(This,Host) ) 
 
-#define IAsynNetIoOperation_SetHost(This,Host,checkipx)	\
-    ( (This)->lpVtbl -> SetHost(This,Host,checkipx) ) 
+#define IAsynNetIoOperation_SetHost(This,Host,af)	\
+    ( (This)->lpVtbl -> SetHost(This,Host,af) ) 
 
 #define IAsynNetIoOperation_GetPort(This,Port)	\
     ( (This)->lpVtbl -> GetPort(This,Port) ) 
@@ -2209,7 +2209,7 @@ EXTERN_C const IID IID_IAsynNetwork;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynNetwork * This,
-            /* [in] */ IAsynFrame *frame,
+            /* [in] */ IUnknown *pdatas,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -2285,8 +2285,8 @@ EXTERN_C const IID IID_IAsynNetwork;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynNetwork_CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject) ) 
+#define IAsynNetwork_CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject) ) 
 
 
 #define IAsynNetwork_CreateAsynDnsResolver(This,Owner,etchosts,param1,param2,ppAsynDnsResolver)	\

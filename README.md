@@ -1,4 +1,4 @@
-## Asynframe framework v1.5.0 [english](/README_EN.md) | 中文
+## Asynframe framework v1.5.1 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -45,7 +45,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |||集成到mfc|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
 |||集成到DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
 |crashexplorer|插件[asyncore]|捕获当前进程的崩溃信息，同时生成dmp文件|\support\testcrashexplorer|
-|console|插件[asyncore]|命令控制台<br>1.支持加载/卸载ICommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
+|console|插件[asyncore]|命令控制台<br>1.支持加载/卸载IOsCommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|插件[asyncore]|进程间通讯|\support\testipcclient<br>\support\testipcserver|
 |asynneta|插件[asyncore]|服务端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理<br>4.提供tcp/udp端口转发|[aneta](https://github.com/netsecsp/aneta)|
@@ -63,9 +63,10 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2023/08/08 发布windows平台的asynframe framework v1.5.0  
+> 2023/08/31 发布windows平台的asynframe framework v1.5.1  
 1. 发布版本: 面向设计重构架构/接口  
-2. 修复已知问题  
+2. 支持检测网卡变动事件  
+3. 修复已知问题  
 > 2023/03/31 发布windows平台的asynframe framework v1.4.6  
 > 2023/02/02 发布windows平台的asynframe framework v1.3.2  
 > 2022/06/08 发布windows平台的asynframe framework v1.2.0  
@@ -73,8 +74,8 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.5.0-Msvc2019_20230808.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.5.0-Msvc2013_20230808.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.5.1-Msvc2019_20230831.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.5.1-Msvc2013_20230831.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  

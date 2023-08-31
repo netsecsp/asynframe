@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 07 11:29:47 2023
+/* at Mon Aug 28 20:05:27 2023
  */
 /* Compiler settings for IAsynFileSystem.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -930,7 +930,7 @@ EXTERN_C const IID IID_IAsynFileSystem;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynFileSystem * This,
-            /* [in] */ IAsynFrame *frame,
+            /* [in] */ IUnknown *pdatas,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -975,8 +975,8 @@ EXTERN_C const IID IID_IAsynFileSystem;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynFileSystem_CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject) ) 
+#define IAsynFileSystem_CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject) ) 
 
 
 #define IAsynFileSystem_CreateAsynRawDevice(This,ppAsynRawDevice)	\

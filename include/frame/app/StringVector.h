@@ -40,9 +40,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <string>
 #include <vector>
+#include <map>
 NAMESPACE_BEGIN(asynsdk)
-
-typedef std::vector<std::string> t_vecips;
 
 //////////////////////////////////////////////////////////////////////
 class CStringVector :
@@ -66,15 +65,14 @@ public:
 
 public: //interface of IStringVector
     STDMETHOD(Get)( /*[in ]*/uint32_t index, /*[out]*/STRING* Val );
-    STDMETHOD(Add)( /*[in ]*/STRING Val );
-    STDMETHOD(Set)( /*[in ][size_is(sizeof(STRING)*Size)]*/STRING* Val, /*[in ]*/uint32_t Size );
+    STDMETHOD(Add)( /*[in ]*/uint32_t index, /*[in ]*/STRING  Val );
 
 public:
-    CStringVector *Set(t_vecips &vals, bool bDoCopy = true)
+    CStringVector *Set(std::vector<std::string> &vals, bool bDoCopy = true)
     {
         if( bDoCopy )
         {
-            for(t_vecips::iterator it = vals.begin(); it != vals.end(); ++ it)
+            for(std::vector<std::string>::iterator it = vals.begin(); it != vals.end(); ++ it)
             {
                 m_val.emplace_back(it->c_str());
             }
@@ -92,35 +90,34 @@ public:
     }
 
 public:
-    t_vecips  m_val;
+    std::vector<std::string> m_val;
 };
 
-class CStringVectorRef :
+class CStringMapval :
         public IStringVector,
         public CSingleThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
 {
 public:
-    CStringVectorRef(uint32_t dwRef = 0, t_vecips *vals = 0)
-      : CSingleThreadModelObject(dwRef), m_val(vals)
+    CStringMapval(uint32_t dwRef = 0)
+      : CSingleThreadModelObject(dwRef)
     {
     }
-    virtual ~CStringVectorRef() { }
+    virtual ~CStringMapval() { }
 
-//  DECLARE_NOT_AGGREGATABLE(CStringVectorRef)
-//  BEGIN_COM_MAP(CStringVectorRef)
+//  DECLARE_NOT_AGGREGATABLE(CStringMapval) 
+//  BEGIN_COM_MAP(CStringMapval)
 //      COM_INTERFACE_ENTRY(IStringVector)
 //  END_COM_MAP()
-    BEGIN_OBJ_MAP(CStringVectorRef)
+    BEGIN_OBJ_MAP(CStringMapval)
         OBJ_INTERFACE_ENTRY(IStringVector)
     END_OBJ_MAP()
 
 public: //interface of IStringVector
     STDMETHOD(Get)( /*[in ]*/uint32_t index, /*[out]*/STRING* Val );
-    STDMETHOD(Add)( /*[in ]*/STRING Val );
-    STDMETHOD(Set)( /*[in ][size_is(sizeof(STRING)*Size)]*/STRING* Val, /*[in ]*/uint32_t Size );
+    STDMETHOD(Add)( /*[in ]*/uint32_t index, /*[in ]*/STRING  Val );
 
 public:
-    t_vecips *m_val;
+    std::multimap<uint32_t, std::string> m_val;
 };
 
 NAMESPACE_END(asynsdk)

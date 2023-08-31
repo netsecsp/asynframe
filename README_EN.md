@@ -1,4 +1,4 @@
-## Asynframe framework v1.5.0 english | [中文](/README.md)
+## Asynframe framework v1.5.1 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -45,7 +45,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |||integrate mfc|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
 |||integrate DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
 |crashexplorer|plugin[asyncore]|Capture the crash information of the current process and generate DMP file at the same time|\support\testcrashexplorer|
-|console|plugin[asyncore]|console<br>1.implement loading / unloading ICommand plug-ins：cmd/lua<br>2.implement keyboard / mouse input|\support\testconsole|
+|console|plugin[asyncore]|console<br>1.implement loading / unloading IOsCommand plug-ins：cmd/lua<br>2.implement keyboard / mouse input|\support\testconsole|
 |asynfile|plugin[asyncore]|file|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|plugin[asyncore]|Interprocess communication|\support\testipcclient<br>\support\testipcserver|
 |asynneta|plugin[asyncore]|network agent service<br>1.implement http[s] agent：Basic/Digest authorize<br>2.implement ftp[s] agent<br>3. implement socks4.0/4.a/5.0 agent|[aneta](https://github.com/netsecsp/aneta)|
@@ -63,7 +63,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2023/08/08 Release asynframe framework v1.5.0  
+> 2023/08/31 Release asynframe framework v1.5.1  
 1. Release version: Design oriented refactoring architecture/interface  
 2. Fix known problems  
 > 2023/03/31 Release asynframe framework v1.4.6  
@@ -73,8 +73,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.5.0-Msvc2019_20230808.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.5.0-Msvc2013_20230808.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.5.1-Msvc2019_20230831.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.5.1-Msvc2013_20230831.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  

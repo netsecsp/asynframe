@@ -42,7 +42,6 @@ public:
     {
         m_spAsynFrameThread = lpAsynFrameThread;
         CreateAsynFrame(m_spAsynFrameThread, 0, &m_spAsynFrame);
-        lpInstancesManager->GetInstance(STRING_from_string(IN_SysTime), IID_IOsTime, (void **)&m_spOsTime);
     }
 
 public: // interface of asyn_message_events_impl
@@ -56,12 +55,12 @@ public:
         Stop(m_spAsynFrame);
         m_spAsynFrame = NULL;
     }
+    
+    void ShowTime(const char *info = 0);
 
 public:
     CComPtr<IAsynFrameThread> m_spAsynFrameThread;
     CComPtr<IAsynFrame      > m_spAsynFrame;
-    CComPtr<IOsTime         > m_spOsTime;
-    uint64_t s;
 };
 
 #endif

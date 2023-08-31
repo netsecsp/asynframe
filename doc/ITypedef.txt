@@ -81,8 +81,7 @@ import "ocidl.idl";
     interface IStringVector : IUnknown
     {
         HRESULT Get( [in ]uint32_t index, [out]STRING* Val );
-        HRESULT Add( [in ]STRING Val );
-        HRESULT Set( [in ][size_is(sizeof(STRING)*Size)]STRING* Val, [in ]uint32_t Size );
+        HRESULT Add( [in ]uint32_t index, [in ]STRING  Val );
     };
 
     [

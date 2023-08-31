@@ -42,9 +42,20 @@ END_ASYN_MESSAGE_MAP()
 HRESULT CAsynFrameHandler::OnAppidNotify(uint32_t message, uint64_t lParam1, uint64_t lParam2, IAsynIoOperation *lpAsynIoOperation)
 {
     if( lParam2 == 0 )
-        printf("switch1, params: %I64d/%I64d threadid: %d\n", lParam1, lParam2, ::GetCurrentThreadId());
-    else
-        printf("extcode=%I64d\n", lParam1);
+    {
+        printf("switch1: %I64d/%I64d threadid: %d\n", lParam1, lParam2, ::GetCurrentThreadId());
+    }
+    if( lParam2 == 1 )
+    {
+        uint32_t lErrorCode; lpAsynIoOperation->GetCompletedResult(&lErrorCode, 0, 0 );
+        printf("extcode: %d\n", lErrorCode);
+    }
+    if( lParam2 == 2 )
+    {
+        ShowTime("sleep2 b");
+        m_spAsynFrame->Sleep(1000 * 5); //5sec
+        ShowTime("sleep2 a");
+    }
     return E_NOTIMPL;
 }
 
@@ -80,13 +91,14 @@ void CAsynFrameHandler::OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnkno
     }
 }
 
+void CAsynFrameHandler::ShowTime(const char *info)
+{
+    SYSTEMTIME t; GetLocalTime(&t );
+    printf("%02d-%02d %02d:%02d:%02d.%03d %s\n", t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond, t.wMilliseconds, info? info : "");
+}
+
 HRESULT CAsynFrameHandler::OnTimer( uint64_t lParam1, uint64_t lParam2 )
 {
-    uint64_t   e; m_spOsTime->GetTickcount(&e );
-
-    SYSTEMTIME t; GetLocalTime(&t );
-    printf("%02d-%02d %02d:%02d:%02d.%03d diff=%.03fms\n", t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond, t.wMilliseconds, (e - s) / 1000.0);
-
-    s = e;
+    ShowTime();
     return S_OK;
 }

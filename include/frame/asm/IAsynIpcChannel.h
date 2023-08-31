@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 07 11:29:48 2023
+/* at Mon Aug 28 20:05:28 2023
  */
 /* Compiler settings for IAsynIpcChannel.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -1020,7 +1020,7 @@ EXTERN_C const IID IID_IAsynIpcChannel;
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynIoOperation )( 
             IAsynIpcChannel * This,
-            /* [in] */ IAsynFrame *frame,
+            /* [in] */ IUnknown *pdatas,
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
@@ -1062,8 +1062,8 @@ EXTERN_C const IID IID_IAsynIpcChannel;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynIpcChannel_CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject)	\
-    ( (This)->lpVtbl -> CreateAsynIoOperation(This,frame,param1,param2,riid,ppObject) ) 
+#define IAsynIpcChannel_CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject)	\
+    ( (This)->lpVtbl -> CreateAsynIoOperation(This,pdatas,param1,param2,riid,ppObject) ) 
 
 
 #define IAsynIpcChannel_CreateAsynNamedPipe(This,ppAsynNamedPipe)	\

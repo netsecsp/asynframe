@@ -58,9 +58,9 @@ import "IAsynFrame.idl";
         HRESULT GetPeerAddress( [in ]IStringSetter* Host, [out]BYTE* Addr, [out]PORT* Port, [out]uint32_t* af );
         HRESULT SetPeerAddress( [in ]BOOL Multi, [in ]STRING* Host, [in ]BYTE* Addr, [in ]PORT Port, [in ]uint32_t af );
         /////////////////////////////////////////////////////////////////////////
-        //获取/设置域名, checkipx=1用于检查Host是否是Address
+        //获取/设置域名, af=2/23用于检查Host是否是对应的Address
         HRESULT GetHost( [out]STRING* Host );
-        HRESULT SetHost( [in ]STRING  Host, [in ]BOOL checkipx );
+        HRESULT SetHost( [in ]STRING  Host, [in ]uint32_t af );
         //获取/设置端口
         HRESULT GetPort( [out]PORT* Port );
         HRESULT SetPort( [in ]PORT  Port );

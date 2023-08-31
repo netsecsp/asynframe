@@ -44,7 +44,7 @@ NAMESPACE_BEGIN(asynsdk)
 //添加到空闲的消息队列
 HRESULT AppendIdleOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation, /*[in ]*/uint32_t param2 = 0);
 
-HRESULT SendAsynIoOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation);
+//投递异步消息
 HRESULT PostAsynIoOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation);
 HRESULT PostAsynIoOperation(/*[in ]*/IAsynIoOperation *lpAsynIoOperation, /*[in ]*/uint32_t lErrorCode, /*[in ]*/IUnknown *pObject = 0);
 
@@ -74,11 +74,11 @@ typedef enum tag_FrameThreadCore
     TC_Uapc_timeEvent,
 } FrameThreadCore;
 
-//建立消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events=0，pParam1!=0表示建立窗口线程循环泵, 允许events=0, 注意: 不能用于模态对话框
-void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events);
+//建立消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events_ref=0，pParam1!=0表示建立窗口线程循环泵, 允许events_ref=0, 注意: 不能用于模态对话框
+void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events_ref);
 
-//创建消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events=0，pParam1!=0表示建立窗口线程循环泵, 允许events=0, 注意: 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵, 并且禁止events=0
-IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events);
+//创建消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events_ref=0，pParam1!=0表示建立窗口线程循环泵, 允许events_ref=0, 注意: 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵, 并且禁止events_ref=0
+IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events_ref);
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建数据传输器
@@ -103,7 +103,7 @@ typedef enum tag_ThreadpoolType
 {
     PT_AutoxThreadpool = 0, //自动调整线程池
     PT_FixedThreadpool,     //固定大小线程池
-    PT_SocksThreadpool,     //socket  线程池
+    PT_SocksThreadpool,     //socket 线程池
     PT_EventThreadpool,     //监控事件线程池
 } ThreadpoolType;
 //创建线程池

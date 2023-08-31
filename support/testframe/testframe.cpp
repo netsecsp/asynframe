@@ -167,9 +167,7 @@ int _tmain(int argc, _TCHAR *argv[])
         {// timer 1000 0/2
             uint32_t elapse = argc < 3 ? 1000 : atol(argv[2]);
             LOGGER_INFO(logger, "CreateTimer: " << elapse);
-            pEvent->m_spOsTime->GetTickcount(&pEvent->s);
             pEvent->m_spAsynFrame->CreateTimer(1, 2, elapse, TRUE);
-            
             while(_kbhit() == 0 )
             {
                 Sleep(100);
@@ -206,19 +204,32 @@ int _tmain(int argc, _TCHAR *argv[])
             if( argc <=2 || atoi(argv[2]) == 0 )
             {
                 printf("Post %d\n", AF_EVENT_APPID1);
-                pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, 1, 0, NULL); //异步消息
+                pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, 0, 0, NULL); //异步消息
                 printf("Post ok\n");
             }
             else
             {
                 printf("Send %d\n", AF_EVENT_APPID1);
-                pEvent->m_spAsynFrame->SendMessage(AF_EVENT_APPID1, 1, 0, NULL); //同步消息
+                pEvent->m_spAsynFrame->SendMessage(   AF_EVENT_APPID1, 0, 0, NULL); //同步消息
                 printf("Send ok\n");
             }
-            
+
             while(_kbhit() == 0 )
             {
                 Sleep(100);
+            }
+        }
+        else if( strcmp(argv[1], "sleep") == 0 )
+        {// sleep timeout
+            pEvent->ShowTime("sleep1 b");
+            pEvent->m_spAsynFrame->Sleep(1000); //1sec
+            pEvent->ShowTime("sleep1 a");
+
+            pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, 0, 2, NULL); //异步消息
+            for(int i = 1; _kbhit() == 0; ++i)
+            {
+                Sleep(1000);
+                pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, i, 0, NULL); //异步消息
             }
         }
         else if( strcmp(argv[1], "zipfile") == 0 )

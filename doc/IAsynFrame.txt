@@ -55,7 +55,8 @@ import "ITypedef.idl";
     /////////////////////////////////////////////////////////////////////////////////
     //系统消息
     cpp_quote( "#define AF_EVENT_SYSTEM (  0  )" )
-    cpp_quote( "#define AF_TIMER        (  1  )" ) //AF_TIMER        Timerid       X                0
+    cpp_quote( "#define AF_EVENT_APPID0 (  1  )" )
+    cpp_quote( "#define AF_TIMER        (  2  )" ) //AF_TIMER        Timerid       X                0
     /////////////////////////////////////////////////////////////////////////////////
     cpp_quote( "#define AF_IOMSG_NOTIFY (  5  )" ) //AF_IOMSG_NOTIFY       X lAction IAsynIoOperation
     cpp_quote( "#define AF_EVENT_NOTIFY (  6  )" ) //AF_EVENT_NOTIFY pObject       X                X
@@ -331,8 +332,8 @@ import "ITypedef.idl";
     ]
     interface IAsynIoOperationFactory : IUnknown
     {
-        //注意参数：param2必须等于0
-        HRESULT CreateAsynIoOperation( [in ]IAsynFrame* frame, [in ]uint32_t param1/*具体模块定义*/, [in ]uint32_t param2, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
+        //注意参数：pdatas只能是IAsynIoOperation/IAsynFrame
+        HRESULT CreateAsynIoOperation( [in ]IUnknown* pdatas, [in ]uint32_t param1, [in ]uint32_t param2, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
     };
 
     [// 提供数据传输链接口
@@ -450,17 +451,21 @@ import "ITypedef.idl";
         HRESULT PostMessage( [in ]BOOL checkthread, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
 
         /////////////////////////////////////////////////////////////////////////////
+        HRESULT NewIoBuffer( [out]IBuffer** ppBuffer );
+
+        /////////////////////////////////////////////////////////////////////////////
         //定 时 器：禁止timerid=-1, lTimeout<0表示单位微秒，否则表示单位毫秒; bCycled=0表示一次性定时器
         HRESULT CreateTimer( [in ]uint64_t timerid, [in ]uint64_t lparam2, [in ]int32_t lTimeout, [in ]BOOL bCycled );
         //timerid=-1表示删除所有的定时器
         HRESULT DeleteTimer( [in ]uint64_t timerid );
 
-        /////////////////////////////////////////////////////////////////////////////
-        HRESULT NewIoBuffer( [out]IBuffer** ppBuffer );
+        ////////////////////////////////////////////////////////////////////////////
+        //注意参数：lTimeout<0表示单位微秒，否则表示单位毫秒;
+        HRESULT Sleep( [in ]int32_t iTimeout );
 
         /////////////////////////////////////////////////////////////////////////////
         //注意参数：lparam1=0表示使用普通内存/param1=1表示使用共享内存
-        HRESULT CreateAsynIoOperation( [in ]uint32_t lparam1, [in ]uint32_t unused, [out]IAsynIoOperation** ppAsynIoOperation );
+        HRESULT CreateAsynIoOperation( [in ]uint32_t lparam1, [in ]uint32_t lparam2, [out]IAsynIoOperation** ppAsynIoOperation );
         //返 回 值：S_OK   -表示取消成功
         //          S_FALSE-表示异步取消
         HRESULT CancelAsynIoOperation( [in ]IAsynIoOperation* pAsynIoOperation );
@@ -495,10 +500,11 @@ import "ITypedef.idl";
         HRESULT Dispatch( [in ]IAsynIoOperation* pSrcAsynIoOperation, [in ]IAsynMessageEvents* events, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
 
         /////////////////////////////////////////////////////////////////////////////
-        HRESULT SendAsynIoOperation( [in ]IAsynIoOperation* pDstAsynIoOperation );
-        HRESULT PostAsynIoOperation( [in ]IAsynIoOperation* pDstAsynIoOperation );
         //关联pSrcAsynIoOperation到pDstAsynIoOperation，同时设置pSrcAsynIoOperation的操作超时时长，注意：操作完成后自动解除绑定关系, 允许pDstAsynIoOperation=0/iTimeout=0
         HRESULT BindAsynIoOperation( [in ]IAsynIoOperation* pSrcAsynIoOperation, [in ]IAsynIoOperation* pDstAsynIoOperation, [in ]uint32_t mode, [in ]int32_t iTimeout );
+
+        /////////////////////////////////////////////////////////////////////////////
+        HRESULT PostAsynIoOperation( [in ]IAsynIoOperation* pDstAsynIoOperation );
 
         /////////////////////////////////////////////////////////////////////////////
         HRESULT CreateAsynFrame( [in ]IAsynMessageEvents* events, [in ]uint32_t lMaxIdleSize, [out]IAsynFrame** ppAsynFrame );

@@ -66,7 +66,7 @@ public:
                     if( c.m_val.ptr )
 					    return pSsl->VerifyPeerCertificate(*(handle*)c.m_val.ptr, 0x1000);
                     else
-                        return S_OK; //no cert
+                        return S_FALSE; //no cert
                 }
             }
             return E_NOTIMPL;

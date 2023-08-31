@@ -91,7 +91,15 @@ public:
 
                     unsigned char *lpBuffer;
                     lpAsynIoOperation->GetIoBuffer(0, 0, &lpBuffer);
-                    printf("recv[%4d] %s from %s:%d\n", lTransferedBytes, (char *)lpBuffer, host.m_val.c_str(), port);
+                    if( m_group_socket )
+                    {
+                        STRING dsthost; spAsynIoOperation->GetHost(&dsthost );
+                        printf("recv[%4d] %s from %s:%d to %.*s\n", lTransferedBytes, (char *)lpBuffer, host.m_val.c_str(), port, dsthost.len, dsthost.ptr);
+                    }
+                    else
+                    {
+                        printf("recv[%4d] %s from %s:%d\n", lTransferedBytes, (char *)lpBuffer, host.m_val.c_str(), port);
+                    }
 
                     lpAsynIoOperation->SetIoParams(0, PER_DATA_SIZE, 0);
                     return m_spAsynUdpSocket->Read(lpAsynIoOperation);
@@ -131,11 +139,13 @@ public:
         if( mhost ) //228.88.88.88
         {
             m_spAsynUdpSocket->QueryInterface(IID_IAsynGrpSocket, (void**)&spAsynGroupSocket);
-            spAsynGroupSocket->Open( m_spAsynFrameThread, m_af, SOCK_DGRAM, IPPROTO_UDP, 1, 1);
+            spAsynGroupSocket->Open(m_spAsynFrameThread, m_af, SOCK_DGRAM, IPPROTO_UDP, 1, 1);
+            m_group_socket = true;
         }
         else
         {
-            m_spAsynUdpSocket->Open( m_spAsynFrameThread, m_af, SOCK_DGRAM, m_af==AF_IPX? NSPROTO_IPX : IPPROTO_UDP);
+            m_spAsynUdpSocket->Open(m_spAsynFrameThread, m_af, SOCK_DGRAM, m_af==AF_IPX? NSPROTO_IPX : IPPROTO_UDP);
+            m_group_socket = false;
         }
 
         HRESULT r1 = m_spAsynUdpSocket->Bind( STRING_from_string(host), port, TRUE, NULL );
@@ -175,6 +185,8 @@ public:
 
     std::string   m_host;
     PORT          m_port;
+
+    bool          m_group_socket;
 
     uint32_t m_af; //ipv4/ipv6/ipx
     uint32_t m_lSeqno;

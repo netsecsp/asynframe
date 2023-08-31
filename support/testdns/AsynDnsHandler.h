@@ -48,18 +48,19 @@ public: // interface of asyn_message_events_impl
     HRESULT OnIomsgNotify( uint64_t lParam1, uint64_t lParam2, IAsynIoOperation *lpAsynIoOperation );
 
 public:
-    bool Start(IAsynDnsResolver *lpAsynDnsResolver, const std::string &host, uint32_t af)
+    bool Start(IAsynDnsResolver *lpAsynDnsResolver, std::string host, uint32_t af)
     {
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
         m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
 
-        if( spAsynIoOperation->SetHost(STRING_from_string(host), TRUE) != S_OK )
+        if( spAsynIoOperation->SetHost(STRING_from_string(host), af) != S_OK )
         {
-            return lpAsynDnsResolver->Queryres(0, af, spAsynIoOperation) == S_OK;
+            return lpAsynDnsResolver->Queryres(0, af==AF_INET? 0 : 1, spAsynIoOperation) == S_OK;
         }
         else
         {
-            printf("ip%d[%d]: %s\n", af == AF_INET ? 4 : 6, 0, host.c_str());
+            asynsdk::CStringSetterRef Host(&host); spAsynIoOperation->GetPeerAddress(&Host, 0, 0, &af );
+            printf("ipv%d: %s\n", af==AF_INET? 4 : 6, host.c_str());
             return false;
         }
     }
