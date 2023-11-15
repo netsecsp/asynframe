@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "frame_Api.h"
 
-#define  AAPIDLL_USING
+#define AAPIDLL_USING
 
 #ifdef  AAPIDLL_USING
 #include <frame/asm/ITypedef_i.c>

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 28 20:05:38 2023
+/* at Sat Nov 11 08:20:36 2023
  */
 /* Compiler settings for IProxy.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -113,14 +113,14 @@ EXTERN_C const IID IID_IAsynProxySocket;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynProxySocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynProxySocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -143,8 +143,7 @@ EXTERN_C const IID IID_IAsynProxySocket;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynProxySocket * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynProxySocket * This,
@@ -246,8 +245,8 @@ EXTERN_C const IID IID_IAsynProxySocket;
 #define IAsynProxySocket_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynProxySocket_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynProxySocket_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynProxySocket_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 

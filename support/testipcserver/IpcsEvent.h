@@ -93,7 +93,7 @@ public:
                         sprintf_s((char *)lpBuffer, 10, "1%08I64d", m_lSeqno);
                         lpAsynIoOperation->SetIoParams(0, 10, 0);
                         lpAsynIoOperation->SetOpParam1( m_lSeqno ++ );
-                        return m_spAsynIpcDevice->Write(lpAsynIoOperation, 0);
+                        return m_spAsynIpcDevice->Write(lpAsynIoOperation);
                     }
 
                     return E_NOTIMPL;
@@ -129,7 +129,7 @@ public:
                         sprintf_s((char *)lpBuffer, 10, "1%08I64d", m_lSeqno);
                         spAsynIoOperation->SetIoParams( 0, 10, 0 );
                         spAsynIoOperation->SetOpParam1( m_lSeqno ++);
-                        m_spAsynIpcDevice->Write( spAsynIoOperation, 0 );
+                        m_spAsynIpcDevice->Write( spAsynIoOperation );
                     }
 
                     return m_spAsynIpcDevice->Read( lpAsynIoOperation );

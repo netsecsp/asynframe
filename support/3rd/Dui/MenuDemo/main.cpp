@@ -48,7 +48,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 	pFrame->CenterWindow();
 	::ShowWindow(*pFrame, SW_SHOW);
 
-    CPaintManagerUI::MessageLoop_frame(pFrame->GetHWND()); //frame loop
+    CPaintManagerUI::MessageLoop_frame(); //frame loop
 	//CPaintManagerUI::MessageLoop();
 
     HRESULT hr2 = frame_Destory(); //frame uninit

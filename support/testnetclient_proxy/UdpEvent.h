@@ -103,7 +103,7 @@ public:
                     lpAsynIoOperation->GetIoBuffer( 0, 0, &lpBuffer );
                     sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
-                    return m_spAsynUdpSocket->Write(lpAsynIoOperation, 0);
+                    return m_spAsynUdpSocket->Write(lpAsynIoOperation);
                 }
             }
             if( lParam2 == Io_bind )
@@ -135,7 +135,7 @@ public:
                         spAsynIoOperation->SetIoParams(0, 10, 0);
 
                         spAsynIoOperation->SetPeerAddress(0, &STRING_from_string(m_host), 0, m_port, 0);
-                        m_spAsynUdpSocket->Write(spAsynIoOperation, 0);
+                        m_spAsynUdpSocket->Write(spAsynIoOperation);
                     }
                     return S_OK;
                 }
@@ -183,7 +183,7 @@ public:
 
 		HRESULT r2 = spAsynPtlSocket->QueryInterface(IID_IAsynUdpSocket, (void **)&m_spAsynUdpSocket);
 		m_spAsynUdpSocket->Open(m_spAsynFrameThread, m_af, SOCK_DGRAM, IPPROTO_TCP);
-		m_spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, 0, 0, spAsynIoOperation); //Ö»ÄÜÒì²½bind
+		m_spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, 0, 0, spAsynIoOperation);
         return true;
     }
 

@@ -71,10 +71,6 @@ typedef enum tag_ObjectIdStart
 } ObjectIdStart;
 
 /////////////////////////////////////////////////////////////////////////////////
-#define CHECK_NO(r)                     (((r) >> 1) != 0) //r != S_OK && r != S_FALSE
-#define CHECK_OK(r)                     (((r) >> 1) == 0) //r == S_OK || r == S_FALSE
-
-/////////////////////////////////////////////////////////////////////////////////
 BEGIN_ASYN_IOERROR(IAsynFrame)
     USER_ERROR(SYNTAX) //格式/语法错误
     USER_ERROR(ENCODE) //编码出错
@@ -83,13 +79,16 @@ BEGIN_ASYN_IOERROR(IAsynFrame)
 END_ASYN_IOERROR()
 
 /////////////////////////////////////////////////////////////////////////////////
+#define CHECK_NO(r)                     (((r) >> 1) != 0) //r != S_OK && r != S_FALSE
+#define CHECK_OK(r)                     (((r) >> 1) == 0) //r == S_OK || r == S_FALSE
+
+/////////////////////////////////////////////////////////////////////////////////
 //InstanceName
 #ifdef _LOG
 #define IN_AsynLoggerFactory            "loggerfactory"
 #define IN_ObjectsLeaker                "objectsleaker"
 #endif
 #define IN_AsynFrameThreadFactory       "threadfactory"
-#define IN_UniqueFrameThread            "uniqueasynframethread"
 #define IN_MultiLanguage                "multilanguage"
 #define IN_UniqueMempool                "uniquemempool"
 #define IN_Evtthreadpool                "evtthreadpool"
@@ -159,14 +158,22 @@ END_ASYN_IOERROR()
 #define FF_Nodelay                      ( 16) //不延迟io
 
 /////////////////////////////////////////////////////////////////////////////////
-//global of events.Notify.lparam1{AF_QUERY_RESULT/AF_EVENT_NOTIFY, IKeyval}
+//IAsynIoOperationFactory.CreateAsynIoOperation(lparam1)
+#define BT_SharedMemoryBuffer           ( 1 ) //共享内存
+
+/////////////////////////////////////////////////////////////////////////////////
+//global of events.Notify.lparam1{AF_QUERY_RESULT / AF_EVENT_NOTIFY 0 x IKeyval}
 #define EN_SystemEvent                  ( 0 )
 //InstancesManager.Attach.lparam1
-#define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 1 x IAsynFrameThread
-#define EN_NetworkAdpaterChanged        ( 2 ) //AF_EVENT_NOTIFY 2 x IKeyval
+#define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 1 x IThread #通知设置主线程
+#define EN_SystemPower                  ( 2 ) //AF_EVENT_NOTIFY 2 x IKeyval
+#define EN_NetworkAdpaterChanged        ( 3 ) //AF_EVENT_NOTIFY 3 x IKeyval
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynIoDevice.IObjectHolder(method)
+#define DT_GetSupportedDataTransmit     (-1 ) //获取内部支持DataTransmit
+#define DT_SetDataTransmit              (-1 ) //设置DataTransmit
+
 #define DT_SetRecvSpeedController       ( 0 ) //设置内部的接收IWinsSpeedController
 #define DT_GetRecvSpeedController       ( 0 ) //获取内部的接收IWinsSpeedController
 #define DT_SetSendSpeedController       ( 1 ) //设置内部的发送IWinsSpeedController
@@ -223,10 +230,6 @@ END_ASYN_IOERROR()
 #define BT_GetSourceIoOperation         ( 2 ) //获取读IAsynIoOperation
 #define BT_GetTargetIoOperation         ( 3 ) //获取写IAsynIoOperation
 
-/////////////////////////////////////////////////////////////////////////////////
-//IAsynIoOperationFactory.CreateAsynIoOperation(lparam1)
-#define BT_SharedMemoryBuffer           ( 1 ) //共享内存
-
 #pragma pack(push, 1)
 /////////////////////////////////////////////////////////////////////////////////
 typedef struct tag_OSBUFFER_IOAREA
@@ -243,7 +246,7 @@ typedef struct tag_OSBUFFER_IOAREA
 typedef struct tag_FRAMEAPI
 {
     const char *ident; //接口标识
-    int         ftype; //地址类型
+    uint32_t    ftype; //地址类型
     void *symbol;      //接口地址
 } FRAMEAPI;
 /////////////////////////////////////////////////////////////////////////////////

@@ -96,7 +96,7 @@ public:
 
                     sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
-                    return m_spAsynTcpSocket->Write(lpAsynIoOperation, 0);
+                    return m_spAsynTcpSocket->Write(lpAsynIoOperation);
                 }
             }
 
@@ -110,7 +110,7 @@ public:
                 }
 
                 m_lSeqno = 1;
-                {// 新客户端
+                {
                     CComPtr<IAsynNetIoOperation> spAsynIoOperation;
                     lpAsynIoOperation->QueryInterface(IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
                     asynsdk::CStringSetter host;
@@ -129,7 +129,7 @@ public:
                     spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
                     sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                     spAsynIoOperation->SetIoParams(0, 10, 0);
-                    m_spAsynTcpSocket->Write(spAsynIoOperation, 0);
+                    m_spAsynTcpSocket->Write(spAsynIoOperation);
                 }
 
                 {// recv
@@ -141,7 +141,7 @@ public:
                     m_spAsynTcpSocket->Read(spAsynIoOperation);
                 }
 
-                return E_NOTIMPL; //sock5特性不能再调用Accept
+                return E_NOTIMPL;
             }
             if( lParam2 == Io_bind )
             {
@@ -198,7 +198,7 @@ public:
 
         spAsynPtlSocket->QueryInterface(IID_IAsynTcpSocketListener, (void **)&m_spAsynTcpSocketListener);
         m_spAsynTcpSocketListener->Open(m_spAsynFrameThread, m_af, SOCK_STREAM, IPPROTO_TCP);
-		m_spAsynTcpSocketListener->Bind(asynsdk::STRING_EX::null, port, 0, spAsynIoOperation); //注意只能异步bind
+		m_spAsynTcpSocketListener->Bind(asynsdk::STRING_EX::null, port, 0, spAsynIoOperation); //注锟斤拷只锟斤拷锟届步bind
         return true;
     }
 

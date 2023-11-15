@@ -1,4 +1,4 @@
-## Asynframe framework v1.5.1 [english](/README_EN.md) | 中文
+## Asynframe framework v1.5.2 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -23,7 +23,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 ![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **功能特性:**  
-1. 通过微线程核对象可轻松集成到MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) 等其他第三方开源项目  
+1. 通过微线程核对象可轻松集成到MFC，[DUI](https://github.com/duilib/duilib)，[SoUI](https://github.com/SOUI2/soui)，[Qt6.x](https://download.qt.io/archive/qt) 等其他第三方开源项目  
 2. 通过设备链提供统一设备操作接口（包括File、Pipe、Socket等）  
 3. 通过操作链解决集成第三方开源项目时的线程之间的同步/通讯、执行超时以及资源/性能等问题  
 4. 提供基本网络协议模块：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
@@ -44,6 +44,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |asyncore|框架|asynframe框架|\support\testframe|
 |||集成到mfc|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
 |||集成到DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
+|||集成到SoUI|\support\3rd\\[SUI](https://github.com/SOUI2/soui)|
 |crashexplorer|插件[asyncore]|捕获当前进程的崩溃信息，同时生成dmp文件|\support\testcrashexplorer|
 |console|插件[asyncore]|命令控制台<br>1.支持加载/卸载IOsCommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -63,7 +64,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2023/08/31 发布windows平台的asynframe framework v1.5.1  
+> 2023/11/15 发布windows平台的asynframe framework v1.5.2  
 1. 发布版本: 面向设计重构架构/接口  
 2. 支持检测网卡变动事件  
 3. 修复已知问题  
@@ -74,8 +75,8 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.5.1-Msvc2019_20230831.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.5.1-Msvc2013_20230831.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.5.2-Msvc2019_20231115.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.5.2-Msvc2013_20231115.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  

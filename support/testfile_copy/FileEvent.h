@@ -70,7 +70,7 @@ public:
                 if( lErrorCode )
                 {
                     if( lErrorCode == AE_RESET )
-                    {// 读到文件结尾
+                    {
                         printf("copy completed\n");
                         return m_spDstAsynFile->FlushBuffer(lpAsynIoOperation);
                     }
@@ -85,7 +85,7 @@ public:
                     m_spDstAsynIoOperation->GetPosition(&lOffset );
                     printf("write  to pos: %I64d, len: %d\n", lOffset, lTransferedBytes);
                     m_spDstAsynIoOperation->SetIoParams(0, lTransferedBytes, lTransferedBytes);
-                    m_spDstAsynFile->Write(m_spDstAsynIoOperation, 0);
+                    m_spDstAsynFile->Write(m_spDstAsynIoOperation);
                     return S_OK;
                 }
             }
@@ -114,7 +114,7 @@ public:
 public:
     bool Copy(IBuffer *lpBuffer, uint32_t max_recvspeed = -1)
     {
-        CComPtr<IObjectHolder> spObjectHolder; //设置全局读文件速度B/s
+        CComPtr<IObjectHolder> spObjectHolder; //锟斤拷锟斤拷全锟街讹拷锟侥硷拷锟劫讹拷B/s
         m_spAsynFileSystems->QueryInterface(IID_IObjectHolder, (void **)&spObjectHolder);
         HRESULT r1 = spObjectHolder->Get(DT_GetRecvSpeedController, 0, IID_ISpeedController, (void **)&m_spSpeedController);
         m_spSpeedController->SetMaxSpeed(max_recvspeed);

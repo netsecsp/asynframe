@@ -34,7 +34,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AsynFrameHandler.h"
 #define AAPIDLL_USING
 
-#include <frame/log/Logger.h>
 #ifdef  AAPIDLL_USING
 #include <frame/asm/ITypedef_i.c>
 #include <frame/asm/IAsynFrame_i.c>

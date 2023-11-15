@@ -37,6 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "AsynCore_internal.h"
 #include "asm/IAsynNetwork.h"
+#include "net/Utility.h"
 NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -63,9 +64,9 @@ END_ASYN_IOERROR()
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAppService.Control(action)
-#define ST_ActStop               ( 0 )
-#define ST_ActStart              ( 1 )
-#define ST_ActPause              ( 2 )
+#define ST_ActStop               ( 0 ) //停止服务
+#define ST_ActStart              ( 1 ) //启动服务
+#define ST_ActPause              ( 2 ) //暂停服务
 #define ST_GetState              ( 3 ) //返回服务状态: 0-stopped 1-running 2-paused
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -76,10 +77,6 @@ END_ASYN_IOERROR()
 #define NET_SNDIO                ( 0 ) //是否同步发送UDP数据
 #define NET_MTU                  ( 1 )
 #define NET_WAN                  ( 2 ) //格式: port[2B]addr[4|16B]
-
-///////////////////////////////////////////////////////////////////////////////
-//检测是否ISsl
-bool IsSslSocket(/*[in ]*/IUnknown *pSocket);
 
 NAMESPACE_END(asynsdk)
 

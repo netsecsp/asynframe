@@ -26,7 +26,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
 
 	//::MessageBox(NULL, _T("alert!"), _T("Duilib Demo"), MB_OK);
 
-    CPaintManagerUI::MessageLoop_frame(pFrame->GetHWND()); //frame loop
+    CPaintManagerUI::MessageLoop_frame(); //frame loop
 	//CPaintManagerUI::MessageLoop();
 
     HRESULT hr2 = frame_Destory(); //frame uninit

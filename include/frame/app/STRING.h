@@ -55,11 +55,11 @@ struct STRING_EX : public STRING
 public:
     STRING_EX(const char *s = "")
     {
-        Set(s, strlen(s));
+        Set(s, (uint32_t)strlen(s));
     }
     STRING_EX(const std::string &s)
     {
-        Set(s.empty()? "" : s.c_str(), s.size());
+        Set(s.empty()? "" : s.c_str(), (uint32_t)s.size());
     }
     STRING_EX(const void *s, uint32_t l)
     {

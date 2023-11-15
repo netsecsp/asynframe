@@ -104,7 +104,7 @@ public:
                     lpAsynIoOperation->GetIoBuffer( 0, 0, &lpBuffer );
                     sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
-                    return m_spAsynUdpSocket->Write(lpAsynIoOperation, 0);
+                    return m_spAsynUdpSocket->Write(lpAsynIoOperation);
                 }
             }
         }
@@ -145,7 +145,7 @@ public:
             spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
             sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
             spAsynIoOperation->SetIoParams(0, 10, 0);
-            m_spAsynUdpSocket->Write(spAsynIoOperation, 0);
+            m_spAsynUdpSocket->Write(spAsynIoOperation);
         }
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;

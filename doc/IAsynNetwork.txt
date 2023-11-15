@@ -136,7 +136,7 @@ import "IAsynFrame.idl";
     interface IAsynGrpSocket : IUnknown
     {
         HRESULT Open( [in ]IAsynFrameThread* pAsynFrameThread, [in ]uint32_t af, [in ]uint32_t type, [in ]uint32_t protocol, [in ]uint32_t nttl, [in ]BOOL loop );
-        /////////////////////////////////////////////////////////////////////////                     
+        /////////////////////////////////////////////////////////////////////////
         HRESULT Join( [in ]STRING IHost, [in ]STRING MHost ); //加入多播组
         HRESULT Drop( [in ]STRING IHost, [in ]STRING MHost ); 
     };

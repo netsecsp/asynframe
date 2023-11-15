@@ -101,7 +101,7 @@ public:
                     lpAsynIoOperation->GetIoBuffer( 0, 0, &lpBuffer );
                     sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
-                    return m_arOp2AsynTcpSockets[lpAsynIoOperation]->Write(lpAsynIoOperation, 0);
+                    return m_arOp2AsynTcpSockets[lpAsynIoOperation]->Write(lpAsynIoOperation);
                 }
             }
 
@@ -114,7 +114,7 @@ public:
                 }
 
                 m_lSeqno = 1;
-                {// ÐÂ¿Í»§¶Ë
+                {
                     CComPtr<IAsynNetIoOperation> spAsynIoOperation;
                     lpAsynIoOperation->QueryInterface(IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
                     asynsdk::CStringSetter host(1);
@@ -135,7 +135,7 @@ public:
                     spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
                     sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                     spAsynIoOperation->SetIoParams(0, 10, 0);
-                    spNewAsynTcpSocket->Write(spAsynIoOperation, 0);
+                    spNewAsynTcpSocket->Write(spAsynIoOperation);
                 }
 
                 {// recv

@@ -1,4 +1,4 @@
-## Asynframe framework v1.5.1 english | [中文](/README.md)
+## Asynframe framework v1.5.2 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -23,7 +23,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 ![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **Feature:**  
-1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  
+1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[SoUI](https://github.com/SOUI2/soui)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  
 2. Provide a unified device operation interface (including file, pipe, socket, etc.)  
 3. The operation chain is used to solve the problems of synchronization / communication between threads, execution timeout and resource / performance when integrating third-party open source projects  
 4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
@@ -44,6 +44,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |asyncore|framework|asynframe|\support\testframe|
 |||integrate mfc|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
 |||integrate DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
+|||integrate SoUI|\support\3rd\\[SUI](https://github.com/SOUI2/soui)|
 |crashexplorer|plugin[asyncore]|Capture the crash information of the current process and generate DMP file at the same time|\support\testcrashexplorer|
 |console|plugin[asyncore]|console<br>1.implement loading / unloading IOsCommand plug-ins：cmd/lua<br>2.implement keyboard / mouse input|\support\testconsole|
 |asynfile|plugin[asyncore]|file|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -63,7 +64,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2023/08/31 Release asynframe framework v1.5.1  
+> 2023/11/15 Release asynframe framework v1.5.2  
 1. Release version: Design oriented refactoring architecture/interface  
 2. Fix known problems  
 > 2023/03/31 Release asynframe framework v1.4.6  
@@ -73,8 +74,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.5.1-Msvc2019_20230831.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.5.1-Msvc2013_20230831.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.5.2-Msvc2019_20231115.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.5.2-Msvc2013_20231115.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  

@@ -18,6 +18,11 @@ public:
     // 对话框数据
     enum { IDD = IDD_TESTNETSERVER_DIALOG };
 
+    IThreadMessagePump *CreateThreadMessagePump(InstancesManager *lpInstancesManager)
+    {
+        return asynsdk::CreateThreadMessagePump(lpInstancesManager, 1, asynsdk::TC_Auto, asynsdk::asyn_message_events_impl::GetAsynMessageEvents(), (IAsynFrameThread**)&m_spAsynFrameThread);
+    }
+
 protected:
     virtual void DoDataExchange(CDataExchange *pDX);	// DDX/DDV 支持
 
@@ -31,10 +36,10 @@ protected: //interface of asynsdk::asyn_message_events_base
         if( message == AF_EVENT_NOTIFY &&
             lparam2 != 0 )
         {
-            CComPtr<IAsynNetwork> spAsynNetwork;
+            CComPtr<IAsynNetwork> spAsynNetwork; 
             GetInstancesManager()->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
 
-            m_pEvent = new CUdpEvent((IAsynFrameThread *)objects[0], spAsynNetwork, AF_INET);
+            m_pEvent = new CUdpEvent(m_spAsynFrameThread, spAsynNetwork, AF_INET);
             m_pEvent->Start(7675);
         }
         return E_NOTIMPL;
@@ -44,6 +49,7 @@ protected: //interface of asynsdk::asyn_message_events_base
 protected:
     HICON m_hIcon;
 
+    CComPtr<IAsynFrameThread> m_spAsynFrameThread; //当前线程对应的IAsynFrameThread对象
     CUdpEvent *m_pEvent; //frame udp
 
     // 生成的消息映射函数

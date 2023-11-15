@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 28 20:05:36 2023
+/* at Sat Nov 11 08:20:33 2023
  */
 /* Compiler settings for ISsl.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -116,14 +116,14 @@ EXTERN_C const IID IID_ISsl;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             ISsl * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             ISsl * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -146,8 +146,7 @@ EXTERN_C const IID IID_ISsl;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             ISsl * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             ISsl * This,
@@ -253,8 +252,8 @@ EXTERN_C const IID IID_ISsl;
 #define ISsl_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define ISsl_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define ISsl_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define ISsl_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 

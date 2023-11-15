@@ -74,11 +74,11 @@ typedef enum tag_FrameThreadCore
     TC_Uapc_timeEvent,
 } FrameThreadCore;
 
-//建立消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events_ref=0，pParam1!=0表示建立窗口线程循环泵, 允许events_ref=0, 注意: 不能用于模态对话框
-void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events_ref);
+//建立消息循环泵: window=0表示建立异步线程循环泵，window!=0表示建立窗口线程循环泵, 注意: 允许events_ref=0, 不能用于模态对话框
+void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/BOOL window, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events_ref);
 
-//创建消息循环泵: pParam1==0表示建立异步线程循环泵, 禁止events_ref=0，pParam1!=0表示建立窗口线程循环泵, 允许events_ref=0, 注意: 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵, 并且禁止events_ref=0
-IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/handle pParam1, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events_ref);
+//创建消息循环泵: window=0表示建立异步线程循环泵, window!=0表示建立窗口线程循环泵, 注意: 允许events_ref/ppThread=0, 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵
+IThreadMessagePump   *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/BOOL window, /*[in ]*/FrameThreadCore core, /*[in ]*/IAsynMessageEvents *events_ref, /*[out]*/IAsynFrameThread **ppThread);
 
 ///////////////////////////////////////////////////////////////////////////////
 //创建数据传输器
@@ -96,7 +96,7 @@ typedef enum tag_ThreadType
     TT_TwinsThread,     //IThread
 } ThreadType;
 //创建Os线程
-IThread              *CreateThread(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/ThreadType type);
+IThread              *CreateThread(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/ThreadType type = TT_FrameThread);
 
 ///////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ThreadpoolType
@@ -107,7 +107,7 @@ typedef enum tag_ThreadpoolType
     PT_EventThreadpool,     //监控事件线程池
 } ThreadpoolType;
 //创建线程池
-IThreadPool          *CreateThreadPool(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/ThreadpoolType type);
+IThreadPool          *CreateThreadPool(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/ThreadpoolType type = PT_AutoxThreadpool);
 
 ///////////////////////////////////////////////////////////////////////////////
 //获取frame 目录

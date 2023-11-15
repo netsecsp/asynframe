@@ -88,7 +88,7 @@ public:
                         spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
                         sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                         spAsynIoOperation->SetIoParams(0, 10, 0);
-                        m_spAsynUdpSocket->Write(spAsynIoOperation, 0);
+                        m_spAsynUdpSocket->Write(spAsynIoOperation);
                     }
 
                     unsigned char *lpBuffer;
@@ -118,7 +118,7 @@ public:
                     lpAsynIoOperation->GetIoBuffer( 0, 0, &lpBuffer );
                     sprintf_s((char *)lpBuffer, 10, "1%08d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
-                    return m_spAsynUdpSocket->Write(lpAsynIoOperation, 0);
+                    return m_spAsynUdpSocket->Write(lpAsynIoOperation);
                 }
             }
             if( lParam2 == Io_bind )
@@ -182,7 +182,7 @@ public:
 
 		HRESULT r2 = spAsynPtlSocket->QueryInterface(IID_IAsynUdpSocket, (void **)&m_spAsynUdpSocket);
 		m_spAsynUdpSocket->Open(m_spAsynFrameThread, m_af, SOCK_DGRAM, IPPROTO_TCP);
-		m_spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, port, 0, spAsynIoOperation); //只能异步bind
+		m_spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, port, 0, spAsynIoOperation); //只锟斤拷锟届步bind
         return true;
     }
 

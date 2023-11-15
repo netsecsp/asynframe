@@ -80,8 +80,8 @@ import "ITypedef.idl";
     ]
     interface IObjectHolder : IUnknown
     {
-        HRESULT Get( [in ]uint32_t method, [in ]uint32_t lparam2, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
-        HRESULT Set( [in ]uint32_t method, [in ]uint32_t lparam2, [in ]IUnknown* pObject );
+        HRESULT Get( [in ]int32_t method, [in ]uint32_t lparam2, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
+        HRESULT Set( [in ]int32_t method, [in ]uint32_t lparam2, [in ]IUnknown* pObject );
     };
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -356,7 +356,7 @@ import "ITypedef.idl";
     interface IDataRwInvoke : IUnknown
     {
         HRESULT Read( [in ]IAsynIoOperation* pAsynIoOperation );
-        HRESULT Write( [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint64_t reserved/*具体模块定义，一般为零*/ );
+        HRESULT Write( [in ]IAsynIoOperation* pAsynIoOperation );
     };
 
     [// 提供数据内容的接口: dns/dlna/bonjour
@@ -401,7 +401,7 @@ import "ITypedef.idl";
         //返 回 值：S_OK   -IO操作已投递，等待通知完成操作，可以继续投递
         //          S_FALSE-IO操作已悬挂，等待通知完成操作
         //          其他值表示出错
-        HRESULT Write( [in ]IAsynIoOperation* pAsynIoOperation, [in ]uint64_t reserved/*具体模块定义，一般为零*/ );
+        HRESULT Write( [in ]IAsynIoOperation* pAsynIoOperation );
         /////////////////////////////////////////////////////////////////////////////
         HRESULT Close( [in ]uint32_t reserved/*具体模块定义，一般为零*/ );
         /////////////////////////////////////////////////////////////////////////////
@@ -447,20 +447,20 @@ import "ITypedef.idl";
 
         /////////////////////////////////////////////////////////////////////////////
         HRESULT SendMessage( [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object ); //允许被Shutdown/Cancel被取消
-        //checkthread=1表示当检测执行环境到处于IAsynFrameThread线程时直接回调, 否则异步执行
+        //checkthread=1表示当检测执行环境到处于IAsynFrameThread线程时直接回调, 否则强制异步执行
         HRESULT PostMessage( [in ]BOOL checkthread, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
 
         /////////////////////////////////////////////////////////////////////////////
         HRESULT NewIoBuffer( [out]IBuffer** ppBuffer );
 
         /////////////////////////////////////////////////////////////////////////////
-        //定 时 器：禁止timerid=-1, lTimeout<0表示单位微秒，否则表示单位毫秒; bCycled=0表示一次性定时器
-        HRESULT CreateTimer( [in ]uint64_t timerid, [in ]uint64_t lparam2, [in ]int32_t lTimeout, [in ]BOOL bCycled );
+        //定 时 器：禁止timerid=-1, iTimeout<0表示单位微秒，否则表示单位毫秒; bCycled=0表示一次性定时器
+        HRESULT CreateTimer( [in ]uint64_t timerid, [in ]uint64_t lparam2, [in ]int32_t iTimeout, [in ]BOOL bCycled );
         //timerid=-1表示删除所有的定时器
         HRESULT DeleteTimer( [in ]uint64_t timerid );
 
         ////////////////////////////////////////////////////////////////////////////
-        //注意参数：lTimeout<0表示单位微秒，否则表示单位毫秒;
+        //注意参数：iTimeout<0表示单位微秒，否则表示单位毫秒;
         HRESULT Sleep( [in ]int32_t iTimeout );
 
         /////////////////////////////////////////////////////////////////////////////
@@ -522,7 +522,7 @@ import "ITypedef.idl";
     {
          HRESULT QueryThread( [in ]uint32_t threadid, [out]IAsynFrameThread** ppThread ); //查询线程, 允许ppThread=null，threadid=0表示查询当前线程, 返回S_OK表示存在IAsynFrameThread
          /////////////////////////////////////////////////////////////////////////////
-         HRESULT CreateAsynFrameThread( [in ]handle hThread, [in ]handle pParam1, [in ]uint32_t unused, [in ]IAsynMessageEvents* events, [out]IAsynFrameThread** ppAsynFrameThread );
+         HRESULT CreateAsynFrameThread( [in ]handle hThread, [in ]BOOL window, [in ]uint32_t coretype, [in ]IAsynMessageEvents* events, [out]IAsynFrameThread** ppAsynFrameThread );
     };
 
     /////////////////////////////////////////////////////////////////////////////////

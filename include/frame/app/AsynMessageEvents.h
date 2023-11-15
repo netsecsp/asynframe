@@ -46,7 +46,7 @@ class CAsynMessageEvents_base :
         public CMultiThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
 {
 public:
-    CAsynMessageEvents_base(uint32_t dwRef = 0)
+    CAsynMessageEvents_base( /*[in ]*/uint32_t dwRef = 0 )
       : CMultiThreadModelObject(dwRef)
     {
     }
@@ -67,6 +67,43 @@ public: //interface of IAsynMessageEvents
     }
 };
 
+class CThreadMessageEvents_base : public CAsynMessageEvents_base
+{// for IThread/IAsynFrameThread
+public:
+    CThreadMessageEvents_base( /*[in ]*/uint32_t dwRef = 0 )
+      : CAsynMessageEvents_base(dwRef)
+    {
+    }
+    virtual ~CThreadMessageEvents_base() { }
+
+protected: //for subclass to impl
+    virtual void OnThreadEnter( /*[in ]*/IThread* thread )
+    {
+    }
+    virtual void OnThreadLeave( void )
+    {
+    }
+
+protected: //for subclass
+    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
+    {
+        if( message == AF_EVENT_NOTIFY )
+        {// lparam1 == thread
+            if( lparam2 == 1 )
+            {
+                OnThreadEnter((IThread*)objects[0]);
+                return S_OK;
+            }
+            if( lparam2 == 0 )
+            {
+                OnThreadLeave();
+                return S_OK;
+            }
+        }
+        return E_NOTIMPL;
+    }
+};
+
 /////////////////////////////////////////////////////////////////////////////////
 class asyn_message_events_base
 {
@@ -80,7 +117,7 @@ public:
 class asyn_message_events_impl : public asyn_message_events_base
 {// 注意子类析构前必须主动调用Stop释放资源-强烈建议不要在子类的析构函数里执行Stop
 public:
-    asyn_message_events_impl(bool safe = true);
+    asyn_message_events_impl( /*[in ]*/bool safe = true );
     virtual ~asyn_message_events_impl();
 
 public:

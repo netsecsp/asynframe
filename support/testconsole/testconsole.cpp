@@ -64,6 +64,7 @@ public:
     {
     }
 
+protected: //interface of CAsynMessageEvents_base
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
     {
         if( message == AF_EVENT_NOTIFY &&
@@ -76,24 +77,22 @@ public:
     }
 };
 
-class CThreadEvents : public asynsdk::CAsynMessageEvents_base
+class CThreadEvents : public asynsdk::CThreadMessageEvents_base
 {
 public:
     CThreadEvents( InstancesManager* lpInstancesManager )
-      : asynsdk::CAsynMessageEvents_base(1)
+      : asynsdk::CThreadMessageEvents_base(1)
     {
         lpInstancesManager->GetInstance(STRING_from_string(IN_Console), IID_IConsole, (void**)&console);
     }
-    STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown **objects )
+
+protected: //interface of CThreadMessageEvents_base
+    virtual void OnThreadEnter( /*[in ]*/IThread* thread )
     {
-        if( message == AF_EVENT_NOTIFY &&
-            lparam2 )
-        {
-            console->AllocWindow((IAsynFrameThread*)objects[0], asynsdk::STRING_EX::null, ENABLE_INPUT_KEYBOARD|ENABLE_INPUT_MOUSE, 0);
-        }
-        return E_NOTIMPL;
+        console->AllocWindow((IAsynFrameThread*)thread, asynsdk::STRING_EX::null, ENABLE_INPUT_KEYBOARD|ENABLE_INPUT_MOUSE, 0);
     }
 
+protected:
     CComPtr<IConsole> console;
 };
 

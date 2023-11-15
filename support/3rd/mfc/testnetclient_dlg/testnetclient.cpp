@@ -91,7 +91,10 @@ BOOL CtestnetclientApp::InitInstance()
     SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
     CtestnetclientDlg dlg;
+
     m_pMainWnd = &dlg;
+    m_spThreadMessagePump.Attach(dlg.CreateThreadMessagePump(GetInstancesManager()));
+
     INT_PTR nResponse = dlg.DoModal();
     if (nResponse == IDOK)
     {
@@ -120,35 +123,19 @@ BOOL CtestnetclientApp::InitInstance()
     return FALSE;
 }
 
-#if  0
-HANDLE hNotify = CreateEvent(NULL, FALSE, FALSE, NULL);
-LOGGER_IMPLEMENT(logger, "", "myapp" );
-#endif
-
 BOOL CtestnetclientApp::PumpMessage()
 {
-    if(!m_spThreadMessagePump )
-    {
-        CtestnetclientDlg *dlg = DYNAMIC_DOWNCAST(CtestnetclientDlg, m_pMainWnd);
-        m_spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(GetInstancesManager(), GetMainWnd()->GetSafeHwnd(), asynsdk::TC_Auto, dlg->GetAsynMessageEvents()));
-    }
-
-    HRESULT ret = m_spThreadMessagePump->WaitMessage(NULL, 5000/*5ms*/);
-    if( ret == E_ABORT )
-    {
-        m_spThreadMessagePump = 0;
-    }
-    else if( ret == NO_ERROR )
-    {
+    //return CWinApp::PumpMessage();
+    if( m_spThreadMessagePump->WaitMessage(NULL, INFINITE) == S_OK )
+    {// 必须忽略处理返回值=E_ABORT/S_FALSE
         m_spThreadMessagePump->PumpMessage(NULL);
     }
-
     return TRUE;
-    //return CWinApp::PumpMessage();
 }
 
 int  CtestnetclientApp::ExitInstance()
 {
+    m_spThreadMessagePump = 0;
     Destory(); //destory asynframe
 
     return CWinApp::ExitInstance();

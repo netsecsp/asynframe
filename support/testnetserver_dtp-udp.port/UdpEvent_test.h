@@ -78,7 +78,7 @@ public:
 
                     sprintf((char *)lpBuffer, "1%08d", m_seqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
-                    return m_spAsynUdpSocket->Write(lpAsynIoOperation, 0);
+                    return m_spAsynUdpSocket->Write(lpAsynIoOperation);
                 }
             }
             if( lParam2 == Io_send )

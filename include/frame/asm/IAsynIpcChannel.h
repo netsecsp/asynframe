@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 28 20:05:28 2023
+/* at Sat Nov 11 08:20:26 2023
  */
 /* Compiler settings for IAsynIpcChannel.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -146,14 +146,14 @@ EXTERN_C const IID IID_IAsynIpcIoOperation;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynIpcIoOperation * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIpcIoOperation * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -459,14 +459,14 @@ EXTERN_C const IID IID_IAsynNamedPipe;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynNamedPipe * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynNamedPipe * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -489,8 +489,7 @@ EXTERN_C const IID IID_IAsynNamedPipe;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynNamedPipe * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynNamedPipe * This,
@@ -573,8 +572,8 @@ EXTERN_C const IID IID_IAsynNamedPipe;
 #define IAsynNamedPipe_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynNamedPipe_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynNamedPipe_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynNamedPipe_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 
@@ -651,14 +650,14 @@ EXTERN_C const IID IID_IAsynIpcDevice;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynIpcDevice * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIpcDevice * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -681,8 +680,7 @@ EXTERN_C const IID IID_IAsynIpcDevice;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynIpcDevice * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynIpcDevice * This,
@@ -757,8 +755,8 @@ EXTERN_C const IID IID_IAsynIpcDevice;
 #define IAsynIpcDevice_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynIpcDevice_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynIpcDevice_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynIpcDevice_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 
@@ -832,14 +830,14 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynIpcDeviceListener * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIpcDeviceListener * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -862,8 +860,7 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynIpcDeviceListener * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynIpcDeviceListener * This,
@@ -939,8 +936,8 @@ EXTERN_C const IID IID_IAsynIpcDeviceListener;
 #define IAsynIpcDeviceListener_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynIpcDeviceListener_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynIpcDeviceListener_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynIpcDeviceListener_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 

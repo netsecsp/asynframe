@@ -95,7 +95,7 @@ public:
 
                     sprintf((char *)lpBuffer, "1%08d", m_lSeqno ++);
                     lpAsynIoOperation->SetIoParams(0, 10, 0);
-                    return it->second->Write(lpAsynIoOperation, 0);
+                    return it->second->Write(lpAsynIoOperation);
                 }
             }
 
@@ -131,7 +131,7 @@ public:
                     spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
                     sprintf((char *)lpBuffer, "1%08d", m_lSeqno ++);
                     spAsynIoOperation->SetIoParams(0, 10, 0);
-                    spNewAsynTcpSocket->Write(spAsynIoOperation, 0);
+                    spNewAsynTcpSocket->Write(spAsynIoOperation);
                 }
 
                 {

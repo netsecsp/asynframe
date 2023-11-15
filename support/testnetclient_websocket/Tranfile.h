@@ -31,7 +31,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *****************************************************************************/
-#include <frame/AsynNetwork_internal.h>
+#include <frame/net/Websocket.h>
 #include <io.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -120,7 +120,8 @@ public: // interface of asyn_message_events_impl
                 {
                     printf("send file completed\n");
                     _close(m_hFile); m_hFile = -1;
-                    m_spAsynPtlSocket->Write(lpAsynIoOperation, 0x08); //发送断开
+                    lpAsynIoOperation->SetOpParam1(websocket_Command_CLOSED);
+                    m_spAsynPtlSocket->Write(lpAsynIoOperation); //发送断开
                     asynsdk::PostBindIoOperation(lpAsynIoOperation, NO_ERROR);
                     return S_OK;
                 }
@@ -135,7 +136,8 @@ public: // interface of asyn_message_events_impl
                 {
                     printf("send: %d\n", ret);
                     lpAsynIoOperation->SetIoParams(0, ret, 0);
-                    return m_spAsynPtlSocket->Write(lpAsynIoOperation, 0x82); //发送数据
+                    lpAsynIoOperation->SetOpParam1(0x80 | websocket_Command_BINARY);
+                    return m_spAsynPtlSocket->Write(lpAsynIoOperation); //发送数据
                 }
             }
         }
@@ -153,7 +155,8 @@ public:
 
         m_spAsynIoOperation->NewIoBuffer(0, (BYTE*)file.c_str(), 0, file.size(), 4096, 0);
         m_spAsynIoOperation->SetIoParams(0, file.size(), 0);
-        m_spAsynPtlSocket->Write(m_spAsynIoOperation, 0x81); //发送文件名字
+        m_spAsynIoOperation->SetOpParam1(0x80 | websocket_Command_TEXT);
+        m_spAsynPtlSocket->Write(m_spAsynIoOperation); //发送文件名字
     }
 
     void Recvfile()

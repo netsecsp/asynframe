@@ -1,6 +1,6 @@
 /*
 * Code By Tojen (qq:342269237)
-* ½çÃæÉè¼ÆÍ¼Æ¬×ÊÔ´80%Ô­´´£¬²¼¾ÖÍêÈ«Ô­´´,Ñ§Ï°×÷Æ·£¬²»ºÃÇëÅÄ×©
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Ô´80%Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«Ô­ï¿½ï¿½,Ñ§Ï°ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×©
 */
 #include <objbase.h>
 #include <zmouse.h>
@@ -16,15 +16,15 @@ using namespace DuiLib;
 
 #define WM_ADDLISTITEM WM_USER + 50
 /*
-* ´æ·ÅµÚ¶þÁÐÊý¾Ý
+* ï¿½ï¿½ÅµÚ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 std::vector<std::string> domain;
 /*
-* ´æ·ÅµÚÈýÁÐÊý¾Ý
+* ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 std::vector<std::string> desc;
 /*
-*  Ïß³Ìº¯ÊýÖÐ´«ÈëµÄ½á¹¹Ìå±äÁ¿£¬Ê¹ÓÃÏß³ÌÎªÁËÊ¹½çÃæÏß³ÌÁ¢¼´·µ»Ø£¬·ÀÖ¹¿¨×¡£¬ÄãÃÇ¶®µÃ¡£
+*  ï¿½ß³Ìºï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ß³ï¿½Îªï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½×¡ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½Ã¡ï¿½
 */
 struct Prama
 {
@@ -80,7 +80,7 @@ public:
             CDuiString tDomain = prama->tDomain;
             //-------------------------------------
             /*
-            * Ìí¼ÓÊý¾ÝÑ­»·
+            * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
             */
             for(int i=0; i<100; i++)
             {
@@ -97,7 +97,7 @@ public:
                     ::PostMessage(prama->hWnd, WM_ADDLISTITEM, 0L, (LPARAM)pListElement);
                 }
                 /*
-                *	Sleep ÎªÁËÕ¹Ê¾Ìí¼ÓµÄ¶¯Ì¬Ð§¹û£¬¹Ê·ÅÂýÁËÌí¼ÓËÙ¶È£¬Í¬Ê±¿ÉÒÔ¿´µ½Ìí¼Ó¹ý³ÌÖÐ½çÃæÈÔÈ»¿ÉÒÔÏìÓ¦
+                *	Sleep Îªï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½ÓµÄ¶ï¿½Ì¬Ð§ï¿½ï¿½ï¿½ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È£ï¿½Í¬Ê±ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦
                 */
                 ::Sleep(100);
             }
@@ -137,7 +137,7 @@ public:
         HANDLE hThread = CreateThread(NULL,0,&ListMainForm::Search, (LPVOID)prama,  0,&dwThreadID);
     }
     /*
-    * ¹Ø¼üµÄ»Øµ÷º¯Êý£¬IListCallbackUI ÖÐµÄÒ»¸öÐéº¯Êý£¬äÖÈ¾Ê±ºò»áµ÷ÓÃ,ÔÚ[1]ÖÐÉèÖÃÁË»Øµ÷¶ÔÏó
+    * ï¿½Ø¼ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IListCallbackUI ï¿½Ðµï¿½Ò»ï¿½ï¿½ï¿½éº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½[1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë»Øµï¿½ï¿½ï¿½ï¿½ï¿½
     */
     LPCTSTR GetItemText(CControlUI* pControl, int iIndex, int iSubItem)
     {
@@ -230,7 +230,7 @@ public:
             sMessage += domain[iIndex].c_str();
 
 #endif
-            ::MessageBox(NULL, sMessage.GetData(), _T("ÌáÊ¾(by tojen)"), MB_OK);
+            ::MessageBox(NULL, sMessage.GetData(), _T("ï¿½ï¿½Ê¾(by tojen)"), MB_OK);
         }
         else if(msg.sType == _T("menu")) 
         {
@@ -382,7 +382,7 @@ public:
 
     LRESULT OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
     {
-        // ÓÐÊ±»áÔÚÊÕµ½WM_NCDESTROYºóÊÕµ½wParamÎªSC_CLOSEµÄWM_SYSCOMMAND
+        // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½WM_NCDESTROYï¿½ï¿½ï¿½Õµï¿½wParamÎªSC_CLOSEï¿½ï¿½WM_SYSCOMMAND
         if( wParam == SC_CLOSE ) {
             ::PostQuitMessage(0L);
             bHandled = TRUE;
@@ -457,7 +457,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
     pFrame->CenterWindow();
     ::ShowWindow(*pFrame, SW_SHOW);
 
-    CPaintManagerUI::MessageLoop_frame(pFrame->GetHWND()); //frame loop
+    CPaintManagerUI::MessageLoop_frame(); //frame loop
     //CPaintManagerUI::MessageLoop();
 
     HRESULT hr2 = frame_Destory(); //frame uninit

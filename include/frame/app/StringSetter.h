@@ -68,8 +68,8 @@ public:
 public: //interface of IStringSetter
     STDMETHOD(Get)( /*[out]*/STRING *buf )
     {
-        buf->ptr = (unsigned char *)(m_val.empty()? "" : m_val.c_str());
-        buf->len = m_val.size();
+        buf->ptr = (unsigned char*)(m_val.empty()? "" : m_val.c_str());
+        buf->len = (uint32_t)m_val.size();
         return buf->len ? S_OK : S_FALSE;
     }
     STDMETHOD(Set)( /*[in ]*/STRING  buf )
@@ -82,7 +82,7 @@ public:
     CStringSetter *Set(const void *val, uint32_t len);
     CStringSetter *Set(const char *val)
     {
-        return Set(val, strlen(val));
+        return Set(val, (uint32_t)strlen(val));
     }
     CStringSetter *Clear()
     {
@@ -208,8 +208,8 @@ public:
 public: //interface of IStringSetter
     STDMETHOD(Get)( /*[out]*/STRING *buf )
     {
-        buf->ptr = (unsigned char *)(m_val->empty() ? "" : m_val->c_str());
-        buf->len = m_val->size();
+        buf->ptr = (unsigned char*)(m_val->empty() ? "" : m_val->c_str());
+        buf->len = (uint32_t)m_val->size();
         return buf->len ? S_OK : S_FALSE;
     }
     STDMETHOD(Set)( /*[in ]*/STRING  buf )

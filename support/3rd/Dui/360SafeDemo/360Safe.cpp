@@ -182,7 +182,7 @@ public:
 
 	LRESULT OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 	{
-		// 有时会在收到WM_NCDESTROY后收到wParam为SC_CLOSE的WM_SYSCOMMAND
+		// 鏈夋椂浼氬湪鏀跺埌WM_NCDESTROY鍚庢敹鍒皐Param涓篠C_CLOSE鐨刉M_SYSCOMMAND
 		if( wParam == SC_CLOSE ) {
 			::PostQuitMessage(0L);
 			bHandled = TRUE;
@@ -254,11 +254,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
 
 	C360SafeFrameWnd* pFrame = new C360SafeFrameWnd();
 	if( pFrame == NULL ) return 0;
-	pFrame->Create(NULL, _T("360安全卫士"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 800, 572);
+	pFrame->Create(NULL, _T("360瀹夊叏鍗＋"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 800, 572);
 	pFrame->CenterWindow();
 	::ShowWindow(*pFrame, SW_SHOW);
 
-    CPaintManagerUI::MessageLoop_frame(pFrame->GetHWND()); //frame loop
+    CPaintManagerUI::MessageLoop_frame(); //frame loop
     //CPaintManagerUI::MessageLoop();
 
     HRESULT hr2 = frame_Destory(); //frame uninit

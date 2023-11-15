@@ -153,8 +153,7 @@ int  CtestnetclientApp::Run()
     ASSERT_VALID(this);
 
     CComPtr<IThreadMessagePump> spThreadMessagePump;
-    CComPtr<InstancesManager> spInstancesManager = GetInstancesManager();
-    spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(spInstancesManager, GetMainWnd()->GetSafeHwnd(), asynsdk::TC_Auto, NULL));
+    spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(GetInstancesManager(), 1, asynsdk::TC_Auto, NULL, NULL));
 
     // for tracking the idle time state
     LONG lIdleCount = 0;
@@ -165,7 +164,6 @@ int  CtestnetclientApp::Run()
         HRESULT ret = spThreadMessagePump->WaitMessage(NULL, 5000/*5ms*/);
         if( ret == E_ABORT )
         {
-            spThreadMessagePump = 0;
             break;
         }
 
@@ -181,6 +179,7 @@ int  CtestnetclientApp::Run()
         }
     }
 
+    spThreadMessagePump = 0;
     return ExitInstance();
 }
 

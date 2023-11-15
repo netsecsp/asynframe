@@ -389,8 +389,9 @@ public:
     CControlUI* FindSubControlByClass(CControlUI* pParent, LPCTSTR pstrClass, int iIndex = 0);
     CDuiPtrArray* FindSubControlsByClass(CControlUI* pParent, LPCTSTR pstrClass);
 
-    static int MessageLoop_frame(/*[in ]*/HWND window);
+    static int MessageLoop_frame();
     static int MessageLoop();
+
     static bool TranslateMessage(const LPMSG pMsg);
 	static void Term();
 

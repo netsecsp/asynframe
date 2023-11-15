@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Aug 28 20:05:29 2023
+/* at Sat Nov 11 08:20:27 2023
  */
 /* Compiler settings for IAsynNetwork.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -222,14 +222,14 @@ EXTERN_C const IID IID_IAsynNetIoOperation;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynNetIoOperation * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynNetIoOperation * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -771,14 +771,14 @@ EXTERN_C const IID IID_IAsynRawSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynRawSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynRawSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -801,8 +801,7 @@ EXTERN_C const IID IID_IAsynRawSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynRawSocket * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynRawSocket * This,
@@ -897,8 +896,8 @@ EXTERN_C const IID IID_IAsynRawSocket;
 #define IAsynRawSocket_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynRawSocket_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynRawSocket_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynRawSocket_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 
@@ -980,14 +979,14 @@ EXTERN_C const IID IID_IAsynUdpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynUdpSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynUdpSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -1010,8 +1009,7 @@ EXTERN_C const IID IID_IAsynUdpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynUdpSocket * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynUdpSocket * This,
@@ -1113,8 +1111,8 @@ EXTERN_C const IID IID_IAsynUdpSocket;
 #define IAsynUdpSocket_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynUdpSocket_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynUdpSocket_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynUdpSocket_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 
@@ -1315,14 +1313,14 @@ EXTERN_C const IID IID_IAsynTcpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynTcpSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynTcpSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -1345,8 +1343,7 @@ EXTERN_C const IID IID_IAsynTcpSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynTcpSocket * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynTcpSocket * This,
@@ -1449,8 +1446,8 @@ EXTERN_C const IID IID_IAsynTcpSocket;
 #define IAsynTcpSocket_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynTcpSocket_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynTcpSocket_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynTcpSocket_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 
@@ -1537,14 +1534,14 @@ EXTERN_C const IID IID_IAsynMuxSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynMuxSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynMuxSocket * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -1567,8 +1564,7 @@ EXTERN_C const IID IID_IAsynMuxSocket;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynMuxSocket * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynMuxSocket * This,
@@ -1680,8 +1676,8 @@ EXTERN_C const IID IID_IAsynMuxSocket;
 #define IAsynMuxSocket_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynMuxSocket_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynMuxSocket_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynMuxSocket_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 
@@ -1869,14 +1865,14 @@ EXTERN_C const IID IID_IAsynTcpSocketListener;
         
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
             /* [iid_is][out] */ void **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynTcpSocketListener * This,
-            /* [in] */ uint32_t method,
+            /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ IUnknown *pObject);
         
@@ -1899,8 +1895,7 @@ EXTERN_C const IID IID_IAsynTcpSocketListener;
         
         HRESULT ( STDMETHODCALLTYPE *Write )( 
             IAsynTcpSocketListener * This,
-            /* [in] */ IAsynIoOperation *pAsynIoOperation,
-            /* [in] */ uint64_t reserved);
+            /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
         HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAsynTcpSocketListener * This,
@@ -2006,8 +2001,8 @@ EXTERN_C const IID IID_IAsynTcpSocketListener;
 #define IAsynTcpSocketListener_Read(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Read(This,pAsynIoOperation) ) 
 
-#define IAsynTcpSocketListener_Write(This,pAsynIoOperation,reserved)	\
-    ( (This)->lpVtbl -> Write(This,pAsynIoOperation,reserved) ) 
+#define IAsynTcpSocketListener_Write(This,pAsynIoOperation)	\
+    ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
 #define IAsynTcpSocketListener_Close(This,reserved)	\
     ( (This)->lpVtbl -> Close(This,reserved) ) 

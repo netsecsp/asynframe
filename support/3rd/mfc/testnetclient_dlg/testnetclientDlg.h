@@ -7,8 +7,7 @@
 #include <frame/AsynNetwork_internal.h>
 
 // CtestnetclientDlg 对话框
-class CtestnetclientDlg : public CDialogEx, 
-                          public asynsdk::asyn_message_events_impl
+class CtestnetclientDlg : public CDialogEx
 {
     // 构造
 public:
@@ -17,6 +16,11 @@ public:
     // 对话框数据
     enum { IDD = IDD_TESTNETCLIENT_DIALOG };
 
+    IThreadMessagePump *CreateThreadMessagePump(InstancesManager *lpInstancesManager)
+    {
+        return asynsdk::CreateThreadMessagePump(lpInstancesManager, 1, asynsdk::TC_Auto, 0, (IAsynFrameThread**)&m_spAsynFrameThread);
+    }
+
 protected:
     virtual void DoDataExchange(CDataExchange *pDX);	// DDX/DDV 支持
 
@@ -24,20 +28,10 @@ protected:
     virtual BOOL ContinueModal();
     virtual void EndModalLoop(int nResult);
 
-protected: //interface of asynsdk::asyn_message_events_base
-    STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown **objects )
-    {
-        if( message == AF_EVENT_NOTIFY &&
-            lparam2 != 0 )
-        {
-            m_spAsynFrameThread = (IAsynFrameThread*)objects[0];
-        }
-        return E_NOTIMPL;
-    }
-
     // 实现
 protected:
     HICON m_hIcon;
+
     CComPtr<IAsynFrameThread> m_spAsynFrameThread; //当前线程对应的IAsynFrameThread对象
 
     // 生成的消息映射函数
