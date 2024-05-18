@@ -1,4 +1,4 @@
-﻿// AsynMessageEvents.h: interface for the CAsynMessageEvents_base/asyn_message_events_base/asyn_message_events_impl class.
+// AsynMessageEvents.h: interface for the CAsynMessageEvents_base/CThreadMessageEvents_base/asyn_message_events_base/asyn_message_events_impl class.
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_ASYNMESSAGEEVENTS_H__B2A00F47_9C06_4B38_8CC1_312322D02E91__INCLUDED_)
@@ -6,7 +6,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -88,7 +88,7 @@ protected: //for subclass
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
     {
         if( message == AF_EVENT_NOTIFY )
-        {// lparam1 == thread
+        {// assert(lparam1 == thread)
             if( lparam2 == 1 )
             {
                 OnThreadEnter((IThread*)objects[0]);
@@ -121,7 +121,8 @@ public:
     virtual ~asyn_message_events_impl();
 
 public:
-    IAsynMessageEvents *GetAsynMessageEvents() { return m_lpAsynMessageEvents;}
+    IAsynMessageEvents *GetAsynMessageEvents(void) { return m_lpAsynMessageEvents;}
+
     void Reset( /*[in ]*/asyn_message_events_base* c ); //切换回调对象
 
     void Stop ( /*[in ]*/IAsynFrame* lpAsynFrame = 0 ); //注意释放对象前必须主动调用Stop释放资源
@@ -136,6 +137,7 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+//消息处理模板
 #define DECLARE_ASYN_MESSAGE_MAP(class_name) \
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects );
 
@@ -154,16 +156,11 @@ private:
 
 #define ON_EVENT_NOTIFY(memberFxn, T) \
             case AF_EVENT_NOTIFY:  \
-                 memberFxn( lparam1, lparam2, objects? (T*)*objects : (T*)0 ); \
-                 return S_OK;
+                 return memberFxn( lparam1, lparam2, objects? (T*)*objects : (T*)0 );
 
 #define ON_IOMSG_NOTIFY(memberFxn) \
             case AF_IOMSG_NOTIFY:  \
                  return memberFxn( lparam1, lparam2, (IAsynIoOperation*)*objects );
-
-#define ON_CTASK(memberFxn, T) \
-            case AF_CTASK_NOTIFY:  \
-                 return memberFxn( lparam1, lparam2, objects? (T*)*objects : (T*)0 );
 
 #define ON_TIMER(memberFxn) \
             case AF_TIMER:  \

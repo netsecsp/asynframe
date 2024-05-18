@@ -79,7 +79,7 @@ public:
                         m_port = port;
                         m_lSeqno  = 1;
                         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                         spAsynIoOperation->SetPeerAddress(0, &STRING_from_string(m_host), 0, m_port, 0);
 
                         unsigned char *lpBuffer;
@@ -138,7 +138,7 @@ public:
         printf("udp.listen *:%d\n", port);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, 0);
         spAsynIoOperation->SetIoParams(0, PER_DATA_SIZE, 0);

@@ -1,4 +1,4 @@
-## Asynframe framework v1.5.2 [english](/README_EN.md) | 中文
+## Asynframe framework v1.6.0 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -42,9 +42,9 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |模块|类型|功能|例子/程序|
 |:--|:--|:--|:--|
 |asyncore|框架|asynframe框架|\support\testframe|
-|||集成到mfc|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
-|||集成到DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
-|||集成到SoUI|\support\3rd\\[SUI](https://github.com/SOUI2/soui)|
+|||集成到MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
+|||集成到[DUI](https://github.com/duilib/duilib)|\support\3rd\Dui|
+|||集成到[SoUI](https://github.com/SOUI2/soui)|\support\3rd\Sui|
 |crashexplorer|插件[asyncore]|捕获当前进程的崩溃信息，同时生成dmp文件|\support\testcrashexplorer|
 |console|插件[asyncore]|命令控制台<br>1.支持加载/卸载IOsCommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -64,10 +64,11 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2023/11/15 发布windows平台的asynframe framework v1.5.2  
+> 2024/05/10 发布windows平台的asynframe framework v1.6.0  
 1. 发布版本: 面向设计重构架构/接口  
 2. 支持检测网卡变动事件  
 3. 修复已知问题  
+> 2023/11/15 发布windows平台的asynframe framework v1.5.2  
 > 2023/03/31 发布windows平台的asynframe framework v1.4.6  
 > 2023/02/02 发布windows平台的asynframe framework v1.3.2  
 > 2022/06/08 发布windows平台的asynframe framework v1.2.0  
@@ -75,13 +76,12 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.5.2-Msvc2019_20231115.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.5.2-Msvc2013_20231115.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.6.0-Msvc2019_20240517.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.6.0-Msvc2013_20240517.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
-3. 链接asyncore.lib(提供3个api函数[^1])  
-[^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IUnknown *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
+3. 链接asyncore.lib  
 ```c++
 int main(int argc, const char *argv[])
 {
@@ -126,7 +126,7 @@ int main(int argc, const char *argv[])
   [INet](https://netsecsp.github.io/doc/INet.txt)  
   [IProxy](https://netsecsp.github.io/doc/IProxy.txt)  
   [ISsl](https://netsecsp.github.io/doc/ISsl.txt)  
-  [IVmHost](https://netsecsp.github.io/doc/IVmHost.txt)  
+  [IScriptHost](https://netsecsp.github.io/doc/IScriptHost.txt)  
   [IDtp](https://netsecsp.github.io/doc/IDtp.txt)  
 
 - [插件使用](https://netsecsp.github.io/doc/externapi.md)   
@@ -160,6 +160,8 @@ int main(int argc, const char *argv[])
 > [Lua](http://www.lua.org)  
 > [Zlib](http://www.zlib.net)  
 > [Sqlite](https://www.sqlite.org/)  
+> [Luatinker](https://github.com/zupet/luatinker)  
+> [FFmpeg](https://ffmpeg.org)  
 
 # 版权信息  
 > Copyright (c) 2012 - 2032, All rights reserved.  

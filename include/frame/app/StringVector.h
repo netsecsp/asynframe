@@ -1,4 +1,4 @@
-﻿// StringVector.h: interface for the CStringVector/CStringVectorRef class.
+// StringVector.h: interface for the CStringVector/CStringVectorRef class.
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_STRINGVECTOR_H__8D72F57C_CA8F_4812_BEE1_342F9810C19F__INCLUDED_)
@@ -6,7 +6,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without

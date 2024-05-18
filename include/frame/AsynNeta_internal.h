@@ -3,7 +3,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ NAMESPACE_BEGIN(asynsdk)
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynNetAgent(InstanceName)
-#define IN_AsynNetAgent "com.asynframe.asynneta"
+#define IN_AsynNetAgent "com.frame.asynneta"
 
 NAMESPACE_END(asynsdk)
 

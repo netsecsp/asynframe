@@ -1,6 +1,6 @@
  ; dll_testapi.def : Declares the module parameters.
 
-LIBRARY      "testapi.dll"
+LIBRARY "testapi.dll"
 
 EXPORTS
 	luaopen_testapi

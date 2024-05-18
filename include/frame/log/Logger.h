@@ -3,7 +3,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -62,6 +62,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOGGER_NOTE( a,b)
 #define LOGGER_DUMP( a,l,b,d,s )
 #define LOGGER_FUNC( a,b)
+#define LOGGER_LOGS( l, a, b)
 ///////////////////////////////////////////////////////////////////////////////
 #define LOGGER_THIS_TRACE(a,b)
 #define LOGGER_THIS_DEBUG(a,b)
@@ -91,6 +92,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOGGER_NOTE( a,b) { if( a.IsEnabled(asynsdk::FL_NOTE ) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_NOTE , ss.str(), __FILE__, __LINE__ ); } }
 #define LOGGER_FUNC( a,b) { if( a.IsEnabled(asynsdk::FL_INFO ) ) { std::stringstream ss; ss << b; a.Logs( asynsdk::FL_INFO , ss.str(), __FILE__, __LINE__ ); } }
 #define LOGGER_DUMP( a,l,b,d,s ) { if( a.IsEnabled(l) ) { std::stringstream ss; ss << b; a.Dump(l, ss.str(), d, s); } }
+#define LOGGER_LOGS(l, a, b) { if( a.IsEnabled(l) ) { std::stringstream ss; ss << b; a.Logs(l, ss.str(), __FILE__, __LINE__); } }
 ///////////////////////////////////////////////////////////////////////////////
 #define LOGGER_THIS_TRACE(a,b) LOGGER_TRACE(a, '[' << this << ']' << b )
 #define LOGGER_THIS_DEBUG(a,b) LOGGER_DEBUG(a, '[' << this << ']' << b )
@@ -128,9 +130,9 @@ public:
     }
 
 public:
-    bool IsEnabled(unsigned int level); //日志级别是否可输出
-    void Logs(unsigned int level, const std::string &text, const char *file = 0, unsigned int line = 0);
-    void Dump(unsigned int level, const std::string &head, unsigned char *data, unsigned int size);
+    bool IsEnabled(/*in*/unsigned int level); //日志级别是否可输出
+    void Logs(/*in*/unsigned int level, /*in*/const std::string &text, /*in*/const char *file = 0, /*in*/unsigned int line = 0);
+    void Dump(/*in*/unsigned int level, /*in*/const std::string &head, /*in*/unsigned char *data, /*in*/unsigned int size);
 
 private:
     const char *m_mname; //模块, 注意：要求是常量字符串
@@ -148,7 +150,7 @@ private:
     IUnknown *m_value;
 };
 
-void AsynLogger_Initialize(/*in*/InstancesManager *lpInstancesManager);
+void AsynLogger_Initialize(/*in*/IUnknown *lpInstancesManager);
 void AsynLogger_Output(/*in*/IDataTransmit *target);
 
 NAMESPACE_END(asynsdk)

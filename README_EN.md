@@ -1,4 +1,4 @@
-## Asynframe framework v1.5.2 english | [中文](/README.md)
+## Asynframe framework v1.6.0 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -42,9 +42,9 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |module|type|function|demo|
 |:--|:--|:--|:--|
 |asyncore|framework|asynframe|\support\testframe|
-|||integrate mfc|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
-|||integrate DUI|\support\3rd\\[dui](https://github.com/duilib/duilib)|
-|||integrate SoUI|\support\3rd\\[SUI](https://github.com/SOUI2/soui)|
+|||integrate MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
+|||integrate [DUI](https://github.com/duilib/duilib)|\support\3rd\Dui|
+|||integrate [SoUI](https://github.com/SOUI2/soui)|\support\3rd\Sui|
 |crashexplorer|plugin[asyncore]|Capture the crash information of the current process and generate DMP file at the same time|\support\testcrashexplorer|
 |console|plugin[asyncore]|console<br>1.implement loading / unloading IOsCommand plug-ins：cmd/lua<br>2.implement keyboard / mouse input|\support\testconsole|
 |asynfile|plugin[asyncore]|file|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -64,9 +64,10 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2023/11/15 Release asynframe framework v1.5.2  
+> 2024/05/10 Release asynframe framework v1.6.0  
 1. Release version: Design oriented refactoring architecture/interface  
 2. Fix known problems  
+> 2023/11/15 Release asynframe framework v1.5.2  
 > 2023/03/31 Release asynframe framework v1.4.6  
 > 2023/02/02 Release asynframe framework v1.3.2  
 > 2022/06/08 Release asynframe framework v1.2.0  
@@ -74,13 +75,12 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.5.2-Msvc2019_20231115.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.5.2-Msvc2013_20231115.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.6.0-Msvc2019_20240517.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.6.0-Msvc2013_20240517.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
-3. Link asyncore.lib(3 API functions are provided[^1])  
-[^1]: STDAPI_(extern HRESULT) Initialize( IAsynMessageEvents *param1, IUnknown *param2 );<br>STDAPI_(extern InstancesManager*) GetInstancesManager();<br>STDAPI_(extern HRESULT) Destory();  
+3. Link asyncore.lib
 ```c++
 int main(int argc, const char *argv[])
 {
@@ -125,7 +125,7 @@ int main(int argc, const char *argv[])
   [INet](https://netsecsp.github.io/doc/INet.txt)  
   [IProxy](https://netsecsp.github.io/doc/IProxy.txt)  
   [ISsl](https://netsecsp.github.io/doc/ISsl.txt)  
-  [IVmHost](https://netsecsp.github.io/doc/IVmHost.txt)  
+  [IScriptHost](https://netsecsp.github.io/doc/IScriptHost.txt)  
   [IDtp](https://netsecsp.github.io/doc/IDtp.txt)  
 
 - [Plugins](https://netsecsp.github.io/doc/externapi.md)   
@@ -158,6 +158,8 @@ int main(int argc, const char *argv[])
 > [Lua](http://www.lua.org)  
 > [Zlib](http://www.zlib.net)  
 > [Sqlite](https://www.sqlite.org/)  
+> [Luatinker](https://github.com/zupet/luatinker)  
+> [FFmpeg](https://ffmpeg.org)  
 
 # Copyright  
 > Copyright (c) 2012 - 2032, All rights reserved.  

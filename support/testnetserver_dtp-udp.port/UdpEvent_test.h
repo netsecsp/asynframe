@@ -104,7 +104,7 @@ public:
         lpDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), position, 0, asynsdk::STRING_EX::null, (IUnknown**)&m_spAsynUdpSocket);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         m_spAsynUdpSocket->Open(0, AF_INET, SOCK_DGRAM, IPPROTO_UDP);
         spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, 1500, 0);

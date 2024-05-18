@@ -51,7 +51,7 @@ public:
     bool Start(IAsynDnsResolver *lpAsynDnsResolver, std::string host, uint32_t af)
     {
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, af, 0, IID_IAsynNetIoOperation, (IUnknown**)&spAsynIoOperation);
 
         if( spAsynIoOperation->SetHost(STRING_from_string(host), af) != S_OK )
         {

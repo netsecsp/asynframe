@@ -75,10 +75,10 @@ int _tmain(int argc, _TCHAR *argv[])
         }
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (IUnknown **)&spAsynNetwork);
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;
-        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (IUnknown **)&spAsynFrameThread);
 
         CTcpEvent *pEvent = new CTcpEvent( spAsynNetwork, spAsynFrameThread );
         if( pEvent->Connect(argc<=1? "rtsp://127.0.0.1:1554/1.mp4" : argv[1], argc<=2? 0 : strcmp(argv[2], "http") == 0) )

@@ -34,9 +34,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AsynFrameHandler.h"
 #define AAPIDLL_USING
 
+#include <frame/asm/IScriptHost.h>
 #ifdef  AAPIDLL_USING
 #include <frame/asm/ITypedef_i.c>
 #include <frame/asm/IAsynFrame_i.c>
+#include <frame/asm/IScriptHost_i.c>
 #endif
 
 #ifdef  AAPIDLL_USING
@@ -90,9 +92,12 @@ static void WindowCapture(InstancesManager *lpInstancesManager, HWND hWnd, const
     int w = 2880;
     int h = 1604;
 
-    CComPtr<IDataTransmit> target;
     asynsdk::CStringSetter File(file);
-    target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, ("file?gray=" + std::to_string(gray) + "&w=" + std::to_string(w) + "&h=" + std::to_string(h)).c_str(), &File, file.find(".bmp") != std::string::npos ? 1 : (file.find(".jpg") != std::string::npos ? 3 : (file.find(".png") != std::string::npos ? 2 : 0))));
+    CComPtr<IDataTransmit> target;
+    if (asynsdk::CreateObject(lpInstancesManager, ("file?gray=" + std::to_string(gray) + "&w=" + std::to_string(w) + "&h=" + std::to_string(h)).c_str(), &File, file.find(".bmp") != std::string::npos ? 1 : (file.find(".jpg") != std::string::npos ? 3 : (file.find(".png") != std::string::npos ? 2 : 0)), IID_IDataTransmit, (IUnknown**)&target) != S_OK)
+    {
+        return;
+    }
 
     HDC hWndDC = GetDC(hWnd);   //获得屏幕的HDC.
     HDC hMemDC = CreateCompatibleDC(hWndDC);
@@ -149,21 +154,18 @@ int _tmain(int argc, _TCHAR *argv[])
         #endif
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;
-#if 1
+#if 0
         CComPtr<IAsynFrameThreadFactory> spAsynFrameThreadFactory;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFrameThreadFactory), IID_IAsynFrameThreadFactory, (void **)&spAsynFrameThreadFactory);
-        spAsynFrameThreadFactory->CreateAsynFrameThread(0, 0, argc>3 && strcmp(argv[1], "timer") == 0? atoi(argv[3]) : 0, 0, &spAsynFrameThread);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFrameThreadFactory), IID_IAsynFrameThreadFactory, (IUnknown**)&spAsynFrameThreadFactory);
+        spAsynFrameThreadFactory->CreateAsynFrameThread(0, 0, argc>3 && strcmp(argv[1], "timer") == 0? atoi(argv[3]) : asynsdk::TC_Uapc, 0, &spAsynFrameThread);
 #else
-        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
 #endif
 
-        CComPtr<IThreadPool  > spThreadpool;
-        CComPtr<IOsCommand   > spCommand;
-        CComPtr<IDataTransmit> spDataTransmit;
-
-        CAsynFrameHandler *pEvent = new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread);
+        do{
         if( argc == 1 || strcmp(argv[1], "timer") == 0 )
         {// timer 1000 0/2
+            std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             uint32_t elapse = argc < 3 ? 1000 : atol(argv[2]);
             LOGGER_INFO(logger, "CreateTimer: " << elapse);
             pEvent->m_spAsynFrame->CreateTimer(1, 2, elapse, TRUE);
@@ -171,15 +173,19 @@ int _tmain(int argc, _TCHAR *argv[])
             {
                 Sleep(100);
             }
+            pEvent->Shutdown();
         }
         else if( strcmp(argv[1], "task") == 0 )
         {
-            asynsdk::CStringVector result(1);
-            lpInstancesManager->Execute(STRING_from_string("com.svc.ras"), 0, STRING_from_string(argc < 3 ? "vpn" : argv[2]), &result);
-
-            while(_kbhit() == 0 )
+            asynsdk::CStringSetter device(1, argc < 3 ? "vpn" : argv[2]);
+            CComPtr<IStringVector> result;
+            if( asynsdk::CreateObject(lpInstancesManager, "com.svc.ras", &device, 0, IID_IStringVector, (IUnknown**)&result) == S_OK )
             {
-                Sleep(100);
+                STRING temp;
+                for(int i = 0; result->Get(i, &temp) == S_OK; ++ i)
+                {
+                    printf("%*s\n", temp.len, temp.ptr);
+                }
             }
         }
         else if( strcmp(argv[1], "plugins") == 0 )
@@ -192,7 +198,7 @@ int _tmain(int argc, _TCHAR *argv[])
             LOGGER_INFO(logger, "Require: name=" << IN_AsynNetwork << (r2 == 0 ? " ok" : " no"));
 
             uint64_t id = EN_FrameThread;
-            lpInstancesManager->Notify(&STRING_from_value(id), AF_EVENT_NOTIFY, id, 0, spAsynFrameThread);
+            lpInstancesManager->Notify(&STRING_from_value(id), AF_EVENT_NOTIFY, 0, 0, spAsynFrameThread);
             while(_kbhit() == 0 )
             {
                 Sleep(100);
@@ -200,6 +206,7 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         else if( strcmp(argv[1], "ops") == 0 )
         {// ops 0/1
+            std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             if( argc <=2 || atoi(argv[2]) == 0 )
             {
                 printf("Post %d\n", AF_EVENT_APPID1);
@@ -217,9 +224,11 @@ int _tmain(int argc, _TCHAR *argv[])
             {
                 Sleep(100);
             }
+            pEvent->Shutdown();
         }
         else if( strcmp(argv[1], "sleep") == 0 )
         {// sleep timeout
+            std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             pEvent->ShowTime("sleep1 b");
             pEvent->m_spAsynFrame->Sleep(1000); //1sec
             pEvent->ShowTime("sleep1 a");
@@ -227,14 +236,18 @@ int _tmain(int argc, _TCHAR *argv[])
             pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, 0, 2, NULL); //异步消息
             for(int i = 1; _kbhit() == 0; ++i)
             {
-                Sleep(1000);
-                pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, i, 0, NULL); //异步消息
+                Sleep(1000); pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, i, 0, NULL); //异步消息
             }
+            pEvent->Shutdown();
         }
         else if( strcmp(argv[1], "zipfile") == 0 )
         {// zipfile test.zip
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.zip");
-            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", &name, 0));
+            asynsdk::CStringSetter file(1, argc > 2 ? argv[2] : "test.zip");
+            CComPtr<IDataTransmit> spDataTransmit;
+            if( asynsdk::CreateObject(lpInstancesManager, "zip", &file, 0, IID_IDataTransmit, (IUnknown**)&spDataTransmit) != S_OK )
+            {
+                break;
+            }
 
             BYTE tmp[1024]; 
             FILE *f1 = 0; fopen_s(&f1, ".\\1.txt", "rb");
@@ -260,23 +273,34 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         else if( strcmp(argv[1], "zipencoder") == 0 )
         {// zipencoder test.zip
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.zip");
+            asynsdk::CStringSetter file(1, argc > 2 ? argv[2] : "test.zip");
             CComPtr<IDataTransmit> target;
-            target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0));
-
-            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", target, 1));
-
+            if( asynsdk::CreateObject(lpInstancesManager, "file", &file, 0, IID_IDataTransmit, (IUnknown**)&target) != S_OK )
+            {
+                break;
+            }
+            CComPtr<IDataTransmit> spDataTransmit;
+            if( asynsdk::CreateObject(lpInstancesManager, "zip", target, 1, IID_IDataTransmit, (IUnknown**)&spDataTransmit) != S_OK )
+            {
+                break;
+            }
             spDataTransmit->Write(0, "1234567890", 10);
             spDataTransmit->Write(0, "aaaaaaaaaa", 10);
             spDataTransmit->Write(0, 0, 0); //1F8B080000000000000A33343236313533B7B03448840300E77A6FFA14000000
         }
         else if( strcmp(argv[1], "zipdecoder") == 0 )
         {// zipdecoder test.txt
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.txt");
+            asynsdk::CStringSetter file(1, argc > 2 ? argv[2] : "test.txt");
             CComPtr<IDataTransmit> target;
-            target.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "file", &name, 0));
-
-            spDataTransmit.Attach(asynsdk::CreateDataTransmit(lpInstancesManager, "zip", target, 0));
+            if( asynsdk::CreateObject(lpInstancesManager, "file", &file, 0, IID_IDataTransmit, (IUnknown**)&target) != S_OK )
+            {
+                break;
+            }
+            CComPtr<IDataTransmit> spDataTransmit;
+            if( asynsdk::CreateObject(lpInstancesManager, "zip", target, 0, IID_IDataTransmit, (IUnknown**)&spDataTransmit) != S_OK )
+            {
+                break;
+            }
             char *hex = "1F8B080000000000000A33343236313533B7B03448840300E77A6FFA14000000";
             BYTE b[1024];
             int n = 0;
@@ -293,8 +317,12 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         else if( strcmp(argv[1], "sqlite") == 0 )
         {// sqlite test.db
-            asynsdk::CStringSetter name(1, argc > 2 ? argv[2] : "test.db");
-            spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "sqlite", &name, 0));
+            asynsdk::CStringSetter file(1, argc > 2 ? argv[2] : "test.db");
+            CComPtr<IOsCommand > spCommand;
+            if( asynsdk::CreateObject(lpInstancesManager, "sqlite", &file, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
+            {
+                break;
+            }
 
             spCommand->Execute(0, STRING_from_string("CREATE TABLE IF NOT EXISTS coreinfo(iseq INTEGER PRIMARY KEY AUTOINCREMENT, info TEXT, vals int);"), 0, 0, 0, 0);
 
@@ -302,27 +330,102 @@ int _tmain(int argc, _TCHAR *argv[])
 
             spCommand->Execute(0, STRING_from_string("insert into coreinfo(info, vals) values('show', 2);"), 0, 0, 0, 0);
 
+            std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             spCommand->Execute(0, STRING_from_string("select * from coreinfo;"), 0, 0, 0, pEvent->GetAsynMessageEvents());
+            pEvent->Shutdown();
+        }
+        else if( strcmp(argv[1], "lua") == 0 )
+        {// lua test.lua main
+            CComPtr<IOsCommand > spCommand;
+            if( asynsdk::CreateObject(lpInstancesManager, "lua", 0, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
+            {
+                break;
+            }
+
+            {// open test.lua
+                spCommand->Execute(0, STRING_from_string("open"), &STRING_from_string("test.lua"), 1, 0, 0);
+            }
+
+            {// call main in current thread
+                spCommand->Execute(0, STRING_from_string(argc > 2? argv[2] : "main"), &STRING_from_string(argc > 3? argv[3] : "This is my world!"), 1, 0, 0);
+            }
+
+            {// call protocol.onMessage in spAsynFrameThread
+                CComPtr<IScriptHost> script; spCommand->QueryInterface(IID_IScriptHost, (void**)&script);
+                script->Invoke(spAsynFrameThread, &asynsdk::CStringSetter("protocol"), 10000, 2, 3, 0);
+                Sleep(1000);
+            }
+        }
+        else if( strcmp(argv[1], "event") == 0 )
+        {
+            class CEvents : public asynsdk::CAsynMessageEvents_base
+            {
+            public:
+                CEvents(InstancesManager *lpInstancesManager, IThread *thread, uint64_t lparam2, IUnknown *object)
+                  : asynsdk::CAsynMessageEvents_base(1)
+                {
+                    e = CreateEvent(0, FALSE/*bManualReset*/, FALSE, 0);
+                    printf("Create e=%d\n", (uint32_t)e);
+                    o.Attach(asynsdk::PostWaitEvent(lpInstancesManager, thread, this, e, lparam2, object));
+                }
+                virtual ~CEvents()
+                {
+                    printf("Closed e=%d\n", (uint32_t)e);
+                    o = 0; //release it before CloseHandle(e);
+                    CloseHandle(e);
+                }
+
+                STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
+                {
+                    printf("Signal e=%d, lparam2=%d\n", (int)lparam1, (int)lparam2);
+                    return S_OK;
+                }
+
+                CComPtr<IAsynMessageHolder> o;
+                HANDLE e;
+            } events(lpInstancesManager, spAsynFrameThread, 1, 0);
+            Sleep(1000);
+            printf("SetEvent\n");
+            SetEvent(events.e);
+            Sleep(1000);
+            printf("SetEvent\n");
+            SetEvent(events.e);
+            Sleep(1000);
+            while(_kbhit() == 0 )
+            {
+                Sleep(100);
+            }
         }
         else
         {
+            CComPtr<IThreadPool> target;
+            if( asynsdk::CreateObject(lpInstancesManager, 0, 0, asynsdk::PT_EventThreadpool, IID_IThreadPool, (IUnknown**)&target) != S_OK )
+            {
+                break;
+            }
+            CComPtr<IOsCommand > spCommand;
+            if( asynsdk::CreateObject(lpInstancesManager, "cmd", target, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
+            {
+                break;
+            }
+
+            std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             CComPtr<IAsynIoOperation> spAsynIoOperation;
             pEvent->m_spAsynFrame->CreateAsynIoOperation(0, 0, &spAsynIoOperation);
             spAsynIoOperation->SetOpParams(AF_EVENT_APPID1, 0, 1/*for print extcode*/);
 
-            lpInstancesManager->NewInstance(0, 2/*eventthreadpool*/, IID_IThreadPool, (void **)&spThreadpool);
-            spCommand.Attach(asynsdk::CreateCommand(lpInstancesManager, "cmd", spThreadpool, 0));
             spCommand->Execute(0, STRING_from_string(argv[1]), 0, 0, 0, spAsynIoOperation);
             
             while(_kbhit() == 0 )
             {
                 Sleep(100);
             }
+            pEvent->Shutdown();
         }
-
-        pEvent->Shutdown();
-        delete pEvent;
+        }while(0);
     }
+    
+            
     HRESULT hr2 = Destory();
     return 0;
 }

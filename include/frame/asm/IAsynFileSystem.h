@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Nov 11 08:20:24 2023
+/* at Fri Apr 19 09:52:50 2024
  */
 /* Compiler settings for IAsynFileSystem.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -147,7 +147,7 @@ EXTERN_C const IID IID_IAsynFileIoOperation;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynFileIoOperation * This,
@@ -272,7 +272,7 @@ EXTERN_C const IID IID_IAsynFileIoOperation;
             IAsynFileIoOperation * This,
             /* [in] */ BOOL bTaked,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *SetCompletedObject )( 
             IAsynFileIoOperation * This,
@@ -453,7 +453,7 @@ EXTERN_C const IID IID_IAsynRawDevice;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynRawDevice * This,
@@ -482,10 +482,6 @@ EXTERN_C const IID IID_IAsynRawDevice;
             IAsynRawDevice * This,
             /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            IAsynRawDevice * This,
-            /* [in] */ uint32_t reserved);
-        
         HRESULT ( STDMETHODCALLTYPE *Attach )( 
             IAsynRawDevice * This,
             /* [in] */ IAsynFrameThread *pAsynFrameThread,
@@ -499,11 +495,15 @@ EXTERN_C const IID IID_IAsynRawDevice;
             IAsynRawDevice * This,
             /* [in] */ uint32_t level);
         
+        HRESULT ( STDMETHODCALLTYPE *Close )( 
+            IAsynRawDevice * This,
+            /* [in] */ uint32_t reserved);
+        
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynRawDevice * This,
             /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Open )( 
             IAsynRawDevice * This,
@@ -560,14 +560,14 @@ EXTERN_C const IID IID_IAsynRawDevice;
 #define IAsynRawDevice_Write(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
-#define IAsynRawDevice_Close(This,reserved)	\
-    ( (This)->lpVtbl -> Close(This,reserved) ) 
-
 #define IAsynRawDevice_Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation) ) 
 
 #define IAsynRawDevice_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
+
+#define IAsynRawDevice_Close(This,reserved)	\
+    ( (This)->lpVtbl -> Close(This,reserved) ) 
 
 #define IAsynRawDevice_Clone(This,lpReserved,riid,ppObject)	\
     ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
@@ -638,7 +638,7 @@ EXTERN_C const IID IID_IAsynFile;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynFile * This,
@@ -667,10 +667,6 @@ EXTERN_C const IID IID_IAsynFile;
             IAsynFile * This,
             /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            IAsynFile * This,
-            /* [in] */ uint32_t reserved);
-        
         HRESULT ( STDMETHODCALLTYPE *Attach )( 
             IAsynFile * This,
             /* [in] */ IAsynFrameThread *pAsynFrameThread,
@@ -684,11 +680,15 @@ EXTERN_C const IID IID_IAsynFile;
             IAsynFile * This,
             /* [in] */ uint32_t level);
         
+        HRESULT ( STDMETHODCALLTYPE *Close )( 
+            IAsynFile * This,
+            /* [in] */ uint32_t reserved);
+        
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynFile * This,
             /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Open )( 
             IAsynFile * This,
@@ -758,14 +758,14 @@ EXTERN_C const IID IID_IAsynFile;
 #define IAsynFile_Write(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
-#define IAsynFile_Close(This,reserved)	\
-    ( (This)->lpVtbl -> Close(This,reserved) ) 
-
 #define IAsynFile_Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation) ) 
 
 #define IAsynFile_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
+
+#define IAsynFile_Close(This,reserved)	\
+    ( (This)->lpVtbl -> Close(This,reserved) ) 
 
 #define IAsynFile_Clone(This,lpReserved,riid,ppObject)	\
     ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
@@ -932,7 +932,7 @@ EXTERN_C const IID IID_IAsynFileSystem;
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynRawDevice )( 
             IAsynFileSystem * This,

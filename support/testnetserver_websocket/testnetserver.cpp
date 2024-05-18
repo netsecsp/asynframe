@@ -76,10 +76,10 @@ int _tmain(int argc, _TCHAR *argv[])
         }
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (IUnknown **)&spAsynNetwork);
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;
-        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (IUnknown **)&spAsynFrameThread);
 
         CTcpEvent *pEvent = new CTcpEvent(spAsynNetwork, spAsynFrameThread);
         if( pEvent->Start(argc>1? atoi(argv[1]) : 7675, argc>2? atoi(argv[2]) : 0, argc>3? argv[3] : "") )

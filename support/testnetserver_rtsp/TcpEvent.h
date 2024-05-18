@@ -79,7 +79,7 @@ public:
                     userinfo &info = m_arOp2Userinfos[lpAsynIoOperation];
 
                     CComPtr<INetmsg> spKeyval;
-                    lpAsynIoOperation->GetCompletedObject(1, IID_INetmsg, (void **)&spKeyval);
+                    lpAsynIoOperation->GetCompletedObject(1, IID_INetmsg, (IUnknown **)&spKeyval);
 
                     char *body = 0; if( lTransferedBytes ) lpAsynIoOperation->GetIoBuffer(0, 0, (BYTE **)&body);
 
@@ -332,7 +332,7 @@ public:
                     userinfo& info = m_arOp2Userinfos[spAsynIoOperation];
 
                     {// socket
-                        lpAsynIoOperation->GetCompletedObject(1, IID_INet, (void **)&info.spINet);
+                        lpAsynIoOperation->GetCompletedObject(1, IID_INet, (IUnknown **)&info.spINet);
                     }
                     if(!m_http )
                     {
@@ -390,7 +390,7 @@ public:
         if( port == 0 ) m_spAsynTcpSocketListener->GetSockAddress(0, 0, &port, 0);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         printf("tcp.listen *:%d\n", port);
         m_spAsynTcpSocketListener->Accept(spAsynIoOperation);

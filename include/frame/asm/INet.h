@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Nov 11 08:20:32 2023
+/* at Fri Apr 19 09:52:58 2024
  */
 /* Compiler settings for INet.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -282,7 +282,7 @@ EXTERN_C const IID IID_INet;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             INet * This,
@@ -311,10 +311,6 @@ EXTERN_C const IID IID_INet;
             INet * This,
             /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            INet * This,
-            /* [in] */ uint32_t reserved);
-        
         HRESULT ( STDMETHODCALLTYPE *Attach )( 
             INet * This,
             /* [in] */ IAsynFrameThread *pAsynFrameThread,
@@ -328,11 +324,15 @@ EXTERN_C const IID IID_INet;
             INet * This,
             /* [in] */ uint32_t level);
         
+        HRESULT ( STDMETHODCALLTYPE *Close )( 
+            INet * This,
+            /* [in] */ uint32_t reserved);
+        
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             INet * This,
             /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Open )( 
             INet * This,
@@ -414,14 +414,14 @@ EXTERN_C const IID IID_INet;
 #define INet_Write(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
-#define INet_Close(This,reserved)	\
-    ( (This)->lpVtbl -> Close(This,reserved) ) 
-
 #define INet_Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation) ) 
 
 #define INet_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
+
+#define INet_Close(This,reserved)	\
+    ( (This)->lpVtbl -> Close(This,reserved) ) 
 
 #define INet_Clone(This,lpReserved,riid,ppObject)	\
     ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 

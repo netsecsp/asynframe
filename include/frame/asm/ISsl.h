@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Nov 11 08:20:33 2023
+/* at Fri Apr 19 09:52:59 2024
  */
 /* Compiler settings for ISsl.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -119,7 +119,7 @@ EXTERN_C const IID IID_ISsl;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             ISsl * This,
@@ -148,10 +148,6 @@ EXTERN_C const IID IID_ISsl;
             ISsl * This,
             /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            ISsl * This,
-            /* [in] */ uint32_t reserved);
-        
         HRESULT ( STDMETHODCALLTYPE *Attach )( 
             ISsl * This,
             /* [in] */ IAsynFrameThread *pAsynFrameThread,
@@ -165,11 +161,15 @@ EXTERN_C const IID IID_ISsl;
             ISsl * This,
             /* [in] */ uint32_t level);
         
+        HRESULT ( STDMETHODCALLTYPE *Close )( 
+            ISsl * This,
+            /* [in] */ uint32_t reserved);
+        
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             ISsl * This,
             /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Open )( 
             ISsl * This,
@@ -255,14 +255,14 @@ EXTERN_C const IID IID_ISsl;
 #define ISsl_Write(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
-#define ISsl_Close(This,reserved)	\
-    ( (This)->lpVtbl -> Close(This,reserved) ) 
-
 #define ISsl_Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation) ) 
 
 #define ISsl_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
+
+#define ISsl_Close(This,reserved)	\
+    ( (This)->lpVtbl -> Close(This,reserved) ) 
 
 #define ISsl_Clone(This,lpReserved,riid,ppObject)	\
     ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 

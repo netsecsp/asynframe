@@ -108,7 +108,7 @@ public:
                     m_arOp2Userinfos.erase(lpAsynIoOperation);
 
                     CComPtr<INetmsg> spReqmsg;
-                    lpAsynIoOperation->GetCompletedObject(TRUE, IID_INetmsg, (void **)&spReqmsg);
+                    lpAsynIoOperation->GetCompletedObject(TRUE, IID_INetmsg, (IUnknown **)&spReqmsg);
                     STRING Method;
                     STRING Params;
                     spReqmsg->Getline(&Method, &Params, 0, 0);
@@ -184,7 +184,7 @@ public:
                     }
 
                     CComPtr<IAsynTcpSocket> spAsynTcpSocket;
-                    lpAsynIoOperation->GetCompletedObject(1, IID_IAsynTcpSocket, (void **)&spAsynTcpSocket);
+                    lpAsynIoOperation->GetCompletedObject(1, IID_IAsynTcpSocket, (IUnknown **)&spAsynTcpSocket);
 
                     char ident[40];
                     sprintf_s(ident, 40, "%s:%d", host.m_val.c_str(), port);
@@ -230,7 +230,7 @@ public:
         m_spAsynTcpSocketListener->Open(m_spAsynFrameThread, AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (void**)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (IUnknown**)&spAsynIoOperation);
         m_spAsynTcpSocketListener->Accept(spAsynIoOperation);
     }
 

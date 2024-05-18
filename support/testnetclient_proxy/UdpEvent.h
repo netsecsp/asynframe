@@ -127,7 +127,7 @@ public:
 
                     {// send
                         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer);
@@ -179,7 +179,7 @@ public:
 		HRESULT hr = spProxy->SetProxyContext(STRING_from_string(sets.get_string("proxy", "host", "127.0.0.1")), sets.get_long("proxy", "port", 1080), asynsdk::STRING_EX::null, &params);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
 		HRESULT r2 = spAsynPtlSocket->QueryInterface(IID_IAsynUdpSocket, (void **)&m_spAsynUdpSocket);
 		m_spAsynUdpSocket->Open(m_spAsynFrameThread, m_af, SOCK_DGRAM, IPPROTO_TCP);

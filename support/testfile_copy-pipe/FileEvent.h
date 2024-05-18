@@ -86,7 +86,7 @@ public:
     {
         CComPtr<IObjectHolder> spObjectHolder; //设置全局写文件速度B/s
         m_spAsynFileSystems->QueryInterface(IID_IObjectHolder, (void **)&spObjectHolder);
-        HRESULT r1 = spObjectHolder->Get(DT_GetSendSpeedController, 0, IID_ISpeedController, (void **)&m_spSpeedController);
+        HRESULT r1 = spObjectHolder->Get(DT_GetSendSpeedController, 0, IID_ISpeedController, (IUnknown**)&m_spSpeedController);
         m_spSpeedController->SetMaxSpeed(max_sendspeed);
 
         m_spAsynFrameThread->CreateAsynIoBridge(lpSrcAsynFile, lpDstAsynFile, 0, &m_spAsynIoBridge);

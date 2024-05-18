@@ -48,7 +48,8 @@ public: // interface of asyn_message_events_impl
     DECLARE_ASYN_MESSAGE_MAP(CAsynFrameHandler)
 	HRESULT OnTimer(uint64_t lParam1, uint64_t lParam2);
     HRESULT OnAppidNotify(uint32_t message, uint64_t lParam1, uint64_t lParam2, IAsynIoOperation *lpAsynIoOperation);
-    void    OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnknown *object);
+    HRESULT OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnknown *object);
+
 public:
     void Shutdown()
     {

@@ -72,7 +72,7 @@ public:
                     {
                         //send
                         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0,  0, 0, 0, PER_DATA_SIZE, &lpBuffer );
                         sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
@@ -133,7 +133,7 @@ public:
         m_spAsynTcpSocket->Open(m_spAsynFrameThread, m_af, SOCK_STREAM, m_af==AF_IPX? NSPROTO_SPXII : IPPROTO_TCP);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         printf("start to %s.connect %s:%d\n", m_af==AF_IPX? "spx":"tcp", host.c_str(), port);
         m_spAsynTcpSocket->Connect(STRING_from_string(host), port, 0, spAsynIoOperation, connect_timeout);

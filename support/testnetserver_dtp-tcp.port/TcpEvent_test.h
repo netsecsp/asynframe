@@ -124,11 +124,11 @@ public:
                 }
 
                 CComPtr<IAsynTcpSocket     > spNewAsynTcpSocket;
-                lpAsynIoOperation->GetCompletedObject(TRUE, IID_IAsynTcpSocket, (void **)&spNewAsynTcpSocket);
+                lpAsynIoOperation->GetCompletedObject(TRUE, IID_IAsynTcpSocket, (IUnknown **)&spNewAsynTcpSocket);
 
                 {// send
                     CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                    m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                    m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                     m_arOp2AsynTcpSockets[spAsynIoOperation] = spNewAsynTcpSocket;
 
                     unsigned char *lpBuffer;
@@ -140,7 +140,7 @@ public:
 
                 {// recv
                     CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                    m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                    m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                     m_arOp2AsynTcpSockets[spAsynIoOperation] = spNewAsynTcpSocket;
 
                     spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, 0);
@@ -161,7 +161,7 @@ public:
         m_spDtpService->CreateAsynDtpSocketLayer(GetAsynMessageEvents(), position, 0, asynsdk::STRING_EX::null, (IUnknown**)&m_spAsynTcpSocketListener);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (void**)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (IUnknown**)&spAsynIoOperation);
         m_spAsynTcpSocketListener->Accept(spAsynIoOperation);
     }
 

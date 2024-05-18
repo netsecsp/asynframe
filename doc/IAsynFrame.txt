@@ -1,7 +1,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import "ITypedef.idl";
     interface IAsynIoOperation;
     interface IAsynIoDevice;
     interface IAsynIoBridge;
-    
+
     interface IAsynMessageObject;
     interface IAsynMessageEvents;
     interface IAsynFrame;
@@ -80,7 +80,7 @@ import "ITypedef.idl";
     ]
     interface IObjectHolder : IUnknown
     {
-        HRESULT Get( [in ]int32_t method, [in ]uint32_t lparam2, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
+        HRESULT Get( [in ]int32_t method, [in ]uint32_t lparam2, [in ]REFIID riid, [out]IUnknown** ppObject );
         HRESULT Set( [in ]int32_t method, [in ]uint32_t lparam2, [in ]IUnknown* pObject );
     };
 
@@ -118,11 +118,11 @@ import "ITypedef.idl";
     interface IOsTime : IUnknown
     {
         HRESULT GetTimeofday( [out]uint64_t* time ); /*系统时间, 单位：毫秒*/
-        HRESULT GetTickcount( [out]uint64_t* time ); /*相对时间, 单位：微秒, 返回S_FALSE表示精度不足*/
+        HRESULT GetTickcount( [out]uint64_t* time ); /*距离App启动相对时长, 单位：微秒, 返回S_FALSE表示精度不足*/
     };
 
     /////////////////////////////////////////////////////////////////////////////////
-    [// 消息通知接口
+    [// 消息处理接口
         object,
         uuid(636E17D7-3713-4a36-98A7-6B0971476067),
         helpstring("IAsynMessageEvents Interface"),
@@ -130,7 +130,7 @@ import "ITypedef.idl";
     ]
     interface IAsynMessageEvents : IUnknown
     {
-        //返 回 值：E_NOTIMPL-表示消息没有被处理
+        //返 回 值：E_NOTIMPL-表示消息由系统处理后续事项
         HRESULT OnMessage( [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in, out]IUnknown** object );
     };
 
@@ -146,6 +146,17 @@ import "ITypedef.idl";
         HRESULT Detach( [in ]IUnknown* observer );
         /////////////////////////////////////////////////////////////////////////////
         HRESULT Notify( [in ]STRING* subject, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
+    };
+
+    [
+        object,
+        uuid(E765F457-4262-4F7B-BF6D-49F72CD81698),
+        helpstring("IAsynMessageHolder Interface"),
+        pointer_default(unique)
+    ]
+    interface IAsynMessageHolder : IUnknown
+    {
+        HRESULT Invoke( [in ]IThread* thread, [in ]IUnknown* events, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
     };
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -319,7 +330,7 @@ import "ITypedef.idl";
 
         /////////////////////////////////////////////////////////////////////////////
         //注意参数：bTaked=TRUE，相当于获取对象后再调用SetCompletedObject(NULL)
-        HRESULT GetCompletedObject( [in ]BOOL bTaked, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
+        HRESULT GetCompletedObject( [in ]BOOL bTaked, [in ]REFIID riid, [out]IUnknown** ppObject );
         //允许pUnknown等于NULL
         HRESULT SetCompletedObject( [in ]IUnknown* pObject );
     };
@@ -333,7 +344,7 @@ import "ITypedef.idl";
     interface IAsynIoOperationFactory : IUnknown
     {
         //注意参数：pdatas只能是IAsynIoOperation/IAsynFrame
-        HRESULT CreateAsynIoOperation( [in ]IUnknown* pdatas, [in ]uint32_t param1, [in ]uint32_t param2, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
+        HRESULT CreateAsynIoOperation( [in ]IUnknown* pdatas, [in ]uint32_t param1, [in ]uint32_t param2, [in ]REFIID riid, [out]IUnknown** ppObject );
     };
 
     [// 提供数据传输链接口
@@ -388,11 +399,13 @@ import "ITypedef.idl";
         //返 回 值：S_OK   -流类型
         //          S_FALSE-块类型
         HRESULT IsStream( [out]uint32_t* pBlockSize );
+
         /////////////////////////////////////////////////////////////////////////////
         //返 回 值：S_FALSE-表示获取的是伪设备句柄或者已被关闭
         //lType=Io_recv表示获取设备读端的句柄
         //lType=Io_send表示获取设备写端的句柄
         HRESULT GetDeviceHandle( [in ]uint32_t lType, [out]handle* ppDeviceHandle );
+
         /////////////////////////////////////////////////////////////////////////////
         //返 回 值：S_OK   -IO操作已投递，等待通知完成操作，可以继续投递
         //          S_FALSE-IO操作已悬挂，等待通知完成操作
@@ -402,8 +415,7 @@ import "ITypedef.idl";
         //          S_FALSE-IO操作已悬挂，等待通知完成操作
         //          其他值表示出错
         HRESULT Write( [in ]IAsynIoOperation* pAsynIoOperation );
-        /////////////////////////////////////////////////////////////////////////////
-        HRESULT Close( [in ]uint32_t reserved/*具体模块定义，一般为零*/ );
+
         /////////////////////////////////////////////////////////////////////////////
         //Attach设备句柄
         //lAttachType: 0-主动激活句柄 1-被动激活句柄
@@ -416,10 +428,14 @@ import "ITypedef.idl";
         //          S_FALSE-已经执行
         //          其他值表示出错
         HRESULT Detach( [in ]uint32_t level );
+
+        /////////////////////////////////////////////////////////////////////////////
+        HRESULT Close( [in ]uint32_t reserved/*具体模块定义，一般为零*/ );
+
         /////////////////////////////////////////////////////////////////////////////
         //注意实现：直接引用ISpeedController/IAsynFrameThread对象
         //注意参数：pReserved必须等于NULL
-        HRESULT Clone( [in ]IUnknown* lpReserved, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
+        HRESULT Clone( [in ]IUnknown* lpReserved, [in ]REFIID riid, [out]IUnknown** ppObject );
     };
 
     [// 显式继承：IObjectHolder，隐含继承：IAsynIoObject，实现设备之间桥接，产生事件：AF_QUERY_RESULT(IAsynIoBridge/lTransferedBytes)/AF_EVENT_NOTIFY(IAsynIoBridge/lErrorCode)
@@ -430,8 +446,7 @@ import "ITypedef.idl";
     ]
     interface IAsynIoBridge : IObjectHolder
     {
-        //激活关联，允许events=NULL
-        HRESULT Invoke( [in ]uint64_t unused, [in ]IAsynMessageEvents* events );
+        HRESULT Invoke( [in ]uint64_t unused, [in ]IAsynMessageEvents* events ); //激活关联，允许events=NULL
     };
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -447,20 +462,20 @@ import "ITypedef.idl";
 
         /////////////////////////////////////////////////////////////////////////////
         HRESULT SendMessage( [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object ); //允许被Shutdown/Cancel被取消
-        //checkthread=1表示当检测执行环境到处于IAsynFrameThread线程时直接回调, 否则强制异步执行
-        HRESULT PostMessage( [in ]BOOL checkthread, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
+        //check=TRUE表示当检测到执行环境处于IAsynFrameThread线程时直接回调, 否则强制异步执行
+        HRESULT PostMessage( [in ]BOOL check, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
 
         /////////////////////////////////////////////////////////////////////////////
         HRESULT NewIoBuffer( [out]IBuffer** ppBuffer );
 
         /////////////////////////////////////////////////////////////////////////////
-        //定 时 器：禁止timerid=-1, iTimeout<0表示单位微秒，否则表示单位毫秒; bCycled=0表示一次性定时器
-        HRESULT CreateTimer( [in ]uint64_t timerid, [in ]uint64_t lparam2, [in ]int32_t iTimeout, [in ]BOOL bCycled );
+        //定 时 器：禁止timerid=-1, iTimeout<0表示微秒单位，否则表示毫秒单位; bCycled=0表示一次性定时器
+        HRESULT CreateTimer( [in ]uint32_t timerid, [in ]uint64_t lparam2, [in ]int32_t iTimeout, [in ]BOOL bCycled );
         //timerid=-1表示删除所有的定时器
-        HRESULT DeleteTimer( [in ]uint64_t timerid );
+        HRESULT DeleteTimer( [in ]uint32_t timerid );
 
         ////////////////////////////////////////////////////////////////////////////
-        //注意参数：iTimeout<0表示单位微秒，否则表示单位毫秒;
+        //注意参数：iTimeout<0表示微秒单位，否则表示毫秒单位
         HRESULT Sleep( [in ]int32_t iTimeout );
 
         /////////////////////////////////////////////////////////////////////////////
@@ -471,20 +486,20 @@ import "ITypedef.idl";
         HRESULT CancelAsynIoOperation( [in ]IAsynIoOperation* pAsynIoOperation );
 
         /////////////////////////////////////////////////////////////////////////////
-        HRESULT Cancel( [in ]uint32_t how ); //how: 0-取消空闲异步消息 1-取消使用异步消息(包括定时器) 2-取消所有
+        HRESULT Cancel( [in ]uint32_t how ); //how: 0-取消空闲异步消息 1-取消使用异步消息(包括定时器) 2-取消所有消息
 
         /////////////////////////////////////////////////////////////////////////////
         //加入/弹出空闲池操作
         HRESULT Add( [in ]IAsynIoOperation* lpAsynIoOperation, [in ]uint32_t lparam2 );
-        HRESULT Pop( [in ]uint32_t lparam2, [out]IAsynIoOperation** ppAsynIoOperation ); //触发事件：AF_QUERY_RESULT IAsynFrame lparam2 ppAsynIoOperation
+        HRESULT Pop( [in ]uint32_t lparam2, [out]IAsynIoOperation** ppAsynIoOperation ); //如果没有空闲对象时触发事件：AF_QUERY_RESULT IAsynFrame lparam2 ppAsynIoOperation
 
         /////////////////////////////////////////////////////////////////////////////
-        //主动释放内部资源: IAsynFrame对象内部数据已被销毁
+        //需要App主动释放内部资源接口，此时IAsynFrame对象内部数据已被销毁，App不能再使用IAsynFrame对象
         HRESULT Shutdown();
     };
 
     /////////////////////////////////////////////////////////////////////////////////
-    [// 框架线程, 显式继承：IThread，隐含继承: IAsynMessageObject，扩展处理windows消息, 没有继承IObjectHolder
+    [// 框架线程, 显式继承：IThread，隐含继承: IAsynMessageObject，用于扩展处理windows消息
         object,
         uuid(0B5E89FF-D258-4443-8096-C3BCCB2DDCBA),
         helpstring("IAsynFrameThread Interface"),
@@ -502,17 +517,17 @@ import "ITypedef.idl";
         /////////////////////////////////////////////////////////////////////////////
         //关联pSrcAsynIoOperation到pDstAsynIoOperation，同时设置pSrcAsynIoOperation的操作超时时长，注意：操作完成后自动解除绑定关系, 允许pDstAsynIoOperation=0/iTimeout=0
         HRESULT BindAsynIoOperation( [in ]IAsynIoOperation* pSrcAsynIoOperation, [in ]IAsynIoOperation* pDstAsynIoOperation, [in ]uint32_t mode, [in ]int32_t iTimeout );
-
         /////////////////////////////////////////////////////////////////////////////
-        HRESULT PostAsynIoOperation( [in ]IAsynIoOperation* pDstAsynIoOperation );
+        //延迟iTimeout时间后投递消息, iTimeout<0表示微秒单位，否则表示毫秒单位
+        HRESULT PostAsynIoOperation( [in ]IAsynIoOperation* pDstAsynIoOperation, [in ]int32_t iTimeout );
 
         /////////////////////////////////////////////////////////////////////////////
         HRESULT CreateAsynFrame( [in ]IAsynMessageEvents* events, [in ]uint32_t lMaxIdleSize, [out]IAsynFrame** ppAsynFrame );
-        //管道，bDuplex=0: 表示单向管道 bDuplex=1: 表示双向管道，禁止pSrcAsynIoDevice/target=0
-        HRESULT CreateAsynIoBridge( [in ]IAsynIoDevice* pSrcAsynIoDevice, [in ]IUnknown* target, [in ]BOOL bDuplex, [out]IAsynIoBridge** ppAsynIoBridge );
+        //管道，duplex=0: 表示单向管道 duplex=1: 表示双向管道，禁止pSrcAsynIoDevice/target=0
+        HRESULT CreateAsynIoBridge( [in ]IAsynIoDevice* pSrcAsynIoDevice, [in ]IUnknown* target, [in ]BOOL duplex, [out]IAsynIoBridge** ppAsynIoBridge );
     };
 
-    [// 单一实例，提供创建IAsynFrameThread接口
+    [// 单一实例
         object,
         uuid(1A00D0BF-C0A0-455b-8A86-83AB6ED7630D),
         helpstring("IAsynFrameThreadFactory Interface"),
@@ -520,13 +535,13 @@ import "ITypedef.idl";
     ]
     interface IAsynFrameThreadFactory : IUnknown
     {
-         HRESULT QueryThread( [in ]uint32_t threadid, [out]IAsynFrameThread** ppThread ); //查询线程, 允许ppThread=null，threadid=0表示查询当前线程, 返回S_OK表示存在IAsynFrameThread
+         HRESULT QueryThread( [in ]uint32_t threadid, [in ]REFIID Riid, [out]IUnknown** ppThread ); //查询指定线程对象, Riid只能是IIDIAsynFrameThread|IID_IThreadMessagePump类型，threadid=0表示查询当前线程对象
          /////////////////////////////////////////////////////////////////////////////
          HRESULT CreateAsynFrameThread( [in ]handle hThread, [in ]BOOL window, [in ]uint32_t coretype, [in ]IAsynMessageEvents* events, [out]IAsynFrameThread** ppAsynFrameThread );
     };
 
     /////////////////////////////////////////////////////////////////////////////////
-    [// 单一实例，实例管理器，显式继承: IAsynMessageObject, 提供注册/注销接收创建实例事件功能
+    [// 单一实例，实例管理器，显式继承: IAsynMessageObject, 提供注册/注销接收App触发事件功能
         object,
         uuid(AB2CD54D-2BCB-41c8-9757-99B43F202024),
         helpstring("InstancesManager Interface"),
@@ -536,13 +551,13 @@ import "ITypedef.idl";
     {
         //通过riid创建实例: 已经实现以下的接口 
         //      1、ISpeedController
-        //      2、IBuffer/IOsTime/IDataRwInvoke/ICommand/IDataTransmit
+        //      2、IBuffer/IOsTime/IDataRwInvoke/IOsCommand/IDataTransmit/IAsynMessageHolder
         //      3、IMemoryPool
         //      4、IThreadPool/IThread/IAsynFrameThread
-        HRESULT NewInstance( [in ]IUnknown** param1, [in ]uint64_t param2, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
+        HRESULT NewInstance( [in ]IUnknown** param1, [in ]uint64_t param2, [in ]REFIID riid, [out]IUnknown** ppObject );
         //获取实例
-        HRESULT GetInstance( [in ]STRING Name, [in ]REFIID riid, [out, iid_is(riid)]void** ppObject );
-        //注册/注销实例，允许lpObject等于NULL
+        HRESULT GetInstance( [in ]STRING Name, [in ]REFIID riid, [out]IUnknown** ppObject );
+        //注册/注销实例，lpObject=NULL表示注销实例
         HRESULT SetInstance( [in ]STRING Name, [in ]IUnknown* lpObject );
 
         ///////////////////////////////////////////////////////////////
@@ -550,12 +565,8 @@ import "ITypedef.idl";
         HRESULT Require( [in ]STRING Owner );
 
         ///////////////////////////////////////////////////////////////
-        //Ident允许nil, 格式: depend/owner, 可选实现DllCanUnloadNow接口
+        //Ident允许null, 格式: depend/owner, 可选实现DllCanUnloadNow接口
         HRESULT Observe( [in ]STRING Ident, [in ]handle Soctx );
-
-        ///////////////////////////////////////////////////////////////
-        //执行任务
-        HRESULT Execute( [in ]STRING Owner, [in ]IUnknown* pParam1, [in ]STRING lparam2, [in ]IUnknown* object );
     };
 
     /////////////////////////////////////////////////////////////////////////////////

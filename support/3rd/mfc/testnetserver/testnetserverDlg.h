@@ -37,7 +37,7 @@ protected: //interface of asynsdk::asyn_message_events_base
             lparam2 != 0 )
         {
             CComPtr<IAsynNetwork> spAsynNetwork; 
-            GetInstancesManager()->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
+            GetInstancesManager()->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (IUnknown **)&spAsynNetwork);
 
             m_pEvent = new CUdpEvent(m_spAsynFrameThread, spAsynNetwork, AF_INET);
             m_pEvent->Start(7675);

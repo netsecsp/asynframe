@@ -81,7 +81,7 @@ public:
                         m_port = port;
                         m_lSeqno  = 1;
                         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                         spAsynIoOperation->SetPeerAddress(0, &STRING_from_string(m_host), 0, m_port, 0);
 
                         unsigned char *lpBuffer;
@@ -178,11 +178,11 @@ public:
 		HRESULT hr = spProxy->SetProxyContext(STRING_from_string(sets.get_string("proxy", "host", "127.0.0.1")), (PORT)sets.get_long("proxy", "port", 1080), asynsdk::STRING_EX::null, spKeyval);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
 		HRESULT r2 = spAsynPtlSocket->QueryInterface(IID_IAsynUdpSocket, (void **)&m_spAsynUdpSocket);
 		m_spAsynUdpSocket->Open(m_spAsynFrameThread, m_af, SOCK_DGRAM, IPPROTO_TCP);
-		m_spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, port, 0, spAsynIoOperation); //ֻ���첽bind
+		m_spAsynUdpSocket->Bind(asynsdk::STRING_EX::null, port, 0, spAsynIoOperation); //?????bind
         return true;
     }
 

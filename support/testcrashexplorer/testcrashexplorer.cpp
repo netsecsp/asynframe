@@ -209,7 +209,7 @@ public:
 public: // interface of asyn_message_events_impl
     STDMETHOD(OnMessage)( /*[in]*/uint32_t message, /*[in]*/uint64_t lparam1, /*[in]*/uint64_t lparam2, /*[in,out]*/IUnknown** objects )
     {
-        if( message == AF_QUERY_RESULT &&
+        if( message == AF_EVENT_NOTIFY &&
             lparam1 == EN_SystemEvent )
         {
             // Set up process start up info

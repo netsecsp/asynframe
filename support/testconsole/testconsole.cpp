@@ -83,7 +83,7 @@ public:
     CThreadEvents( InstancesManager* lpInstancesManager )
       : asynsdk::CThreadMessageEvents_base(1)
     {
-        lpInstancesManager->GetInstance(STRING_from_string(IN_Console), IID_IConsole, (void**)&console);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_Console), IID_IConsole, (IUnknown**)&console);
     }
 
 protected: //interface of CThreadMessageEvents_base

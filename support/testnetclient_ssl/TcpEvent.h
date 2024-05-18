@@ -91,7 +91,7 @@ public:
                     {
                         //send
                         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0,  0, 0, 0, PER_DATA_SIZE, &lpBuffer );
                         sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
@@ -163,7 +163,7 @@ public:
         spSsl->SetCryptContext(&STRING_from_string("test"), pctx, certandpasswd);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         CComPtr<IAsynTcpSocket> spAsynTcpSocket;
         m_spAsynPtlSocket->QueryInterface(IID_IAsynTcpSocket, (void **)&spAsynTcpSocket);

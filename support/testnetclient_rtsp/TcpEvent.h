@@ -106,7 +106,7 @@ public:
                     spKeyval.Set(STRING_from_string("User-Agent"), FALSE, STRING_from_string("MAP-C"));
 
                     CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                    m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                    m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                     char *body = "v=0\n"
                                  "o=- 1152339971764523f1000 1390329118 IN IP4 10.4.72.54\n"
                                  "s=\n"
@@ -142,7 +142,7 @@ public:
 
                     //接收来自服务器的rtsp请求/响应
                     CComPtr<INetmsg> spKeyval;
-                    lpAsynIoOperation->GetCompletedObject(TRUE, IID_INetmsg, (void **)&spKeyval);
+                    lpAsynIoOperation->GetCompletedObject(TRUE, IID_INetmsg, (IUnknown **)&spKeyval);
 
                     char *body = 0; if( lTransferedBytes ) lpAsynIoOperation->GetIoBuffer(0, 0, (BYTE **)&body);
 
@@ -194,7 +194,7 @@ public:
                         spKeyval.Set(STRING_from_string("User-Agent"), FALSE, STRING_from_string("MAP-C"));
 
                         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, AF_INET, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                         char *body = "presentation_state";
                         unsigned long bodysize = strlen(body);
                         spAsynIoOperation->NewIoBuffer(0, (BYTE *)body, 0, bodysize, bodysize, 0);
@@ -331,7 +331,7 @@ public:
         HRESULT r1 = spAsynTcpSocket->Open( m_spAsynFrameThread, AF_INET, SOCK_STREAM, IPPROTO_TCP );
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_iaf, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_iaf, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         m_url = url;
         printf("start to tcp.connect %s:%d\n", host.c_str(), port);

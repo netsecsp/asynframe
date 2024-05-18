@@ -75,10 +75,10 @@ int _tmain(int argc, _TCHAR *argv[])
         }
 
         CComPtr<IAsynIpcChannel > spAsynIpcsChannel;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynIpcChannel), IID_IAsynIpcChannel, (void **)&spAsynIpcsChannel);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynIpcChannel), IID_IAsynIpcChannel, (IUnknown **)&spAsynIpcsChannel);
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;
-        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (IUnknown **)&spAsynFrameThread);
 
         CIpcsEvent *pEvent = new CIpcsEvent( spAsynIpcsChannel, spAsynFrameThread );
         if( pEvent->Connect(argc > 2 ? argv[2] : "server", atol(argv[1])))

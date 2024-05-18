@@ -71,7 +71,7 @@ public:
                     printf("succ to connect\n\n");
                     {// send
                         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0,  0, 0, 0, PER_DATA_SIZE, &lpBuffer );
                         sprintf_s((char *)lpBuffer, 10, "%09d", m_lSeqno ++);
@@ -162,7 +162,7 @@ public:
         }
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         printf("start to tcp.connect %s:%d\n", host.c_str(), port);
         spAsynPtlSocket->QueryInterface(IID_IAsynTcpSocket, (void **)&m_spAsynTcpSocket);

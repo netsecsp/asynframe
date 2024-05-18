@@ -53,7 +53,7 @@ HRESULT CAsynDnsHandler::OnIomsgNotify( uint64_t lParam1, uint64_t lAction, IAsy
         }
 
         CComPtr<IStringStack> spDnsResult;
-        HRESULT r = lpAsynIoOperation->GetCompletedObject( TRUE, IID_IStringStack, (void **)&spDnsResult );
+        HRESULT r = lpAsynIoOperation->GetCompletedObject( TRUE, IID_IStringStack, (IUnknown **)&spDnsResult );
         for(int i = 0; ; i ++)
         {
             asynsdk::CStringSetter addr(1); if( spDnsResult->Pop(&addr) != S_OK ) break;

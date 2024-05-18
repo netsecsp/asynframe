@@ -4,7 +4,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -37,6 +37,44 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 NAMESPACE_BEGIN(asynsdk)
+
+///////////////////////////////////////////////////////////////////////////////
+class CPortAllocator_simple : public CAsynMessageEvents_base
+{// for IAsynUdpSocket/IAsynTcpSocketListener
+public:
+    CPortAllocator_simple( /*[in ]*/uint32_t dwRef = 0 )
+      : CAsynMessageEvents_base(dwRef)
+    {
+    }
+    virtual ~CPortAllocator_simple() { }
+
+protected: //for subclass
+    STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
+    {
+        if( message == AF_QUERY_RESULT )
+        {// allocate: AF_QUERY_RESULT x port null
+            *((PORT*)lparam2) = m_next ++;
+            if( m_next > m_nMaxPort ) m_next = m_nMinPort;
+        }
+        else
+        {// released: AF_EVENT_NOTIFY 0 port null 
+        }
+        return S_OK;
+    }
+
+public:
+    CPortAllocator_simple *Set(PORT basePort, uint32_t size)
+    {// size > 0
+        m_nMinPort = basePort;
+        m_nMaxPort = basePort + size - 1;
+        m_next     = basePort;
+        return this;
+    }
+
+protected:
+    PORT m_nMinPort, m_nMaxPort; //range
+    PORT m_next;
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 //检测pSocket是否ISsl类型

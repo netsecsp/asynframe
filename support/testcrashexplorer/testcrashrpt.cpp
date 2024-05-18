@@ -59,13 +59,14 @@ int _tmain(int argc, _TCHAR *argv[])
 {
     if( argc < 2 ) return 1;
     HRESULT hr1 = Initialize(NULL, NULL);
+
+    InstancesManager *lpInstancesManager = GetInstancesManager();
     {
-        InstancesManager *lpInstancesManager = GetInstancesManager();
         CComPtr<IExceptionTrapper> spExceptionTrapper;
-        if( lpInstancesManager->GetInstance(STRING_from_string(IN_CrashExplorer), IID_IExceptionTrapper, (void **)&spExceptionTrapper) == S_OK )
+        if( lpInstancesManager->GetInstance(STRING_from_string(IN_CrashExplorer), IID_IExceptionTrapper, (IUnknown **)&spExceptionTrapper) == S_OK )
         {
             spExceptionTrapper->WriteDumpfile(STRING_from_string(argv[1]), 0, asynsdk::STRING_EX::null);
-            
+
             asynsdk::CStringSetter stack(1);
             spExceptionTrapper->DumpStackinfo(STRING_from_string(argv[1]), &stack);
             printf(stack.m_val.c_str());

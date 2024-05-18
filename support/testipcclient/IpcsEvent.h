@@ -72,7 +72,7 @@ public:
                     //send
                     {
                         CComPtr<IAsynIpcIoOperation> spAsynIoOperation;
-                        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (IUnknown **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer );
                         sprintf_s((char *)lpBuffer, 10, "0%08I64d", m_lSeqno);
@@ -135,7 +135,7 @@ public:
         m_spAsynIpcsChannel->CreateAsynIpcDevice(&m_spAsynIpcDevice );
 
         CComPtr<IAsynIpcIoOperation> spAsynIoOperation;
-        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (IUnknown **)&spAsynIoOperation);
 
         printf("start to connect %s:%d\n", name.c_str(), pid);
         HRESULT r1 = m_spAsynIpcDevice->Connect(m_spAsynFrameThread, STRING_from_string(name), pid, spAsynIoOperation, 0);

@@ -59,7 +59,7 @@ HRESULT CAsynFrameHandler::OnAppidNotify(uint32_t message, uint64_t lParam1, uin
     return E_NOTIMPL;
 }
 
-void CAsynFrameHandler::OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnknown *object)
+HRESULT CAsynFrameHandler::OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnknown *object)
 {
     STRING *vals = (STRING *)lParam2;
     if( lParam1 == 0 )
@@ -89,6 +89,7 @@ void CAsynFrameHandler::OnEventNotify(uint64_t lParam1, uint64_t lParam2, IUnkno
             printf("\n");
         }
     }
+    return S_OK;
 }
 
 void CAsynFrameHandler::ShowTime(const char *info)

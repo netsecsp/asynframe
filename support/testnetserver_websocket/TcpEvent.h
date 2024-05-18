@@ -132,7 +132,7 @@ public:
 
                 {// recv http.req
                     CComPtr<INet> spNewAsynTcpSocket;
-                    lpAsynIoOperation->GetCompletedObject(TRUE, IID_INet, (void **)&spNewAsynTcpSocket);
+                    lpAsynIoOperation->GetCompletedObject(TRUE, IID_INet, (IUnknown **)&spNewAsynTcpSocket);
                     CComPtr<IAsynIoOperation> spAsynIoOperation;
                     m_spAsynFrame->CreateAsynIoOperation(0, 0, &spAsynIoOperation);
                     m_arOp2AsynTcpSockets[spAsynIoOperation] = spNewAsynTcpSocket;
@@ -178,7 +178,7 @@ public:
         printf("tcp.listen *:%d\n", port);
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
         m_spAsynTcpSocketListener->Accept(spAsynIoOperation);
         return true;
     }

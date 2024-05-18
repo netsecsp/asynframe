@@ -126,6 +126,10 @@ public:
         spAsynGrpSocket->Open( m_spAsynFrameThread, m_af, SOCK_DGRAM, m_af==AF_IPX? NSPROTO_IPX : IPPROTO_UDP, 1, 1);
         #endif
 
+        #if  0
+        m_spAsynUdpSocket->Set(DT_SetPortAllocator, 0, asynsdk::CreateObject<asynsdk::CPortAllocator_simple, 0>()->Set(10000, 8)); //use port: 10000~10007
+        #endif
+
         HRESULT r1 = m_spAsynUdpSocket->Bind( asynsdk::STRING_EX::null, 0, TRUE, NULL );
         if( r1 != S_OK )
         {
@@ -137,7 +141,7 @@ public:
 
         {// send
             CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-            m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+            m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
             spAsynIoOperation->SetPeerAddress(0, &STRING_from_string(m_host), 0, m_port, 0);
             if(!m_host_2.empty()) spAsynIoOperation->SetPeerAddress(1, &STRING_from_string(m_host_2), 0, m_port + 1, 0);
 
@@ -149,7 +153,7 @@ public:
         }
 
         CComPtr<IAsynNetIoOperation> spAsynIoOperation;
-        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynNetwork->CreateAsynIoOperation(m_spAsynFrame, m_af, 0, IID_IAsynNetIoOperation, (IUnknown **)&spAsynIoOperation);
 
         spAsynIoOperation->NewIoBuffer(0, 0, 0, 0, PER_DATA_SIZE, 0);
         spAsynIoOperation->SetIoParams(0, PER_DATA_SIZE, 0);

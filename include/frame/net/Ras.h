@@ -3,7 +3,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Author: Shengqian Yang, netsecsp@hotmail.com, China, last updated 05/01/2022
+Author: Shengqian Yang, netsecsp@hotmail.com, China, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without

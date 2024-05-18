@@ -3,7 +3,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -31,17 +31,18 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *****************************************************************************/
+#include <unknwnbase.h> //for IUnknown
 
 template <class T>
 class CObjPtr
 {
 public:
-    CObjPtr(T *v = NULL, bool nAddref = true)
+    CObjPtr(T *v = NULL, bool iAddref = true)
     {
         p = v;
-        if( p )
+        if( p && iAddref )
         {
-            if( nAddref ) p->AddRef();
+            p->AddRef();
         }
     }
     CObjPtr(bool unused, IUnknown *v)
@@ -49,7 +50,7 @@ public:
         if(!v ||
             v->QueryInterface(__uuidof(T), (void**)&p) != S_OK )
         {
-            p = 0;
+            p = NULL;
         }
     }
     CObjPtr(const CObjPtr<T> &v)
@@ -123,7 +124,7 @@ public:
         if(!v ||
             v->QueryInterface(__uuidof(T), (void**)&p) != S_OK )
         {
-            p = 0;
+            p = NULL;
         }
         return p;
     }

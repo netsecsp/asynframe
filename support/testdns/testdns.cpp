@@ -75,13 +75,13 @@ int _tmain(int argc, _TCHAR *argv[])
         }
 
         CComPtr<IAsynNetwork     > spAsynNetwork;
-        pInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (void **)&spAsynNetwork);
+        pInstancesManager->GetInstance(STRING_from_string(IN_AsynNetwork), IID_IAsynNetwork, (IUnknown **)&spAsynNetwork);
 
         CComPtr<IAsynDnsResolver> spAsynDnsResolver;
         spAsynNetwork->CreateAsynDnsResolver(STRING_from_string("dns"), 0, 0, STRING_from_string(puri), &spAsynDnsResolver);
 
         CComPtr<IAsynFrameThread > spAsynFrameThread;
-        pInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        pInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (IUnknown **)&spAsynFrameThread);
 
         CAsynDnsHandler *pEvent = new CAsynDnsHandler(spAsynFrameThread, spAsynNetwork);
         if( pEvent->Start(spAsynDnsResolver, host, strcmp(ipvx, "ipv4") == 0 ? AF_INET : 23) )

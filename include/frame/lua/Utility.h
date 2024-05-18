@@ -4,7 +4,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -36,15 +36,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma once
 #endif // _MSC_VER > 1000
 
-NAMESPACE_BEGIN(asynsdk)
-
-///////////////////////////////////////////////////////////////////////////////
-InstancesManager *GetInstancesManager( /*[in ]*/lua_State *pState );
-
-#ifdef _LOG //打印栈里的数据类型: 输出到控制台, remark: 用于调试
-void PrintTypenameFromStack( /*[in ]*/lua_State *pState );
+#ifdef __cplusplus
+extern "C" {
 #endif
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+#include "llimits.h"
+#ifdef __cplusplus
+}
+#endif
+#include "LuaTinker.h"
+#include "../AsynCore_internal.h"
+#include "../asm/IScriptHost.h"
+NAMESPACE_BEGIN(lua)
 
-NAMESPACE_END(asynsdk)
+InstancesManager *GetInstancesManager( /*[in ]*/lua_State *pState );
+IScriptHost      *GetScriptHost( /*[in ]*/lua_State *pState );
+
+bool Push( /*[in ]*/lua_State *pState, /*[in ]*/IUnknown* object ); //remark: 仅在栈顶生成对应lua对象, 不用时需要release才能释放c++对象
+
+NAMESPACE_END(lua)
 
 #endif // !defined(AFX_UTILITY_LUA_H__8A503072_4124_4233_9BEF_3671D8669695__INCLUDED_)

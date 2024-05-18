@@ -1,4 +1,4 @@
-﻿// KeyvalSetter.h: Definition of the CKeyval/CKeyvalSetter class
+// KeyvalSetter.h: Definition of the CKeyval/CKeyvalSetter class
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_KEYVALSETTER_H__EAB9B945_803E_460B_8137_8C63F70CB605__INCLUDED_)
@@ -6,7 +6,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without

@@ -3,7 +3,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -42,11 +42,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "com/ObjPtr.h"
 #include "log/Logger.h"
 #include "app/String.h"
+#include "app/Utility.h"
 #include "app/StringSetter.h"
 #include "app/StringVector.h"
 #include "app/KeyvalSetter.h"
 #include "app/StringStack.h"
-#include "app/Utility.h"
 #include "app/AsynMessageEvents.h"
 NAMESPACE_BEGIN(asynsdk)
 
@@ -64,13 +64,16 @@ NAMESPACE_BEGIN(asynsdk)
 /////////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ObjectIdStart
 {
-    IAsynFrame_Start  = 1,
+    IAsynFrame_Start = 1,
+    IExceptionTrapper_Start,
     IAsynFileSystem_Start,
-    IAsynNetwork_Start,
     IAsynIpcChannel_Start,
+    IAsynNetwork_Start,
+    IAsynNetAgent_Start,
+    IConsole_Start,
+    IMediaFrame_Start,
 } ObjectIdStart;
 
-/////////////////////////////////////////////////////////////////////////////////
 BEGIN_ASYN_IOERROR(IAsynFrame)
     USER_ERROR(SYNTAX) //格式/语法错误
     USER_ERROR(ENCODE) //编码出错
@@ -84,28 +87,28 @@ END_ASYN_IOERROR()
 
 /////////////////////////////////////////////////////////////////////////////////
 //InstanceName
-#ifdef _LOG
 #define IN_AsynLoggerFactory            "loggerfactory"
-#define IN_ObjectsLeaker                "objectsleaker"
-#endif
 #define IN_AsynFrameThreadFactory       "threadfactory"
 #define IN_MultiLanguage                "multilanguage"
 #define IN_UniqueMempool                "uniquemempool"
 #define IN_Evtthreadpool                "evtthreadpool"
 #define IN_Opsthreadpool                "opsthreadpool"
 #define IN_Netthreadpool                "netthreadpool"
-#define IN_SysArgv                      "sysargv" //系统参数
 #define IN_SysRoot                      "sysroot" //系统路径
 #define IN_AppData                      "appdata" //数据路径
+#define IN_Plugins                      "plugins" //插件路径
+
+#define IN_SysArgv                      "sysargv" //系统参数
 #define IN_SysInfo                      "sysinfo"
 #define IN_SysTime                      "systime"
 #define IN_MemData                      "memdata"
 #define IN_LogProp                      "logprop" //log4cplus配置的全路径
 
-#define IN_Instancesmanager             "instancesmanager" //used for lua
+#define IN_Instancesmanager             "instancesmanager"
+#define IN_LuaHost                      "luahost"
 
 /////////////////////////////////////////////////////////////////////////////////
-//AF_IOMSG_NOTIFY.Action
+//AF_IOMSG_NOTIFY(lparam2)
 #define Io_recv                         ( 0 )
 #define Io_send                         ( 1 )
 #define Io_acceptd                      ( 16)
@@ -133,6 +136,8 @@ END_ASYN_IOERROR()
 #define OT_GetMessageEvent              ( 3 ) //获取内部IAsynMessageEvents
 
 #define OT_GetAppAsynFrame              ( 4 ) //获取内部IAsynFrame
+
+#define OT_SetHandleThread              ( 5 ) //设置处理线程：调用PostAsynIoOperation时被强制转发消息，一次性操作
 
 //IAsynIoOperation.GetOsBuffer(index)
 #define OB_OsOverlapped                 ( 0 ) //Overlapped
@@ -164,10 +169,10 @@ END_ASYN_IOERROR()
 /////////////////////////////////////////////////////////////////////////////////
 //global of events.Notify.lparam1{AF_QUERY_RESULT / AF_EVENT_NOTIFY 0 x IKeyval}
 #define EN_SystemEvent                  ( 0 )
-//InstancesManager.Attach.lparam1
-#define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 1 x IThread #通知设置主线程
-#define EN_SystemPower                  ( 2 ) //AF_EVENT_NOTIFY 2 x IKeyval
-#define EN_NetworkAdpaterChanged        ( 3 ) //AF_EVENT_NOTIFY 3 x IKeyval
+//InstancesManager.Attach.lparam1{注册事件}
+#define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 0 hwnd IThread #通知处理/窗口线程
+#define EN_SystemPower                  ( 2 ) //AF_EVENT_NOTIFY 0 x IKeyval #通知电源变化
+#define EN_NetworkAdapterChanged        ( 3 ) //AF_EVENT_NOTIFY 0 x IKeyval #通知网卡变化
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynIoDevice.IObjectHolder(method)
@@ -192,8 +197,10 @@ END_ASYN_IOERROR()
 
 #define DT_SetThreadpool                ( 8 ) //设置内部线程池, 注意: 目前只对IAsynTcpSocketListener有效
 
-#define DT_SetAsynDnsResolver           ( 9 ) //获取内部的IAsynDnsResolver
+#define DT_SetAsynDnsResolver           ( 9 ) //获取内部IAsynDnsResolver
 #define DT_GetAsynDnsResolver           ( 9 )
+
+#define DT_SetPortAllocator             ( 10) //设置内部的网络端口分配器
 
 //IAsynIoDevice.Attach(lAttachType)
 #define DA_PortHandle                   ( 0 ) //主动激活句柄

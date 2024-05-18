@@ -123,7 +123,7 @@ public:
                     //send
                     {
                         CComPtr<IAsynIoOperation> spAsynIoOperation;
-                        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (void **)&spAsynIoOperation);
+                        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (IUnknown **)&spAsynIoOperation);
                         unsigned char *lpBuffer;
                         spAsynIoOperation->NewIoBuffer( 0, 0, 0, 0, PER_DATA_SIZE, &lpBuffer );
                         sprintf_s((char *)lpBuffer, 10, "1%08I64d", m_lSeqno);
@@ -151,7 +151,7 @@ public:
         }
 
         CComPtr<IAsynIpcIoOperation> spAsynIoOperation;
-        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (void **)&spAsynIoOperation);
+        m_spAsynIpcsChannel->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynIpcIoOperation, (IUnknown **)&spAsynIoOperation);
 
         printf("ipc.listen %s:%d\n", name.c_str(), ::GetCurrentProcessId());
         m_spAsynIpcDevice->Accept(spAsynIoOperation);

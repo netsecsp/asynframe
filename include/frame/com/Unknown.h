@@ -6,7 +6,7 @@
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
-Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 05/01/2022
+Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
 http://asynframe.sf.net
 
 Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,6 @@ NAMESPACE_BEGIN(asynsdk)
 #define OBJ_INTERFACE_ENTRY(i)      if( IsEqualIID(riid,__uuidof(i))) { *ppObject = static_cast<i*>(this); AddRef(); return S_OK; } pUnknown = static_cast<IUnknown*>(static_cast<i*>(this));
 #define OBJ_INTERFACE_ENTRY_EX(i,j) if( IsEqualIID(riid,__uuidof(i))) { *ppObject = static_cast<i*>(static_cast<j*>(this)); AddRef(); return S_OK; } pUnknown = static_cast<IUnknown*>(static_cast<i*>(static_cast<j*>(this)));
 #define END_OBJ_MAP()               if( pUnknown && IsEqualIID(riid,IID_IUnknown)) { *ppObject = pUnknown; AddRef(); return S_OK; } return E_NOINTERFACE; }
-
 //////////////////////////////////////////////////////////////////////
 class CSingleThreadModelObject
 {
@@ -66,6 +65,12 @@ public:
 public:
     ULONG UnknownAddRef ();
     ULONG UnknownRelease();
+
+    template<typename T> 
+    T *DoCast(bool iAddRef = false ) {
+       if( iAddRef ) UnknownAddRef();
+       return dynamic_cast<T*>(this);
+    }
 
 public:
     ULONG m_dwRef;
@@ -83,6 +88,12 @@ public:
 public:
     ULONG UnknownAddRef ();
     ULONG UnknownRelease();
+
+    template<typename T> 
+    T *DoCast(bool iAddRef = false ) {
+       if( iAddRef ) UnknownAddRef();
+       return dynamic_cast<T*>(this);
+    }
 
 public:
     ULONG m_dwRef;

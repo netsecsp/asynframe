@@ -83,7 +83,7 @@ public:
                 else
                 {
                     CComPtr<INetmsg> spRspmsg;
-                    lpAsynIoOperation->GetCompletedObject(1, IID_INetmsg, (void **)&spRspmsg);
+                    lpAsynIoOperation->GetCompletedObject(1, IID_INetmsg, (IUnknown **)&spRspmsg);
                     if( spRspmsg == NULL )
                     {
                         printf("recv, not found http ack\n");

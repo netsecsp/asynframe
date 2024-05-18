@@ -76,10 +76,10 @@ int _tmain(int argc, _TCHAR *argv[])
         }
 
         CComPtr<IAsynFileSystem  > spAsynFileSystem;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFileSystem), IID_IAsynFileSystem, (void **)&spAsynFileSystem);
+        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFileSystem), IID_IAsynFileSystem, (IUnknown **)&spAsynFileSystem);
 
         CComPtr<IAsynFrameThread> spAsynFrameThread;
-        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (void **)&spAsynFrameThread);
+        lpInstancesManager->NewInstance(0, 0, IID_IAsynFrameThread, (IUnknown **)&spAsynFrameThread);
 
         CComPtr<IAsynFile> spSrcAsynFile;
         spAsynFileSystem->CreateAsynFile(&spSrcAsynFile );

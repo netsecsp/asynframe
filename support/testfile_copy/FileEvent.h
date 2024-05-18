@@ -114,13 +114,13 @@ public:
 public:
     bool Copy(IBuffer *lpBuffer, uint32_t max_recvspeed = -1)
     {
-        CComPtr<IObjectHolder> spObjectHolder; //����ȫ�ֶ��ļ��ٶ�B/s
+        CComPtr<IObjectHolder> spObjectHolder;
         m_spAsynFileSystems->QueryInterface(IID_IObjectHolder, (void **)&spObjectHolder);
-        HRESULT r1 = spObjectHolder->Get(DT_GetRecvSpeedController, 0, IID_ISpeedController, (void **)&m_spSpeedController);
+        HRESULT r1 = spObjectHolder->Get(DT_GetRecvSpeedController, 0, IID_ISpeedController, (IUnknown **)&m_spSpeedController);
         m_spSpeedController->SetMaxSpeed(max_recvspeed);
 
-        m_spAsynFileSystems->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynFileIoOperation, (void **)&m_spSrcAsynIoOperation);
-        m_spAsynFileSystems->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynFileIoOperation, (void **)&m_spDstAsynIoOperation);
+        m_spAsynFileSystems->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynFileIoOperation, (IUnknown **)&m_spSrcAsynIoOperation);
+        m_spAsynFileSystems->CreateAsynIoOperation(m_spAsynFrame, 0, 0, IID_IAsynFileIoOperation, (IUnknown **)&m_spDstAsynIoOperation);
 
         m_spSrcAsynIoOperation->SetIoBuffer(0, lpBuffer);
         m_spDstAsynIoOperation->SetIoBuffer(0, lpBuffer);

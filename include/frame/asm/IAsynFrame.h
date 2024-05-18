@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Nov 11 08:20:23 2023
+/* at Fri Apr 19 09:52:49 2024
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -78,6 +78,13 @@ typedef interface IAsynMessageEvents IAsynMessageEvents;
 typedef interface IAsynMessageObject IAsynMessageObject;
 
 #endif 	/* __IAsynMessageObject_FWD_DEFINED__ */
+
+
+#ifndef __IAsynMessageHolder_FWD_DEFINED__
+#define __IAsynMessageHolder_FWD_DEFINED__
+typedef interface IAsynMessageHolder IAsynMessageHolder;
+
+#endif 	/* __IAsynMessageHolder_FWD_DEFINED__ */
 
 
 #ifndef __IThreadMessagePump_FWD_DEFINED__
@@ -269,7 +276,7 @@ EXTERN_C const IID IID_IObjectHolder;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject) = 0;
+            /* [out] */ IUnknown **ppObject) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Set( 
             /* [in] */ int32_t method,
@@ -302,7 +309,7 @@ EXTERN_C const IID IID_IObjectHolder;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IObjectHolder * This,
@@ -411,7 +418,7 @@ EXTERN_C const IID IID_ISpeedController;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             ISpeedController * This,
@@ -788,6 +795,96 @@ EXTERN_C const IID IID_IAsynMessageObject;
 
 
 #endif 	/* __IAsynMessageObject_INTERFACE_DEFINED__ */
+
+
+#ifndef __IAsynMessageHolder_INTERFACE_DEFINED__
+#define __IAsynMessageHolder_INTERFACE_DEFINED__
+
+/* interface IAsynMessageHolder */
+/* [unique][helpstring][uuid][object] */ 
+
+
+EXTERN_C const IID IID_IAsynMessageHolder;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("E765F457-4262-4F7B-BF6D-49F72CD81698")
+    IAsynMessageHolder : public IUnknown
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE Invoke( 
+            /* [in] */ IThread *pThread,
+            /* [in] */ IUnknown *events,
+            /* [in] */ uint32_t message,
+            /* [in] */ uint64_t lparam1,
+            /* [in] */ uint64_t lparam2,
+            /* [in] */ IUnknown *object) = 0;
+        
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct IAsynMessageHolderVtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            IAsynMessageHolder * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            IAsynMessageHolder * This);
+        
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            IAsynMessageHolder * This);
+        
+        HRESULT ( STDMETHODCALLTYPE *Invoke )( 
+            IAsynMessageHolder * This,
+            /* [in] */ IThread *pThread,
+            /* [in] */ IUnknown *events,
+            /* [in] */ uint32_t message,
+            /* [in] */ uint64_t lparam1,
+            /* [in] */ uint64_t lparam2,
+            /* [in] */ IUnknown *object);
+        
+        END_INTERFACE
+    } IAsynMessageHolderVtbl;
+
+    interface IAsynMessageHolder
+    {
+        CONST_VTBL struct IAsynMessageHolderVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IAsynMessageHolder_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define IAsynMessageHolder_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define IAsynMessageHolder_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define IAsynMessageHolder_Invoke(This,pThread,events,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> Invoke(This,pThread,events,message,lparam1,lparam2,object) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __IAsynMessageHolder_INTERFACE_DEFINED__ */
 
 
 #ifndef __IThreadMessagePump_INTERFACE_DEFINED__
@@ -1593,7 +1690,7 @@ EXTERN_C const IID IID_IAsynIoOperation;
         virtual HRESULT STDMETHODCALLTYPE GetCompletedObject( 
             /* [in] */ BOOL bTaked,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject) = 0;
+            /* [out] */ IUnknown **ppObject) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE SetCompletedObject( 
             /* [in] */ IUnknown *pObject) = 0;
@@ -1624,7 +1721,7 @@ EXTERN_C const IID IID_IAsynIoOperation;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIoOperation * This,
@@ -1749,7 +1846,7 @@ EXTERN_C const IID IID_IAsynIoOperation;
             IAsynIoOperation * This,
             /* [in] */ BOOL bTaked,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *SetCompletedObject )( 
             IAsynIoOperation * This,
@@ -1885,7 +1982,7 @@ EXTERN_C const IID IID_IAsynIoOperationFactory;
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject) = 0;
+            /* [out] */ IUnknown **ppObject) = 0;
         
     };
     
@@ -1914,7 +2011,7 @@ EXTERN_C const IID IID_IAsynIoOperationFactory;
             /* [in] */ uint32_t param1,
             /* [in] */ uint32_t param2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         END_INTERFACE
     } IAsynIoOperationFactoryVtbl;
@@ -2254,9 +2351,6 @@ EXTERN_C const IID IID_IAsynIoDevice;
         virtual HRESULT STDMETHODCALLTYPE Write( 
             /* [in] */ IAsynIoOperation *pAsynIoOperation) = 0;
         
-        virtual HRESULT STDMETHODCALLTYPE Close( 
-            /* [in] */ uint32_t reserved) = 0;
-        
         virtual HRESULT STDMETHODCALLTYPE Attach( 
             /* [in] */ IAsynFrameThread *pAsynFrameThread,
             /* [in] */ uint32_t lAttachType,
@@ -2268,10 +2362,13 @@ EXTERN_C const IID IID_IAsynIoDevice;
         virtual HRESULT STDMETHODCALLTYPE Detach( 
             /* [in] */ uint32_t level) = 0;
         
+        virtual HRESULT STDMETHODCALLTYPE Close( 
+            /* [in] */ uint32_t reserved) = 0;
+        
         virtual HRESULT STDMETHODCALLTYPE Clone( 
             /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject) = 0;
+            /* [out] */ IUnknown **ppObject) = 0;
         
     };
     
@@ -2299,7 +2396,7 @@ EXTERN_C const IID IID_IAsynIoDevice;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIoDevice * This,
@@ -2328,10 +2425,6 @@ EXTERN_C const IID IID_IAsynIoDevice;
             IAsynIoDevice * This,
             /* [in] */ IAsynIoOperation *pAsynIoOperation);
         
-        HRESULT ( STDMETHODCALLTYPE *Close )( 
-            IAsynIoDevice * This,
-            /* [in] */ uint32_t reserved);
-        
         HRESULT ( STDMETHODCALLTYPE *Attach )( 
             IAsynIoDevice * This,
             /* [in] */ IAsynFrameThread *pAsynFrameThread,
@@ -2345,11 +2438,15 @@ EXTERN_C const IID IID_IAsynIoDevice;
             IAsynIoDevice * This,
             /* [in] */ uint32_t level);
         
+        HRESULT ( STDMETHODCALLTYPE *Close )( 
+            IAsynIoDevice * This,
+            /* [in] */ uint32_t reserved);
+        
         HRESULT ( STDMETHODCALLTYPE *Clone )( 
             IAsynIoDevice * This,
             /* [in] */ IUnknown *lpReserved,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         END_INTERFACE
     } IAsynIoDeviceVtbl;
@@ -2396,14 +2493,14 @@ EXTERN_C const IID IID_IAsynIoDevice;
 #define IAsynIoDevice_Write(This,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Write(This,pAsynIoOperation) ) 
 
-#define IAsynIoDevice_Close(This,reserved)	\
-    ( (This)->lpVtbl -> Close(This,reserved) ) 
-
 #define IAsynIoDevice_Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation)	\
     ( (This)->lpVtbl -> Attach(This,pAsynFrameThread,lAttachType,bCopyHandle,pRecvDeviceHandle,pSendDeviceHandle,pAsynIoOperation) ) 
 
 #define IAsynIoDevice_Detach(This,level)	\
     ( (This)->lpVtbl -> Detach(This,level) ) 
+
+#define IAsynIoDevice_Close(This,reserved)	\
+    ( (This)->lpVtbl -> Close(This,reserved) ) 
 
 #define IAsynIoDevice_Clone(This,lpReserved,riid,ppObject)	\
     ( (This)->lpVtbl -> Clone(This,lpReserved,riid,ppObject) ) 
@@ -2464,7 +2561,7 @@ EXTERN_C const IID IID_IAsynIoBridge;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynIoBridge * This,
@@ -2546,7 +2643,7 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [in] */ IUnknown *object) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE PostMessage( 
-            /* [in] */ BOOL checkthread,
+            /* [in] */ BOOL check,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2556,13 +2653,13 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [out] */ IBuffer **ppBuffer) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateTimer( 
-            /* [in] */ uint64_t timerid,
+            /* [in] */ uint32_t timerid,
             /* [in] */ uint64_t lparam2,
             /* [in] */ int32_t iTimeout,
             /* [in] */ BOOL bCycled) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE DeleteTimer( 
-            /* [in] */ uint64_t timerid) = 0;
+            /* [in] */ uint32_t timerid) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Sleep( 
             /* [in] */ int32_t iTimeout) = 0;
@@ -2614,7 +2711,7 @@ EXTERN_C const IID IID_IAsynFrame;
             /* [in] */ int32_t method,
             /* [in] */ uint32_t lparam2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *Set )( 
             IAsynFrame * This,
@@ -2635,7 +2732,7 @@ EXTERN_C const IID IID_IAsynFrame;
         
         HRESULT ( STDMETHODCALLTYPE *PostMessage )( 
             IAsynFrame * This,
-            /* [in] */ BOOL checkthread,
+            /* [in] */ BOOL check,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
             /* [in] */ uint64_t lparam2,
@@ -2647,14 +2744,14 @@ EXTERN_C const IID IID_IAsynFrame;
         
         HRESULT ( STDMETHODCALLTYPE *CreateTimer )( 
             IAsynFrame * This,
-            /* [in] */ uint64_t timerid,
+            /* [in] */ uint32_t timerid,
             /* [in] */ uint64_t lparam2,
             /* [in] */ int32_t iTimeout,
             /* [in] */ BOOL bCycled);
         
         HRESULT ( STDMETHODCALLTYPE *DeleteTimer )( 
             IAsynFrame * This,
-            /* [in] */ uint64_t timerid);
+            /* [in] */ uint32_t timerid);
         
         HRESULT ( STDMETHODCALLTYPE *Sleep )( 
             IAsynFrame * This,
@@ -2723,8 +2820,8 @@ EXTERN_C const IID IID_IAsynFrame;
 #define IAsynFrame_SendMessage(This,message,lparam1,lparam2,object)	\
     ( (This)->lpVtbl -> SendMessage(This,message,lparam1,lparam2,object) ) 
 
-#define IAsynFrame_PostMessage(This,checkthread,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> PostMessage(This,checkthread,message,lparam1,lparam2,object) ) 
+#define IAsynFrame_PostMessage(This,check,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> PostMessage(This,check,message,lparam1,lparam2,object) ) 
 
 #define IAsynFrame_NewIoBuffer(This,ppBuffer)	\
     ( (This)->lpVtbl -> NewIoBuffer(This,ppBuffer) ) 
@@ -2800,7 +2897,8 @@ EXTERN_C const IID IID_IAsynFrameThread;
             /* [in] */ int32_t iTimeout) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE PostAsynIoOperation( 
-            /* [in] */ IAsynIoOperation *pDstAsynIoOperation) = 0;
+            /* [in] */ IAsynIoOperation *pDstAsynIoOperation,
+            /* [in] */ int32_t iTimeout) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynFrame( 
             /* [in] */ IAsynMessageEvents *events,
@@ -2810,7 +2908,7 @@ EXTERN_C const IID IID_IAsynFrameThread;
         virtual HRESULT STDMETHODCALLTYPE CreateAsynIoBridge( 
             /* [in] */ IAsynIoDevice *pSrcAsynIoDevice,
             /* [in] */ IUnknown *target,
-            /* [in] */ BOOL bDuplex,
+            /* [in] */ BOOL duplex,
             /* [out] */ IAsynIoBridge **ppAsynIoBridge) = 0;
         
     };
@@ -2869,7 +2967,8 @@ EXTERN_C const IID IID_IAsynFrameThread;
         
         HRESULT ( STDMETHODCALLTYPE *PostAsynIoOperation )( 
             IAsynFrameThread * This,
-            /* [in] */ IAsynIoOperation *pDstAsynIoOperation);
+            /* [in] */ IAsynIoOperation *pDstAsynIoOperation,
+            /* [in] */ int32_t iTimeout);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynFrame )( 
             IAsynFrameThread * This,
@@ -2881,7 +2980,7 @@ EXTERN_C const IID IID_IAsynFrameThread;
             IAsynFrameThread * This,
             /* [in] */ IAsynIoDevice *pSrcAsynIoDevice,
             /* [in] */ IUnknown *target,
-            /* [in] */ BOOL bDuplex,
+            /* [in] */ BOOL duplex,
             /* [out] */ IAsynIoBridge **ppAsynIoBridge);
         
         END_INTERFACE
@@ -2923,14 +3022,14 @@ EXTERN_C const IID IID_IAsynFrameThread;
 #define IAsynFrameThread_BindAsynIoOperation(This,pSrcAsynIoOperation,pDstAsynIoOperation,mode,iTimeout)	\
     ( (This)->lpVtbl -> BindAsynIoOperation(This,pSrcAsynIoOperation,pDstAsynIoOperation,mode,iTimeout) ) 
 
-#define IAsynFrameThread_PostAsynIoOperation(This,pDstAsynIoOperation)	\
-    ( (This)->lpVtbl -> PostAsynIoOperation(This,pDstAsynIoOperation) ) 
+#define IAsynFrameThread_PostAsynIoOperation(This,pDstAsynIoOperation,iTimeout)	\
+    ( (This)->lpVtbl -> PostAsynIoOperation(This,pDstAsynIoOperation,iTimeout) ) 
 
 #define IAsynFrameThread_CreateAsynFrame(This,events,lMaxIdleSize,ppAsynFrame)	\
     ( (This)->lpVtbl -> CreateAsynFrame(This,events,lMaxIdleSize,ppAsynFrame) ) 
 
-#define IAsynFrameThread_CreateAsynIoBridge(This,pSrcAsynIoDevice,target,bDuplex,ppAsynIoBridge)	\
-    ( (This)->lpVtbl -> CreateAsynIoBridge(This,pSrcAsynIoDevice,target,bDuplex,ppAsynIoBridge) ) 
+#define IAsynFrameThread_CreateAsynIoBridge(This,pSrcAsynIoDevice,target,duplex,ppAsynIoBridge)	\
+    ( (This)->lpVtbl -> CreateAsynIoBridge(This,pSrcAsynIoDevice,target,duplex,ppAsynIoBridge) ) 
 
 #endif /* COBJMACROS */
 
@@ -2960,12 +3059,13 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
     public:
         virtual HRESULT STDMETHODCALLTYPE QueryThread( 
             /* [in] */ uint32_t threadid,
-            /* [out] */ IAsynFrameThread **ppThread) = 0;
+            /* [in] */ REFIID Riid,
+            /* [out] */ IUnknown **ppThread) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynFrameThread( 
             /* [in] */ handle hThread,
             /* [in] */ BOOL window,
-            /* [in] */ uint32_t unused,
+            /* [in] */ uint32_t coretype,
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAsynFrameThread **ppAsynFrameThread) = 0;
         
@@ -2993,13 +3093,14 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
         HRESULT ( STDMETHODCALLTYPE *QueryThread )( 
             IAsynFrameThreadFactory * This,
             /* [in] */ uint32_t threadid,
-            /* [out] */ IAsynFrameThread **ppThread);
+            /* [in] */ REFIID Riid,
+            /* [out] */ IUnknown **ppThread);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynFrameThread )( 
             IAsynFrameThreadFactory * This,
             /* [in] */ handle hThread,
             /* [in] */ BOOL window,
-            /* [in] */ uint32_t unused,
+            /* [in] */ uint32_t coretype,
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAsynFrameThread **ppAsynFrameThread);
         
@@ -3026,11 +3127,11 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynFrameThreadFactory_QueryThread(This,threadid,ppThread)	\
-    ( (This)->lpVtbl -> QueryThread(This,threadid,ppThread) ) 
+#define IAsynFrameThreadFactory_QueryThread(This,threadid,Riid,ppThread)	\
+    ( (This)->lpVtbl -> QueryThread(This,threadid,Riid,ppThread) ) 
 
-#define IAsynFrameThreadFactory_CreateAsynFrameThread(This,hThread,window,unused,events,ppAsynFrameThread)	\
-    ( (This)->lpVtbl -> CreateAsynFrameThread(This,hThread,window,unused,events,ppAsynFrameThread) ) 
+#define IAsynFrameThreadFactory_CreateAsynFrameThread(This,hThread,window,coretype,events,ppAsynFrameThread)	\
+    ( (This)->lpVtbl -> CreateAsynFrameThread(This,hThread,window,coretype,events,ppAsynFrameThread) ) 
 
 #endif /* COBJMACROS */
 
@@ -3062,12 +3163,12 @@ EXTERN_C const IID IID_InstancesManager;
             /* [in] */ IUnknown **param1,
             /* [in] */ uint64_t param2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject) = 0;
+            /* [out] */ IUnknown **ppObject) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE GetInstance( 
             /* [in] */ STRING Name,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject) = 0;
+            /* [out] */ IUnknown **ppObject) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE SetInstance( 
             /* [in] */ STRING Name,
@@ -3079,12 +3180,6 @@ EXTERN_C const IID IID_InstancesManager;
         virtual HRESULT STDMETHODCALLTYPE Observe( 
             /* [in] */ STRING Ident,
             /* [in] */ handle Soctx) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE Execute( 
-            /* [in] */ STRING Owner,
-            /* [in] */ IUnknown *pParam1,
-            /* [in] */ STRING lparam2,
-            /* [in] */ IUnknown *object) = 0;
         
     };
     
@@ -3129,13 +3224,13 @@ EXTERN_C const IID IID_InstancesManager;
             /* [in] */ IUnknown **param1,
             /* [in] */ uint64_t param2,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *GetInstance )( 
             InstancesManager * This,
             /* [in] */ STRING Name,
             /* [in] */ REFIID riid,
-            /* [iid_is][out] */ void **ppObject);
+            /* [out] */ IUnknown **ppObject);
         
         HRESULT ( STDMETHODCALLTYPE *SetInstance )( 
             InstancesManager * This,
@@ -3150,13 +3245,6 @@ EXTERN_C const IID IID_InstancesManager;
             InstancesManager * This,
             /* [in] */ STRING Ident,
             /* [in] */ handle Soctx);
-        
-        HRESULT ( STDMETHODCALLTYPE *Execute )( 
-            InstancesManager * This,
-            /* [in] */ STRING Owner,
-            /* [in] */ IUnknown *pParam1,
-            /* [in] */ STRING lparam2,
-            /* [in] */ IUnknown *object);
         
         END_INTERFACE
     } InstancesManagerVtbl;
@@ -3205,9 +3293,6 @@ EXTERN_C const IID IID_InstancesManager;
 
 #define InstancesManager_Observe(This,Ident,Soctx)	\
     ( (This)->lpVtbl -> Observe(This,Ident,Soctx) ) 
-
-#define InstancesManager_Execute(This,Owner,pParam1,lparam2,object)	\
-    ( (This)->lpVtbl -> Execute(This,Owner,pParam1,lparam2,object) ) 
 
 #endif /* COBJMACROS */
 
@@ -3320,14 +3405,14 @@ EXTERN_C const IID IID_IAsynFramePlugin;
 #endif 	/* __IAsynFramePlugin_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_IAsynFrame_0000_0023 */
+/* interface __MIDL_itf_IAsynFrame_0000_0024 */
 /* [local] */ 
 
 #pragma pack(pop)
 
 
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0023_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0023_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0024_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0024_v0_0_s_ifspec;
 
 /* Additional Prototypes for ALL interfaces */
 
