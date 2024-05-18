@@ -64,7 +64,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
-> 2024/05/10 Release asynframe framework v1.6.0  
+> 2024/05/17 Release asynframe framework v1.6.0  
 1. Release version: Design oriented refactoring architecture/interface  
 2. Fix known problems  
 > 2023/11/15 Release asynframe framework v1.5.2  
