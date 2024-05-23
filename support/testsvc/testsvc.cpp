@@ -76,13 +76,12 @@ public:
                  break;
 
             case SERVICE_CONTROL_POWEREVENT:
+                 LOGGER_INFO(logger, "do PowerEvt, Control=" << inControl << ", EventType=" << inEventType);
                  if( inEventType == PBT_APMSUSPEND       )
                  {
-                     LOGGER_INFO(logger, "do PowerEvent, EventType=" << inEventType);
                  }
                  if( inEventType == PBT_APMRESUMESUSPEND )
                  {
-                     LOGGER_INFO(logger, "do PowerEvent, EventType=" << inEventType);
                  }
                  break;
 
