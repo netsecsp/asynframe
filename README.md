@@ -155,13 +155,13 @@ int main(int argc, const char *argv[])
   - [sqlite](https://netsecsp.github.io/mds/sqlite.md)  
 
 # 鸣谢  
-> [Log4cplus](https://github.com/log4cplus/log4cplus)  
-> [Lua](http://www.lua.org)  
-> [Zlib](http://www.zlib.net)  
-> [Sqlite](https://www.sqlite.org/)  
-> [Luatinker](https://github.com/zupet/luatinker)  
-> [FFmpeg](https://ffmpeg.org)  
+[Log4cplus](https://github.com/log4cplus/log4cplus)  
+[Lua](http://www.lua.org)  
+[Luatinker](https://github.com/zupet/luatinker)  
+[Zlib](http://www.zlib.net)  
+[Sqlite](https://www.sqlite.org/)  
+[FFmpeg](https://ffmpeg.org)  
 
 # 版权信息  
-> Copyright (c) 2012 - 2032, All rights reserved.  
-> Author: Shengqian Yang, China, netsecsp@hotmail.com  
+Copyright (c) 2012 - 2032, All rights reserved.  
+Author: Shengqian Yang, China, netsecsp@hotmail.com  
