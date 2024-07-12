@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <frame/AsynNetwork_internal.h>
+#include <frame/AsynNetwork.h>
 #include "UdpEvent.h"
 
 // CtestnetserverDlg ¶Ô»°¿ò

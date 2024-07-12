@@ -37,7 +37,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _MSC_VER > 1000
 
 #include <string>
-#include "AsynMessageEvents.h"
 NAMESPACE_BEGIN(asynsdk)
 
 ///////////////////////////////////////////////////////////////////////////////

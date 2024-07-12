@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <frame/AsynCore_internal.h>
+#include <frame/AsynCore.h>
 
 #ifdef __cplusplus 
 extern "C" { 

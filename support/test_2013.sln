@@ -55,6 +55,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testnetserver_dtp-udp.port"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testsvc", "testsvc\testsvc_2013.vcxproj", "{20ABFC03-D8CD-41D0-82E2-C7814F7B56D1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua_extend_testlua", "testlua\testlua\testlua_2013.vcxproj", "{6FEBE589-4BEA-4D4F-968C-303601B89B91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -271,6 +273,14 @@ Global
 		{20ABFC03-D8CD-41D0-82E2-C7814F7B56D1}.Release|Win32.Build.0 = Release|Win32
 		{20ABFC03-D8CD-41D0-82E2-C7814F7B56D1}.Release|x64.ActiveCfg = Release|x64
 		{20ABFC03-D8CD-41D0-82E2-C7814F7B56D1}.Release|x64.Build.0 = Release|x64
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Debug|Win32.Build.0 = Debug|Win32
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Debug|x64.ActiveCfg = Debug|x64
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Debug|x64.Build.0 = Debug|x64
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Release|Win32.ActiveCfg = Release|Win32
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Release|Win32.Build.0 = Release|Win32
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Release|x64.ActiveCfg = Release|x64
+		{6FEBE589-4BEA-4D4F-968C-303601B89B91}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

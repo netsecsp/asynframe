@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "stdafx.h"
 #include <conio.h>
 
-#include <frame/AsynNetwork_internal.h>
+#include <frame/AsynNetwork.h>
 #include <frame/asm/IProxy.h>
 #include <frame/asm/INet.h>
 #define AAPIDLL_USING

@@ -1,4 +1,4 @@
-## Asynframe framework v1.6.0 [english](/README_EN.md) | 中文
+## Asynframe framework v1.6.1 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -64,9 +64,10 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 
 # 变更记录
-> 2024/05/17 发布windows平台的asynframe framework v1.6.0  
+> 2024/07/12 发布windows平台的asynframe framework v1.6.1  
 1. 发布版本: 面向设计重构架构/接口  
-2. 修复已知问题  
+2. 支持检测网卡变动事件  
+3. 修复已知问题  
 > 2023/11/15 发布windows平台的asynframe framework v1.5.2  
 > 2023/03/31 发布windows平台的asynframe framework v1.4.6  
 > 2023/02/02 发布windows平台的asynframe framework v1.3.2  
@@ -75,8 +76,8 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.6.0-Msvc2019_20240517.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.6.0-Msvc2013_20240517.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.6.1-Msvc2019_20240712.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.6.1-Msvc2013_20240712.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -114,45 +115,45 @@ int main(int argc, const char *argv[])
 
 # 开发  
 
-- 接口定义  
-  [IAsynFrame](https://netsecsp.github.io/doc/IAsynFrame.txt)  
-  [IAsynFileSystem](https://netsecsp.github.io/doc/IAsynFileSystem.txt)  
-  [IAsynIpcChannel](https://netsecsp.github.io/doc/IAsynIpcChannel.txt)  
-  [IAsynNetwork](https://netsecsp.github.io/doc/IAsynNetwork.txt)  
-  [IAsynNetAgent](https://netsecsp.github.io/doc/IAsynNetAgent.txt)  
-  [IConsole](https://netsecsp.github.io/doc/IConsole.txt)  
-  [IExceptionTrapper](https://netsecsp.github.io/doc/IExceptionTrapper.txt)  
-  [INet](https://netsecsp.github.io/doc/INet.txt)  
-  [IProxy](https://netsecsp.github.io/doc/IProxy.txt)  
-  [ISsl](https://netsecsp.github.io/doc/ISsl.txt)  
-  [IScriptHost](https://netsecsp.github.io/doc/IScriptHost.txt)  
-  [IDtp](https://netsecsp.github.io/doc/IDtp.txt)  
+<u>接口定义</u>  
+[IAsynFrame](https://netsecsp.github.io/doc/IAsynFrame.txt)  
+[IAsynFileSystem](https://netsecsp.github.io/doc/IAsynFileSystem.txt)  
+[IAsynIpcChannel](https://netsecsp.github.io/doc/IAsynIpcChannel.txt)  
+[IAsynNetwork](https://netsecsp.github.io/doc/IAsynNetwork.txt)  
+[IAsynNetAgent](https://netsecsp.github.io/doc/IAsynNetAgent.txt)  
+[IConsole](https://netsecsp.github.io/doc/IConsole.txt)  
+[IExceptionTrapper](https://netsecsp.github.io/doc/IExceptionTrapper.txt)  
+[INet](https://netsecsp.github.io/doc/INet.txt)  
+[IProxy](https://netsecsp.github.io/doc/IProxy.txt)  
+[ISsl](https://netsecsp.github.io/doc/ISsl.txt)  
+[IScriptHost](https://netsecsp.github.io/doc/IScriptHost.txt)  
+[IDtp](https://netsecsp.github.io/doc/IDtp.txt)  
 
-- [插件使用](https://netsecsp.github.io/doc/externapi.md)   
+<u>[插件使用](https://netsecsp.github.io/doc/externapi.md)</u>   
 
-  <u>基础模块</u>  
-  - [asyncore](https://netsecsp.github.io/mds/asynframe.md)  
-  - [asynfile](https://netsecsp.github.io/mds/asynfile.md)  
-  - [asynipcs](https://netsecsp.github.io/mds/asynipcs.md)  
-  - [asynsock](https://netsecsp.github.io/mds/asynsock.md)  
-  - [crashexplorer](https://netsecsp.github.io/mds/crashexplorer.md)  
+<u>基础模块</u>  
+[asyncore](https://netsecsp.github.io/mds/asynframe.md)  
+[asynfile](https://netsecsp.github.io/mds/asynfile.md)  
+[asynipcs](https://netsecsp.github.io/mds/asynipcs.md)  
+[asynsock](https://netsecsp.github.io/mds/asynsock.md)  
+[crashexplorer](https://netsecsp.github.io/mds/crashexplorer.md)  
 
-  <u>网络模块</u>  
-  - [asynneta](https://netsecsp.github.io/mds/asynneta.md)    
-  - [dtp](https://netsecsp.github.io/mds/dtp.md)  
-  - [dns](https://netsecsp.github.io/mds/dns.md)  
-  - [ftp](https://netsecsp.github.io/mds/ftp.md)  
-  - [http](https://netsecsp.github.io/mds/http.md)  
-  - [rtsp](https://netsecsp.github.io/mds/rtsp.md)  
-  - [proxy](https://netsecsp.github.io/mds/proxy.md)  
-  - [ssl](https://netsecsp.github.io/mds/ssl.md)  
-  - [websocket](https://netsecsp.github.io/mds/websocket.md)  
+<u>网络模块</u>  
+[asynneta](https://netsecsp.github.io/mds/asynneta.md)    
+[dtp](https://netsecsp.github.io/mds/dtp.md)  
+[dns](https://netsecsp.github.io/mds/dns.md)  
+[ftp](https://netsecsp.github.io/mds/ftp.md)  
+[http](https://netsecsp.github.io/mds/http.md)  
+[rtsp](https://netsecsp.github.io/mds/rtsp.md)  
+[proxy](https://netsecsp.github.io/mds/proxy.md)  
+[ssl](https://netsecsp.github.io/mds/ssl.md)  
+[websocket](https://netsecsp.github.io/mds/websocket.md)  
 
-  <u>扩展模块</u>  
-  - [console](https://netsecsp.github.io/mds/console.md)  
-  - [lua](https://netsecsp.github.io/mds/lua.md)  
-  - [zip](https://netsecsp.github.io/mds/zip.md)  
-  - [sqlite](https://netsecsp.github.io/mds/sqlite.md)  
+<u>扩展模块</u>  
+[console](https://netsecsp.github.io/mds/console.md)  
+[lua](https://netsecsp.github.io/mds/lua.md)  
+[zip](https://netsecsp.github.io/mds/zip.md)  
+[sqlite](https://netsecsp.github.io/mds/sqlite.md)  
 
 # 鸣谢  
 [Log4cplus](https://github.com/log4cplus/log4cplus)  

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Apr 22 18:01:46 2024
+/* at Fri Jul 12 17:04:58 2024
  */
 /* Compiler settings for IScriptHost.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -91,11 +91,15 @@ EXTERN_C const IID IID_SObject;
     SObject : public IUnknown
     {
     public:
+        virtual HRESULT STDMETHODCALLTYPE Set( 
+            /* [in] */ handle object) = 0;
+        
         virtual HRESULT STDMETHODCALLTYPE Get( 
-            /* [out] */ STRING *name) = 0;
+            /* [out] */ STRING *pName,
+            /* [out] */ handle *object) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CastOf( 
-            /* [in] */ STRING name,
+            /* [in] */ STRING cName,
             /* [out] */ IUnknown **object) = 0;
         
     };
@@ -119,13 +123,18 @@ EXTERN_C const IID IID_SObject;
         ULONG ( STDMETHODCALLTYPE *Release )( 
             SObject * This);
         
+        HRESULT ( STDMETHODCALLTYPE *Set )( 
+            SObject * This,
+            /* [in] */ handle object);
+        
         HRESULT ( STDMETHODCALLTYPE *Get )( 
             SObject * This,
-            /* [out] */ STRING *name);
+            /* [out] */ STRING *pName,
+            /* [out] */ handle *object);
         
         HRESULT ( STDMETHODCALLTYPE *CastOf )( 
             SObject * This,
-            /* [in] */ STRING name,
+            /* [in] */ STRING cName,
             /* [out] */ IUnknown **object);
         
         END_INTERFACE
@@ -151,11 +160,14 @@ EXTERN_C const IID IID_SObject;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define SObject_Get(This,name)	\
-    ( (This)->lpVtbl -> Get(This,name) ) 
+#define SObject_Set(This,object)	\
+    ( (This)->lpVtbl -> Set(This,object) ) 
 
-#define SObject_CastOf(This,name,object)	\
-    ( (This)->lpVtbl -> CastOf(This,name,object) ) 
+#define SObject_Get(This,pName,object)	\
+    ( (This)->lpVtbl -> Get(This,pName,object) ) 
+
+#define SObject_CastOf(This,cName,object)	\
+    ( (This)->lpVtbl -> CastOf(This,cName,object) ) 
 
 #endif /* COBJMACROS */
 

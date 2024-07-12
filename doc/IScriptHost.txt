@@ -33,7 +33,7 @@ import "IAsynFrame.idl";
 
     cpp_quote("#pragma pack(push, 1)")
 
-    [
+    [// c端可选继承SObject, 用于绑定对应lua/java/python的对象
         object,
         uuid(39536006-6C36-4C2D-A222-E6835D3F781B),
         helpstring("SObject Interface"),
@@ -41,11 +41,12 @@ import "IAsynFrame.idl";
     ]
     interface SObject : IUnknown
     {
-        HRESULT Get( [out]STRING* name);
-        HRESULT CastOf( [in ]STRING name, [out]IUnknown** object );
+        HRESULT Set( [in ]handle object );//设置对应关联信息
+        HRESULT Get( [out]STRING* pName, [out]handle* object );
+        HRESULT CastOf( [in ]STRING cName, [out]IUnknown** object );
     };
 
-    [// 显式继承IAsynMessageHolder接口，for lua/java
+    [// 显式继承IAsynMessageHolder接口，for lua/java/python
         object,
         uuid(3427C7EA-00B9-4868-819A-02F01E756A69),
         helpstring("IScriptHost Interface"),

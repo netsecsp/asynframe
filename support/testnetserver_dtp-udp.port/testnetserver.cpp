@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *****************************************************************************/
 #include "stdafx.h"
 #include <conio.h>
-#include <frame/AsynFile_internal.h>
+#include <frame/AsynFile.h>
 #include <frame/net/Dtp.h>
 
 #define AAPIDLL_USING

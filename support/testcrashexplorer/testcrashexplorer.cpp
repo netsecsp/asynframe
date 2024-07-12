@@ -40,7 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define AAPIDLL_USING
 
-#include <frame/AsynCore_internal.h>
+#include <frame/AsynCore.h>
 #ifdef  AAPIDLL_USING
 #include <frame/asm/ITypedef_i.c>
 #include <frame/asm/IAsynFrame_i.c>

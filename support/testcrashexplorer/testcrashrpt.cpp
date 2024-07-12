@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define AAPIDLL_USING
 
-#include <frame/AsynCrashexplorer_internal.h>
+#include <frame/AsynCrashexplorer.h>
 #ifdef  AAPIDLL_USING
 #include <frame/asm/ITypedef_i.c>
 #include <frame/asm/IAsynFrame_i.c>

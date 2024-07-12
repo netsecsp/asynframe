@@ -18,23 +18,27 @@
 #include <windows.h>
 #endif
 
-#define UAPI __stdcall
 #define MAX_C_NAME_SIZE (31) //max length of class name 
+
+#ifndef UAPI
+#pragma message("warning message: enable __stdcall to luatinker")
+#define UAPI __stdcall
+#endif
 
 typedef void (*FUN_LOGWRITE)(const char *msg);
 
 namespace lua
 {
    // string-buffer excution
-   void dofile   ( lua_State *L, const char *filename );
-   void dostring ( lua_State *L, const char* buff );
-   void dobuffer ( lua_State *L, const char* buff, size_t sz );
+   void loadfile ( lua_State *L, const char *filename );
+   void dostring ( lua_State *L, const char* buff, unsigned int size = 0);
 
    int  on_error ( lua_State *L );
 
    // debug helpers
    void set_log_write( FUN_LOGWRITE fun );
    void log_write( lua_State *L, const char* fmt, ... );
+
    void enumstack( lua_State *L, const char* msg = "" );
 
    // type trait

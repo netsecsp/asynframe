@@ -10,7 +10,7 @@
 
 #include "resource.h"		// 主符号
 
-#include <frame/AsynCore_internal.h>
+#include <frame/AsynCore.h>
 
 // CtestnetserverApp:
 // 有关此类的实现，请参阅 testnetserver.cpp

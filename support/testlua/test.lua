@@ -1,16 +1,18 @@
 print(package.path)
 print(package.cpath)
 
+
 print(sys.instancesmanager)
 print(sys.luahost)
-print(sys.appdata)
+print("appdata="..sys.appdata)
+print("sysroot="..sys.sysroot)
 
-print(sysargv.net)
-sysargv.net=2
-print(sysargv.net)
-
-print("save to config.ini")
+print("get global.net="..sysargv.get("net", 1))
+print("set global.net=2")
+sysargv.set("net", 2)
+print("save to C:\\Users\\<account>\\AppData\\Roaming\\Netsecsp\\testlua\\config.ini")
 sysargv.save()
+
 
 print("This is my world! from test.lua")
 
@@ -24,15 +26,22 @@ function main(data)
     return 0
 end
 
-protocol = {
+myinfo = {
     name = "alex",
     onMessage = function(message, lparam1, lparam2, object)
-       print("message="..message..", lparam1="..lparam1..", lparam2="..lparam2)
+       print("message="..message..", lparam1="..lparam1..", lparam2="..lparam2.." in myinfo.onMessage")
        return 0
     end
 }
 
-sys.invoke(nil, api.createObject(0), 10000, 2, 3, nil)
+function onMessage(message, lparam1, lparam2, object)
+    print("message="..message..", lparam1="..lparam1..", lparam2="..lparam2.." in global.onMessage")
+    return 0
+end
+
+sys.invoke(nil, api.createObject(0), 10000, 1, 10)
+sys.invoke(nil, myinfo.onMessage, 20000, 2, 20)
+sys.invoke(nil, onMessage, 30000, 3, 30)
 
 print("create CTestX")
 local obx = api.createObject(1)

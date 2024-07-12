@@ -21,7 +21,7 @@ public:
 public: //interface of IAsynMessageEvents
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
     {
-        printf("execute: message=%d, lparam1=%lld, lparam2=%lld, object=%p\n", message, lparam1, lparam2, objects? objects[0] : 0);
+        printf("message=%d, lparam1=%lld, lparam2=%lld, object=%p in testapi\n", message, lparam1, lparam2, objects? objects[0] : 0);
         return S_OK;
     }
 };
@@ -56,7 +56,11 @@ public:
     END_OBJ_MAP()
 
 public: //interface of SObject
-    STDMETHOD(Get)( /*[out]*/STRING* name )
+    STDMETHOD(Set)( /*[in ]*/handle unused )
+    {
+        return E_NOTIMPL;
+    }
+    STDMETHOD(Get)( /*[out]*/STRING* name, /*[out]*/handle* unused )
     {
         name->ptr = (unsigned char*)"CTestX";
         name->len = 6;

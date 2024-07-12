@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Fri Apr 19 09:52:49 2024
+/* at Fri Jul 12 17:04:39 2024
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -813,7 +813,7 @@ EXTERN_C const IID IID_IAsynMessageHolder;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE Invoke( 
-            /* [in] */ IThread *pThread,
+            /* [in] */ IThread *thread,
             /* [in] */ IUnknown *events,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
@@ -843,7 +843,7 @@ EXTERN_C const IID IID_IAsynMessageHolder;
         
         HRESULT ( STDMETHODCALLTYPE *Invoke )( 
             IAsynMessageHolder * This,
-            /* [in] */ IThread *pThread,
+            /* [in] */ IThread *thread,
             /* [in] */ IUnknown *events,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
@@ -873,8 +873,8 @@ EXTERN_C const IID IID_IAsynMessageHolder;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynMessageHolder_Invoke(This,pThread,events,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> Invoke(This,pThread,events,message,lparam1,lparam2,object) ) 
+#define IAsynMessageHolder_Invoke(This,thread,events,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> Invoke(This,thread,events,message,lparam1,lparam2,object) ) 
 
 #endif /* COBJMACROS */
 

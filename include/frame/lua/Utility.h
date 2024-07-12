@@ -47,14 +47,16 @@ extern "C" {
 }
 #endif
 #include "LuaTinker.h"
-#include "../AsynCore_internal.h"
+#include "../AsynCore.h"
 #include "../asm/IScriptHost.h"
 NAMESPACE_BEGIN(lua)
 
+/////////////////////////////////////////////////////////////////////
 InstancesManager *GetInstancesManager( /*[in ]*/lua_State *pState );
 IScriptHost      *GetScriptHost( /*[in ]*/lua_State *pState );
 
-bool Push( /*[in ]*/lua_State *pState, /*[in ]*/IUnknown* object ); //remark: 仅在栈顶生成对应lua对象, 不用时需要release才能释放c++对象
+bool  Push( /*[in ]*/lua_State *pState, /*[in ]*/IUnknown* object ); //remark: 仅在栈顶生成对应lua对象, 不用时需要release才能释放c对象
+/////////////////////////////////////////////////////////////////////
 
 NAMESPACE_END(lua)
 

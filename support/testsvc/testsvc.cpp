@@ -10,7 +10,7 @@
 #pragma comment(lib, "advapi32.lib") //for service api
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#include <frame/AsynCore_internal.h>
+#include <frame/AsynCore.h>
 
 #define AAPIDLL_USING 1
 #ifdef  AAPIDLL_USING
@@ -76,12 +76,13 @@ public:
                  break;
 
             case SERVICE_CONTROL_POWEREVENT:
-                 LOGGER_INFO(logger, "do PowerEvt, Control=" << inControl << ", EventType=" << inEventType);
                  if( inEventType == PBT_APMSUSPEND       )
                  {
+                     LOGGER_INFO(logger, "do PowerEvent, EventType=" << inEventType);
                  }
                  if( inEventType == PBT_APMRESUMESUSPEND )
                  {
+                     LOGGER_INFO(logger, "do PowerEvent, EventType=" << inEventType);
                  }
                  break;
 
