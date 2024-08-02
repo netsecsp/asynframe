@@ -174,7 +174,8 @@ public: //interface of IStringSetter
 public:
     CMemorySetter *Set(const void *val, uint32_t len)
     {
-        STRING_EX::Set(&m_val, val, len );
+        m_val.ptr = (unsigned char*)val;
+        m_val.len = len;
         return this;
     }
 

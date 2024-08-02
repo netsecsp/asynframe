@@ -4,7 +4,7 @@
 #include <tchar.h>
 #include <strsafe.h>
 
-#define SVCNAME   _T("Test-SvcName")
+#define SVCNAME   _T("TestSvcName")
 #define EVENTID   10086
 
 #pragma comment(lib, "advapi32.lib") //for service api
@@ -76,13 +76,12 @@ public:
                  break;
 
             case SERVICE_CONTROL_POWEREVENT:
+                 LOGGER_INFO(logger, "do PowerEvt, Control=" << inControl << ", EventType=" << inEventType);
                  if( inEventType == PBT_APMSUSPEND       )
                  {
-                     LOGGER_INFO(logger, "do PowerEvent, EventType=" << inEventType);
                  }
                  if( inEventType == PBT_APMRESUMESUSPEND )
                  {
-                     LOGGER_INFO(logger, "do PowerEvent, EventType=" << inEventType);
                  }
                  break;
 
@@ -203,9 +202,9 @@ void SvcDoInstall()
     do{
     // Create the service
     SC_HANDLE schService = CreateService(
-                                schManager,              // SCM database 
+                                schManager,                // SCM database 
                                 SVCNAME,                   // name of service 
-                                _T("Test"),                // service name to display 
+                                _T("Test service demo"),   // service name to display 
                                 SERVICE_ALL_ACCESS,        // desired access 
                                 SERVICE_WIN32_OWN_PROCESS, // service type 
                                 SERVICE_DEMAND_START,      // start type 

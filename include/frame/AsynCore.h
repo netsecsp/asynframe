@@ -95,17 +95,16 @@ END_ASYN_IOERROR()
 #define IN_Evtthreadpool                "evtthreadpool"
 #define IN_Opsthreadpool                "opsthreadpool"
 #define IN_Netthreadpool                "netthreadpool"
+
+#define IN_SysTime                      "systime"
+
 #define IN_SysRoot                      "sysroot" //系统路径
 #define IN_AppData                      "appdata" //数据路径
 #define IN_Plugins                      "plugins" //插件路径
-
 #define IN_SysArgv                      "sysargv" //系统参数
-#define IN_SysInfo                      "sysinfo"
-#define IN_SysTime                      "systime"
-#define IN_MemData                      "memdata"
+
 #define IN_LogProp                      "logprop" //log4cplus配置的全路径
 
-#define IN_Instancesmanager             "instancesmanager"
 #define IN_LuaHost                      "luahost"
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -171,9 +170,12 @@ END_ASYN_IOERROR()
 //global of events.Notify.lparam1{AF_QUERY_RESULT / AF_EVENT_NOTIFY 0 x IKeyval}
 #define EN_SystemEvent                  ( 0 )
 //InstancesManager.Attach.lparam1{注册事件}
-#define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 0 hwnd IThread #通知处理/窗口线程
-#define EN_SystemPower                  ( 2 ) //AF_EVENT_NOTIFY 0 x IKeyval #通知电源变化
-#define EN_NetworkAdapterChanged        ( 3 ) //AF_EVENT_NOTIFY 0 x IKeyval #通知网卡变化
+#define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 0        hwnd IThread #通知处理/窗口线程
+///////////////////////////////////////////////
+#define EVENT_ID_Shutdown               ( 0 ) //AF_EVENT_NOTIFY 0 (0<<32) + 0 IKeyval #通知结束
+#define EVENT_ID_SysPower               ( 1 ) //AF_EVENT_NOTIFY 0 (1<<32) + x IKeyval #通知电源
+#define EVENT_ID_NetworkAdapter         ( 2 ) //AF_EVENT_NOTIFY 0 (2<<32) + x IKeyval #通知网卡
+#define EVENT_ID_WifiSignalQuality      ( 3 ) //AF_EVENT_NOTIFY 0 (3<<32) + x IKeyval #通知wifi信号质量
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynIoDevice.IObjectHolder(method)

@@ -67,14 +67,24 @@ public: //interface of IAsynMessageEvents
     }
 };
 
-class CThreadMessageEvents_base : public CAsynMessageEvents_base
+class CThreadMessageEvents_base : 
+        public IAsynMessageEvents,
+        public CMultiThreadModelObject //CComObjectRootEx<CComSingleThreadModel>
 {// for IThread/IAsynFrameThread
 public:
     CThreadMessageEvents_base( /*[in ]*/uint32_t dwRef = 0 )
-      : CAsynMessageEvents_base(dwRef)
+      : CMultiThreadModelObject(dwRef)
     {
     }
     virtual ~CThreadMessageEvents_base() { }
+
+//  DECLARE_NOT_AGGREGATABLE(CAsynMessageEvents_base)
+//  BEGIN_COM_MAP(CAsynMessageEvents_base)
+//      COM_INTERFACE_ENTRY(IAsynMessageEvents)
+//  END_COM_MAP()
+    BEGIN_OBJ_MAP(CAsynMessageEvents_base)
+        OBJ_INTERFACE_ENTRY(IAsynMessageEvents)
+    END_OBJ_MAP()
 
 protected: //for subclass to impl
     virtual void OnThreadEnter( /*[in ]*/IThread* thread )

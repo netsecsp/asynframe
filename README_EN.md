@@ -1,4 +1,4 @@
-## Asynframe framework v1.6.1 english | [中文](/README.md)
+## Asynframe framework v1.7.0 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -60,13 +60,14 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |websocket|plugin[asynsock]|websocket protocol<br>1.implement data frame slice<br>2.priority transmission control frame|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
 |Dtp|plugin[asyncock]|port reuse framework to implement tcp/udp|support testnetserver_ dtp-tcp.port<br>\support\testnetserver_ dtp-udp.port|
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
-|lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testframe<br>\support\testlua\testapi|ß
+|lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4<br>1.implement threads and logs|\support\testlua\testlua<br>\support\testlua\testapi|
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 
 # Change log
+> 2024/08/02 Release asynframe framework v1.7.0  
+1. Release plugin: jvmvproxy  
+2. Fix crashes caused by IKeyval.Set not filtering empty strings  
 > 2024/07/12 Release asynframe framework v1.6.1  
-1. Release version: Design oriented refactoring architecture/interface  
-2. Fix known problems  
 > 2023/11/15 Release asynframe framework v1.5.2  
 > 2023/03/31 Release asynframe framework v1.4.6  
 > 2023/02/02 Release asynframe framework v1.3.2  
@@ -75,8 +76,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.6.1-Msvc2019_20240712.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.6.1-Msvc2013_20240712.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.7.0-Msvc2019_20240802.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.7.0-Msvc2013_20240802.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  

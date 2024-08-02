@@ -194,11 +194,13 @@ int _tmain(int argc, _TCHAR *argv[])
             HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem));
             LOGGER_INFO(logger, "Require: name=" << IN_AsynFileSystem << (r1 == 0 ? " ok" : " no"));
 
-            HRESULT r2 = lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork));
-            LOGGER_INFO(logger, "Require: name=" << IN_AsynNetwork << (r2 == 0 ? " ok" : " no"));
+            if( argc > 2 ) {
+            HRESULT r2 = lpInstancesManager->Require(STRING_from_string(argv[2]));
+            LOGGER_INFO(logger, "Require: name=" << argv[2] << (r2 == 0 ? " ok" : " no"));
+            }
 
             uint64_t id = EN_FrameThread;
-            lpInstancesManager->Notify(&STRING_from_value(id), AF_EVENT_NOTIFY, 0, 0, spAsynFrameThread);
+            lpInstancesManager->Notify(&STRING_from_number(id), AF_EVENT_NOTIFY, 0, 0, spAsynFrameThread);
             while(_kbhit() == 0 )
             {
                 Sleep(100);
@@ -333,28 +335,6 @@ int _tmain(int argc, _TCHAR *argv[])
             std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             spCommand->Execute(0, STRING_from_string("select * from coreinfo;"), 0, 0, 0, pEvent->GetAsynMessageEvents());
             pEvent->Shutdown();
-        }
-        else if( strcmp(argv[1], "lua") == 0 )
-        {// lua test.lua main
-            CComPtr<IOsCommand > spCommand;
-            if( asynsdk::CreateObject(lpInstancesManager, "lua", 0, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
-            {
-                break;
-            }
-
-            {// open test.lua
-                spCommand->Execute(0, STRING_from_string("open"), &STRING_from_string("test.lua"), 1, 0, 0);
-            }
-
-            {// call main in current thread
-                spCommand->Execute(0, STRING_from_string(argc > 2? argv[2] : "main"), &STRING_from_string(argc > 3? argv[3] : "This is my world!"), 1, 0, 0);
-            }
-
-            {// call protocol.onMessage in spAsynFrameThread
-                CComPtr<IScriptHost> script; spCommand->QueryInterface(IID_IScriptHost, (void**)&script);
-                script->Invoke(spAsynFrameThread, &asynsdk::CStringSetter("protocol"), 10000, 2, 3, 0);
-                Sleep(1000);
-            }
         }
         else if( strcmp(argv[1], "event") == 0 )
         {

@@ -44,24 +44,27 @@ NAMESPACE_BEGIN(asynsdk)
 class CSetting
 {
 public:
-    CSetting(IKeyvalSetter* keyval)
+    CSetting(IKeyvalSetter* keyval = NULL)
       : m_key2vals(keyval)
     {
     }
 
 public:
-    std::string Get(const std::string &key, const std::string &default_value = "");
-    void        Set(const std::string &key, const std::string &value);
-
-    int64_t     Get(const std::string &key, int64_t default_value = 0);
-    void        Set(const std::string &key, int64_t value );
-
-    int32_t     Get(const std::string &key, int32_t default_value = 0);
-    void        Set(const std::string &key, int32_t value );
-
-    void Save()
+    bool from(IUnknown* keyval)
     {
-        m_key2vals->Travel(0);
+         return m_key2vals.From(keyval) != 0;
+    }
+
+public:
+    std::string getString(const std::string &key, const std::string &default_value = "");
+    void        setString(const std::string &key, const std::string &value);
+
+    int32_t     getNumber(const std::string &key, int32_t default_value = 0);
+    void        setNumber(const std::string &key, int32_t value );
+
+    void save()
+    {
+         m_key2vals->Travel(0);
     }
 
 private:

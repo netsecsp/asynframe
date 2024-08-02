@@ -44,44 +44,55 @@ NAMESPACE_BEGIN(asynsdk)
 #define string_from_STRING(S)    std::string((char*)(S).ptr, (S).len)
 #define string_from_BUFFER(S, l) std::string((char*)(S), l)
 #define STRING_from_string(s)    asynsdk::STRING_EX(s)
-#define STRING_from_buffer(S, l) asynsdk::STRING_EX((void*)(S), l)
-#define STRING_from_object(S)    asynsdk::STRING_EX((void*)(S), 0)
-#define STRING_from_value(S)     asynsdk::STRING_EX(&(S), sizeof(S))
-template<typename T> T value_from_STRING(STRING *s) { return *((T*)s->ptr);}
+#define STRING_from_buffer(s, l) asynsdk::STRING_EX((void*)(s), l)
+#define STRING_from_object(s)    asynsdk::STRING_EX((IUnknown *)(s))
+#define STRING_from_number(s)    asynsdk::STRING_EX(&(s), sizeof(s))
+template<typename T> T number_from_STRING(STRING *S) { return *((T*)S->ptr);}
 
 /////////////////////////////////////////////////////////////////////////////////
 struct STRING_EX : public STRING
 {
 public:
-    STRING_EX(const char *s = "")
+    STRING_EX(const void *s, uint32_t l)
     {
-        Set(s, (uint32_t)strlen(s));
+        ptr = (unsigned char*)s;
+        len = l;
     }
     STRING_EX(const std::string &s)
     {
         Set(s.empty()? "" : s.c_str(), (uint32_t)s.size());
     }
-    STRING_EX(const void *s, uint32_t l)
+    STRING_EX(const char *s)
     {
-        Set(s, l);
+        Set(s, (uint32_t)strlen(s));
+    }
+    STRING_EX(IUnknown *o)
+    {
+        Set(o);
     }
 
 public:
     static unsigned int Set(STRING *v, const void *s, uint32_t l)
     {
-        v->ptr = (unsigned char *)s;
+        v->ptr = (unsigned char*)s;
         v->len = l;
         return l;
     }
     STRING_EX *Set(const void *s, uint32_t l)
     {
-        ptr = (unsigned char *)s; 
+        ptr = l? (unsigned char*)s : STRING_EX::null.ptr; 
         len = l;
+        return this;
+    }
+    STRING_EX *Set(IUnknown *o)
+    {
+        ptr = (unsigned char*)o; 
+        len = 0;
         return this;
     }
 
 public:
-    static STRING_EX null; //定义空值
+    static STRING_EX null; //定义空串
 };
 
 NAMESPACE_END(asynsdk)

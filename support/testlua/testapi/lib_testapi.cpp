@@ -1,10 +1,13 @@
 // lib_testapi.cpp : Implementation of lib Exports.
 #include <StdAfx.h>
 #include <initguid.h>
-#include <frame/lua/Utility.h>
+#include <frame/lua/JniProxy.h>
 #include "ITestapi.h"
 #include "ITestapi_i.c"
 #pragma comment(lib, "lua_dll.lib")
+
+LOGGER_IMPLEMENT( logger, "lua", "Testapi(lua)");
+/////////////////////////////////////////////////////////////////////////////
 
 class CAsynMessageEvents : public asynsdk::CAsynMessageEvents_base
 {
@@ -102,7 +105,6 @@ public: //interface of ITestA/ITestB
     }
 };
 
-LOGGER_IMPLEMENT( logger, "lua", "Testapi(lua)");
 /////////////////////////////////////////////////////////////////////////////
 static int apiWrite(lua_State *pState)
 {
@@ -122,15 +124,15 @@ static int apiCreateObject(lua_State *pState)
 /////////////////////////////////////////////////////////////////////////////
 int luaopen_testapi(lua_State *pState)
 {
-    InstancesManager *lpInstancesManager = lua::GetInstancesManager(pState);
-    if(!lpInstancesManager )
+    IScriptHost *lpScriptHost = lua::GetScriptHost(pState);
+    if(!lpScriptHost )
     {// 通知失败
         return 0;
     }
 
     #ifdef  _LOG
     #ifndef _LIB
-    asynsdk::AsynLogger_Initialize(lpInstancesManager);
+    asynsdk::AsynLogger_Initialize(lpScriptHost);
     #endif
     LOGGER_DEBUG(logger, "1.0 builded in " << __DATE__ << " " << __TIME__);
     #endif

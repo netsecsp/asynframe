@@ -1,0 +1,6 @@
+ ; dll_testapi.def : Declares the module parameters.
+
+LIBRARY "testapi.dll"
+
+EXPORTS
+	JNI_OnLoad

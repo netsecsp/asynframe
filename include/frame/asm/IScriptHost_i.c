@@ -6,7 +6,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Fri Jul 12 17:04:58 2024
+/* at Thu Jul 04 11:36:57 2024
  */
 /* Compiler settings for IScriptHost.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
