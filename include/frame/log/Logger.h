@@ -131,7 +131,7 @@ public:
 
 public:
     bool IsEnabled(/*in*/unsigned int level); //日志级别是否可输出
-    void Logs(/*in*/unsigned int level, /*in*/const std::string &text, /*in*/const char *file = 0, /*in*/unsigned int line = 0);
+    void Logs(/*in*/unsigned int level, /*in*/const std::string &text, /*in*/const char *file="", /*in*/unsigned int line = 0);
     void Dump(/*in*/unsigned int level, /*in*/const std::string &head, /*in*/unsigned char *data, /*in*/unsigned int size);
 
 private:
