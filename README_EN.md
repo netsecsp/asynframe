@@ -50,7 +50,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |asynfile|plugin[asyncore]|file|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|plugin[asyncore]|Interprocess communication|\support\testipcclient<br>\support\testipcserver|
 |asynneta|plugin[asyncore]|network agent service<br>1.implement http[s] agent：Basic/Digest authorize<br>2.implement ftp[s] agent<br>3. implement socks4.0/4.a/5.0 agent|[aneta](https://github.com/netsecsp/aneta)|
-|asynsock|plugin[asyncore]|network: <br>1.implement IPv6 and compatible with IPv4<br>2.implement DNS|\support\testnetclient<br>\support\testnetserver<br>[ping](https://github.com/netsecsp/pingx)|
+|asynsock|plugin[asyncore]|network: <br>1.implement IPv6 and compatible with IPv4<br>2.implement DNS|\support\testnetclient<br>\support\testnetserver<br>[pingx](https://github.com/netsecsp/pingx)|
 |dns|plugin[asynsock]|DNS<br>1.implement udp dns<br>2.implement tcp dns<br>3.implement httpDNS: Alibaba cloud/Tengxun cloud|\support\testdns|
 |ftp|plugin[asynsock]|ftp protocol|[aftpx](https://github.com/netsecsp/aftpx)<br>[acurl](https://github.com/netsecsp/acurl)|
 |http|plugin[asynsock]|http protocol|[ahttp](https://github.com/netsecsp/ahttp)<br>[acurl](https://github.com/netsecsp/acurl)|
@@ -61,7 +61,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 |Dtp|plugin[asyncock]|port reuse framework to implement tcp/udp|support testnetserver_ dtp-tcp.port<br>\support\testnetserver_ dtp-udp.port|
-|lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4 lua framework<br>1.implement threads and logs|\support\testlua\testlua<br>\support\testlua\testapi|
+|lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4 lua framework|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|plugin|Implementation of IOsCommand interface java framework|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
 
 # Change log

@@ -50,7 +50,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
 |asynipcs|插件[asyncore]|进程间通讯|\support\testipcclient<br>\support\testipcserver|
 |asynneta|插件[asyncore]|服务端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理<br>4.提供tcp/udp端口转发|[aneta](https://github.com/netsecsp/aneta)|
-|asynsock|插件[asyncore]|网络<br>1.支持ipv6兼容ipv4<br>2.支持默认DNS 解析|\support\testnetclient<br>\support\testnetserver<br>[ping](https://github.com/netsecsp/pingx)|
+|asynsock|插件[asyncore]|网络<br>1.支持ipv6兼容ipv4<br>2.支持默认DNS 解析|\support\testnetclient<br>\support\testnetserver<br>[pingx](https://github.com/netsecsp/pingx)|
 |dns|插件[asynsock]|域名解析<br>1.udp dns<br>2.tcp dns<br>3.httpDNS: 实现阿里云/腾迅云|\support\testdns|
 |ftp |插件[asynsock]|ftp 协议|[aftpx](https://github.com/netsecsp/aftpx)<br>[acurl](https://github.com/netsecsp/acurl)|
 |http|插件[asynsock]|http协议|[ahttp](https://github.com/netsecsp/ahttp)<br>[acurl](https://github.com/netsecsp/acurl)|
@@ -61,7 +61,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |zip|插件|基于zlib-1.2.11.0实现IDataTransmit接口<br>1.支持压缩zip文件<br>2.deflate/inflate数据|\support\testframe|
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 |dtp|插件[asynsock]|实现tcp/udp的端口复用框架|\support\testnetserver_dtp-tcp.port<br>\support\testnetserver_dtp-udp.port|
-|lua|插件|基于lua-5.4.4实现IOsCommand接口执行lua框架<br>1.支持多线程|\support\testlua\testlua<br>\support\testlua\testapi|
+|lua|插件|基于lua-5.4.4实现IOsCommand接口执行lua框架|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|插件|实现IOsComman接口执行java框架|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
 
 # 变更记录
