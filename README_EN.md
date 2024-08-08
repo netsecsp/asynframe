@@ -38,6 +38,9 @@ Asynframe framework solves the six problems mentioned above in the process of so
 3. Embed the micro thread core object into other threads to isolate other codes, so as to facilitate code reconstruction.  
 4. Get a very smooth user experience through the asynchronous execution framework.  
 5. The unified development template, non locking mechanism, high-performance IO framework and demo reduce the learning cost of developers. It can rapidly develop stable and high-performance application modules. It can greatly reduce the amount of developed code.  
+6. Support network UDP/TCP port multiplexing framework.
+7. Support Lua framework.
+8. Support JVM framework.
 
 |module|type|function|demo|
 |:--|:--|:--|:--|
