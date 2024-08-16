@@ -156,6 +156,7 @@ int main(int argc, const char *argv[])
 <u>扩展模块</u>  
 [console](https://netsecsp.github.io/mds/console.md)  
 [lua](https://netsecsp.github.io/mds/lua.md)  
+[jvm](https://netsecsp.github.io/mds/jvmproxy.md)  
 [zip](https://netsecsp.github.io/mds/zip.md)  
 [sqlite](https://netsecsp.github.io/mds/sqlite.md)  
 
