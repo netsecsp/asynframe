@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Fri Apr 19 09:52:49 2024
+/* at Wed Aug 14 15:02:35 2024
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -162,6 +162,13 @@ typedef interface IDataRwInvoke IDataRwInvoke;
 typedef interface IDataProvider IDataProvider;
 
 #endif 	/* __IDataProvider_FWD_DEFINED__ */
+
+
+#ifndef __IDyldProvider_FWD_DEFINED__
+#define __IDyldProvider_FWD_DEFINED__
+typedef interface IDyldProvider IDyldProvider;
+
+#endif 	/* __IDyldProvider_FWD_DEFINED__ */
 
 
 #ifndef __IAsynIoDevice_FWD_DEFINED__
@@ -813,7 +820,7 @@ EXTERN_C const IID IID_IAsynMessageHolder;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE Invoke( 
-            /* [in] */ IThread *pThread,
+            /* [in] */ IThread *thread,
             /* [in] */ IUnknown *events,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
@@ -843,7 +850,7 @@ EXTERN_C const IID IID_IAsynMessageHolder;
         
         HRESULT ( STDMETHODCALLTYPE *Invoke )( 
             IAsynMessageHolder * This,
-            /* [in] */ IThread *pThread,
+            /* [in] */ IThread *thread,
             /* [in] */ IUnknown *events,
             /* [in] */ uint32_t message,
             /* [in] */ uint64_t lparam1,
@@ -873,8 +880,8 @@ EXTERN_C const IID IID_IAsynMessageHolder;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynMessageHolder_Invoke(This,pThread,events,message,lparam1,lparam2,object)	\
-    ( (This)->lpVtbl -> Invoke(This,pThread,events,message,lparam1,lparam2,object) ) 
+#define IAsynMessageHolder_Invoke(This,thread,events,message,lparam1,lparam2,object)	\
+    ( (This)->lpVtbl -> Invoke(This,thread,events,message,lparam1,lparam2,object) ) 
 
 #endif /* COBJMACROS */
 
@@ -2320,6 +2327,86 @@ EXTERN_C const IID IID_IDataProvider;
 #endif 	/* __IDataProvider_INTERFACE_DEFINED__ */
 
 
+#ifndef __IDyldProvider_INTERFACE_DEFINED__
+#define __IDyldProvider_INTERFACE_DEFINED__
+
+/* interface IDyldProvider */
+/* [unique][helpstring][uuid][object] */ 
+
+
+EXTERN_C const IID IID_IDyldProvider;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("94CCE335-9F58-4624-A633-B1FB718D8DB2")
+    IDyldProvider : public IUnknown
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE Symbol( 
+            /* [out] */ handle **table) = 0;
+        
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct IDyldProviderVtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            IDyldProvider * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            IDyldProvider * This);
+        
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            IDyldProvider * This);
+        
+        HRESULT ( STDMETHODCALLTYPE *Symbol )( 
+            IDyldProvider * This,
+            /* [out] */ handle **table);
+        
+        END_INTERFACE
+    } IDyldProviderVtbl;
+
+    interface IDyldProvider
+    {
+        CONST_VTBL struct IDyldProviderVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define IDyldProvider_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define IDyldProvider_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define IDyldProvider_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define IDyldProvider_Symbol(This,table)	\
+    ( (This)->lpVtbl -> Symbol(This,table) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __IDyldProvider_INTERFACE_DEFINED__ */
+
+
 #ifndef __IAsynIoDevice_INTERFACE_DEFINED__
 #define __IAsynIoDevice_INTERFACE_DEFINED__
 
@@ -3405,14 +3492,14 @@ EXTERN_C const IID IID_IAsynFramePlugin;
 #endif 	/* __IAsynFramePlugin_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_IAsynFrame_0000_0024 */
+/* interface __MIDL_itf_IAsynFrame_0000_0025 */
 /* [local] */ 
 
 #pragma pack(pop)
 
 
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0024_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0024_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0025_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_IAsynFrame_0000_0025_v0_0_s_ifspec;
 
 /* Additional Prototypes for ALL interfaces */
 

@@ -73,7 +73,7 @@ int _tmain(int argc, _TCHAR *argv[])
         else
         {
             // call main
-            spCommand->Execute(0, STRING_from_string(argc > 1? argv[1] : "com.demo.JavaTest"), 0, 0, 0, 0);
+            spCommand->Execute(0, STRING_from_string(argc > 1? argv[1] : "com.demo.Testgui"), 0, 0, 0, 0);
         }
     }
 

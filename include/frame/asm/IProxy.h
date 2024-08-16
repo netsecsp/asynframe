@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Fri Apr 19 09:53:02 2024
+/* at Fri Aug 09 20:55:34 2024
  */
 /* Compiler settings for IProxy.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

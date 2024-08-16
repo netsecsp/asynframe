@@ -64,7 +64,7 @@ bool    ReleaseBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in ]*/void *addr);
 
 ///////////////////////////////////////////////////////////////////////////////
 //监听事件句柄出发事件: AF_EVENT_NOTIFY hEvent lparam2 object, 返回的IAsynMessageHolder对象仅用于取消监听事件句柄, 允许thread=0
-IAsynMessageHolder *PostWaitEvent(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/IThread *thread, /*[in ]*/IAsynMessageEvents *events, /*[in ]*/HANDLE event, /*[in ]*/uint64_t lparam2, /*[in ]*/IUnknown *object);
+IAsynMessageHolder *CreateEventMonitor(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/IThread *thread, /*[in ]*/IAsynMessageEvents *events, /*[in ]*/HANDLE event, /*[in ]*/uint64_t lparam2, /*[in ]*/IUnknown *object);
 
 ///////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ThreadcoreMode
@@ -92,7 +92,7 @@ typedef enum tag_ThreadpoolType
 {
     PT_AutoxThreadpool = 0, //自动调整线程池
     PT_FixedThreadpool,     //固定大小线程池
-    PT_SocksThreadpool,     //socket 线程池
+    PT_SocksThreadpool,     //socket  线程池
     PT_EventThreadpool,     //监控事件线程池
 } ThreadpoolType;
 

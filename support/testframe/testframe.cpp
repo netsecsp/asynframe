@@ -346,7 +346,7 @@ int _tmain(int argc, _TCHAR *argv[])
                 {
                     e = CreateEvent(0, FALSE/*bManualReset*/, FALSE, 0);
                     printf("Create e=%d\n", (uint32_t)e);
-                    o.Attach(asynsdk::PostWaitEvent(lpInstancesManager, thread, this, e, lparam2, object));
+                    o.Attach(asynsdk::CreateEventMonitor(lpInstancesManager, thread, this, e, lparam2, object));
                 }
                 virtual ~CEvents()
                 {
