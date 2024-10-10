@@ -33,12 +33,12 @@ IScriptHost* _g_scripthost = 0;
 CObjPtr<IAsynMessageEvents> _g_events(new CAsynMessageEvents());
 
 /////////////////////////////////////////////////////////////////////////////
-jobject JNICALL Java_com_tests_demo_Testapi_create(JNIEnv *env, jclass obj)
+jobject JNICALL Java_com_demo_Testapi_create(JNIEnv *env, jclass obj)
 {
     return jvm::Bind(env,_g_events); //created from java
 }
 
-void JNICALL Java_com_tests_demo_Testapi_write(JNIEnv *env, jclass obj, jstring j_text)
+void JNICALL Java_com_demo_Testapi_write(JNIEnv *env, jclass obj, jstring j_text)
 {
     const char *text = (char *)env->GetStringUTFChars(j_text, 0);
     LOGGER_INFO(logger, text);
@@ -73,7 +73,6 @@ jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved)
     }
 
     _g_scripthost = jvm::GetScriptHost(env); //get IScriptHost.ref
-    LOGGER_INFO(logger, "JNI_OnLoad: " << _g_scripthost);
 
     #ifdef  _LOG
     #ifndef _LIB
@@ -83,8 +82,8 @@ jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved)
     #endif
 
     static const JNINativeMethod methods[] = {
-        {"write" , "(Ljava/lang/String;)V"     , (void*)Java_com_tests_demo_Testapi_write },
-        {"create", "()Lcom/frame/api/CUnknown;", (void*)Java_com_tests_demo_Testapi_create}
+        {"write" , "(Ljava/lang/String;)V"     , (void*)Java_com_demo_Testapi_write },
+        {"create", "()Lcom/frame/api/CUnknown;", (void*)Java_com_demo_Testapi_create}
     };
 
     jclass jc_Testapi = env->FindClass("com/demo/Testapi");

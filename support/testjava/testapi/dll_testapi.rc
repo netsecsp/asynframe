@@ -70,12 +70,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "http://asynframe.sf.net"
             VALUE "FileDescription", "testapi"
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "testapi"
             VALUE "LegalCopyright", "Copyright (c) netsecsp 2012-2032"
             VALUE "OriginalFilename", "testapi.dll"
             VALUE "ProductName", "asynframe"
-            VALUE "ProductVersion", "1, 7, 0, 0"
+            VALUE "ProductVersion", "1.7.1.0"
         END
     END
     BLOCK "VarFileInfo"
