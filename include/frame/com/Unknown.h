@@ -67,7 +67,7 @@ public:
     ULONG UnknownRelease();
 
     template<typename T> 
-    T *DoCast(bool iAddRef = false ) {
+    T *Cast(bool iAddRef = false ) {
        if( iAddRef ) UnknownAddRef();
        return dynamic_cast<T*>(this);
     }
@@ -90,7 +90,7 @@ public:
     ULONG UnknownRelease();
 
     template<typename T> 
-    T *DoCast(bool iAddRef = false ) {
+    T *Cast(bool iAddRef = false ) {
        if( iAddRef ) UnknownAddRef();
        return dynamic_cast<T*>(this);
     }

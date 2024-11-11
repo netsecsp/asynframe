@@ -61,6 +61,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jvm_testjvm", "testjava\tes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jvm_extend_testapi", "testjava\testapi\dll_testapi_jvm.vcxproj", "{A49DE065-CA53-4F0E-B7E7-72CB45214455}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "python_extend_testapi", "testpython\testapi\dll_testapi_python.vcxproj", "{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testpython", "testpython\testpython\testpython.vcxproj", "{3B9FD52C-C707-407A-8EB5-6183049D49C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -301,6 +305,22 @@ Global
 		{A49DE065-CA53-4F0E-B7E7-72CB45214455}.Release|Win32.Build.0 = Release|Win32
 		{A49DE065-CA53-4F0E-B7E7-72CB45214455}.Release|x64.ActiveCfg = Release|x64
 		{A49DE065-CA53-4F0E-B7E7-72CB45214455}.Release|x64.Build.0 = Release|x64
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Debug|Win32.Build.0 = Debug|Win32
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Debug|x64.ActiveCfg = Debug|x64
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Debug|x64.Build.0 = Debug|x64
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Release|Win32.ActiveCfg = Release|Win32
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Release|Win32.Build.0 = Release|Win32
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Release|x64.ActiveCfg = Release|x64
+		{BF6DCC27-994C-4240-88D9-12AC36EA6CB1}.Release|x64.Build.0 = Release|x64
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Debug|Win32.Build.0 = Debug|Win32
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Debug|x64.ActiveCfg = Debug|x64
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Debug|x64.Build.0 = Debug|x64
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Release|Win32.ActiveCfg = Release|Win32
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Release|Win32.Build.0 = Release|Win32
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Release|x64.ActiveCfg = Release|x64
+		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

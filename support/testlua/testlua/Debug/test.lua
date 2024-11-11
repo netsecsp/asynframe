@@ -1,7 +1,7 @@
 print(package.path)
 print(package.cpath)
 
-print(sys.luahost)
+print(sys.xvmhost)
 print("appdata="..sys.appdata)
 print("sysroot="..sys.sysroot)
 
@@ -10,7 +10,6 @@ print("set global.net=2")
 sysargv.set("net", 2)
 print("save to C:\\Users\\<account>\\AppData\\Roaming\\Netsecsp\\testlua\\config.ini")
 sysargv.save()
-
 
 print("This is my world! from test.lua")
 
@@ -37,24 +36,22 @@ function onMessage(message, lparam1, lparam2, object)
     return 0
 end
 
-sys.invoke(nil, api.createObject(0), 10000, 1, 10)
+sys.invoke(nil, api.getEvent(), 10000, 1, 10)
 sys.invoke(nil, myinfo.onMessage, 20000, 2, 20)
 sys.invoke(nil, onMessage, 30000, 3, 30)
 
 print("create CTestX")
-local obx = api.createObject(1)
+local obx = api.newTestX()
 obx:workX(0)
 obx:workA(1)
 obx:workB(2)
 
 local ob1 = obx:castOf("ITestA")
 ob1:workA(1)
-ob1:release()
 ob1 = nil
 
 local ob2 = obx:castOf("ITestB")
 ob2:workB(2)
-ob2:release()
 ob2 = nil
 
 print("release")

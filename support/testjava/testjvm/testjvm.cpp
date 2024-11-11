@@ -64,9 +64,9 @@ int _tmain(int argc, _TCHAR *argv[])
         asynsdk::AsynLogger_Initialize(lpInstancesManager);
         #endif
 
-        asynsdk::CStringSetter jre("D:\\workplat\\gnu\\JDKv17\\x86");
-        CComPtr<IOsCommand > spCommand;
-        if( asynsdk::CreateObject(lpInstancesManager, "com.command.jvm/jvmproxy", &jre, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
+        asynsdk::CStringSetter home("D:\\workplat\\gnu\\JDKv17");
+        CComPtr<IOsCommand> spCommand;
+        if( asynsdk::CreateObject(lpInstancesManager, "com.command.jvm/jvmproxy", &home, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
         {
             printf("fail to load jvmproxy\n");
         }

@@ -37,20 +37,12 @@ template <class T>
 class CObjPtr
 {
 public:
-    CObjPtr(T *v = NULL, bool iAddref = true)
+    CObjPtr(T *v = NULL, bool addref = true)
     {
         p = v;
-        if( p && iAddref )
+        if( p && addref )
         {
             p->AddRef();
-        }
-    }
-    CObjPtr(bool unused, IUnknown *v)
-    {
-        if(!v ||
-            v->QueryInterface(__uuidof(T), (void**)&p) != S_OK )
-        {
-            p = NULL;
         }
     }
     CObjPtr(const CObjPtr<T> &v)
@@ -70,13 +62,14 @@ public:
     }
 
 public:
-    void Attach(T *v) throw()
+    T   *Attach(T *v) throw()
     {
         if( p )
         {
             p->Release();
         }
         p = v;
+        return p;
     }
     // Detach the interface (does not Release)
     T   *Detach()
@@ -101,12 +94,6 @@ public:
             p->Releae();
             p = NULL;
         }
-    }
-
-    template<class C>
-    C    Docast()
-    {
-        return static_cast<C>(p);
     }
 
     void Swap(CObjPtr<T> &v)
@@ -139,12 +126,12 @@ public:
     {
         return p == v;
     }
-    T  *operator->() const throw()
+    T   *operator->() const throw()
     {
         return p;
     }
 
-    T  *operator=(T *v) throw()
+    T   *operator=(T *v) throw()
     {
         if( p )
         {
@@ -154,7 +141,7 @@ public:
         p = v;   if( p ) p->AddRef();
         return p;
     }
-    T  *operator=(const CObjPtr<T> &v) throw()
+    T   *operator=(const CObjPtr<T> &v) throw()
     {
         if( p )
         {

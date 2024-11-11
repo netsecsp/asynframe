@@ -103,9 +103,9 @@ END_ASYN_IOERROR()
 #define IN_Plugins                      "plugins" //插件路径
 #define IN_SysArgv                      "sysargv" //系统参数
 
-#define IN_LogProp                      "logprop" //log4cplus配置的全路径
+#define IN_LogProp                      "logprop" //clog4cplus配置的全路径
 
-#define IN_LuaHost                      "luahost"
+#define IN_XvmHost                      "xvmhost" //lua/python存放IScriptHost对象指针
 
 /////////////////////////////////////////////////////////////////////////////////
 //AF_IOMSG_NOTIFY(lparam2)

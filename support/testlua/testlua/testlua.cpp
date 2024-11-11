@@ -63,8 +63,8 @@ int _tmain(int argc, _TCHAR *argv[])
         asynsdk::AsynLogger_Initialize(lpInstancesManager);
         #endif
 
-        CComPtr<IOsCommand > spCommand;
-        if( asynsdk::CreateObject(lpInstancesManager, "lua", 0, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
+        CComPtr<IOsCommand> spCommand;
+        if( asynsdk::CreateObject(lpInstancesManager, "com.command.lua", 0, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
         {
             printf("fail to load lua\n");
         }

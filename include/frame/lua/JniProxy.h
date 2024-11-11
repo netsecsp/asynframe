@@ -52,8 +52,11 @@ extern "C" {
 NAMESPACE_BEGIN(lua)
 
 /////////////////////////////////////////////////////////////////////
-IScriptHost *GetScriptHost( /*[in ]*/lua_State *pState );
-bool Push( /*[in ]*/lua_State *pState, /*[in ]*/IUnknown* object ); //remark: 仅在栈顶生成对应lua对象, 不用时需要release才能释放c对象
+IScriptHost *GetScriptHost( /*[in ]*/lua_State *pState ); //get from sys.xvmhost
+
+//仅在栈顶生成object对应的lua对象
+//1.addref_for_lua=true表示在lua端持有相应c对象的应用技术器
+bool         Create( /*[in ]*/lua_State *pState, /*[in ]*/IUnknown *object, /*[in ]*/const char *name, /*[in ]*/bool addref_for_lua = false );
 /////////////////////////////////////////////////////////////////////
 
 NAMESPACE_END(lua)

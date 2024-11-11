@@ -87,29 +87,29 @@ namespace lua
 
    // 判断是否是对象
    template<typename A> struct is_obj { static const bool value = true; };
-   template<> struct is_obj < char > { static const bool value = false; };
+   template<> struct is_obj < char          > { static const bool value = false; };
    template<> struct is_obj < unsigned char > { static const bool value = false; };
-   template<> struct is_obj < char* > { static const bool value = false; };
+   template<> struct is_obj < char*     > { static const bool value = false; };
    template<> struct is_obj < const char* > { static const bool value = false; };
-   template<> struct is_obj < bool > { static const bool value = false; };
-   template<> struct is_obj < float > { static const bool value = false; };
-   template<> struct is_obj < double > { static const bool value = false; };
-   template<> struct is_obj < table > { static const bool value = false; };
+   template<> struct is_obj < bool      > { static const bool value = false; };
+   template<> struct is_obj < float     > { static const bool value = false; };
+   template<> struct is_obj < double    > { static const bool value = false; };
+   template<> struct is_obj < table     > { static const bool value = false; };
 
-   template<> struct is_obj < int16_t > { static const bool value = false; };
-   template<> struct is_obj < uint16_t > { static const bool value = false; };
-   template<> struct is_obj < int32_t > { static const bool value = false; };
-   template<> struct is_obj < uint32_t > { static const bool value = false; };
-   template<> struct is_obj < int64_t > { static const bool value = false; };
-   template<> struct is_obj < uint64_t > { static const bool value = false; };
+   template<> struct is_obj <  int16_t  > { static const bool value = false; };
+   template<> struct is_obj < uint16_t  > { static const bool value = false; };
+   template<> struct is_obj <  int32_t  > { static const bool value = false; };
+   template<> struct is_obj < uint32_t  > { static const bool value = false; };
+   template<> struct is_obj <  int64_t  > { static const bool value = false; };
+   template<> struct is_obj < uint64_t  > { static const bool value = false; };
 
    #ifdef _WIN32
-   template<> struct is_obj < HANDLE > { static const bool value = false; };
-   template<> struct is_obj < HWND > { static const bool value = false; };
-   template<> struct is_obj < HMENU > { static const bool value = false; };
-   template<> struct is_obj < HDC > { static const bool value = false; };
-   template<> struct is_obj < HICON > { static const bool value = false; };
-   template<> struct is_obj < HBITMAP > { static const bool value = false; };
+   template<> struct is_obj < HANDLE    > { static const bool value = false; };
+   template<> struct is_obj < HWND      > { static const bool value = false; };
+   template<> struct is_obj < HMENU     > { static const bool value = false; };
+   template<> struct is_obj < HDC       > { static const bool value = false; };
+   template<> struct is_obj < HICON     > { static const bool value = false; };
+   template<> struct is_obj < HBITMAP   > { static const bool value = false; };
    template<> struct is_obj < HINSTANCE > { static const bool value = false; };
    #endif
    /////////////////////////////////
@@ -184,17 +184,14 @@ namespace lua
    // 存储指针的类
    struct user
    {
-      user ( void* p ) : m_p ( p ) 
+      user ( void* t ) : p ( t ) 
       {
       }
       virtual ~user ( ) 
       {
       }
-      
-      template<typename T>
-      T *docast() { return (T*)m_p;}
 
-      void* m_p;
+      void* p;
    };
 
    // 将lua栈上索引的userdata转换为T T* T&
@@ -222,7 +219,7 @@ namespace lua
             lua_pushstring ( L, "no class at first argument. (forgot ':' expression ?)" );
             lua_error ( L );
          }
-         return void2type<T>::invoke ( user2type<user*>::invoke ( L, index )->m_p );
+         return void2type<T>::invoke ( user2type<user*>::invoke ( L, index )->p );
       }
    };
 
@@ -258,7 +255,7 @@ namespace lua
       val2user ( T1 t1, T2 t2, T3 t3, T4 t4, T5 t5 ) : user ( new T ( t1, t2, t3, t4, t5 ) ) {}
 
       // 只有lua调用new在C++堆上分配内存才会被__gc
-      virtual ~val2user ( ) { delete ( ( T* ) m_p ); }
+      virtual ~val2user ( ) { delete ( ( T* ) p ); }
    };
 
    // ref转化到user

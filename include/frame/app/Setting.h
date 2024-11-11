@@ -59,8 +59,10 @@ public:
     std::string getString(const std::string &key, const std::string &default_value = "");
     void        setString(const std::string &key, const std::string &value);
 
-    int32_t     getNumber(const std::string &key, int32_t default_value = 0);
-    void        setNumber(const std::string &key, int32_t value );
+    int64_t     getNumber(const std::string &key, int64_t default_value= 0);
+    void        setNumber(const std::string &key, int64_t value );
+
+    bool hasExist(const std::string &key);
 
     void save()
     {

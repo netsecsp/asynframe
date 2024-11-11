@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Wed Aug 14 15:02:35 2024
+/* at Mon Nov 11 09:02:47 2024
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 

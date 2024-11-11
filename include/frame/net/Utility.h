@@ -72,7 +72,7 @@ public:
     }
 
 protected:
-    PORT m_nMinPort, m_nMaxPort; //range
+    PORT m_nMinPort, m_nMaxPort; //port range
     PORT m_next;
 };
 

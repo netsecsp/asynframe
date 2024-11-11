@@ -48,8 +48,12 @@ extern "C" {
 NAMESPACE_BEGIN(jvm)
 
 /////////////////////////////////////////////////////////////////////
-IScriptHost *GetScriptHost( /*[in ]*/JNIEnv *env );
-jobject Bind( /*[in ]*/JNIEnv *env, /*[in ]*/IUnknown* object, jboolean need_java_release = JNI_FALSE );
+IScriptHost *GetScriptHost( /*[in ]*/JNIEnv *env ); //get from CInstanceManager.getNativeObject
+
+//生成object对应的java对象
+//1.addref_for_jvm=true表示不用时需要在java端主动调用release才能释放c对象
+//2.auto_bindc_jvm=true表示调用SObject.Set绑定java对象
+jobject      Create( /*[in ]*/JNIEnv *env, /*[in ]*/IUnknown *object, /*[in ]*/const char *name, /*[in ]*/bool addref_for_jvm = false, /*[in ]*/bool auto_bindc_jvm = false );
 /////////////////////////////////////////////////////////////////////
 
 NAMESPACE_END(jvm)

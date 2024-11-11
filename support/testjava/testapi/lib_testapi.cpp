@@ -11,7 +11,8 @@ LOGGER_IMPLEMENT( logger, "testapi", "Testapi(jvm)");
 class CAsynMessageEvents : public asynsdk::CAsynMessageEvents_base
 {
 public:
-    CAsynMessageEvents()
+    CAsynMessageEvents( /*[in ]*/uint32_t dwRef = 0 )
+      : asynsdk::CAsynMessageEvents_base(dwRef)
     {
         printf("+CAsynMessageEvents: %p\n", this);
     }
@@ -23,19 +24,18 @@ public:
 public: //interface of IAsynMessageEvents
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
     {
-        printf("message=%d, lparam1=%lld, lparam2=%lld, object=%p in testapi\n", message, lparam1, lparam2, objects? objects[0] : 0);
+        printf("message=%d, lparam1=%lld, lparam2=%lld, object=%p in testapi, ref=%d\n", message, lparam1, lparam2, objects? objects[0] : 0, m_dwRef);
         Call_Testapi_print("Hello World!!!"); //c->java
         return S_OK;
     }
 };
 
 IScriptHost* _g_scripthost = 0;
-CObjPtr<IAsynMessageEvents> _g_events(new CAsynMessageEvents());
-
 /////////////////////////////////////////////////////////////////////////////
-jobject JNICALL Java_com_demo_Testapi_create(JNIEnv *env, jclass obj)
+jobject JNICALL Java_com_demo_Testapi_getEvent(JNIEnv *env, jclass obj)
 {
-    return jvm::Bind(env,_g_events); //created from java
+    static CObjPtr<IUnknown> events(new CAsynMessageEvents(0)); //must hold object
+    return jvm::Create(env, events, 0, false/*ref*/); //created from java
 }
 
 void JNICALL Java_com_demo_Testapi_write(JNIEnv *env, jclass obj, jstring j_text)
@@ -73,7 +73,6 @@ jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved)
     }
 
     _g_scripthost = jvm::GetScriptHost(env); //get IScriptHost.ref
-
     #ifdef  _LOG
     #ifndef _LIB
     asynsdk::AsynLogger_Initialize(_g_scripthost );
@@ -82,8 +81,8 @@ jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved)
     #endif
 
     static const JNINativeMethod methods[] = {
-        {"write" , "(Ljava/lang/String;)V"     , (void*)Java_com_demo_Testapi_write },
-        {"create", "()Lcom/frame/api/CUnknown;", (void*)Java_com_demo_Testapi_create}
+        {"write"   , "(Ljava/lang/String;)V"     , (void*)Java_com_demo_Testapi_write   },
+        {"getEvent", "()Lcom/frame/api/CUnknown;", (void*)Java_com_demo_Testapi_getEvent}
     };
 
     jclass jc_Testapi = env->FindClass("com/demo/Testapi");

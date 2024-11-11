@@ -6,13 +6,15 @@
 #include "ITestapi_i.c"
 #pragma comment(lib, "lua_dll.lib")
 
+IScriptHost* _g_scripthost = 0;
 LOGGER_IMPLEMENT( logger, "lua", "Testapi(lua)");
 /////////////////////////////////////////////////////////////////////////////
 
 class CAsynMessageEvents : public asynsdk::CAsynMessageEvents_base
 {
 public:
-    CAsynMessageEvents()
+    CAsynMessageEvents( /*[in ]*/uint32_t dwRef = 0 )
+      : asynsdk::CAsynMessageEvents_base(dwRef)
     {
         printf("+CAsynMessageEvents: %p\n", this);
     }
@@ -24,7 +26,7 @@ public:
 public: //interface of IAsynMessageEvents
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
     {
-        printf("message=%d, lparam1=%lld, lparam2=%lld, object=%p in testapi\n", message, lparam1, lparam2, objects? objects[0] : 0);
+        printf("message=%d, lparam1=%lld, lparam2=%lld, object=%p in testapi, ref=%d\n", message, lparam1, lparam2, objects? objects[0] : 0, m_dwRef);
         return S_OK;
     }
 };
@@ -74,11 +76,11 @@ public: //interface of SObject
         if( name.len == 6 )
         {
             if( memcmp(name.ptr, "ITestA", 6) == 0 || memcmp(name.ptr, "CTestX", 6) == 0 ) {
-               *object = DoCast<ITestA>(true);
+               *object = Cast<ITestA>(true);
                 return S_OK;
             }
             if( memcmp(name.ptr, "ITestB", 6) == 0 ) {
-               *object = DoCast<ITestB>(true);
+               *object = Cast<ITestB>(true);
                 return S_OK;
             }
         }
@@ -115,49 +117,54 @@ static int apiWrite(lua_State *pState)
     return 0;
 }
 
-static int apiCreateObject(lua_State *pState)
+static int apiGetEvent(lua_State *pState)
 {
-    lua::Push(pState, lua_tointeger(pState, -1)==0? (IUnknown*)new CAsynMessageEvents() : (IUnknown*)static_cast<ITestA*>(new CTestX()));
+    static CObjPtr<IUnknown> events(new CAsynMessageEvents(0));
+    lua::Create(pState, events, 0, false);
+    return 1;
+}
+
+static int apiNewTestX(lua_State *pState)
+{
+    lua::Create(pState, static_cast<ITestA*>(new CTestX(0)), 0, true);
     return 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 int luaopen_testapi(lua_State *pState)
 {
-    IScriptHost *lpScriptHost = lua::GetScriptHost(pState);
-    if(!lpScriptHost )
-    {// 通知失败
-        return 0;
-    }
-
+    _g_scripthost = lua::GetScriptHost(pState);
     #ifdef  _LOG
     #ifndef _LIB
-    asynsdk::AsynLogger_Initialize(lpScriptHost);
+    asynsdk::AsynLogger_Initialize(_g_scripthost );
     #endif
     LOGGER_DEBUG(logger, "1.0 builded in " << __DATE__ << " " << __TIME__);
     #endif
 
     static const luaL_Reg testapi_methods[] = {
-        { "write", apiWrite},
-        { "createObject", apiCreateObject},
+        { "write"   , apiWrite   },
+        { "getEvent", apiGetEvent},
+        { "newTestX", apiNewTestX},
         {NULL, NULL}
     };
 
     luaL_newlib(pState, testapi_methods); //注册接口: write
 
-	lua::class_add<CTestX>(pState, "CTestX"); //register CTestX
-	lua::class_inh<CTestX, IUnknown>(pState);
+    printf("sizeof(lua_Integer)=%d\n", sizeof(lua_Integer));
+
+    lua::class_add<CTestX>(pState, "CTestX"); //register CTestX
+    lua::class_inh<CTestX, IUnknown>(pState);
     lua::class_def<CTestX>(pState, "workA", &CTestX::WorkA);
     lua::class_def<CTestX>(pState, "workB", &CTestX::WorkB);
     lua::class_def<CTestX>(pState, "workX", &CTestX::WorkX);
 
-	lua::class_add<ITestA>(pState, "ITestA"); //register ITestA
-	lua::class_inh<ITestA, IUnknown>(pState);
+    lua::class_add<ITestA>(pState, "ITestA"); //register ITestA
+    lua::class_inh<ITestA, IUnknown>(pState);
     lua::class_def<ITestA>(pState, "workA", &ITestA::WorkA);
     lua::class_def<ITestA>(pState, "workX", &ITestA::WorkX);
     
-	lua::class_add<ITestB>(pState, "ITestB"); //register ITestB
-	lua::class_inh<ITestB, IUnknown>(pState);
+    lua::class_add<ITestB>(pState, "ITestB"); //register ITestB
+    lua::class_inh<ITestB, IUnknown>(pState);
     lua::class_def<ITestB>(pState, "workB", &ITestB::WorkB);
     lua::class_def<ITestB>(pState, "workX", &ITestB::WorkX);
     return 1;
