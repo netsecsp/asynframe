@@ -39,10 +39,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-#include "llimits.h"
+#include "v504/lua.h"
+#include "v504/lualib.h"
+#include "v504/lauxlib.h"
+#include "v504/llimits.h"
 #ifdef __cplusplus
 }
 #endif

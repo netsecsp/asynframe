@@ -1,4 +1,4 @@
-## Asynframe framework v1.8.0 english | [中文](/README.md)
+## Asynframe framework v1.8.1 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -66,10 +66,9 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |Dtp|plugin[asyncock]|port reuse framework to implement tcp/udp|support testnetserver_ dtp-tcp.port<br>\support\testnetserver_ dtp-udp.port|
 |lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4 lua framework|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|plugin|Implementation of IOsCommand interface java framework|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
-|python38|plugin|Implementation of IOsCommand interface python framework|\support\testpython\testpython<br>\support\testpython\testapi|
 
 # Change log
-> 2024/11/11 Release asynframe framework v1.8.0  
+> 2024/11/12 Release asynframe framework v1.8.1  
 1. Release plugin: python38/python312  
 > 2024/08/16 Release asynframe framework v1.7.1  
 > 2024/07/12 Release asynframe framework v1.6.1  
@@ -81,8 +80,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 > 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.8.0-Msvc2019_20241111.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.8.0-Msvc2013_20241111.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v1.8.1-Msvc2019_20241112.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v1.8.1-Msvc2013_20241112.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -168,7 +167,6 @@ int main(int argc, const char *argv[])
 [Zlib](http://www.zlib.net)  
 [Sqlite](https://www.sqlite.org/)  
 [FFmpeg](https://ffmpeg.org)  
-[Python](https://github.com/python/cpython)  
 
 # Copyright  
 Copyright (c) 2012 - 2032, All rights reserved.  

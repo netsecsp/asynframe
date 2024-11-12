@@ -1,7 +1,10 @@
 // lib_testapi.cpp : Implementation of lib Exports.
-#include <StdAfx.h>
-#include <initguid.h>
+#ifndef _Using_PYTHON_VERSION
+#pragma message("project must define _Using_PYTHON_VERSION=38")
+#define _Using_PYTHON_VERSION 38
+#endif
 #include <frame/python/JniProxy.h>
+#pragma comment(lib, "python" xstr(_Using_PYTHON_VERSION) "_dll.lib")
 
 IScriptHost* _g_scripthost = 0;
 LOGGER_IMPLEMENT( logger, "testapi", "Testapi(python)");
@@ -22,7 +25,7 @@ public:
 public: //interface of IAsynMessageEvents
     STDMETHOD(OnMessage)( /*[in ]*/uint32_t message, /*[in ]*/uint64_t lparam1, /*[in ]*/uint64_t lparam2, /*[in, out]*/IUnknown** objects )
     {
-        printf("message=%d, lparam1=%lld, lparam2=%lld, object=%p in testapi, ref=%d\n", message, lparam1, lparam2, objects? objects[0] : 0, m_dwRef);
+        printf("onMessage: message= %d , lparam1= %lld , lparam2= %lld , object= %p in testapi, ref=%d\n", message, lparam1, lparam2, objects? objects[0] : 0, m_dwRef);
         return S_OK;
     }
 };
@@ -39,7 +42,7 @@ static PyObject *Testapi_sum(PyObject *self, PyObject *args) {
         return NULL;
     }
     sum = arg1 + arg2;
-    printf("call %d + %d = %d\n", arg1, arg2, sum);
+    printf("call sums: %d + %d = %d\n", arg1, arg2, sum);
     return PyLong_FromLong(sum);
 }
  

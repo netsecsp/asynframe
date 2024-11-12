@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "jni.h"
+#include "v170/jni.h" //using 17.0.11
 #ifdef __cplusplus
 }
 #endif

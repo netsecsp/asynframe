@@ -49,6 +49,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define IF_POINTER_INVALID_RETURN(ptr,ret) do{ assert(ptr); if( !(ptr) ) return ret; }while(0)
 #define IF_VAR_EQUAL_RETURN(var,value,ret) do{ if( (var)==(value) ) return ret; }while(0)
 
+#define xstr(s) pstr(s)
+#define pstr(s) #s
+
 NAMESPACE_BEGIN(asynsdk)
 template<class T, int doAddref> T *CreateObject( void )
 {

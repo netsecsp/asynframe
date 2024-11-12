@@ -36,15 +36,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "../asynsdk_common.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+#ifndef _Using_PYTHON_VERSION //default use python 3.8.20
+#define _Using_PYTHON_VERSION 38
+#endif
+#pragma message("warning message: Extend Python Library project should add link library: python" xstr(_Using_PYTHON_VERSION ) "_dll.lib")
+
 #define PY_SSIZE_T_CLEAN  /* Make "s#" use Py_ssize_t rather than int. */
-#include "python.h"
+#if _Using_PYTHON_VERSION == 38
+#include "v308/python.h"
+#else
+#include "v312/python.h"
+#endif
 #ifdef __cplusplus
 }
 #endif
-#include "PyPtr.h"
+#include "Pyptr.h"
 #include "../AsynCore.h"
 #include "../asm/IScriptHost.h"
 NAMESPACE_BEGIN(python)

@@ -5,9 +5,8 @@
 // Copyright (c) 2005-2007 Kwon-il Lee (zupet@hitel.net)
 // 
 // please check Licence.txt file for licence and legal issues. 
-
-#if !defined(_LUA_TINKER_H_)
-#define _LUA_TINKER_H_
+#ifndef __LUA_TINKER_H__
+#define __LUA_TINKER_H__
 
 #include <new> //for new
 #include <stdint.h>
@@ -17,15 +16,16 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+#include "../asynsdk_common.h"
 
-#define MAX_C_NAME_SIZE (31) //max length of class name 
+#define MAX_C_NAME_SIZE (31) //max length of class name
 
 #ifndef UAPI
-#pragma message("warning message: enable __stdcall to luatinker")
 #define UAPI __stdcall
 #endif
+#pragma message("warning message: enable " xstr(UAPI) " to luatinker")
 
-typedef void (*FUN_LOGWRITE)(const char *msg);
+typedef void (*FUN_LOGWRITE )(const char *);
 
 namespace lua
 {
@@ -273,7 +273,6 @@ namespace lua
       // 指针传入不会被__gc
       ptr2user ( T* t ) : user( ( void* ) t ) { }
    };
-
 
    // class helper
    int meta_get(lua_State* L);
@@ -1564,4 +1563,4 @@ namespace lua
 
 } // namespace lua
 
-#endif //_LUA_TINKER_H_
+#endif //__LUA_TINKER_H__

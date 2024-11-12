@@ -1,4 +1,4 @@
-## Asynframe framework v1.8.0 [english](/README_EN.md) | 中文
+## Asynframe framework v1.8.1 [english](/README_EN.md) | 中文
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
@@ -66,10 +66,9 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |dtp|插件[asynsock]|实现tcp/udp的端口复用框架|\support\testnetserver_dtp-tcp.port<br>\support\testnetserver_dtp-udp.port|
 |lua|插件|基于lua-5.4.4实现IOsCommand接口执行lua框架|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|插件|实现IOsComman接口执行java框架|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
-|python38|插件|实现IOsComman接口执行python框架|\support\testpython\testpython<br>\support\testpython\testapi|
 
 # 变更记录
-> 2024/11/11 发布windows平台的asynframe framework v1.8.0  
+> 2024/11/12 发布windows平台的asynframe framework v1.8.1  
 1. 发布插件: python38/python312  
 > 2024/08/16 发布windows平台的asynframe framework v1.7.1  
 > 2024/07/12 发布windows平台的asynframe framework v1.6.1  
@@ -81,8 +80,8 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 > 2022/05/05 发布windows平台的asynframe framework v1.0.0  
 
 # 编译环境
-> sdk_v1.8.0-Msvc2019_20241111.zip是通过Microsoft Visual Studio 2019编译的SDK  
-> sdk_v1.8.0-Msvc2013_20241111.zip是通过Microsoft Visual Studio 2013编译的SDK  
+> sdk_v1.8.1-Msvc2019_20241112.zip是通过Microsoft Visual Studio 2019编译的SDK  
+> sdk_v1.8.1-Msvc2013_20241112.zip是通过Microsoft Visual Studio 2013编译的SDK  
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
@@ -168,7 +167,6 @@ int main(int argc, const char *argv[])
 [Zlib](http://www.zlib.net)  
 [Sqlite](https://www.sqlite.org/)  
 [FFmpeg](https://ffmpeg.org)  
-[Python](https://github.com/python/cpython)  
 
 # 版权信息  
 Copyright (c) 2012 - 2032, All rights reserved.  
