@@ -66,6 +66,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |dtp|插件[asynsock]|实现tcp/udp的端口复用框架|\support\testnetserver_dtp-tcp.port<br>\support\testnetserver_dtp-udp.port|
 |lua|插件|基于lua-5.4.4实现IOsCommand接口执行lua框架|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|插件|实现IOsComman接口执行java框架|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
+|python38/python312|插件|实现IOsComman接口执行python框架|\support\testpython\testpython<br>\support\testpython\testapi|
 
 # 变更记录
 > 2024/11/12 发布windows平台的asynframe framework v1.8.1  
@@ -167,6 +168,7 @@ int main(int argc, const char *argv[])
 [Zlib](http://www.zlib.net)  
 [Sqlite](https://www.sqlite.org/)  
 [FFmpeg](https://ffmpeg.org)  
+[Python](https://github.com/python/cpython)  
 
 # 版权信息  
 Copyright (c) 2012 - 2032, All rights reserved.  

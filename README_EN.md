@@ -66,6 +66,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |Dtp|plugin[asyncock]|port reuse framework to implement tcp/udp|support testnetserver_ dtp-tcp.port<br>\support\testnetserver_ dtp-udp.port|
 |lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4 lua framework|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|plugin|Implementation of IOsCommand interface java framework|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
+|python38/python312|plugin|Implementation of IOsCommand interface python framework|\support\testpython\testpython<br>\support\testpython\testapi|
 
 # Change log
 > 2024/11/12 Release asynframe framework v1.8.1  
@@ -167,6 +168,7 @@ int main(int argc, const char *argv[])
 [Zlib](http://www.zlib.net)  
 [Sqlite](https://www.sqlite.org/)  
 [FFmpeg](https://ffmpeg.org)  
+[Python](https://github.com/python/cpython)  
 
 # Copyright  
 Copyright (c) 2012 - 2032, All rights reserved.  
