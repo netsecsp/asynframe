@@ -38,9 +38,10 @@ Asynframe framework solves the six problems mentioned above in the process of so
 3. Embed the micro thread core object into other threads to isolate other codes, so as to facilitate code reconstruction.  
 4. Get a very smooth user experience through the asynchronous execution framework.  
 5. The unified development template, non locking mechanism, high-performance IO framework and demo reduce the learning cost of developers. It can rapidly develop stable and high-performance application modules. It can greatly reduce the amount of developed code.  
-6. Support network UDP/TCP port multiplexing framework.
-7. Support Lua framework.
-8. Support JVM framework.
+6. Support network UDP/TCP port multiplexing framework.  
+7. Support Lua framework.  
+8. Support JVM framework.  
+9. Support Python framework.  
 
 |module|type|function|demo|
 |:--|:--|:--|:--|
@@ -64,7 +65,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
 |sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
 |Dtp|plugin[asyncock]|port reuse framework to implement tcp/udp|support testnetserver_ dtp-tcp.port<br>\support\testnetserver_ dtp-udp.port|
-|lua|plugin|Implementation of IOsCommand interface based on lua-5.4.4 lua framework|\support\testlua\testlua<br>\support\testlua\testapi|
+|lua|plugin|Implementation of IOsCommand interface lua framework|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|plugin|Implementation of IOsCommand interface java framework|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
 |python38/python312|plugin|Implementation of IOsCommand interface python framework|\support\testpython\testpython<br>\support\testpython\testapi|
 
@@ -86,7 +87,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  
-3. Link asyncore.lib
+3. Link asyncore_dll.lib
 ```c++
 int main(int argc, const char *argv[])
 {

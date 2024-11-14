@@ -41,6 +41,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 6. 支持网络udp/tcp端口复用框架。  
 7. 支持lua框架。  
 8. 支持jvm框架。  
+9. 支持python框架。  
 
 |模块|类型|功能|例子/程序|
 |:--|:--|:--|:--|
@@ -64,7 +65,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |zip|插件|基于zlib-1.2.11.0实现IDataTransmit接口<br>1.支持压缩zip文件<br>2.deflate/inflate数据|\support\testframe|
 |sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
 |dtp|插件[asynsock]|实现tcp/udp的端口复用框架|\support\testnetserver_dtp-tcp.port<br>\support\testnetserver_dtp-udp.port|
-|lua|插件|基于lua-5.4.4实现IOsCommand接口执行lua框架|\support\testlua\testlua<br>\support\testlua\testapi|
+|lua|插件|实现IOsCommand接口执行lua框架|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|插件|实现IOsComman接口执行java框架|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
 |python38/python312|插件|实现IOsComman接口执行python框架|\support\testpython\testpython<br>\support\testpython\testapi|
 
@@ -86,7 +87,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 
 1. 需在工程里设置asynframe相应的include/lib路径  
 2. 根据工程的运行库选择链接asynframe相应的asynsdk_mini-[MD/MDd/MT/MTd].lib  
-3. 链接asyncore.lib  
+3. 链接asyncore_dll.lib  
 ```c++
 int main(int argc, const char *argv[])
 {
