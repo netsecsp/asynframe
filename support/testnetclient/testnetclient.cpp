@@ -60,7 +60,7 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s tcp/udp|spx/ipx ipv4/ipv6 host port\n\texample: %s tcp ipv4 192.168.1.101 7675\n\t\t %s tcp ipv6 2000::1:2345:6789:abcd 7675\n", argv[0], argv[0], argv[0]);
+    printf("usage: %s tcp/udp|spx/ipx ipv4/ipv6 host port\n\texample: %s tcp ipv4 192.168.1.101 7675\n\t\t %s tcp ipv6 2000::1:2345:6789:abcd 7675\n\n", argv[0], argv[0], argv[0]);
 	if( argc <= 1 ) return 0;
 
     HRESULT hr1 = Initialize(NULL, NULL);

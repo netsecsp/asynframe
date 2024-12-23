@@ -47,6 +47,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 #ifndef _LOG
+#pragma message("warning message: disable logger")
 ///////////////////////////////////////////////////////////////////////////////
 #define LOGGER_DECLARE(logger)
 #define LOGGER_IMPLEMENT(logger, mname, cname)
@@ -73,13 +74,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOGGER_THIS_NOTE( a,b)
 #define LOGGER_THIS_DUMP( a,l,b,d,s )
 ///////////////////////////////////////////////////////////////////////////////
+#define OBJECT_LEAK_DECLARE(helper)
+#define OBJECT_LEAK_INIT(helper,o,n )
+///////////////////////////////////////////////////////////////////////////////
 #else
 ///////////////////////////////////////////////////////////////////////////////
+#pragma message("warning message: enabled logger")
+
 #include <sstream> //for stringstream
 
 #define LOGGER_DECLARE(logger)                                  extern asynsdk::CAsynLoggerHelper logger
 #define LOGGER_IMPLEMENT(logger, mname, cname)                  asynsdk::CAsynLoggerHelper logger(mname, cname)
-#define LOGGER_CLASS_DECLARE(logger)                            static asynsdk::CAsynLoggerHelper logger;
+#define LOGGER_CLASS_DECLARE(logger)                            static asynsdk::CAsynLoggerHelper logger
 #define LOGGER_CLASS_IMPLEMENT(classname, logger, mname, cname) asynsdk::CAsynLoggerHelper classname::logger(mname, cname)
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -102,6 +108,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define LOGGER_THIS_FATAL(a,b) LOGGER_FATAL(a, '[' << this << ']' << b )
 #define LOGGER_THIS_NOTE( a,b) LOGGER_NOTE( a, '[' << this << ']' << b )
 #define LOGGER_THIS_DUMP( a,l,b,d,s ) LOGGER_DUMP( a, l, '[' << this << ']' << b, d, s )
+///////////////////////////////////////////////////////////////////////////////
+#define OBJECT_LEAK_DECLARE(helper)   asynsdk::CObjectsLeakHelper helper
+#define OBJECT_LEAK_INIT(helper,o,n ) helper.Logs(o, n)
 ///////////////////////////////////////////////////////////////////////////////
 NAMESPACE_BEGIN(asynsdk)
 
@@ -139,20 +148,27 @@ private:
     const char *m_cname; //类名
     IUnknown *m_value;
 };
-
+///////////////////////////////////////////////////////////////////////////////
 class CObjectsLeakHelper
 {
 public:
-    CObjectsLeakHelper(/*in*/IUnknown *object, /*in*/const char *cname);
+    CObjectsLeakHelper()
+      : m_value(0)
+    {
+    }
     ~CObjectsLeakHelper();
+
+public:
+    void Logs(/*in*/IUnknown *object, /*in*/const char *cname);
+    static bool Dump(/*in*/const char *mname, /*out*/std::string &info);
 
 private:
     IUnknown *m_value;
 };
-
+///////////////////////////////////////////////////////////////////////////////
 void AsynLogger_Initialize(/*in*/IUnknown *lpInstancesManager);
 void AsynLogger_Output(/*in*/IDataTransmit *target);
-
+///////////////////////////////////////////////////////////////////////////////
 NAMESPACE_END(asynsdk)
 
 #endif

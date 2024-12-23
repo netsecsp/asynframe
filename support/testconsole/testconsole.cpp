@@ -98,10 +98,12 @@ protected:
 
 int _tmain(int argc, _TCHAR *argv[])
 {
+    printf("console[single thread], load config.ini and load/unload IOsCommand object of lua/jvm/python/sqlite\n\n");
+
     asynsdk::CStringSetter fileconf(1, "config.ini");
     CGlobalEvents e;
 
-    HRESULT hr1 = Initialize(&e, &fileconf);
+    HRESULT hr1 = Initialize(&e, &fileconf); //load config.ini
 
     do{
         InstancesManager *lpInstancesManager = GetInstancesManager();

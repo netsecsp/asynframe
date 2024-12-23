@@ -1,4 +1,4 @@
-// StringVector.h: interface for the CStringVector/CStringVectorRef class.
+// StringVector.h: interface for the CStringVector/CStringMapval class.
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_STRINGVECTOR_H__8D72F57C_CA8F_4812_BEE1_342F9810C19F__INCLUDED_)

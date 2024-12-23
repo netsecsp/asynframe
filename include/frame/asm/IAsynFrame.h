@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Nov 11 09:02:47 2024
+/* at Thu Dec 19 08:38:51 2024
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -3146,13 +3146,13 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
     public:
         virtual HRESULT STDMETHODCALLTYPE QueryThread( 
             /* [in] */ uint32_t threadid,
-            /* [in] */ REFIID Riid,
+            /* [in] */ uint32_t type,
             /* [out] */ IUnknown **ppThread) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynFrameThread( 
             /* [in] */ handle hThread,
             /* [in] */ BOOL window,
-            /* [in] */ uint32_t coretype,
+            /* [in] */ uint32_t type,
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAsynFrameThread **ppAsynFrameThread) = 0;
         
@@ -3180,14 +3180,14 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
         HRESULT ( STDMETHODCALLTYPE *QueryThread )( 
             IAsynFrameThreadFactory * This,
             /* [in] */ uint32_t threadid,
-            /* [in] */ REFIID Riid,
+            /* [in] */ uint32_t type,
             /* [out] */ IUnknown **ppThread);
         
         HRESULT ( STDMETHODCALLTYPE *CreateAsynFrameThread )( 
             IAsynFrameThreadFactory * This,
             /* [in] */ handle hThread,
             /* [in] */ BOOL window,
-            /* [in] */ uint32_t coretype,
+            /* [in] */ uint32_t type,
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAsynFrameThread **ppAsynFrameThread);
         
@@ -3214,11 +3214,11 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IAsynFrameThreadFactory_QueryThread(This,threadid,Riid,ppThread)	\
-    ( (This)->lpVtbl -> QueryThread(This,threadid,Riid,ppThread) ) 
+#define IAsynFrameThreadFactory_QueryThread(This,threadid,type,ppThread)	\
+    ( (This)->lpVtbl -> QueryThread(This,threadid,type,ppThread) ) 
 
-#define IAsynFrameThreadFactory_CreateAsynFrameThread(This,hThread,window,coretype,events,ppAsynFrameThread)	\
-    ( (This)->lpVtbl -> CreateAsynFrameThread(This,hThread,window,coretype,events,ppAsynFrameThread) ) 
+#define IAsynFrameThreadFactory_CreateAsynFrameThread(This,hThread,window,type,events,ppAsynFrameThread)	\
+    ( (This)->lpVtbl -> CreateAsynFrameThread(This,hThread,window,type,events,ppAsynFrameThread) ) 
 
 #endif /* COBJMACROS */
 
@@ -3414,6 +3414,9 @@ EXTERN_C const IID IID_IAsynFramePlugin;
         
         virtual HRESULT STDMETHODCALLTYPE CanUnloadNow( void) = 0;
         
+        virtual HRESULT STDMETHODCALLTYPE Update( 
+            /* [in] */ IUnknown *object) = 0;
+        
         virtual HRESULT STDMETHODCALLTYPE Shutdown( void) = 0;
         
     };
@@ -3446,6 +3449,10 @@ EXTERN_C const IID IID_IAsynFramePlugin;
         HRESULT ( STDMETHODCALLTYPE *CanUnloadNow )( 
             IAsynFramePlugin * This);
         
+        HRESULT ( STDMETHODCALLTYPE *Update )( 
+            IAsynFramePlugin * This,
+            /* [in] */ IUnknown *object);
+        
         HRESULT ( STDMETHODCALLTYPE *Shutdown )( 
             IAsynFramePlugin * This);
         
@@ -3477,6 +3484,9 @@ EXTERN_C const IID IID_IAsynFramePlugin;
 
 #define IAsynFramePlugin_CanUnloadNow(This)	\
     ( (This)->lpVtbl -> CanUnloadNow(This) ) 
+
+#define IAsynFramePlugin_Update(This,object)	\
+    ( (This)->lpVtbl -> Update(This,object) ) 
 
 #define IAsynFramePlugin_Shutdown(This)	\
     ( (This)->lpVtbl -> Shutdown(This) ) 

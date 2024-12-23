@@ -85,7 +85,8 @@ static byte B2H( char ch )
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s host port thumb[40]\n\texample: %s 127.0.0.1 7675 205d4828037668166b3dff4fa7dc810559426602\n\t         %s 127.0.0.1 7675 p12 password\n", argv[0], argv[0], argv[0]);
+	printf("use ssl\n");
+    printf("usage: %s host port thumb[40]\n\texample: %s 127.0.0.1 7675 205d4828037668166b3dff4fa7dc810559426602\n\t         %s 127.0.0.1 7675 p12 password\n\n", argv[0], argv[0], argv[0]);
 
     PCCERT_CONTEXT pctx = 0;
 	BYTE temp[4096];

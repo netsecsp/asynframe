@@ -54,7 +54,9 @@ STDAPI_(extern HRESULT) Destory();
 STDAPI_(extern InstancesManager*) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
-{// testjvm
+{// testjvm "demo.jar com.demo.Testapi"
+	printf("execute java\n\n");
+
     HRESULT hr1 = Initialize(NULL, NULL);
 
     {
@@ -64,7 +66,7 @@ int _tmain(int argc, _TCHAR *argv[])
         asynsdk::AsynLogger_Initialize(lpInstancesManager);
         #endif
 
-        asynsdk::CStringSetter home("D:\\workplat\\gnu\\JDKv17");
+        asynsdk::CStringSetter home(argc>2? argv[2] : "D:\\workplat\\gnu\\JDKv17");
         CComPtr<IOsCommand> spCommand;
         if( asynsdk::CreateObject(lpInstancesManager, "com.command.jvm/jvmproxy", &home, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
         {
@@ -73,7 +75,7 @@ int _tmain(int argc, _TCHAR *argv[])
         else
         {
             // call main
-            spCommand->Execute(0, STRING_from_string(argc > 1? argv[1] : "com.demo.Testgui"), 0, 0, 0, 0);
+            spCommand->Execute(0, STRING_from_string(argc > 1? argv[1] : "demo.jar com.demo.Testgui"), 0, 0, 0, 0);
         }
     }
 

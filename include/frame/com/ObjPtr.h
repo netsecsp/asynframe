@@ -122,13 +122,18 @@ public:
         return p;
     }
 
-    bool operator==(T *v) const throw()
-    {
-        return p == v;
-    }
     T   *operator->() const throw()
     {
         return p;
+    }
+
+    bool operator==(const CObjPtr<T> &v) const
+    {
+        return p == v.p;
+    }
+    bool operator==(T *v) const throw()
+    {
+        return p == v;
     }
 
     T   *operator=(T *v) throw()

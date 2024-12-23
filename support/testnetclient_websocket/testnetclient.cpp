@@ -62,7 +62,8 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s uri [sendfile]\n\texample: %s ws://121.40.165.18:8800\n", argv[0], argv[0]);
+	printf("use websocket\n");
+    printf("usage: %s uri [sendfile]\n\texample: %s ws://121.40.165.18:8800\n\n", argv[0], argv[0]);
 
     HRESULT hr1 = Initialize(NULL, NULL);
 

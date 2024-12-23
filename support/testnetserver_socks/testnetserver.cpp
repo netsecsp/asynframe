@@ -62,7 +62,8 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s port tcp/udp ipv4/ipv6\n\texample: %s 7675 tcp ipv6\nplease check config.txt for proxy\n", argv[0], argv[0]);
+	printf("use socks\n");
+    printf("usage: %s port tcp/udp ipv4/ipv6\n\texample: %s 7675 tcp ipv6\nplease check config.txt for proxy\n\n", argv[0], argv[0]);
 
     HRESULT hr1 = Initialize(NULL, NULL);
 

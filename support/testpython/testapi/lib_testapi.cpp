@@ -48,7 +48,7 @@ static PyObject *Testapi_sum(PyObject *self, PyObject *args) {
  
 static PyMethodDef Testapi_Methods[] = {
     {"sum"     , Testapi_sum     , METH_VARARGS, "Calculates the sum of two numbers."},
-    {"getEvent", Testapi_GetEvent, METH_VARARGS, "Testapi.etEvent"},
+    {"getEvent", Testapi_GetEvent, METH_VARARGS, "Testapi.getEvent"},
     {NULL, NULL, 0, NULL}
 };
  

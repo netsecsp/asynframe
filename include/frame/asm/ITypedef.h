@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Mon Nov 11 09:02:40 2024
+/* at Fri Nov 15 14:12:20 2024
  */
 /* Compiler settings for ITypedef.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -73,6 +73,13 @@ typedef interface IStringStack IStringStack;
 #endif 	/* __IStringStack_FWD_DEFINED__ */
 
 
+#ifndef __ILocation_FWD_DEFINED__
+#define __ILocation_FWD_DEFINED__
+typedef interface ILocation ILocation;
+
+#endif 	/* __ILocation_FWD_DEFINED__ */
+
+
 #ifndef __IKeyvalSetter_FWD_DEFINED__
 #define __IKeyvalSetter_FWD_DEFINED__
 typedef interface IKeyvalSetter IKeyvalSetter;
@@ -93,7 +100,6 @@ extern "C"{
 /* [local] */ 
 
 #pragma pack(push, 1)
-
 typedef void *handle;
 
 typedef struct tagRANGE
@@ -514,6 +520,92 @@ EXTERN_C const IID IID_IStringStack;
 #endif 	/* __IStringStack_INTERFACE_DEFINED__ */
 
 
+#ifndef __ILocation_INTERFACE_DEFINED__
+#define __ILocation_INTERFACE_DEFINED__
+
+/* interface ILocation */
+/* [unique][helpstring][uuid][object] */ 
+
+
+EXTERN_C const IID IID_ILocation;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+    
+    MIDL_INTERFACE("6E22A9CA-9B7C-49B6-99A2-CF5ADE5602AF")
+    ILocation : public IUnknown
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE Get( 
+            /* [out] */ IUnknown **object,
+            /* [out] */ STRING *file,
+            /* [out] */ STRING *function,
+            /* [out] */ uint32_t *line) = 0;
+        
+    };
+    
+    
+#else 	/* C style interface */
+
+    typedef struct ILocationVtbl
+    {
+        BEGIN_INTERFACE
+        
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            ILocation * This,
+            /* [in] */ REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+        
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            ILocation * This);
+        
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            ILocation * This);
+        
+        HRESULT ( STDMETHODCALLTYPE *Get )( 
+            ILocation * This,
+            /* [out] */ IUnknown **object,
+            /* [out] */ STRING *file,
+            /* [out] */ STRING *function,
+            /* [out] */ uint32_t *line);
+        
+        END_INTERFACE
+    } ILocationVtbl;
+
+    interface ILocation
+    {
+        CONST_VTBL struct ILocationVtbl *lpVtbl;
+    };
+
+    
+
+#ifdef COBJMACROS
+
+
+#define ILocation_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define ILocation_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define ILocation_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define ILocation_Get(This,object,file,function,line)	\
+    ( (This)->lpVtbl -> Get(This,object,file,function,line) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif 	/* C style interface */
+
+
+
+
+#endif 	/* __ILocation_INTERFACE_DEFINED__ */
+
+
 #ifndef __IKeyvalSetter_INTERFACE_DEFINED__
 #define __IKeyvalSetter_INTERFACE_DEFINED__
 
@@ -662,14 +754,14 @@ EXTERN_C const IID IID_IKeyvalSetter;
 #endif 	/* __IKeyvalSetter_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_ITypedef_0000_0005 */
+/* interface __MIDL_itf_ITypedef_0000_0006 */
 /* [local] */ 
 
 #pragma pack(pop)
 
 
-extern RPC_IF_HANDLE __MIDL_itf_ITypedef_0000_0005_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_ITypedef_0000_0005_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_ITypedef_0000_0006_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_ITypedef_0000_0006_v0_0_s_ifspec;
 
 /* Additional Prototypes for ALL interfaces */
 

@@ -43,12 +43,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <map>
 NAMESPACE_BEGIN(asynsdk)
 
-//;开头的key表示注释
+//;开头的key用于可以从文件加载, 可以在内存修改, 但是不会更新到文件的配置参数
 /////////////////////////////////////////////////////////////////////////////////
 struct CKeyval
 {// 注意非线程安全
 public:
-    HRESULT Get   ( /*[in ]*/STRING Key, /*[in ]*/uint32_t  Index, /*[in ]*/BOOL remove, /*[in ]*/IStringSetter *value );
+    HRESULT Get   ( /*[in ]*/STRING Key, /*[in ]*/uint32_t  Index, /*[in ]*/BOOL remove, /*[in ]*/IStringSetter *value ); //remark: 返回S_FALSE表示object, 返回S_OK表示string
     HRESULT Set   ( /*[in ]*/STRING Key, /*[in ]*/BOOL Multi, /*[in ]*/STRING value );
     HRESULT Del   ( /*[in ]*/STRING Key, /*[in ]*/uint32_t  Index );
     HRESULT Has   ( /*[in ]*/STRING Key, /*[out]*/uint32_t *Count );

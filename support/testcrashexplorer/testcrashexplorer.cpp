@@ -226,7 +226,7 @@ public: // interface of asyn_message_events_impl
             {
                 printf("call CreateProcess testcrashrpt.exe return 0, lErrorcode=%d\n", GetLastError());
                 if(((IKeyvalSetter *)objects[0])->Get(STRING_from_string(";context"), 0, 0, &v) == S_OK )
-                {// stack
+                {// show stack
                     printf("%s\n", v.m_val.c_str());
                 }
             }
@@ -248,6 +248,8 @@ public: // interface of asyn_message_events_impl
 
 int _tmain(int argc, _TCHAR *argv[])
 {
+    printf("catch exception and get/send stack info\n\n");
+
     CGlobalEvents e;
     HRESULT hr1 = Initialize(&e, NULL);
     {

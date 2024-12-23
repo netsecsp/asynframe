@@ -41,7 +41,7 @@ import "IAsynFrame.idl";
     ]
     interface SObject : IUnknown
     {
-        HRESULT Set( [in ]handle object );//设置对应关联信息
+        HRESULT Set( [in ]handle object );//设置对应关联信息: only for jvm/python
         HRESULT Get( [out]STRING* pName, [out]handle* object );
         HRESULT CastOf( [in ]STRING cName, [out]IUnknown** object );
     };

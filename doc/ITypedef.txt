@@ -96,6 +96,17 @@ import "ocidl.idl";
         HRESULT Add( [in ]STRING Val );
     };
 
+    [// 带位置信息绑定对象: 用于异步执行输出日志信息
+        object,
+        uuid(6E22A9CA-9B7C-49B6-99A2-CF5ADE5602AF),
+        helpstring("ILocation Interface"),
+        pointer_default(unique)
+    ]
+    interface ILocation : IUnknown
+    {
+        HRESULT Get( [out]IUnknown** object, [out]STRING* file, [out]STRING* function, [out]uint32_t* line );
+    };
+
     [// 获取/设置Keyval接口
         object,
         uuid(92552692-3635-4e41-AF63-D921E0CEE6D4),
@@ -107,6 +118,7 @@ import "ocidl.idl";
         //返 回 值：S_OK   -表示STRING
         //          S_FALSE-表示OBJECT
         HRESULT Get( [in ]STRING Key, [in ]uint32_t  Index, [in ]BOOL Remove, [in ]IStringSetter* value );
+        //注意: 自动过滤value是空串场景, 即value.ptr=="" && value.len==0
         HRESULT Set( [in ]STRING Key, [in ]BOOL Multi, [in ]STRING value );
         HRESULT Del( [in ]STRING Key, [in ]uint32_t  Index );
         HRESULT Has( [in ]STRING Key, [out]uint32_t* Count );

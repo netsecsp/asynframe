@@ -54,6 +54,7 @@ STDAPI_(extern InstancesManager*) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {// testpython 38/312 test.py home
+	printf("execute python\n");
     printf("usage: %s 38/312 file.py home\n\n", argv[0]);
 
     HRESULT hr1 = Initialize(NULL, NULL);
@@ -69,6 +70,7 @@ int _tmain(int argc, _TCHAR *argv[])
 
         char name[64];
         sprintf(name, "com.command.python/python%s", argc > 1? argv[1] : "38");
+
         CComPtr<IOsCommand> spCommand;
         if( asynsdk::CreateObject(lpInstancesManager, name, &home, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
         {

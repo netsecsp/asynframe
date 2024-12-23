@@ -153,18 +153,14 @@ int _tmain(int argc, _TCHAR *argv[])
         asynsdk::AsynLogger_Initialize(lpInstancesManager);
         #endif
 
-        CComPtr<IAsynFrameThread> spAsynFrameThread;
-#if 0
-        CComPtr<IAsynFrameThreadFactory> spAsynFrameThreadFactory;
-        lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFrameThreadFactory), IID_IAsynFrameThreadFactory, (IUnknown**)&spAsynFrameThreadFactory);
-        spAsynFrameThreadFactory->CreateAsynFrameThread(0, 0, argc>3 && strcmp(argv[1], "timer") == 0? atoi(argv[3]) : asynsdk::TC_Uapc, 0, &spAsynFrameThread);
-#else
-        lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
-#endif
-
         do{
         if( argc == 1 || strcmp(argv[1], "timer") == 0 )
         {// timer 1000 0/2
+            CComPtr<IAsynFrameThread> spAsynFrameThread;
+            CComPtr<IAsynFrameThreadFactory> spAsynFrameThreadFactory;
+            lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFrameThreadFactory), IID_IAsynFrameThreadFactory, (IUnknown**)&spAsynFrameThreadFactory);
+            spAsynFrameThreadFactory->CreateAsynFrameThread(0, 0, argc>3? atoi(argv[3]) : asynsdk::TC_Uapc, 0, &spAsynFrameThread);
+
             std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             uint32_t elapse = argc < 3 ? 1000 : atol(argv[2]);
             LOGGER_INFO(logger, "CreateTimer: " << elapse);
@@ -176,7 +172,7 @@ int _tmain(int argc, _TCHAR *argv[])
             pEvent->Shutdown();
         }
         else if( strcmp(argv[1], "task") == 0 )
-        {
+        {// task vpn
             asynsdk::CStringSetter device(1, argc < 3 ? "vpn" : argv[2]);
             CComPtr<IStringVector> result;
             if( asynsdk::CreateObject(lpInstancesManager, "com.svc.ras", &device, 0, IID_IStringVector, (IUnknown**)&result) == S_OK )
@@ -189,25 +185,30 @@ int _tmain(int argc, _TCHAR *argv[])
             }
         }
         else if( strcmp(argv[1], "plugins") == 0 )
-        {
-            //加载asynfile/asynsock
+        {// plugins
+            CComPtr<IAsynFrameThread> spAsynFrameThread;
+            lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
+
             HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem));
-            LOGGER_INFO(logger, "Require: name=" << IN_AsynFileSystem << (r1 == 0 ? " ok" : " no"));
+            printf("Require: %s %s\n", IN_AsynFileSystem, (r1 == 0 ? " ok" : " no"));
 
             if( argc > 2 ) {
             HRESULT r2 = lpInstancesManager->Require(STRING_from_string(argv[2]));
-            LOGGER_INFO(logger, "Require: name=" << argv[2] << (r2 == 0 ? " ok" : " no"));
+            printf("Require: %s %s\n", argv[2], (r2 == 0 ? " ok" : " no"));
             }
 
             uint64_t id = EN_FrameThread;
-            lpInstancesManager->Notify(&STRING_from_number(id), AF_EVENT_NOTIFY, 0, 0, spAsynFrameThread);
+            lpInstancesManager->Notify(&STRING_from_number(id), AF_EVENT_NOTIFY, 0, 0, spAsynFrameThread); //通知启动10秒定时器检测是否存在空闲插件，若有，则卸载
             while(_kbhit() == 0 )
-            {
+            {// wait to auto unload plugins, auto setup 10sec timer
                 Sleep(100);
             }
         }
         else if( strcmp(argv[1], "ops") == 0 )
         {// ops 0/1
+            CComPtr<IAsynFrameThread> spAsynFrameThread;
+            lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
+
             std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             if( argc <=2 || atoi(argv[2]) == 0 )
             {
@@ -230,6 +231,9 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         else if( strcmp(argv[1], "sleep") == 0 )
         {// sleep timeout
+            CComPtr<IAsynFrameThread> spAsynFrameThread;
+            lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
+
             std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             pEvent->ShowTime("sleep1 b");
             pEvent->m_spAsynFrame->Sleep(1000); //1sec
@@ -239,6 +243,19 @@ int _tmain(int argc, _TCHAR *argv[])
             for(int i = 1; _kbhit() == 0; ++i)
             {
                 Sleep(1000); pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, i, 0, NULL); //异步消息
+            }
+            pEvent->Shutdown();
+        }
+        else if( strcmp(argv[1], "debug") == 0 )
+        {// debug post
+           CComPtr<IAsynFrameThread> spAsynFrameThread;
+           lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
+
+            std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
+            pEvent->m_spAsynFrame->PostMessage(0, AF_EVENT_APPID1, 0, 2, OBJECT_FROM_HERE(NULL)); //异步消息
+            for(int i = 1; _kbhit() == 0; ++i)
+            {
+                Sleep(1000);
             }
             pEvent->Shutdown();
         }
@@ -319,6 +336,9 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         else if( strcmp(argv[1], "sqlite") == 0 )
         {// sqlite test.db
+            CComPtr<IAsynFrameThread> spAsynFrameThread;
+            lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
+
             asynsdk::CStringSetter file(1, argc > 2 ? argv[2] : "test.db");
             CComPtr<IOsCommand > spCommand;
             if( asynsdk::CreateObject(lpInstancesManager, "sqlite", &file, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
@@ -337,7 +357,10 @@ int _tmain(int argc, _TCHAR *argv[])
             pEvent->Shutdown();
         }
         else if( strcmp(argv[1], "event") == 0 )
-        {
+        {// event
+            CComPtr<IAsynFrameThread> spAsynFrameThread;
+            lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
+
             class CEvents : public asynsdk::CAsynMessageEvents_base
             {
             public:
@@ -370,7 +393,7 @@ int _tmain(int argc, _TCHAR *argv[])
             Sleep(1000);
             printf("SetEvent\n");
             SetEvent(events.e);
-            Sleep(1000);
+
             while(_kbhit() == 0 )
             {
                 Sleep(100);
@@ -378,13 +401,27 @@ int _tmain(int argc, _TCHAR *argv[])
         }
         else
         {
-            CComPtr<IThreadPool> target;
-            if( asynsdk::CreateObject(lpInstancesManager, 0, 0, asynsdk::PT_EventThreadpool, IID_IThreadPool, (IUnknown**)&target) != S_OK )
-            {
-                break;
+            CComPtr<IAsynFrameThread> spAsynFrameThread;
+            lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
+
+            int type = 0; if( argc > 1 ) type = atoi(argv[1]);
+            const char *command = argc > 2? argv[2] : "c:\\windows\\system32\\notepad.exe";
+
+            CComPtr<IUnknown  > pTarget;
+            if( type )
+            { //use IAsynFrameThread;
+                pTarget = spAsynFrameThread;
+            } 
+            else 
+            { //use IThreadPool
+                if( asynsdk::CreateObject(lpInstancesManager, 0, 0, asynsdk::PT_EventThreadpool, IID_IThreadPool, (IUnknown**)&pTarget) != S_OK )
+                {
+                    break;
+                }
             }
-            CComPtr<IOsCommand > spCommand;
-            if( asynsdk::CreateObject(lpInstancesManager, "cmd", target, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
+
+            CComPtr<IOsCommand> spCommand;
+            if( asynsdk::CreateObject(lpInstancesManager, "cmd", pTarget, 0, IID_IOsCommand, (IUnknown**)&spCommand) != S_OK )
             {
                 break;
             }
@@ -393,9 +430,8 @@ int _tmain(int argc, _TCHAR *argv[])
             CComPtr<IAsynIoOperation> spAsynIoOperation;
             pEvent->m_spAsynFrame->CreateAsynIoOperation(0, 0, &spAsynIoOperation);
             spAsynIoOperation->SetOpParams(AF_EVENT_APPID1, 0, 1/*for print extcode*/);
+            spCommand->Execute(0, STRING_from_string(command), 0, 0, 0, spAsynIoOperation);
 
-            spCommand->Execute(0, STRING_from_string(argv[1]), 0, 0, 0, spAsynIoOperation);
-            
             while(_kbhit() == 0 )
             {
                 Sleep(100);

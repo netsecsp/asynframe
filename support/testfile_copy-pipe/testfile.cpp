@@ -59,7 +59,8 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s srcfile dstfile\n\texample: %s src.dat dst.dat\n", argv[0], argv[0]);
+	printf("copy file\n");
+    printf("usage: %s srcfile dstfile\n\texample: %s src.dat dst.dat\n\n", argv[0], argv[0]);
 
     const char *srcfile = argc > 1 ? argv[1] : argv[0];
     const char *dstfile = argc > 2 ? argv[2] : "dst.dat";

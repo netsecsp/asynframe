@@ -60,7 +60,7 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s port tcp/udp|spx/ipx [host]\n\texample: %s 7675 tcp\n", argv[0], argv[0]);
+    printf("usage: %s port tcp/udp|spx/ipx [host]\n\texample: %s 7675 tcp\n\n", argv[0], argv[0]);
 
     HRESULT hr1 = Initialize(NULL, NULL);
 

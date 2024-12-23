@@ -60,7 +60,8 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s pid pipename\n\texample: %s 3456 server\n", argv[0], argv[0]);
+	printf("use ipc\n");
+    printf("usage: %s pid pipename\n\texample: %s 3456 server\n\n", argv[0], argv[0]);
     if( argc < 2 ) return 0;
 
     HRESULT hr1 = Initialize(NULL, NULL);

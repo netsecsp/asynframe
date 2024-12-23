@@ -1,4 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
+﻿///////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_PROXY_LUA_H__8A503072_4124_4233_9BEF_3671D8669695__INCLUDED_)
 #define AFX_PROXY_LUA_H__8A503072_4124_4233_9BEF_3671D8669695__INCLUDED_
 /*****************************************************************************
@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "v504/lua.h"
+#include "v504/lua.h" //Using lua 5.4.4
 #include "v504/lualib.h"
 #include "v504/lauxlib.h"
 #include "v504/llimits.h"

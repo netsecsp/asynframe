@@ -1,4 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
+ï»¿///////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_PROXY_JVM_H__8A503072_4124_4233_9BEF_3671D8669695__INCLUDED_)
 #define AFX_PROXY_JVM_H__8A503072_4124_4233_9BEF_3671D8669695__INCLUDED_
 /*****************************************************************************
@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "v170/jni.h" //using 17.0.11
+#include "v170/jni.h" //using jvm 17.0.11
 #ifdef __cplusplus
 }
 #endif
@@ -50,9 +50,9 @@ NAMESPACE_BEGIN(jvm)
 /////////////////////////////////////////////////////////////////////
 IScriptHost *GetScriptHost( /*[in ]*/JNIEnv *env ); //get from CInstanceManager.getNativeObject
 
-//Éú³Éobject¶ÔÓ¦µÄjava¶ÔÏó
-//1.addref_for_jvm=true±íÊ¾²»ÓÃÊ±ĞèÒªÔÚjava¶ËÖ÷¶¯µ÷ÓÃrelease²ÅÄÜÊÍ·Åc¶ÔÏó
-//2.auto_bindc_jvm=true±íÊ¾µ÷ÓÃSObject.Set°ó¶¨java¶ÔÏó
+//ç”Ÿæˆobjectå¯¹åº”çš„javaå¯¹è±¡
+//1.addref_for_jvm=trueè¡¨ç¤ºä¸ç”¨æ—¶éœ€è¦åœ¨javaç«¯ä¸»åŠ¨è°ƒç”¨releaseæ‰èƒ½é‡Šæ”¾cå¯¹è±¡
+//2.auto_bindc_jvm=trueè¡¨ç¤ºè°ƒç”¨SObject.Setç»‘å®šjavaå¯¹è±¡
 jobject      Create( /*[in ]*/JNIEnv *env, /*[in ]*/IUnknown *object, /*[in ]*/const char *name, /*[in ]*/bool addref_for_jvm = false, /*[in ]*/bool auto_bindc_jvm = false );
 /////////////////////////////////////////////////////////////////////
 

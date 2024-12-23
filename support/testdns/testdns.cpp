@@ -57,11 +57,11 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s host ipv4/ipv6 [dnsip]\n\texample: %s  www.baidu.com ipv4\n\t\t %s ipv6.baidu.com ipv6\n", argv[0], argv[0], argv[0]);
+	printf("resolve domain names\n");
+    printf("usage: %s host ipv4/ipv6 [dnsip]\n\texample: %s www.baidu.com ipv4\n\t\t %s ipv6.baidu.com ipv6\n", argv[0], argv[0], argv[0]);
     const char *host = argc > 1 ? argv[1] : "www.baidu.com";
     const char *ipvx = argc > 2 ? argv[2] : "ipv4";
     const char *puri = argc > 3 ? argv[3] : "http://119.29.29.29/d?dn=[host].&ip=[ip]&ttl=1";
-    //const char *puri = argc > 3 ? argv[3] : "udp://8.8.8.8:53";
 
     HRESULT hr1 = Initialize(NULL, NULL);
 

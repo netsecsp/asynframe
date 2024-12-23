@@ -7,7 +7,7 @@
 #include <frame/asm/ITypedef_i.c>
 #include <frame/asm/IAsynframe_i.c>
 #ifdef _DEBUG
-#pragma comment(lib, "asynsdk_mini-MTd.lib")
+#pragma comment(lib, "asynsdk_mini-MDd.lib")
 #else
 #pragma comment(lib, "asynsdk_mini-MD.lib")
 #endif

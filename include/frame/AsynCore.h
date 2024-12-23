@@ -41,6 +41,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "com/Unknown.h"
 #include "com/ObjPtr.h"
 #include "log/Logger.h"
+#include "app/Location.h"
 #include "app/String.h"
 #include "app/Setting.h"
 #include "app/Utility.h"
@@ -96,16 +97,16 @@ END_ASYN_IOERROR()
 #define IN_Opsthreadpool                "opsthreadpool"
 #define IN_Netthreadpool                "netthreadpool"
 
-#define IN_SysTime                      "systime"
+#define IN_SysTime                      "systime" //IOsTimes
 
 #define IN_SysRoot                      "sysroot" //系统路径
 #define IN_AppData                      "appdata" //数据路径
 #define IN_Plugins                      "plugins" //插件路径
 #define IN_SysArgv                      "sysargv" //系统参数
-
-#define IN_LogProp                      "logprop" //clog4cplus配置的全路径
-
+#define IN_LogProp                      "logprop" //clog4cplus配置全路径
 #define IN_XvmHost                      "xvmhost" //lua/python存放IScriptHost对象指针
+
+#define IN_Windows                      "windows" //表示通过asynsdk::WaitForWindowThreads等待窗口线程结束, 这个参数必须在Initialize之前配置, 使用场景: 程序创建动态多个窗口线程，只有这些窗口线程结束了才能退出
 
 /////////////////////////////////////////////////////////////////////////////////
 //AF_IOMSG_NOTIFY(lparam2)
@@ -136,8 +137,6 @@ END_ASYN_IOERROR()
 #define OT_GetMessageEvent              ( 3 ) //获取内部IAsynMessageEvents
 
 #define OT_GetAppAsynFrame              ( 4 ) //获取内部IAsynFrame
-
-#define OT_SetHandleThread              ( 5 ) //设置处理线程：调用PostAsynIoOperation时被强制转发消息，一次性操作
 
 //IAsynIoOperation.GetOsBuffer(index)
 #define OB_OsOverlapped                 ( 0 ) //Overlapped
@@ -219,6 +218,17 @@ END_ASYN_IOERROR()
 #define DN_Tunnel                       ("tunnel"  ) //隧道
 
 /////////////////////////////////////////////////////////////////////////////////
+//IAsynIoBridge.IObjectHolder(method)
+#define BT_GetSource                    ( 0 ) //获取源IAsynIoDevice
+#define BT_GetTarget                    ( 1 )
+#define BT_GetSourceIoOperation         ( 2 ) //获取读IAsynIoOperation
+#define BT_GetTargetIoOperation         ( 3 ) //获取写IAsynIoOperation
+
+/////////////////////////////////////////////////////////////////////////////////
+//IAsynFrameThread.IObjectHolder(method)
+#define FT_GetBgThreads                 ( 0 ) //获取后台IThread
+#define FT_SetBgThreads                 ( 0 ) //设置后台IThread
+
 //IAsynFrameThread.BindAsynIoOperation(mode):以下值可以自由组合
 #define BM_Oneway                       (0x00000001) //单向关联:1-只能允许front.cancel事件传递/0-允许front.cancel/self事件传递, 不能跟BM_Result|BM_Calcio|BM_Onlyec联合使用
 #define BM_ExBuff                       (0x00000002) //间接引用数据Buffer, SetExtraBuffer(-1, Buffer), 不能跟BM_IoBuff联合使用
@@ -232,13 +242,6 @@ END_ASYN_IOERROR()
 #define BM_DoTake                       (0x00100000) //是否获取Buffer权限，只跟BM_OsAddr|BM_IoBuff|BM_ExBuff联合使用
 #define BM_Nolink                       (0x40000000) //不做关联
 #define BM_ResetOptimer                 (0x80000000) //移除Op定时器
-
-/////////////////////////////////////////////////////////////////////////////////
-//IAsynIoBridge.IObjectHolder(method)
-#define BT_GetSource                    ( 0 ) //获取源IAsynIoDevice
-#define BT_GetTarget                    ( 1 )
-#define BT_GetSourceIoOperation         ( 2 ) //获取读IAsynIoOperation
-#define BT_GetTargetIoOperation         ( 3 ) //获取写IAsynIoOperation
 
 #pragma pack(push, 1)
 /////////////////////////////////////////////////////////////////////////////////

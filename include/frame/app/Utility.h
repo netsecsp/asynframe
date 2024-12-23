@@ -63,7 +63,7 @@ void   *AcquireBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in, out]*/uint32_t 
 bool    ReleaseBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in ]*/void *addr);
 
 ///////////////////////////////////////////////////////////////////////////////
-//监听事件句柄出发事件: AF_EVENT_NOTIFY hEvent lparam2 object, 返回的IAsynMessageHolder对象仅用于取消监听事件句柄, 允许thread=0
+//监听事件句柄出发事件: AF_EVENT_NOTIFY hEvent lparam2 object, 返回的IAsynMessageHolder对象仅用于取消监听事件句柄, 允许thread=0, 禁止lparam2=0
 IAsynMessageHolder *CreateEventMonitor(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/IThread *thread, /*[in ]*/IAsynMessageEvents *events, /*[in ]*/HANDLE event, /*[in ]*/uint64_t lparam2, /*[in ]*/IUnknown *object);
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -80,12 +80,16 @@ IThreadMessagePump *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstanc
 //建立消息循环泵: window=0表示建立异步线程循环泵，window!=0表示建立窗口线程循环泵, 注意: 不能用于模态对话框
 void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/BOOL window, /*[in ]*/ThreadcoreMode mode, /*[in ]*/IAsynMessageEvents *events_ref = 0);
 
+//获取当前 线 程: tryBgThread=0表示获取前台线程; tryBgThread=1表示尝试获取后台线程，若没有帮定后台线程，则返回前台线程，注意返回的是对象引用，不能释放其引用计数器
+IThread            *GetCurrentThread(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/bool tryBgThread = false);
+
+//等窗口线程结束: 要求存在配置项[;windows=1]
+void    WaitForWindowThreads(/*[in ]*/InstancesManager *lpInstancesManager);
 ///////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ThreadcoreType
 {
-    TT_FrameThread = 0, //IAsynFrameThread
-    TT_WorksThread,     //IThread
-    TT_TwinsThread,     //IThread
+    TT_WorksThread = 0,     //普通线程Thread
+    TT_TwinsThread,         //孪生线程Thread
 } ThreadcoreType;
 
 typedef enum tag_ThreadpoolType
@@ -96,9 +100,9 @@ typedef enum tag_ThreadpoolType
     PT_EventThreadpool,     //监控事件线程池
 } ThreadpoolType;
 
-//创建命令执行器: CreateObject(lpInstancesManager, name, pParam1, lparam2, IID_IOsCommand   , ppObject) #name="cmd"表示创建系统命令执行器
+//创建命令执行器: CreateObject(lpInstancesManager, name, pParam1, lparam2, IID_IOsCommand   , ppObject) #name="cmd"表示创建内置命令执行器
 //创建数据传输器: CreateObject(lpInstancesManager, name, pParam1, lparam2, IID_IDataTransmit, ppObject)
-//创建Os线程:     CreateObject(lpInstancesManager, name, 0,ThreadcoreType, IID_IThread      , ppObject)
+//创建Os线程:     CreateObject(lpInstancesManager, name, 0,ThreadcoreType, IID_IThread      , ppObject) #注意返回对象不是IAsynFrameThread
 //创建线程池:     CreateObject(lpInstancesManager, name, 0,ThreadpoolType, IID_IThreadPool  , ppObject)
 HRESULT CreateObject(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2, /*[in ]*/REFIID riid, /*[out]*/IUnknown **ppObject);
 

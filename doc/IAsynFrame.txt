@@ -156,6 +156,7 @@ import "ITypedef.idl";
     ]
     interface IAsynMessageHolder : IUnknown
     {
+        //thread=0表示同步调用
         HRESULT Invoke( [in ]IThread* thread, [in ]IUnknown* events, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
     };
 
@@ -384,6 +385,18 @@ import "ITypedef.idl";
         HRESULT Announce( [in ]IUnknown* pdatas, [in ]uint32_t action );
     };
 
+    [// 提供dll接口
+        object,
+        uuid(94CCE335-9F58-4624-A633-B1FB718D8DB2),
+        helpstring("IDyldProvider Interface"),
+        pointer_default(unique)
+    ]
+    interface IDyldProvider : IUnknown
+    {
+        HRESULT Symbol( [out]handle** table );
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////
     [// 显式继承：IObjectHolder，隐含继承：IDataTransmit/IDataRwInvoke
         object,
         uuid(CBFDC32B-6AC7-4dd6-BB9D-E8248366249A),
@@ -462,7 +475,7 @@ import "ITypedef.idl";
 
         /////////////////////////////////////////////////////////////////////////////
         HRESULT SendMessage( [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object ); //允许被Shutdown/Cancel被取消
-        //check=TRUE表示当检测到执行环境处于IAsynFrameThread线程时直接回调, 否则强制异步执行
+        //check=0表示前台线程异步执行; check=1表示尝试后台线程异步执行，check=2表示当检测到执行环境处于IAsynFrameThread线程时直接回调, 否则强制前台线程异步执行
         HRESULT PostMessage( [in ]BOOL check, [in ]uint32_t message, [in ]uint64_t lparam1, [in ]uint64_t lparam2, [in ]IUnknown* object );
 
         /////////////////////////////////////////////////////////////////////////////
@@ -499,7 +512,7 @@ import "ITypedef.idl";
     };
 
     /////////////////////////////////////////////////////////////////////////////////
-    [// 框架线程, 显式继承：IThread，隐含继承: IAsynMessageObject，用于扩展处理windows消息
+    [// 框架线程, 显式继承：IThread，隐含继承: IObjectHolder, 用于设置后台线程, 隐含继承: IAsynMessageObject，用于扩展处理windows消息
         object,
         uuid(0B5E89FF-D258-4443-8096-C3BCCB2DDCBA),
         helpstring("IAsynFrameThread Interface"),
@@ -535,7 +548,7 @@ import "ITypedef.idl";
     ]
     interface IAsynFrameThreadFactory : IUnknown
     {
-         HRESULT QueryThread( [in ]uint32_t threadid, [in ]REFIID Riid, [out]IUnknown** ppThread ); //查询指定线程对象, Riid只能是IIDIAsynFrameThread|IID_IThreadMessagePump类型，threadid=0表示查询当前线程对象
+         HRESULT QueryThread( [in ]uint32_t threadid, [in ]uint32_t type, [out]IUnknown** ppThread ); //查询指定类型的线程对象, type=0表示获取前台线程返回IAsynFrameThread，threadid=0表示查询当前线程对象
          /////////////////////////////////////////////////////////////////////////////
          HRESULT CreateAsynFrameThread( [in ]handle hThread, [in ]BOOL window, [in ]uint32_t coretype, [in ]IAsynMessageEvents* events, [out]IAsynFrameThread** ppAsynFrameThread );
     };
@@ -580,7 +593,8 @@ import "ITypedef.idl";
     {
         HRESULT Initialize( [in ]InstancesManager* pInstancesManager, [in ]IAsynMessageEvents* events, [in ]IKeyvalSetter *param2 );
         HRESULT CanUnloadNow(); //查询可否卸载
-        HRESULT Shutdown();     //主动释放资源
+        HRESULT Update( [in ]IUnknown* object ); //app根据实际情况来调用
+        HRESULT Shutdown(); //主动释放资源
     };
 
     cpp_quote("#pragma pack(pop)")

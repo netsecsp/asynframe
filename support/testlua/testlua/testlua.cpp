@@ -54,6 +54,7 @@ STDAPI_(extern InstancesManager*) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {// testlua test.lua main
+	printf("execute lua\n\n");
     HRESULT hr1 = Initialize(NULL, NULL);
 
     {
