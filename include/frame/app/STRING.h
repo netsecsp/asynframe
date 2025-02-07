@@ -1,4 +1,4 @@
-// String.h: Definition of the STRING_EX class
+﻿// String.h: Definition of the STRING_EX class
 //
 /////////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_STRING_H__EAB9B945_803E_460B_8137_8C63F70CB605__INCLUDED_)
@@ -42,10 +42,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NAMESPACE_BEGIN(asynsdk)
 
 #define string_from_STRING(S)    std::string((char*)(S).ptr, (S).len)
-#define string_from_BUFFER(S, l) std::string((char*)(S), l)
 #define STRING_from_string(s)    asynsdk::STRING_EX(s)
+
+#define string_from_BUFFER(S, l) std::string((char*)(S), l)
 #define STRING_from_buffer(s, l) asynsdk::STRING_EX((void*)(s), l)
+
 #define STRING_from_object(s)    asynsdk::STRING_EX((IUnknown *)(s))
+
 #define STRING_from_number(s)    asynsdk::STRING_EX(&(s), sizeof(s))
 template<typename T> T number_from_STRING(STRING *S) { return *((T*)S->ptr);}
 

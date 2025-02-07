@@ -61,14 +61,14 @@ STDAPI_(extern InstancesManager *) GetInstancesManager();
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("usage: %s port [tcp/http]\n\texample: %s 1554\n", argv[0], argv[0]);
+    printf("usage: %s port [tcp/http]\n\texample: %s 1554\n\n", argv[0], argv[0]);
 
     HRESULT hr1 = Initialize(NULL, NULL);
 
     do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        if( lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork)) != S_OK )
+        if( CHECK_NO(lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0)))
         {
             printf("can't load plugin: %s\n", IN_AsynNetwork);
             break;

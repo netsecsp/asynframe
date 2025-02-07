@@ -1,4 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
+﻿///////////////////////////////////////////////////////////////////////////////
 #if !defined(AFX_UTILITY_APP_H__8A503072_4124_4233_9BEF_3671D8669695__INCLUDED_)
 #define AFX_UTILITY_APP_H__8A503072_4124_4233_9BEF_3671D8669695__INCLUDED_
 /*****************************************************************************
@@ -69,21 +69,20 @@ IAsynMessageHolder *CreateEventMonitor(/*[in ]*/InstancesManager *lpInstancesMan
 ///////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ThreadcoreMode
 {
-    TC_Auto = 0,
-    TC_Iocp,
+    TC_Iocp = 0,
     TC_Uapc,
-    TC_Uapc_timeEvent,
+    TC_Windows,
 } ThreadcoreMode;
 
-//创建消息循环泵: window=0表示建立异步线程循环泵, window!=0表示建立窗口线程循环泵, 注意: 允许events_ref/ppThread=0, 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵
-IThreadMessagePump *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/BOOL window, /*[in ]*/ThreadcoreMode mode, /*[in ]*/IAsynMessageEvents *events_ref, /*[out]*/IAsynFrameThread **ppThread);
-//建立消息循环泵: window=0表示建立异步线程循环泵，window!=0表示建立窗口线程循环泵, 注意: 不能用于模态对话框
-void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/BOOL window, /*[in ]*/ThreadcoreMode mode, /*[in ]*/IAsynMessageEvents *events_ref = 0);
+//创建消息循环泵: coremode!=TC_Windows表示建立异步线程循环泵, coremode=TC_Windows表示建立窗口线程循环泵, 注意: 允许events_ref/ppThread=0, 可以用于模态对话框, 必须在当前线程创建/运行线程循环泵
+IThreadMessagePump *CreateThreadMessagePump(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/ThreadcoreMode coremode, /*[in ]*/IAsynMessageEvents *events_ref, /*[out]*/IAsynFrameThread **ppThread);
+//建立消息循环泵: coremode!=TC_Windows表示建立异步线程循环泵，coremode=TC_Windows表示建立窗口线程循环泵, 注意: 不能用于模态对话框
+void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/ThreadcoreMode coremode, /*[in ]*/IAsynMessageEvents *events_ref = 0);
 
-//获取当前 线 程: tryBgThread=0表示获取前台线程; tryBgThread=1表示尝试获取后台线程，若没有帮定后台线程，则返回前台线程，注意返回的是对象引用，不能释放其引用计数器
+//获取当前 线 程: tryBgThread=0表示获取前台线程，即返回IAsynFrameThread类型对象引用; tryBgThread=1表示尝试获取后台线程，若没绑定后台线程，则返回前台线程，注意返回的是对象引用，不能释放对象的引用计数器
 IThread            *GetCurrentThread(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/bool tryBgThread = false);
 
-//等窗口线程结束: 要求存在配置项[;windows=1]
+//等窗口线程结束: 要求存在启动配置项[;windows=1]
 void    WaitForWindowThreads(/*[in ]*/InstancesManager *lpInstancesManager);
 ///////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ThreadcoreType
@@ -100,10 +99,11 @@ typedef enum tag_ThreadpoolType
     PT_EventThreadpool,     //监控事件线程池
 } ThreadpoolType;
 
-//创建命令执行器: CreateObject(lpInstancesManager, name, pParam1, lparam2, IID_IOsCommand   , ppObject) #name="cmd"表示创建内置命令执行器
-//创建数据传输器: CreateObject(lpInstancesManager, name, pParam1, lparam2, IID_IDataTransmit, ppObject)
-//创建Os线程:     CreateObject(lpInstancesManager, name, 0,ThreadcoreType, IID_IThread      , ppObject) #注意返回对象不是IAsynFrameThread
-//创建线程池:     CreateObject(lpInstancesManager, name, 0,ThreadpoolType, IID_IThreadPool  , ppObject)
+//创建命令执行器: CreateObject(lpInstancesManager, name, pParam1, lparam2, IID_IOsCommand      , ppObject) #name="cmd"表示创建内置命令执行器
+//创建数据传输器: CreateObject(lpInstancesManager, name, pParam1, lparam2, IID_IDataTransmit   , ppObject)
+//创建Os线程:     CreateObject(lpInstancesManager, name, 0,ThreadcoreType, IID_IThread         , ppObject) #注意返回对象不是IAsynFrameThread
+//                CreateObject(lpInstancesManager, name, 0,ThreadcoreMode, IID_IAsynFrameThread, ppObject)
+//创建线程池:     CreateObject(lpInstancesManager, name, 0,ThreadpoolType, IID_IThreadPool     , ppObject)
 HRESULT CreateObject(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/const char *name, /*[in ]*/IUnknown *pParam1, /*[in ]*/uint64_t lparam2, /*[in ]*/REFIID riid, /*[out]*/IUnknown **ppObject);
 
 ///////////////////////////////////////////////////////////////////////////////

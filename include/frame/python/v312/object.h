@@ -55,7 +55,7 @@ whose size is determined when the object is allocated.
 
 /* Py_DEBUG implies Py_REF_DEBUG. */
 #if defined(Py_DEBUG) && !defined(Py_REF_DEBUG)
-//#  define Py_REF_DEBUG
+#  define Py_REF_DEBUG
 #endif
 
 #if defined(Py_LIMITED_API) && defined(Py_TRACE_REFS)

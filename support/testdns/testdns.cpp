@@ -68,7 +68,7 @@ int _tmain(int argc, _TCHAR *argv[])
     do{
         InstancesManager *pInstancesManager = GetInstancesManager();
 
-        if( pInstancesManager->Require(STRING_from_string(IN_AsynNetwork)) != S_OK )
+        if( CHECK_NO(pInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0)))
         {
             printf("can't load plugin: %s\n", IN_AsynNetwork);
             break;

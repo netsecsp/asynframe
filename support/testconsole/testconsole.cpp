@@ -108,14 +108,14 @@ int _tmain(int argc, _TCHAR *argv[])
     do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        if( lpInstancesManager->Require(STRING_from_string(IN_Console)) != S_OK )
+        if( CHECK_NO(lpInstancesManager->Require(STRING_from_string(IN_Console), 0)))
         {
             printf("can't load plugin: %s\n", IN_Console);
             break;
         }
 
         CThreadEvents t(lpInstancesManager);
-        asynsdk::DoMessageLoop(lpInstancesManager, 0, asynsdk::TC_Uapc, &t);
+        asynsdk::DoMessageLoop(lpInstancesManager, asynsdk::TC_Uapc, &t);
     }while(0);
 
     HRESULT hr2 = Destory();

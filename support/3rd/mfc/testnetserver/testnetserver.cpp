@@ -71,7 +71,7 @@ BOOL CtestnetserverApp::InitInstance()
     CWinApp::InitInstance();
 
     Initialize(NULL, NULL); //Initialize asynframe
-    GetInstancesManager()->Require(STRING_from_string(IN_AsynNetwork));
+    GetInstancesManager()->Require(STRING_from_string(IN_AsynNetwork), 0);
 
     AfxEnableControlContainer();
 
@@ -126,7 +126,7 @@ BOOL CtestnetserverApp::InitInstance()
 BOOL CtestnetserverApp::PumpMessage()
 {
     //return CWinApp::PumpMessage();
-    if( m_spThreadMessagePump->WaitMessage(NULL, INFINITE) == S_OK )
+    if( m_spThreadMessagePump->WaitMessage(NULL, INFINITE * 1000LL, NULL) == S_OK )
     {// 必须忽略处理返回值=E_ABORT/S_FALSE
         m_spThreadMessagePump->PumpMessage(NULL);
     }

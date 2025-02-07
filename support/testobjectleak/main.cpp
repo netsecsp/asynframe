@@ -36,7 +36,7 @@ STDAPI_(extern HRESULT) Initialize( /*[in ]*/IAsynMessageEvents *param1, /*[in ]
 STDAPI_(extern HRESULT) Destory();
 STDAPI_(extern InstancesManager*) GetInstancesManager();
 
-//cl main.cpp /D"_LOG" /EHsc /MD /I"..\..\include" -link /LIBPATH:"..\..\lib"
+//cl main.cpp /D"_LOG" /EHsc /MD /I"..\..\include" -link /LIBPATH:"..\..\lib\win32"
 
 int main(int argc, const char *argv[])
 {

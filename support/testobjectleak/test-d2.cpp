@@ -82,7 +82,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, ULONG dwReason, LPVOID lpReserved)
     return TRUE;
 }
 
-//cl test-d2.cpp /D"_LOG" /EHsc /MD /I"..\..\include" -link -dll -out:test-d2.dll /LIBPATH:"..\..\lib"
+//cl test-d2.cpp /D"_LOG" /EHsc /MD /I"..\..\include" -link -dll -out:test-d2.dll /LIBPATH:"..\..\lib\win32"
 
 #ifdef __cplusplus 
 extern "C" { 

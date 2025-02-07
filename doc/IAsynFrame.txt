@@ -1,4 +1,4 @@
-/*****************************************************************************
+﻿/*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
 
 Developer: Shengqian Yang, from China, E-mail: netsecsp@hotmail.com, last updated 01/15/2024
@@ -52,21 +52,24 @@ import "ITypedef.idl";
     interface IAsynFrameThreadFactory;
     interface IAsynFrameThread;
     interface InstancesManager;
+ 
     /////////////////////////////////////////////////////////////////////////////////
-    //系统消息
+    //系统消息: < 10000
     cpp_quote( "#define AF_EVENT_SYSTEM (  0  )" )
     cpp_quote( "#define AF_EVENT_APPID0 (  1  )" )
-    cpp_quote( "#define AF_TIMER        (  2  )" ) //AF_TIMER        Timerid       X                0
+    cpp_quote( "#define AF_TIMER        (  2  )" ) //AF_TIMER        Timerid      X                0
     /////////////////////////////////////////////////////////////////////////////////
-    cpp_quote( "#define AF_IOMSG_NOTIFY (  5  )" ) //AF_IOMSG_NOTIFY       X lAction IAsynIoOperation
-    cpp_quote( "#define AF_EVENT_NOTIFY (  6  )" ) //AF_EVENT_NOTIFY pObject       X                X
-    cpp_quote( "#define AF_QUERY_RESULT (  7  )" ) //AF_QUERY_RESULT pObject       X                X
+    cpp_quote( "#define AF_IOMSG_NOTIFY (  5  )" ) //AF_IOMSG_NOTIFY       X Action IAsynIoOperation
+    cpp_quote( "#define AF_EVENT_NOTIFY (  6  )" ) //AF_EVENT_NOTIFY pObject      X                X
+    cpp_quote( "#define AF_QUERY_RESULT (  7  )" ) //AF_QUERY_RESULT pObject      X                X
+    cpp_quote( "#define AF_EVENT_WINDOW (  8  )" ) //AF_EVENT_WINDOW       X    MSG                0
     /////////////////////////////////////////////////////////////////////////////////
-    //应用消息: 最小值是10000
+    //应用消息: >=10000
     cpp_quote( "#define AF_EVENT_APPID1 (10000)" )
     cpp_quote( "#define AF_EVENT_APPID2 (10001)" )
     cpp_quote( "#define AF_EVENT_APPID3 (10002)" )
     cpp_quote( "#define AF_EVENT_APPID4 (10003)" )
+
     /////////////////////////////////////////////////////////////////////////////////
     //错误代码
     cpp_quote( "#define AE_RESET        (  1  )" ) //1.IO复位: 对于文件读请求来说表示已到文件结尾/对于网络TCP读请求来说表示已经收到0字节，即：收到fin报文
@@ -169,17 +172,17 @@ import "ITypedef.idl";
     ]
     interface IThreadMessagePump : IUnknown
     {
-        //等待消息：阻塞nTimeout直到收到消息，允许nTimeout=0，单位:微秒, 参数events必须等于0
-        //返 回 值：S_OK   -表示成功提取消息
-        //          S_FALSE-表示在等待时间里没有消息或发生中断事件
+        //等待消息：阻塞 Timeout直到收到消息，允许Timeout=0，单位: 微秒, 允许hEvent=0|pMsgptr=0
+        //返 回 值：S_OK   -表示成功提取消息，返回pMsgptr.type=0表示定时消息, pMsgptr.type=1表示异步消息, pMsgptr.type=2表示窗口消息: pMsgptr.data指向MSG[windows窗口消息结构体]地址
+        //          S_FALSE-表示在等待时间里没有消息或发生中断或hEvent有信号: pMsgptr.type=3表示句柄hEvent已有信号
         //          E_ABORT-表示退出消息循环
-        HRESULT WaitMessage( [in ]handle events, [in ]uint64_t nTimeout );
-        //分发消息: 若异步消息=iop时，则返回S_OK
-        HRESULT PumpMessage( [in ]handle pdatas );
+        HRESULT WaitMessage( [in ]handle hEvent, [in ]uint64_t Timeout, [out]handle pMsgptr );
+        //分发消息: 参数unused=0
+        HRESULT PumpMessage( [in ]handle unused );
         /////////////////////////////////////////////////////////////////////////////
         //查询状态
-        //返 回 值：S_OK   -表示正常运行
-        //          S_FALSE-表示退出, 即: WaitMessage返回E_ABORT后状态
+        //返 回 值：S_OK    -表示正常运行
+        //          S_FALSE-表示退出, 即: WaitMessage返回E_ABORT后消息泵所处于的状态
         HRESULT QueryStatus( );
     };
 
@@ -550,7 +553,7 @@ import "ITypedef.idl";
     {
          HRESULT QueryThread( [in ]uint32_t threadid, [in ]uint32_t type, [out]IUnknown** ppThread ); //查询指定类型的线程对象, type=0表示获取前台线程返回IAsynFrameThread，threadid=0表示查询当前线程对象
          /////////////////////////////////////////////////////////////////////////////
-         HRESULT CreateAsynFrameThread( [in ]handle hThread, [in ]BOOL window, [in ]uint32_t coretype, [in ]IAsynMessageEvents* events, [out]IAsynFrameThread** ppAsynFrameThread );
+         HRESULT CreateAsynFrameThread( [in ]handle hThread, [in ]uint32_t coremode, [in ]IAsynMessageEvents* events, [out]IAsynFrameThread** ppAsynFrameThread );
     };
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -571,11 +574,11 @@ import "ITypedef.idl";
         //获取实例
         HRESULT GetInstance( [in ]STRING Name, [in ]REFIID riid, [out]IUnknown** ppObject );
         //注册/注销实例，lpObject=NULL表示注销实例
-        HRESULT SetInstance( [in ]STRING Name, [in ]IUnknown* lpObject );
+        HRESULT SetInstance( [in ]STRING Name, [in ]IUnknown* object );
 
         ///////////////////////////////////////////////////////////////
         //加载模块, Owner格式: com.app.<name> | <name>
-        HRESULT Require( [in ]STRING Owner );
+        HRESULT Require( [in ]STRING Owner, [in ]IKeyvalSetter* param2 ); //返回值S_OK-表示加载成功 返回值S_FALSE-表示已经加载 其他值表示加载失败
 
         ///////////////////////////////////////////////////////////////
         //Ident允许null, 格式: depend/owner, 可选实现DllCanUnloadNow接口

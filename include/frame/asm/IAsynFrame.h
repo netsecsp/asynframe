@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Thu Dec 19 08:38:51 2024
+/* at Mon Feb 03 08:57:14 2025
  */
 /* Compiler settings for IAsynFrame.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -254,6 +254,7 @@ extern "C"{
 #define AF_IOMSG_NOTIFY (  5  )
 #define AF_EVENT_NOTIFY (  6  )
 #define AF_QUERY_RESULT (  7  )
+#define AF_EVENT_WINDOW (  8  )
 #define AF_EVENT_APPID1 (10000)
 #define AF_EVENT_APPID2 (10001)
 #define AF_EVENT_APPID3 (10002)
@@ -910,11 +911,12 @@ EXTERN_C const IID IID_IThreadMessagePump;
     {
     public:
         virtual HRESULT STDMETHODCALLTYPE WaitMessage( 
-            /* [in] */ handle events,
-            /* [in] */ uint64_t nTimeout) = 0;
+            /* [in] */ handle hEvent,
+            /* [in] */ uint64_t Timeout,
+            /* [out] */ handle pMsgptr) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE PumpMessage( 
-            /* [in] */ handle pdatas) = 0;
+            /* [in] */ handle unused) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE QueryStatus( void) = 0;
         
@@ -941,12 +943,13 @@ EXTERN_C const IID IID_IThreadMessagePump;
         
         HRESULT ( STDMETHODCALLTYPE *WaitMessage )( 
             IThreadMessagePump * This,
-            /* [in] */ handle events,
-            /* [in] */ uint64_t nTimeout);
+            /* [in] */ handle hEvent,
+            /* [in] */ uint64_t Timeout,
+            /* [out] */ handle pMsgptr);
         
         HRESULT ( STDMETHODCALLTYPE *PumpMessage )( 
             IThreadMessagePump * This,
-            /* [in] */ handle pdatas);
+            /* [in] */ handle unused);
         
         HRESULT ( STDMETHODCALLTYPE *QueryStatus )( 
             IThreadMessagePump * This);
@@ -974,11 +977,11 @@ EXTERN_C const IID IID_IThreadMessagePump;
     ( (This)->lpVtbl -> Release(This) ) 
 
 
-#define IThreadMessagePump_WaitMessage(This,events,nTimeout)	\
-    ( (This)->lpVtbl -> WaitMessage(This,events,nTimeout) ) 
+#define IThreadMessagePump_WaitMessage(This,hEvent,Timeout,pMsgptr)	\
+    ( (This)->lpVtbl -> WaitMessage(This,hEvent,Timeout,pMsgptr) ) 
 
-#define IThreadMessagePump_PumpMessage(This,pdatas)	\
-    ( (This)->lpVtbl -> PumpMessage(This,pdatas) ) 
+#define IThreadMessagePump_PumpMessage(This,unused)	\
+    ( (This)->lpVtbl -> PumpMessage(This,unused) ) 
 
 #define IThreadMessagePump_QueryStatus(This)	\
     ( (This)->lpVtbl -> QueryStatus(This) ) 
@@ -3151,8 +3154,7 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
         
         virtual HRESULT STDMETHODCALLTYPE CreateAsynFrameThread( 
             /* [in] */ handle hThread,
-            /* [in] */ BOOL window,
-            /* [in] */ uint32_t type,
+            /* [in] */ uint32_t coremode,
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAsynFrameThread **ppAsynFrameThread) = 0;
         
@@ -3186,8 +3188,7 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
         HRESULT ( STDMETHODCALLTYPE *CreateAsynFrameThread )( 
             IAsynFrameThreadFactory * This,
             /* [in] */ handle hThread,
-            /* [in] */ BOOL window,
-            /* [in] */ uint32_t type,
+            /* [in] */ uint32_t coremode,
             /* [in] */ IAsynMessageEvents *events,
             /* [out] */ IAsynFrameThread **ppAsynFrameThread);
         
@@ -3217,8 +3218,8 @@ EXTERN_C const IID IID_IAsynFrameThreadFactory;
 #define IAsynFrameThreadFactory_QueryThread(This,threadid,type,ppThread)	\
     ( (This)->lpVtbl -> QueryThread(This,threadid,type,ppThread) ) 
 
-#define IAsynFrameThreadFactory_CreateAsynFrameThread(This,hThread,window,type,events,ppAsynFrameThread)	\
-    ( (This)->lpVtbl -> CreateAsynFrameThread(This,hThread,window,type,events,ppAsynFrameThread) ) 
+#define IAsynFrameThreadFactory_CreateAsynFrameThread(This,hThread,coremode,events,ppAsynFrameThread)	\
+    ( (This)->lpVtbl -> CreateAsynFrameThread(This,hThread,coremode,events,ppAsynFrameThread) ) 
 
 #endif /* COBJMACROS */
 
@@ -3259,10 +3260,11 @@ EXTERN_C const IID IID_InstancesManager;
         
         virtual HRESULT STDMETHODCALLTYPE SetInstance( 
             /* [in] */ STRING Name,
-            /* [in] */ IUnknown *lpObject) = 0;
+            /* [in] */ IUnknown *object) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Require( 
-            /* [in] */ STRING Owner) = 0;
+            /* [in] */ STRING Owner,
+            /* [in] */ IKeyvalSetter *param2) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Observe( 
             /* [in] */ STRING Ident,
@@ -3322,11 +3324,12 @@ EXTERN_C const IID IID_InstancesManager;
         HRESULT ( STDMETHODCALLTYPE *SetInstance )( 
             InstancesManager * This,
             /* [in] */ STRING Name,
-            /* [in] */ IUnknown *lpObject);
+            /* [in] */ IUnknown *object);
         
         HRESULT ( STDMETHODCALLTYPE *Require )( 
             InstancesManager * This,
-            /* [in] */ STRING Owner);
+            /* [in] */ STRING Owner,
+            /* [in] */ IKeyvalSetter *param2);
         
         HRESULT ( STDMETHODCALLTYPE *Observe )( 
             InstancesManager * This,
@@ -3372,11 +3375,11 @@ EXTERN_C const IID IID_InstancesManager;
 #define InstancesManager_GetInstance(This,Name,riid,ppObject)	\
     ( (This)->lpVtbl -> GetInstance(This,Name,riid,ppObject) ) 
 
-#define InstancesManager_SetInstance(This,Name,lpObject)	\
-    ( (This)->lpVtbl -> SetInstance(This,Name,lpObject) ) 
+#define InstancesManager_SetInstance(This,Name,object)	\
+    ( (This)->lpVtbl -> SetInstance(This,Name,object) ) 
 
-#define InstancesManager_Require(This,Owner)	\
-    ( (This)->lpVtbl -> Require(This,Owner) ) 
+#define InstancesManager_Require(This,Owner,param2)	\
+    ( (This)->lpVtbl -> Require(This,Owner,param2) ) 
 
 #define InstancesManager_Observe(This,Ident,Soctx)	\
     ( (This)->lpVtbl -> Observe(This,Ident,Soctx) ) 

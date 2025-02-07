@@ -153,7 +153,7 @@ int  CtestnetclientApp::Run()
     ASSERT_VALID(this);
 
     CComPtr<IThreadMessagePump> spThreadMessagePump;
-    spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(GetInstancesManager(), 1, asynsdk::TC_Auto, NULL, NULL));
+    spThreadMessagePump.Attach(asynsdk::CreateThreadMessagePump(GetInstancesManager(), asynsdk::TC_Windows, NULL, NULL));
 
     // for tracking the idle time state
     LONG lIdleCount = 0;
@@ -161,7 +161,7 @@ int  CtestnetclientApp::Run()
     // acquire and dispatch messages until a WM_QUIT message is received.
     for(;;)
     {
-        HRESULT ret = spThreadMessagePump->WaitMessage(NULL, 5000/*5ms*/);
+        HRESULT ret = spThreadMessagePump->WaitMessage(NULL, 5000/*5ms*/, NULL);
         if( ret == E_ABORT )
         {
             break;

@@ -1,4 +1,4 @@
-## Asynframe framework v1.9.0 english | [中文](/README.md)
+## Asynframe framework v2.0.0 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -68,9 +68,10 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |python38/python312|plugin|Implementation of IOsCommand interface python framework|\support\testpython\testpython<br>\support\testpython\testapi|
 
 # Change log
-2024/12/23 Release asynframe framework v1.9.0  
-> Optimize performance  
+2025/02/08 Release asynframe framework v2.0.0  
+> Release edgeproxy  
 
+2024/12/23 Release asynframe framework v1.9.0  
 2024/11/11 Release asynframe framework v1.8.1  
 2024/08/16 Release asynframe framework v1.7.1  
 2024/07/12 Release asynframe framework v1.6.1  
@@ -82,8 +83,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v1.9.0-Msvc2019_20241223.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v1.9.0-Msvc2013_20241223.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v2.0.0-Msvc2019_20250208.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v2.0.0-Msvc2013_20250208.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  

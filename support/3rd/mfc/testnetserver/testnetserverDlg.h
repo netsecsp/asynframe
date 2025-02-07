@@ -20,7 +20,7 @@ public:
 
     IThreadMessagePump *CreateThreadMessagePump(InstancesManager *lpInstancesManager)
     {
-        return asynsdk::CreateThreadMessagePump(lpInstancesManager, 1, asynsdk::TC_Auto, asynsdk::asyn_message_events_impl::GetAsynMessageEvents(), (IAsynFrameThread**)&m_spAsynFrameThread);
+        return asynsdk::CreateThreadMessagePump(lpInstancesManager, asynsdk::TC_Windows, asynsdk::asyn_message_events_impl::GetAsynMessageEvents(), (IAsynFrameThread**)&m_spAsynFrameThread);
     }
 
 protected:

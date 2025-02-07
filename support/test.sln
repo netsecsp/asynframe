@@ -65,6 +65,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "python_extend_testapi", "te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testpython", "testpython\testpython\testpython.vcxproj", "{3B9FD52C-C707-407A-8EB5-6183049D49C1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webview_testedgeproxy", "testedgeproxy\testedgeproxy.vcxproj", "{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -321,6 +323,14 @@ Global
 		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Release|Win32.Build.0 = Release|Win32
 		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Release|x64.ActiveCfg = Release|x64
 		{3B9FD52C-C707-407A-8EB5-6183049D49C1}.Release|x64.Build.0 = Release|x64
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Debug|Win32.Build.0 = Debug|Win32
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Debug|x64.ActiveCfg = Debug|x64
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Debug|x64.Build.0 = Debug|x64
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Release|Win32.ActiveCfg = Release|Win32
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Release|Win32.Build.0 = Release|Win32
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Release|x64.ActiveCfg = Release|x64
+		{81EA1DE0-4BC3-4DE5-9CFA-E07C3B7A089F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

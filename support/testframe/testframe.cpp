@@ -159,7 +159,7 @@ int _tmain(int argc, _TCHAR *argv[])
             CComPtr<IAsynFrameThread> spAsynFrameThread;
             CComPtr<IAsynFrameThreadFactory> spAsynFrameThreadFactory;
             lpInstancesManager->GetInstance(STRING_from_string(IN_AsynFrameThreadFactory), IID_IAsynFrameThreadFactory, (IUnknown**)&spAsynFrameThreadFactory);
-            spAsynFrameThreadFactory->CreateAsynFrameThread(0, 0, argc>3? atoi(argv[3]) : asynsdk::TC_Uapc, 0, &spAsynFrameThread);
+            spAsynFrameThreadFactory->CreateAsynFrameThread(0, argc>3? atoi(argv[3]) : asynsdk::TC_Uapc, 0, &spAsynFrameThread);
 
             std::unique_ptr<CAsynFrameHandler> pEvent(new CAsynFrameHandler(lpInstancesManager, spAsynFrameThread));
             uint32_t elapse = argc < 3 ? 1000 : atol(argv[2]);
@@ -189,12 +189,12 @@ int _tmain(int argc, _TCHAR *argv[])
             CComPtr<IAsynFrameThread> spAsynFrameThread;
             lpInstancesManager->NewInstance(0, asynsdk::TC_Uapc, IID_IAsynFrameThread, (IUnknown**)&spAsynFrameThread);
 
-            HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem));
-            printf("Require: %s %s\n", IN_AsynFileSystem, (r1 == 0 ? " ok" : " no"));
+            HRESULT r1 = lpInstancesManager->Require(STRING_from_string(IN_AsynFileSystem), 0);
+            printf("Require: %s %s\n", IN_AsynFileSystem, (CHECK_OK(r1)? " ok" : " no"));
 
             if( argc > 2 ) {
-            HRESULT r2 = lpInstancesManager->Require(STRING_from_string(argv[2]));
-            printf("Require: %s %s\n", argv[2], (r2 == 0 ? " ok" : " no"));
+            HRESULT r2 = lpInstancesManager->Require(STRING_from_string(argv[2]), 0);
+            printf("Require: %s %s\n", argv[2], (CHECK_OK(r2)? " ok" : " no"));
             }
 
             uint64_t id = EN_FrameThread;

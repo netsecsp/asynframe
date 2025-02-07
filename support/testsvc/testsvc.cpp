@@ -59,7 +59,7 @@ public:
         mySvc.ReportSvcStatus(SERVICE_START_PENDING, NO_ERROR, 1000); // Report initial status to the SCM
 
         HRESULT r = Initialize(0, 0);
-        asynsdk::DoMessageLoop(GetInstancesManager(), 0, asynsdk::TC_Auto, &mySvc); //will fire OnThreadEnter events
+        asynsdk::DoMessageLoop(GetInstancesManager(), asynsdk::TC_Iocp, &mySvc); //will fire OnThreadEnter events
         Destory();
 
         mySvc.ReportSvcStatus(SERVICE_STOPPED, NO_ERROR);

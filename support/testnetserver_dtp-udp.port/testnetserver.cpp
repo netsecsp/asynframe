@@ -69,7 +69,7 @@ int _tmain(int argc, _TCHAR *argv[])
     do{
         InstancesManager *lpInstancesManager = GetInstancesManager();
 
-        if( lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork)) != S_OK)
+        if( CHECK_NO(lpInstancesManager->Require(STRING_from_string(IN_AsynNetwork), 0)))
         {
             printf("fail to load plugin: %s\n", IN_AsynNetwork);
             break;

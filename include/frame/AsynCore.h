@@ -1,4 +1,4 @@
-#if !defined(AFX_ASYNCORE_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)
+﻿#if !defined(AFX_ASYNCORE_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_)
 #define AFX_ASYNCORE_H__88966194_6F5D_4303_8670_7EAE695A32B3__INCLUDED_
 /*****************************************************************************
 Copyright (c) netsecsp 2012-2032, All rights reserved.
@@ -72,8 +72,9 @@ typedef enum tag_ObjectIdStart
     IAsynIpcChannel_Start,
     IAsynNetwork_Start,
     IAsynNetAgent_Start,
-    IConsole_Start,
-    IMediaFrame_Start,
+    IConsole_Start, 
+    IWebView_Start,
+    IAvMedia_Start,
 } ObjectIdStart;
 
 BEGIN_ASYN_IOERROR(IAsynFrame)
@@ -106,7 +107,10 @@ END_ASYN_IOERROR()
 #define IN_LogProp                      "logprop" //clog4cplus配置全路径
 #define IN_XvmHost                      "xvmhost" //lua/python存放IScriptHost对象指针
 
+/////////////////////////////////////////////////////////////////////////////////
+//IKeyvalSetter的配置参数
 #define IN_Windows                      "windows" //表示通过asynsdk::WaitForWindowThreads等待窗口线程结束, 这个参数必须在Initialize之前配置, 使用场景: 程序创建动态多个窗口线程，只有这些窗口线程结束了才能退出
+#define IN_OsPower                      "ospower" //电池事件
 
 /////////////////////////////////////////////////////////////////////////////////
 //AF_IOMSG_NOTIFY(lparam2)
@@ -170,11 +174,13 @@ END_ASYN_IOERROR()
 #define EN_SystemEvent                  ( 0 )
 //InstancesManager.Attach.lparam1{注册事件}
 #define EN_FrameThread                  ( 1 ) //AF_EVENT_NOTIFY 0        hwnd IThread #通知处理/窗口线程
+
 ///////////////////////////////////////////////
 #define EVENT_ID_Shutdown               ( 0 ) //AF_EVENT_NOTIFY 0 (0<<32) + 0 IKeyval #通知结束
 #define EVENT_ID_SysPower               ( 1 ) //AF_EVENT_NOTIFY 0 (1<<32) + x IKeyval #通知电源
 #define EVENT_ID_NetworkAdapter         ( 2 ) //AF_EVENT_NOTIFY 0 (2<<32) + x IKeyval #通知网卡
 #define EVENT_ID_WifiSignalQuality      ( 3 ) //AF_EVENT_NOTIFY 0 (3<<32) + x IKeyval #通知wifi信号质量
+#define EVENT_ID_WidgetEnvironment      ( 4 ) //AF_EVENT_NOTIFY 0 (4<<32) + x IKeyval #通知Widget环境
 
 /////////////////////////////////////////////////////////////////////////////////
 //IAsynIoDevice.IObjectHolder(method)
@@ -258,10 +264,16 @@ typedef struct tag_OSBUFFER_IOAREA
 
 typedef struct tag_FRAMEAPI
 {
-    const char *ident; //接口标识
-    uint32_t    ftype; //地址类型
-    void *symbol;      //接口地址
+    uint32_t      type; //地址类型
+    const char   *name; //接口标识
+    void         *data; //接口地址
 } FRAMEAPI;
+
+typedef struct tag_FRAMEMSG //for IThreadMessagePump.WaitMessage
+{
+    uint32_t      type; //消息类型: 0-定时消息 1-异步消息 2-窗口消息
+    void         *data;
+} FRAMEMSG;
 /////////////////////////////////////////////////////////////////////////////////
 #pragma pack(pop)
 
