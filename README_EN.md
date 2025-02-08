@@ -23,7 +23,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 ![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **Feature:**  
-1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[SoUI](https://github.com/SOUI2/soui)，[Qt6.x](https://download.qt.io/archive/qt) And other third-party open source projects  
+1. Easy integration into MFC，[DUI](https://github.com/duilib/duilib)，[SoUI](https://github.com/SOUI2/soui)，[Qt6.7.3](https://download.qt.io/archive/qt) And other third-party open source projects  
 2. Provide a unified device operation interface (including file, pipe, socket, etc.)  
 3. The operation chain is used to solve the problems of synchronization / communication between threads, execution timeout and resource / performance when integrating third-party open source projects  
 4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
@@ -45,8 +45,9 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |:--|:--|:--|:--|
 |asyncore|framework|asynframe|\support\testframe|
 |||integrate MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
-|||integrate [DUI](https://github.com/duilib/duilib)|\support\3rd\Dui|
-|||integrate [SoUI](https://github.com/SOUI2/soui)|\support\3rd\Sui|
+|||integrate [DUI](https://github.com/duilib/duilib)|https://github.com/netsecsp/asynframe_warehouse/3rd/Dui|
+|||integrate [SoUI](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Sui|
+|||integrate [Qt6.7.3](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Qt6.7.3|
 |crashexplorer|plugin[asyncore]|Capture the crash information of the current process and generate DMP file at the same time|\support\testcrashexplorer|
 |console|plugin[asyncore]|console<br>1.implement loading / unloading IOsCommand plug-ins：cmd/lua<br>2.implement keyboard / mouse input|\support\testconsole|
 |asynfile|plugin[asyncore]|file|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -66,6 +67,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |lua|plugin|Implementation of IOsCommand interface lua framework|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|plugin|Implementation of IOsCommand interface java framework|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
 |python38/python312|plugin|Implementation of IOsCommand interface python framework|\support\testpython\testpython<br>\support\testpython\testapi|
+|edgeproxy|plugin[asyncore]|Encapsulation ICoreWebView2|\support\testedgeproxy|
 
 # Change log
 2025/02/08 Release asynframe framework v2.0.0  

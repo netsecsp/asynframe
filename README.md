@@ -23,7 +23,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 ![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **功能特性:**  
-1. 通过微线程核对象可轻松集成到MFC，[DUI](https://github.com/duilib/duilib)，[SoUI](https://github.com/SOUI2/soui)，[Qt6.x](https://download.qt.io/archive/qt) 等其他第三方开源项目  
+1. 通过微线程核对象可轻松集成到MFC，[DUI](https://github.com/duilib/duilib)，[SoUI](https://github.com/SOUI2/soui)，[Qt6.7.3](https://download.qt.io/archive/qt) 等其他第三方开源项目  
 2. 通过设备链提供统一设备操作接口（包括File、Pipe、Socket等）  
 3. 通过操作链解决集成第三方开源项目时的线程之间的同步/通讯、执行超时以及资源/性能等问题  
 4. 提供基本网络协议模块：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
@@ -45,8 +45,9 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |:--|:--|:--|:--|
 |asyncore|框架|asynframe框架|\support\testframe|
 |||集成到MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
-|||集成到[DUI](https://github.com/duilib/duilib)|\support\3rd\Dui|
-|||集成到[SoUI](https://github.com/SOUI2/soui)|\support\3rd\Sui|
+|||集成到[DUI](https://github.com/duilib/duilib)|https://github.com/netsecsp/asynframe_warehouse/3rd/Dui|
+|||集成到[SoUI](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Sui|
+|||集成到[Qt6.7.3](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Qt6.7.3|
 |crashexplorer|插件[asyncore]|捕获当前进程的崩溃信息，同时生成dmp文件|\support\testcrashexplorer|
 |console|插件[asyncore]|命令控制台<br>1.支持加载/卸载IOsCommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -66,6 +67,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |lua|插件|实现IOsCommand接口执行lua框架|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|插件|实现IOsComman接口执行java框架|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
 |python38/python312|插件|实现IOsComman接口执行python框架|\support\testpython\testpython<br>\support\testpython\testapi|
+|edgeproxy|插件[asyncore]|封装ICoreWebView2|\support\testedgeproxy|
 
 # 变更记录
 2025/02/08 发布windows平台的asynframe framework v2.0.0  
