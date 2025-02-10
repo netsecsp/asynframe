@@ -11,7 +11,7 @@ In the process of software product development, we often encounter problems in t
 6. The complex business logic of the module leads to frequent release of patches  
 
 # Introduction  
-> This is a message driven SDK development framework based on Windows platform, which provides basic interfaces such as threads, pipes, files and networks.  
+> This is a message driven SDK development framework based on Windows platform, which provides basic interfaces such as logs, threads, pipes, files and networks.  
 
 Asynframe framework solves the six problems mentioned above in the process of software product development:  
 1. Manage the parameters of each module through the famous parameter management object  
@@ -19,7 +19,7 @@ Asynframe framework solves the six problems mentioned above in the process of so
 3. Provide notification results in the caller's thread and set the serial operation chain to solve the problems of thread synchronization, event sequence and long operation time  
 4. Optimize the execution of working threads of each module through the named thread pool  
 5. Provide lockless mechanism  
-6. Integrate Lua plug-in to realize hot update  
+6. Support dynamic loading of the latest version of plugins  
 ![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **Feature:**  
@@ -29,7 +29,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
 6. Reference count management object memory  
 7. Provide microsecond timer  
-8. Integrate [Log4cplus](https://github.com/log4cplus/log4cplus)，Unified modules output log  
+8. Support dynamic loading [Log4cplus](https://github.com/log4cplus/log4cplus), unified module output logs  
+9. Support embedded Lua, JVM and Python Virtual Machine Development Framework  
 ![image](https://netsecsp.github.io/img/01_asynframe.jpg)  
 
 **Development advantage:**  
@@ -39,15 +40,33 @@ Asynframe framework solves the six problems mentioned above in the process of so
 4. Get a very smooth user experience through the asynchronous execution framework.  
 5. The unified development template, non locking mechanism, high-performance IO framework and demo reduce the learning cost of developers. It can rapidly develop stable and high-performance application modules. It can greatly reduce the amount of developed code.  
 6. Support network UDP/TCP port multiplexing framework.  
-7. Support Lua, Jvm and Python framework.  
+7. Support embedded Lua, JVM and Python Virtual Machine Development Framework  
+**lua:**   
+a. Built in VNet class, providing castOf/release interface  
+b. The sysargv.get/set/save interface provides access to the corresponding configuration items of the app  
+c. The log.v/d/i/w/e/write interface provides printing logs  
+d. Sys. create/invioke provides the ability to create c objects/specify threads to call c functions  
+e. IScriptHost.exe provides calls to Lua functions, IOeCommand.Execute provides execution of Lua  
+**python:**  
+a. Built in sys VNet class  
+b. The sysargv.get/set/save interface provides access to the corresponding configuration items of the app  
+c. The log.v/d/i/w/e/write interface provides printing logs  
+d. Sys. create/invioke provides the ability to create c objects/specify threads to call c functions  
+e. IScriptHost.exe provides calling of Python functions, IOeCommand.Execute provides execution of Python functions  
+**JVM integrated frame.jar**  
+a. Built in CUnknown class  
+b. CSetting provides access to corresponding configuration items for the app  
+c. CLogger provides print logs  
+d. CInstanceManager provides the ability to create objects/specify threads to call c functions  
+e. IScriptHost.exe provides calling Java functions, IOeCommand.Execute provides executing Java  
 
 |module|type|function|demo|
 |:--|:--|:--|:--|
 |asyncore|framework|asynframe|\support\testframe|
 |||integrate MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
-|||integrate [DUI](https://github.com/duilib/duilib)|https://github.com/netsecsp/asynframe_warehouse/3rd/Dui|
-|||integrate [SoUI](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Sui|
-|||integrate [Qt6.7.3](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Qt6.7.3|
+|||integrate [DUI](https://github.com/duilib/duilib)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Dui)|
+|||integrate [SoUI](https://github.com/SOUI2/soui)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Sui)|
+|||integrate [Qt6.7.3](https://github.com/SOUI2/soui)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Qt6.7.3)|
 |crashexplorer|plugin[asyncore]|Capture the crash information of the current process and generate DMP file at the same time|\support\testcrashexplorer|
 |console|plugin[asyncore]|console<br>1.implement loading / unloading IOsCommand plug-ins：cmd/lua<br>2.implement keyboard / mouse input|\support\testconsole|
 |asynfile|plugin[asyncore]|file|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -61,8 +80,8 @@ Asynframe framework solves the six problems mentioned above in the process of so
 |ssl|plugin[asynsock]|ssl/tls encryption/decryption<br>1.implement p12 certificate|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
 |proxy|plugin[asynsock]|client proxy<br>1.implement http/https proxy：Basic/Digest authorize<br>2.implement ftp/ftps proxy<br>3.implement socks4.0/4.a/5.0 proxy|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |websocket|plugin[asynsock]|websocket protocol<br>1.implement data frame slice<br>2.priority transmission control frame|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
-|zip|plugin|Implementation of IDataTransmit interface based on zlib-1.2.11.0<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
-|sqlite|plugin|Implementation of IOsCommand interface based on sqlite-3.3.20|\support\testframe|
+|zip|plugin|Implementation of IDataTransmit interface based on zlib1.3.1<br>1.implement zip files<br>2.deflate/inflate data|\support\testframe|
+|sqlite|plugin|Implementation of IOsCommand interface based on sqlite3.47.2|\support\testframe|
 |dtp|plugin[asynsock]|port reuse framework to implement tcp/udp|support testnetserver_ dtp-tcp.port<br>\support\testnetserver_ dtp-udp.port|
 |lua|plugin|Implementation of IOsCommand interface lua framework|\support\testlua\testlua<br>\support\testlua\testapi|
 |jvmproxy|plugin|Implementation of IOsCommand interface java framework|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|

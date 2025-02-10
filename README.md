@@ -2,16 +2,16 @@
 > https://github.com/netsecsp/asynframe  
 
 # 项目背景  
-软件产品开发过程中经常碰到如下场景的问题:   
-1. 各个模块所需要的配置参数集中管理?--涉及配置参数加载以及持久化等问题；  
-2. 界面组能否利用现有的网络模块自己开发功能, 比如需要把日志文件通过http协议提交到后台?--涉及网络、httpdns以及使用网络代理等知识难点；  
-3. 界面跟其他各个SDK模块（包括集成第三方开源项目）之间信息交互而产生问题?--涉及线程同步，事件序列以及操作耗时过长等问题；  
-4. 各个模块（包括界面）通过创建工作线程去解决耗时/同步操作等问题,--涉及资源优化；  
-5. 使用同步锁,--存在死锁问题；  
-6. 模块业务逻辑复杂导致频繁发布补丁包。   
+软件产品开发过程中经常碰到如下场景的问题:  
+1. 各个模块所需要的配置参数集中管理?--涉及配置参数加载以及持久化等问题  
+2. 界面组能否利用现有的网络模块自己开发功能, 比如需要把日志文件通过http协议提交到后台?--涉及网络、httpdns以及使用网络代理等知识难点  
+3. 界面跟其他各个SDK模块（包括集成第三方开源项目）之间信息交互而产生问题?--涉及线程同步，事件序列以及操作耗时过长等问题  
+4. 各个模块（包括界面）通过创建工作线程去解决耗时/同步操作等问题,--涉及资源优化  
+5. 使用同步锁,--存在死锁问题  
+6. 模块业务逻辑复杂导致频繁发布补丁包   
 
 # 项目介绍  
-> 这是一款windows平台下基于消息驱动的SDK开发框架，提供线程、管道、文件和网络等基础接口。  
+> [windows]基于消息驱动的SDK开发框架，提供日志、线程、管道、文件和网络等基础接口。  
 
 asynframe framework解决上面所提的软件产品开发过程中的六大问题:  
 1. 通过有名参数管理对象来管理各个模块的参数  
@@ -19,7 +19,7 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 3. 提供在调用方的线程里通知结果以及设定串行操作链来解决线程同步，事件序列以及操作耗时过长等问题  
 4. 通过有名线程池优化各个模块的工作线程执行  
 5. 提供无锁化机制  
-6. 集成lua插件实现热更新  
+6. 支持动态加载最新版本插件  
 ![image](https://netsecsp.github.io/img/02_asynframe.jpg)  
 
 **功能特性:**  
@@ -29,25 +29,44 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 4. 提供基本网络协议模块：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
 6. 引用计数管理对象内存  
 7. 支持微秒级定时器  
-8. 集成[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
+8. 支持动态加载[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
+9. 支持内嵌lua, jvm和python虚拟机的开发框架  
 ![image](https://netsecsp.github.io/img/01_asynframe.jpg)  
 
 **开发优势:**  
-1. 支持可升级的插件化，协助windows产品模块化。  
-2. 支持跨进程获取崩溃时生成堆栈信息和dmp文件。  
-3. 通过微线程核对象嵌入其他线程隔离其他代码，便于代码重构。  
-4. 通过异步执行框架来获得极流畅用户体验。  
-5. 统一的开发模板，无锁化机制、高性能IO框架以及demo降低开发者学习成本。能够迅速开发出稳定地，高性能的应用模块。可大幅度降低开发代码量。  
-6. 支持网络udp/tcp端口复用框架。  
-7. 支持lua, jvm和python框架。  
+1. 支持可升级的插件化，协助windows产品模块化  
+2. 支持跨进程获取崩溃时生成堆栈信息和dmp文件  
+3. 通过微线程核对象嵌入其他线程隔离其他代码，便于代码重构  
+4. 通过异步执行框架来获得极流畅用户体验  
+5. 统一的开发模板，无锁化机制、高性能IO框架以及demo降低开发者学习成本。能够迅速开发出稳定地，高性能的应用模块。可大幅度降低开发代码量  
+6. 支持网络udp/tcp端口复用框架  
+7. 支持内嵌lua, jvm和python虚拟机的开发框架  
+**lua:**   
+a. 内置IUnknown类, 提供castOf/release接口  
+b. sysargv.get/set/save接口提供存取app相应配置项  
+c. log.v/d/i/w/e/write 接口提供打印日志  
+d. sys.create/invoke提供创建c对象/指定线程调用c函数  
+e. IScriptHost.invoke提供调用lua函数, IOsCommand.Execute提供执行lua  
+**python:**  
+a. 内置sys.IUnknown类  
+b. sysargv.get/set/save接口提供存取app相应配置项  
+c. log.v/d/i/w/e/write 接口提供打印日志  
+d. sys.create/invoke提供创建c对象/指定线程调用c函数  
+e. IScriptHost.invoke提供调用python函数，IOsCommand.Execute提供执行python  
+**jvm集成frame.jar**  
+a. 内置CUnknown类  
+b. CSetting提供存取app相应配置项  
+c. CLogger 提供打印日志  
+d. CInstanceManager提供创建对象/指定线程调用c函数  
+e. IScriptHost.invoke提供调用java函数，IOsCommand.Execute提供执行java  
 
 |模块|类型|功能|例子/程序|
 |:--|:--|:--|:--|
 |asyncore|框架|asynframe框架|\support\testframe|
 |||集成到MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
-|||集成到[DUI](https://github.com/duilib/duilib)|https://github.com/netsecsp/asynframe_warehouse/3rd/Dui|
-|||集成到[SoUI](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Sui|
-|||集成到[Qt6.7.3](https://github.com/SOUI2/soui)|https://github.com/netsecsp/asynframe_warehouse/3rd/Qt6.7.3|
+|||集成到[DUI](https://github.com/duilib/duilib)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Dui)|
+|||集成到[SoUI](https://github.com/SOUI2/soui)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Sui)|
+|||集成到[Qt6.7.3](https://github.com/SOUI2/soui)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Qt6.7.3)|
 |crashexplorer|插件[asyncore]|捕获当前进程的崩溃信息，同时生成dmp文件|\support\testcrashexplorer|
 |console|插件[asyncore]|命令控制台<br>1.支持加载/卸载IOsCommand插件：cmd/lua/sqlite<br>2.支持键盘/鼠标输入|\support\testconsole|
 |asynfile|插件[asyncore]|文件|\support\testfile_copy<br>\support\testfile_copy-pipe|
@@ -61,12 +80,12 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 |ssl|插件[asynsock]|ssl/tls加/解密<br>1.支持p12证书|\support\testnetclient_ssl<br>\support\testnetserver_ssl|
 |proxy|插件[asynsock]|客户端代理<br>1.支持http/https代理：实现Basic/Digest认证<br>2.支持ftp/ftps代理<br>3.支持socks4.0/4.a/5.0代理|\support\testnetclient_proxy<br>\support\testnetserver_socks|
 |websocket|插件[asynsock]|websocket协议<br>1.支持数据帧分片<br>2.优先发送控制帧|\support\testnetclient_websocket<br>\support\testnetserver_websocket|
-|zip|插件|基于zlib-1.2.11.0实现IDataTransmit接口<br>1.支持压缩zip文件<br>2.deflate/inflate数据|\support\testframe|
-|sqlite|插件|基于sqlite-3.3.20实现IOsComman接口|\support\testframe|
-|dtp|插件[asynsock]|实现tcp/udp的端口复用框架|\support\testnetserver_dtp-tcp.port<br>\support\testnetserver_dtp-udp.port|
-|lua|插件|实现IOsCommand接口执行lua框架|\support\testlua\testlua<br>\support\testlua\testapi|
-|jvmproxy|插件|实现IOsComman接口执行java框架|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
-|python38/python312|插件|实现IOsComman接口执行python框架|\support\testpython\testpython<br>\support\testpython\testapi|
+|zip|插件|基于zlib1.3.1实现IDataTransmit接口<br>1.支持压缩zip文件<br>2.deflate/inflate数据|\support\testframe|
+|sqlite|插件|实现IOsComman接口[sqlite3.47.2]|\support\testframe|
+|dtp|插件[asynsock]|实现tcp / udp端口复用的开发框架|\support\testnetserver_dtp-tcp.port<br>\support\testnetserver_dtp-udp.port|
+|lua|插件|实现IOsCommand接口的开发框架|\support\testlua\testlua<br>\support\testlua\testapi|
+|jvmproxy|插件|实现IOsCommand接口的开发框架|\support\testjava\testjvm<br>\support\testjava\testapi<br>[javax](https://github.com/netsecsp/javax)|
+|python38/python312|插件|实现IOsCommand接口的开发框架|\support\testpython\testpython<br>\support\testpython\testapi|
 |edgeproxy|插件[asyncore]|封装ICoreWebView2|\support\testedgeproxy|
 
 # 变更记录
