@@ -167,7 +167,10 @@ private:
 };
 ///////////////////////////////////////////////////////////////////////////////
 void AsynLogger_Initialize(/*in*/IUnknown *lpInstancesManager);
-void AsynLogger_Output(/*in*/IDataTransmit *target);
+
+#define LOG_OdbWriter (IDataTransmit*)1 //输出到调试器 
+#define LOG_StdWriter (IDataTransmit*)2 //输出到标准流 
+void AsynLogger_Output(/*in*/IDataTransmit *target); //把日志重定向输出到target 
 ///////////////////////////////////////////////////////////////////////////////
 NAMESPACE_END(asynsdk)
 
