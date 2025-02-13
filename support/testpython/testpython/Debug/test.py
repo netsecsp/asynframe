@@ -1,4 +1,5 @@
 import sys
+
 print(sys.path)
 print(sys.appdata)
 print(sys.sysroot)
@@ -9,11 +10,11 @@ import log
 log.i("This is my world!")
 log.d("This is my world!")
 
-import sysargv
-sysargv.set("app.name", "netsecsp")
-sysargv.set("app.data", 7675)
-print(sysargv.get("app.name", "unknown"))
-print(sysargv.get("app.data", 1))
+import appconf
+appconf.set("app.name", "netsecsp")
+appconf.set("app.data", 7675)
+print(appconf.get("app.name", "unknown"))
+print(appconf.get("app.data", 1))
 
 def onMessage(message, lparam1, lparam2, object=None):
     print("onMessage: message=", message, ", lparam1=", lparam1, ", lparam2=", lparam2, ", object=", object)

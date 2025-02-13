@@ -5,11 +5,11 @@ print(sys.xvmhost)
 print("appdata="..sys.appdata)
 print("sysroot="..sys.sysroot)
 
-print("get global.net="..sysargv.get("net", 1))
+print("get global.net="..appconf.get("net", 1))
 print("set global.net=2")
-sysargv.set("net", 2)
+appconf.set("net", 2)
 print("save to C:\\Users\\<account>\\AppData\\Roaming\\Netsecsp\\testlua\\config.ini")
-sysargv.save()
+appconf.save()
 
 print("This is my world! from test.lua")
 
