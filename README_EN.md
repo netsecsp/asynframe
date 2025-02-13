@@ -27,10 +27,10 @@ Asynframe framework solves the six problems mentioned above in the process of so
 2. Provide a unified device operation interface (including file, pipe, socket, etc.)  
 3. The operation chain is used to solve the problems of synchronization / communication between threads, execution timeout and resource / performance when integrating third-party open source projects  
 4. Provide basic network protocol module：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
-6. Reference count management object memory  
-7. Provide microsecond timer  
-8. Support dynamic loading [Log4cplus](https://github.com/log4cplus/log4cplus), unified module output logs  
-9. Support embedded Lua, JVM and Python Virtual Machine Development Framework  
+5. Reference count management object memory  
+6. Provide microsecond timer  
+7. Support dynamic loading [Log4cplus](https://github.com/log4cplus/log4cplus), unified module output logs  
+8. Support embedded Lua, JVM and Python Virtual Machine Development Framework  
 ![image](https://netsecsp.github.io/img/01_asynframe.jpg)  
 
 **Development advantage:**  

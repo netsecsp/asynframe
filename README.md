@@ -27,10 +27,10 @@ asynframe framework解决上面所提的软件产品开发过程中的六大问�
 2. 通过设备链提供统一设备操作接口（包括File、Pipe、Socket等）  
 3. 通过操作链解决集成第三方开源项目时的线程之间的同步/通讯、执行超时以及资源/性能等问题  
 4. 提供基本网络协议模块：dns/udp/tcp/ssl/ftp/http/rtsp/proxy/websocket  
-6. 引用计数管理对象内存  
-7. 支持微秒级定时器  
-8. 支持动态加载[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
-9. 支持内嵌lua, jvm和python虚拟机的开发框架  
+5. 引用计数管理对象内存  
+6. 支持微秒级定时器  
+7. 支持动态加载[Log4cplus](https://github.com/log4cplus/log4cplus)，统一模块输出日志  
+8. 支持内嵌lua, jvm和python虚拟机的开发框架  
 ![image](https://netsecsp.github.io/img/01_asynframe.jpg)  
 
 **开发优势:**  
