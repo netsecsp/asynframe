@@ -91,7 +91,7 @@ e. IScriptHost.exe provides calling Java functions, IOeCommand.Execute provides 
 # Change log
 2025/02/13 Release asynframe framework v2.0.1  
 > Release edgeproxy  
-〉Support dynamic loading log4cplus
+> Support dynamic loading log4cplus
 
 2024/12/23 Release asynframe framework v1.9.0  
 2024/11/11 Release asynframe framework v1.8.1  
