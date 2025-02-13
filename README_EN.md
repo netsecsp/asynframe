@@ -1,4 +1,4 @@
-## Asynframe framework v2.0.0 english | [中文](/README.md)
+## Asynframe framework v2.0.1 english | [中文](/README.md)
 > https://github.com/netsecsp/asynframe  
 
 # Background  
@@ -43,13 +43,13 @@ Asynframe framework solves the six problems mentioned above in the process of so
 7. Support embedded Lua, JVM and Python Virtual Machine Development Framework  
 **lua:**   
 a. Built in VNet class, providing castOf/release interface  
-b. The sysargv.get/set/save interface provides access to the corresponding configuration items of the app  
+b. The appconf.get/set/save interface provides access to the corresponding configuration items of the app  
 c. The log.v/d/i/w/e/write interface provides printing logs  
 d. Sys. create/invioke provides the ability to create c objects/specify threads to call c functions  
 e. IScriptHost.exe provides calls to Lua functions, IOeCommand.Execute provides execution of Lua  
 **python:**  
 a. Built in sys VNet class  
-b. The sysargv.get/set/save interface provides access to the corresponding configuration items of the app  
+b. The appconf.get/set/save interface provides access to the corresponding configuration items of the app  
 c. The log.v/d/i/w/e/write interface provides printing logs  
 d. Sys. create/invioke provides the ability to create c objects/specify threads to call c functions  
 e. IScriptHost.exe provides calling of Python functions, IOeCommand.Execute provides execution of Python functions  
@@ -89,8 +89,9 @@ e. IScriptHost.exe provides calling Java functions, IOeCommand.Execute provides 
 |edgeproxy|plugin[asyncore]|Encapsulation ICoreWebView2|\support\testedgeproxy|
 
 # Change log
-2025/02/08 Release asynframe framework v2.0.0  
+2025/02/13 Release asynframe framework v2.0.1  
 > Release edgeproxy  
+〉Support dynamic loading log4cplus
 
 2024/12/23 Release asynframe framework v1.9.0  
 2024/11/11 Release asynframe framework v1.8.1  
@@ -104,8 +105,8 @@ e. IScriptHost.exe provides calling Java functions, IOeCommand.Execute provides 
 2022/05/05 Release asynframe framework v1.0.0  
 
 # Build
-> sdk_v2.0.0-Msvc2019_20250208.zip is compiled through Microsoft Visual Studio 2019  
-> sdk_v2.0.0-Msvc2013_20250208.zip is compiled through Microsoft Visual Studio 2013  
+> sdk_v2.0.1-Msvc2019_20250213.zip is compiled through Microsoft Visual Studio 2019  
+> sdk_v2.0.1-Msvc2013_20250213.zip is compiled through Microsoft Visual Studio 2013  
 
 1. The include / lib path corresponding to asynframe needs to be set in the project  
 2. Select and link the corresponding asynsdk of asynframe according to the runtime of the asynsdk_mini-[MD/MDd/MT/MTd].lib  

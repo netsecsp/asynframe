@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sun Jan 26 14:13:04 2025
+/* at Thu Feb 13 16:45:16 2025
  */
 /* Compiler settings for IChromeWebView.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
@@ -89,8 +89,7 @@ EXTERN_C const IID IID_IChromeWebView;
             /* [out] */ uint32_t *h) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE SetViewSize( 
-            /* [in] */ uint32_t w,
-            /* [in] */ uint32_t h) = 0;
+            /* [in] */ RECT bounds) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE RefreshPage( void) = 0;
         
@@ -132,8 +131,7 @@ EXTERN_C const IID IID_IChromeWebView;
         
         HRESULT ( STDMETHODCALLTYPE *SetViewSize )( 
             IChromeWebView * This,
-            /* [in] */ uint32_t w,
-            /* [in] */ uint32_t h);
+            /* [in] */ RECT bounds);
         
         HRESULT ( STDMETHODCALLTYPE *RefreshPage )( 
             IChromeWebView * This);
@@ -172,8 +170,8 @@ EXTERN_C const IID IID_IChromeWebView;
 #define IChromeWebView_GetViewSize(This,w,h)	\
     ( (This)->lpVtbl -> GetViewSize(This,w,h) ) 
 
-#define IChromeWebView_SetViewSize(This,w,h)	\
-    ( (This)->lpVtbl -> SetViewSize(This,w,h) ) 
+#define IChromeWebView_SetViewSize(This,bounds)	\
+    ( (This)->lpVtbl -> SetViewSize(This,bounds) ) 
 
 #define IChromeWebView_RefreshPage(This)	\
     ( (This)->lpVtbl -> RefreshPage(This) ) 

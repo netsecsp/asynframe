@@ -63,8 +63,8 @@ void   *AcquireBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in, out]*/uint32_t 
 bool    ReleaseBuffer(/*[in ]*/IMemoryPool *lpMemorypool, /*[in ]*/void *addr);
 
 ///////////////////////////////////////////////////////////////////////////////
-//监听事件句柄出发事件: AF_EVENT_NOTIFY hEvent lparam2 object, 返回的IAsynMessageHolder对象仅用于取消监听事件句柄, 允许thread=0, 禁止lparam2=0
-IAsynMessageHolder *CreateEventMonitor(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/IThread *thread, /*[in ]*/IAsynMessageEvents *events, /*[in ]*/HANDLE event, /*[in ]*/uint64_t lparam2, /*[in ]*/IUnknown *object);
+//监听事件 句 柄: AF_EVENT_NOTIFY hEvent lparam2 object, 返回的IUnknown对象仅用于取消监听事件句柄, 禁止thread=0/event=0/lparam2=0
+IUnknown           *CreateEventMonitor(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/IThread *thread, /*[in ]*/IAsynMessageEvents *events, /*[in ]*/HANDLE event, /*[in ]*/uint64_t lparam2, /*[in ]*/IUnknown *object);
 
 ///////////////////////////////////////////////////////////////////////////////
 typedef enum tag_ThreadcoreMode
@@ -81,6 +81,8 @@ void    DoMessageLoop(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/Th
 
 //获取当前 线 程: tryBgThread=0表示获取前台线程，即返回IAsynFrameThread类型对象引用; tryBgThread=1表示尝试获取后台线程，若没绑定后台线程，则返回前台线程，注意返回的是对象引用，不能释放对象的引用计数器
 IThread            *GetCurrentThread(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/bool tryBgThread = false);
+//绑定后台 线 程
+void    BindBgThreads(/*[in ]*/IAsynFrameThread *mainthread, /*[in ]*/IThread *thread);
 
 //等窗口线程结束: 要求存在启动配置项[;windows=1]
 void    WaitForWindowThreads(/*[in ]*/InstancesManager *lpInstancesManager);
@@ -111,7 +113,7 @@ HRESULT CreateObject(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/con
 std::string GetFrameFolderDirectory(/*[in ]*/InstancesManager *lpInstancesManager, /*[in ]*/uint32_t type, /*[in ]*/uint32_t nDstCodepage = 0); //nDstCodepage=0[CP_ACP]表示ansi
 
 ///////////////////////////////////////////////////////////////////////////////
-//转换编码格式
+//转换编码 格 式
 uint32_t Convert(/*[in ]*/uint32_t nSrcCodepage, /*[in ]*/const char *src, /*[in ]*/uint32_t len, /*out*/std::wstring &dst);   // XXXXX->WCHAR
 uint32_t Convert(/*[in ]*/const wchar_t *src, /*[in ]*/uint32_t len, /*[in ]*/uint32_t nDstCodepage, /*out*/std::string &dst); // WCHAR->XXXXX
 uint32_t Convert(/*[in ]*/uint32_t nSrcCodepage, /*[in ]*/const char *src, /*[in ]*/uint32_t len, /*[in ]*/uint32_t nDstCodepage, /*out*/std::string &dst); //XXXXX->XXXXX

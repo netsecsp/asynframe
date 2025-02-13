@@ -157,7 +157,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_SIZE:
-         if( g_webview ) g_webview->SetViewSize(LOWORD(lParam), HIWORD(lParam));
+         if( g_webview )
+         {
+             RECT rcbounds = { 0 };
+             GetClientRect(hWnd, &rcbounds);
+             g_webview->SetViewSize(rcbounds);
+         }
          break;
     case WM_DESTROY:
          PostQuitMessage(0);

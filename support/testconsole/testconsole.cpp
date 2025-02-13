@@ -89,7 +89,7 @@ public:
 protected: //interface of CThreadMessageEvents_base
     virtual void OnThreadEnter( /*[in ]*/IThread* thread )
     {
-        console->AllocWindow((IAsynFrameThread*)thread, asynsdk::STRING_EX::null, ENABLE_INPUT_KEYBOARD|ENABLE_INPUT_MOUSE, 0);
+        console->AllocWindow((IAsynFrameThread*)thread, STRING_from_string("hello console"), ENABLE_INPUT_KEYBOARD|ENABLE_INPUT_MOUSE, 0);
     }
 
 protected:
@@ -98,12 +98,13 @@ protected:
 
 int _tmain(int argc, _TCHAR *argv[])
 {
-    printf("console[single thread], load config.ini and load/unload IOsCommand object of lua/jvm/python/sqlite\n\n");
+    printf("console[single thread], load config.ini and load/unload IOsCommand object of cmd/lua/jvm/python/sqlite\n\n");
 
-    asynsdk::CStringSetter fileconf(1, "config.ini");
+    CObjPtr<IKeyvalSetter> param2(new asynsdk::CKeyvalSetter());
+    param2->Set(STRING_from_string(";appconf"), 1, STRING_from_string("config.ini"));
+    param2->Set(STRING_from_string(";ospower"), 1, STRING_from_string("1"));
     CGlobalEvents e;
-
-    HRESULT hr1 = Initialize(&e, &fileconf); //load config.ini
+    HRESULT hr1 = Initialize(&e, param2); //load config.ini
 
     do{
         InstancesManager *lpInstancesManager = GetInstancesManager();

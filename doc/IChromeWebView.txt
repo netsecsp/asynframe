@@ -43,7 +43,7 @@ import "IAsynFrame.idl";
     interface IChromeWebView : IAsynMessageEvents
     {
         HRESULT GetViewSize( [out]uint32_t* w, [out]uint32_t* h ); 
-        HRESULT SetViewSize( [in ]uint32_t  w, [in ]uint32_t  h );
+        HRESULT SetViewSize( [in ]RECT bounds );
 
         HRESULT RefreshPage( );
 

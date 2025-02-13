@@ -374,7 +374,7 @@ int _tmain(int argc, _TCHAR *argv[])
                 virtual ~CEvents()
                 {
                     printf("Closed e=%d\n", (uint32_t)e);
-                    o = 0; //release it before CloseHandle(e);
+                    o = 0; //must release it before CloseHandle(e);
                     CloseHandle(e);
                 }
 
@@ -384,8 +384,8 @@ int _tmain(int argc, _TCHAR *argv[])
                     return S_OK;
                 }
 
-                CComPtr<IAsynMessageHolder> o;
-                HANDLE e;
+                CComPtr<IUnknown> o;
+                HANDLE            e;
             } events(lpInstancesManager, spAsynFrameThread, 1, 0);
             Sleep(1000);
             printf("SetEvent\n");

@@ -103,7 +103,7 @@ END_ASYN_IOERROR()
 #define IN_SysRoot                      "sysroot" //系统路径
 #define IN_AppData                      "appdata" //数据路径
 #define IN_Plugins                      "plugins" //插件路径
-#define IN_SysArgv                      "sysargv" //系统参数
+#define IN_AppConf                      "appconf" //系统参数
 #define IN_LogProp                      "logprop" //clog4cplus配置全路径
 #define IN_XvmHost                      "xvmhost" //lua/python存放IScriptHost对象指针
 
