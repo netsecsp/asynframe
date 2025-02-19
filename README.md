@@ -62,7 +62,7 @@ e. IScriptHost.invoke提供调用java函数，IOsCommand.Execute提供执行java
 
 |模块|类型|功能|例子/程序|
 |:--|:--|:--|:--|
-|asyncore|框架|asynframe框架|\support\testframe|
+|asyncore|框架|asynframe framework|\support\testframe|
 |||集成到MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
 |||集成到[DUI](https://github.com/duilib/duilib)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Dui)|
 |||集成到[SoUI](https://github.com/SOUI2/soui)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Sui)|

@@ -62,7 +62,7 @@ e. IScriptHost.exe provides calling Java functions, IOeCommand.Execute provides 
 
 |module|type|function|demo|
 |:--|:--|:--|:--|
-|asyncore|framework|asynframe|\support\testframe|
+|asyncore|framework|asynframe framework|\support\testframe|
 |||integrate MFC|\support\3rd\mfc\testnetserver<br>\support\3rd\mfc\testnetclient_dlg<br>\support\3rd\mfc\testnetclient_doc|
 |||integrate [DUI](https://github.com/duilib/duilib)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Dui)|
 |||integrate [SoUI](https://github.com/SOUI2/soui)|[source](https://github.com/netsecsp/asynframe_warehouse/tree/master/3rd/Sui)|
